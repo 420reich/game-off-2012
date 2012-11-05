@@ -1,6 +1,6 @@
 GRUNT_CMD = "./node_modules/grunt/bin/grunt"
 
-sync:
+sync watch:
 	@${GRUNT_CMD} dev
 	@${GRUNT_CMD} watch
 
@@ -22,10 +22,12 @@ setup:
 	@npm install grunt-templater
 	@npm install grunt-coffee
 
-run: kill-run
+run: run-server sync
+
+run-server: kill-server
 	@cd fightcode && python -m SimpleHTTPServer &
 
-kill-run:
+kill-server:
 	@-ps aux | egrep SimpleHTTPServer | egrep -v egrep | awk ' { print $$2 } ' | xargs kill -9
 	@echo 'fightcode server killed!'
 
