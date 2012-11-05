@@ -11,6 +11,17 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-css');
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-coffee');
+  grunt.loadNpmTasks('grunt-growl');
+
+  var growl = require('growl');
+  ['warn', 'fatal'].forEach(function(level) {
+    grunt.utils.hooker.hook(grunt.fail, level, function(opt) {
+      growl('FightCode Error', {
+        title: opt.message,
+        image: 'Console'
+      });
+    });
+  });
 
   grunt.initConfig({
     meta: {

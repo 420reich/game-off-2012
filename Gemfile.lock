@@ -8,9 +8,11 @@ GEM
       sass (~> 3.2.0.alpha.93)
     fssm (0.2.9)
     sass (3.2.2)
+    terminal-notifier (1.4.2)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   compass (>= 0.13.alpha.0)
+  terminal-notifier
