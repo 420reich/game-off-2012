@@ -1,6 +1,5 @@
-engine = new Engine(1)
-
 robotA = new Robot("a")
 robotB = new Robot("b")
+engine = new Engine(robotA, robotB)
 
-result = engine.fight(robotA, robotB)
+result = engine.fight()
