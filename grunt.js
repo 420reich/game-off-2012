@@ -25,10 +25,12 @@ module.exports = function(grunt) {
     },
 
     coffee: {
-      src: ['fightcode/static/coffee/*.coffee'],
-      dest: 'fightcode/static/js',
-      options: {
-        bare: true
+      app: {
+        src: ['./fightcode/static/coffee/*.coffee'],
+        dest: './fightcode/static/js/',
+        options: {
+            bare: true
+        }
       }
     },
 
@@ -58,10 +60,12 @@ module.exports = function(grunt) {
     },
 
     cssmin: {
-        src: [
-            'fightcode/static/css/fight.css'
-        ],
-        dest: 'fightcode/static/output/fightcode.min.css'
+        dist: {
+            src: [
+                'fightcode/static/css/fight.css'
+            ],
+            dest: 'fightcode/static/output/fightcode.min.css'
+        }
     },
 
     shell: {
