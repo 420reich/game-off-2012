@@ -1,0 +1,3 @@
+(function(globals, $) {
+
+}(window, jQuery));
