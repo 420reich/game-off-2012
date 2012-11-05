@@ -5,6 +5,7 @@ Engine = (function() {
   function Engine(robotA, robotB) {
     this.robotA = robotA;
     this.robotB = robotB;
+    this.round = 0;
     this.boundFightRound = this.fightRound.bind(this);
     this.eventPipeline = [];
   }
@@ -16,14 +17,38 @@ Engine = (function() {
     return null;
   };
 
-  Engine.prototype.fight = function() {
-    return setTimeout(this.boundFightRound, 1000);
+  Engine.prototype.isDraw = function() {
+    return this.round > 180;
   };
 
-  Engine.prototype.fightRound = function() {
-    console.log("" + this.robotA.name + "=" + this.robotA.life, "" + this.robotB.name + "=" + this.robotB.life);
-    if (this.robotA.isAlive() && this.robotB.isAlive()) {
-      return setTimeout(this.boundFightRound, 1000);
+  Engine.prototype.fight = function() {
+    while (this.robotA.isAlive() && this.robotB.isAlive() && !this.isDraw()) {
+      this.round++;
+      this.boundFightRound(this.round);
+    }
+    if (this.isDraw()) {
+      if (this.isDraw()) {
+        return console.log("DRAW!");
+      }
+    } else {
+      if (this.robotA.isAlive()) {
+        console.log("Robot A WON!");
+      }
+      if (this.robotB.isAlive()) {
+        return console.log("Robot B WON!");
+      }
+    }
+  };
+
+  Engine.prototype.fightRound = function(round) {
+    var random;
+    random = Math.floor(Math.random() * 2) + 1;
+    console.log("Round " + this.round + " - " + this.robotA.name + "=" + this.robotA.life, "" + this.robotB.name + "=" + this.robotB.life);
+    if (random === 1) {
+      this.robotA.takeDamage(1);
+    }
+    if (random !== 1) {
+      return this.robotB.takeDamage(1);
     }
   };
 

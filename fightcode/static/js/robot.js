@@ -11,6 +11,10 @@ Robot = (function() {
     return this.life > 0;
   };
 
+  Robot.prototype.takeDamage = function(dmg) {
+    return this.life -= dmg;
+  };
+
   return Robot;
 
 })();
