@@ -22,3 +22,10 @@ setup:
 	@npm install grunt-templater
 	@npm install grunt-coffee
 
+run: kill-run
+	@cd fightcode && python -m SimpleHTTPServer &
+
+kill-run:
+	@-ps aux | egrep SimpleHTTPServer | egrep -v egrep | awk ' { print $$2 } ' | xargs kill -9
+	@echo 'fightcode server killed!'
+
