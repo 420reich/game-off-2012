@@ -4,9 +4,9 @@ class EventEmitter
   constructor: ->
     @events = {}
 
-  emit: (event, context, args...) ->
+  emit: (event, args...) ->
     return false unless @events[event]
-    listener.apply(context, args) for listener in @events[event]
+    listener(args...) for listener in @events[event]
     return true
 
   addListener: (event, listener) ->
