@@ -30,7 +30,9 @@ class Engine
         else
             console.log("Robot A WON!") if @robotA.isAlive()
             console.log("Robot B WON!") if @robotB.isAlive()
+            console.log("DRAW!") if not @robotA.isAlive() and not @robotB.isAlive()
 
     fightRound: (round) ->
         @event.emit('roundStarted', this, round)
         console.log "Round #{ @round } - #{ @robotA.name }=#{ @robotA.life }", "#{ @robotB.name }=#{ @robotB.life }"
+

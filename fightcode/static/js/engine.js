@@ -50,7 +50,10 @@ Engine = (function() {
         console.log("Robot A WON!");
       }
       if (this.robotB.isAlive()) {
-        return console.log("Robot B WON!");
+        console.log("Robot B WON!");
+      }
+      if (!this.robotA.isAlive() && !this.robotB.isAlive()) {
+        return console.log("DRAW!");
       }
     }
   };
