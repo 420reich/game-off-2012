@@ -2,7 +2,7 @@ class RobotActions
     constructor: (@robot, @status) ->
 
     move: (amount, forward) ->
-        offset = forward ? 1 : -1
+        offset = if forward then 1 else -1
 
         for [1..amount]
             @status.queue.push((robot, status) ->
@@ -57,7 +57,7 @@ class Engine
             robot.init(this)
 
     isDraw: ->
-        return @round > 180
+        return @round > 1800
 
     fight: ->
         @event.emit('fightStarted')
@@ -66,11 +66,24 @@ class Engine
             robot: new RobotActions(@robotA, @robotStatusA)
         })
         @event.emit('onIdle', {
-            robot: new RobotActions(@robotB, @robotStatusA)
+            robot: new RobotActions(@robotB, @robotStatusB)
         })
 
         while @robotStatusA.isAlive() and @robotStatusB.isAlive() and not @isDraw()
             @round++
+            console.log("Robot A Queue is #{ @robotStatusA.queue.length } items.")
+            console.log("Robot B Queue is #{ @robotStatusB.queue.length } items.")
+
+            for item in [[@robotA, @robotStatusA], [@robotB, @robotStatusB]]
+                robot = item[0]
+                status = item[1]
+                if status.queue.length > 0
+                    item = status.queue.shift()
+                    item(robot, status)
+                else
+                    @event.emit('onIdle', {
+                        robot: new RobotActions(robot, status)
+                    })
             #@boundFightRound(@round)
 
         if @isDraw()

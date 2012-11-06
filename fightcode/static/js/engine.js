@@ -9,9 +9,7 @@ RobotActions = (function() {
 
   RobotActions.prototype.move = function(amount, forward) {
     var offset, _i, _results;
-    offset = forward != null ? forward : {
-      1: -1
-    };
+    offset = forward ? 1 : -1;
     _results = [];
     for (_i = 1; 1 <= amount ? _i <= amount : _i >= amount; 1 <= amount ? _i++ : _i--) {
       _results.push(this.status.queue.push(function(robot, status) {
@@ -98,19 +96,36 @@ Engine = (function() {
   }
 
   Engine.prototype.isDraw = function() {
-    return this.round > 180;
+    return this.round > 1800;
   };
 
   Engine.prototype.fight = function() {
+    var item, robot, status, _i, _len, _ref;
     this.event.emit('fightStarted');
     this.event.emit('onIdle', {
       robot: new RobotActions(this.robotA, this.robotStatusA)
     });
     this.event.emit('onIdle', {
-      robot: new RobotActions(this.robotB, this.robotStatusA)
+      robot: new RobotActions(this.robotB, this.robotStatusB)
     });
     while (this.robotStatusA.isAlive() && this.robotStatusB.isAlive() && !this.isDraw()) {
       this.round++;
+      console.log("Robot A Queue is " + this.robotStatusA.queue.length + " items.");
+      console.log("Robot B Queue is " + this.robotStatusB.queue.length + " items.");
+      _ref = [[this.robotA, this.robotStatusA], [this.robotB, this.robotStatusB]];
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        item = _ref[_i];
+        robot = item[0];
+        status = item[1];
+        if (status.queue.length > 0) {
+          item = status.queue.shift();
+          item(robot, status);
+        } else {
+          this.event.emit('onIdle', {
+            robot: new RobotActions(robot, status)
+          });
+        }
+      }
     }
     if (this.isDraw()) {
       if (this.isDraw()) {
