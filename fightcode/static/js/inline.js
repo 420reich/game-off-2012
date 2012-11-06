@@ -1,8 +1,8 @@
 var engine, result, robotA, robotB;
 
-robotA = new Robot("a");
+robotA = new SampleRobot("a");
 
-robotB = new Robot("b");
+robotB = new SampleRobot("b");
 
 engine = new Engine(robotA, robotB);
 

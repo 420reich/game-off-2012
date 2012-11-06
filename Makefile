@@ -29,6 +29,9 @@ run: run-server sync
 
 run-server: kill-server
 	@cd fightcode && python -m SimpleHTTPServer &
+	@echo
+	@echo ">>>>> fightcode server running at http://localhost:8000/index.html <<<<<"
+	@echo
 
 kill-server:
 	@-ps aux | egrep SimpleHTTPServer | egrep -v egrep | awk ' { print $$2 } ' | xargs kill -9

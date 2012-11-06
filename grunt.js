@@ -2,6 +2,7 @@
 module.exports = function(grunt) {
 
   var jsFiles = [
+    'fightcode/static/js/eventEmitter.js',
     'fightcode/static/js/engine.js',
     'fightcode/static/js/robot.js',
     'fightcode/static/js/inline.js'
@@ -31,9 +32,9 @@ module.exports = function(grunt) {
               '* http://fightcodega.me/\n*/'
     },
 
-    lint: {
-      files: ['grunt.js', 'fightcode/static/js/*.js']
-    },
+    //lint: {
+      //files: ['grunt.js', 'fightcode/static/js/*.js']
+    //},
 
     coffee: {
       app: {
@@ -115,6 +116,6 @@ module.exports = function(grunt) {
     uglify: {}
   });
 
-  grunt.registerTask('default', 'shell:clean coffee lint concat min compass cssmin');
-  grunt.registerTask('dev', 'shell:clean coffee lint concat compass cssmin');
+  grunt.registerTask('default', 'shell:clean coffee concat min compass cssmin');
+  grunt.registerTask('dev', 'shell:clean coffee concat compass cssmin');
 };
