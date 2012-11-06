@@ -1,26 +1,19 @@
-class Robot
-    constructor: (@name) ->
-        @life = 100
-        @engine = null
+class SampleRobot
+    init: (engine) ->
+        @engine.event.on('onIdle', (ev) =>
+            robot = ev.robot
+            robot.ahead(100)
+            robot.rotateCannon(360)
+            robot.back(100)
+            robot.rotateCannon(360)
+        )
 
-    isAlive: ->
-        @life > 0
+        @engine.event.on('onScannedRobot', (ev) =>
+            robot = ev.robot
+            robot.fire(1)
+        )
 
-    takeDamage: (dmg) ->
-        @life -= dmg
-
-    bindEvents: ->
-
-    fire: ->
-
-
-class SampleRobot extends Robot
-    constructor: (@name) ->
-        super "Sample #{ @name }"
-
-    bindEvents: ->
-        self = this
-
-        @engine.event.on('roundStarted', (round) ->
-            @fire(self)
+        @engine.event.on('onHitByBullet', (robot, ev) =>
+            robot = ev.robot
+            robot.turn(90 - ev.bulletBearing)
         )

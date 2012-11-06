@@ -13,55 +13,37 @@ Engine = (function() {
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       robot = _ref[_i];
       robot.engine = this;
-      robot.bindEvents();
+      robot.life = 100;
+      robot.position = {
+        x: 0,
+        y: 0
+      };
+      robot.init();
     }
   }
+
+  Engine.prototype.isAlive = function(robot) {
+    return robot.life > 0;
+  };
 
   Engine.prototype.isDraw = function() {
     return this.round > 180;
   };
 
-  Engine.prototype.fire = function(robot) {
-    var random;
-    random = Math.floor(Math.random() * 10) + 1;
-    if (random > 3) {
-      return false;
-    }
-    if (robot === this.robotB) {
-      this.robotA.takeDamage(2);
-    }
-    if (robot === this.robotA) {
-      return this.robotB.takeDamage(2);
-    }
-  };
+  Engine.prototype.fire = function() {};
 
   Engine.prototype.fight = function() {
+    var _results;
     this.event.emit('fightStarted');
-    while (this.robotA.isAlive() && this.robotB.isAlive() && !this.isDraw()) {
+    _results = [];
+    while (this.isAlive(this.robotA) && this.isAlive(this.robotB) && !this.isDraw()) {
       this.round++;
-      this.boundFightRound(this.round);
+      _results.push(this.boundFightRound(this.round));
     }
-    if (this.isDraw()) {
-      if (this.isDraw()) {
-        return console.log("DRAW!");
-      }
-    } else {
-      if (this.robotA.isAlive()) {
-        console.log("Robot A WON!");
-      }
-      if (this.robotB.isAlive()) {
-        console.log("Robot B WON!");
-      }
-      if (!this.robotA.isAlive() && !this.robotB.isAlive()) {
-        return console.log("DRAW!");
-      }
-    }
+    return _results;
   };
 
-  Engine.prototype.fightRound = function(round) {
-    this.event.emit('roundStarted', this, round);
-    return console.log("Round " + this.round + " - " + this.robotA.name + "=" + this.robotA.life, "" + this.robotB.name + "=" + this.robotB.life);
-  };
+  Engine.prototype.fightRound = function(round) {};
 
   return Engine;
 
