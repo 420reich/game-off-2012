@@ -1,19 +1,15 @@
 class SampleRobot
-    init: (engine) ->
-        engine.event.on('onIdle', (ev) =>
-            robot = ev.robot
-            robot.ahead(100)
-            robot.rotateCannon(360)
-            robot.back(100)
-            robot.rotateCannon(360)
-        )
+    onIdle: (ev) =>
+        robot = ev.robot
+        robot.ahead(100)
+        robot.rotateCannon(360)
+        robot.back(100)
+        robot.rotateCannon(360)
 
-        engine.event.on('onScannedRobot', (ev) =>
-            robot = ev.robot
-            robot.fire(1)
-        )
+    onScannedRobot: (ev) =>
+        robot = ev.robot
+        robot.fire(1)
 
-        engine.event.on('onHitByBullet', (robot, ev) =>
-            robot = ev.robot
-            robot.turn(90 - ev.bulletBearing)
-        )
+    onHitByBullet: (ev) =>
+        robot = ev.robot
+        robot.turn(90 - ev.bulletBearing)

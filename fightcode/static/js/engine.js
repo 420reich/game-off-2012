@@ -8,16 +8,16 @@ RobotActions = (function() {
   }
 
   RobotActions.prototype.move = function(amount, forward) {
-    var offset, _i, _results;
+    var offset, _i;
     offset = forward ? 1 : -1;
-    _results = [];
     for (_i = 1; 1 <= amount ? _i <= amount : _i >= amount; 1 <= amount ? _i++ : _i--) {
-      _results.push(this.status.queue.push(function(robot, status) {
-        status.x += offset;
-        return status.y += offset;
-      }));
+      this.status.queue.push({
+        action: "move",
+        x: offset,
+        y: offset
+      });
     }
-    return _results;
+    return true;
   };
 
   RobotActions.prototype.ahead = function(amount) {
@@ -32,8 +32,9 @@ RobotActions = (function() {
     var _i, _results;
     _results = [];
     for (_i = 1; 1 <= degrees ? _i <= degrees : _i >= degrees; 1 <= degrees ? _i++ : _i--) {
-      _results.push(this.status.queue.push(function(robot, status) {
-        return status.cannonAngle += 1;
+      _results.push(this.status.queue.push({
+        action: "rotateCannon",
+        cannonAngle: 1
       }));
     }
     return _results;
@@ -43,8 +44,9 @@ RobotActions = (function() {
     var _i, _results;
     _results = [];
     for (_i = 1; 1 <= degrees ? _i <= degrees : _i >= degrees; 1 <= degrees ? _i++ : _i--) {
-      _results.push(this.status.queue.push(function(robot, status) {
-        return status.angle += 1;
+      _results.push(this.status.queue.push({
+        action: "turn",
+        angle: 1
       }));
     }
     return _results;
@@ -81,31 +83,44 @@ RobotStatus = (function() {
 Engine = (function() {
 
   function Engine(robotA, robotB) {
-    var robot, _i, _len, _ref;
     this.robotA = robotA;
     this.robotB = robotB;
     this.round = 0;
-    this.event = new EventEmitter;
     this.robotStatusA = new RobotStatus(this.robotA);
     this.robotStatusB = new RobotStatus(this.robotB);
-    _ref = [this.robotA, this.robotB];
-    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-      robot = _ref[_i];
-      robot.init(this);
-    }
   }
 
   Engine.prototype.isDraw = function() {
     return this.round > 1800;
   };
 
+  Engine.prototype.executeAction = function(robot, status) {
+    var item, queue;
+    queue = status.queue;
+    if (queue.length === 0) {
+      return false;
+    }
+    item = queue.shift();
+    switch (item.action) {
+      case 'move':
+        status.x += item.x;
+        status.y += item.y;
+        break;
+      case 'rotateCannon':
+        status.cannonAngle += item.cannonAngle;
+        break;
+      case 'turn':
+        status.angle += item.angle;
+    }
+    return true;
+  };
+
   Engine.prototype.fight = function() {
     var item, robot, status, _i, _len, _ref;
-    this.event.emit('fightStarted');
-    this.event.emit('onIdle', {
+    this.robotA.onIdle({
       robot: new RobotActions(this.robotA, this.robotStatusA)
     });
-    this.event.emit('onIdle', {
+    this.robotA.onIdle({
       robot: new RobotActions(this.robotB, this.robotStatusB)
     });
     while (this.robotStatusA.isAlive() && this.robotStatusB.isAlive() && !this.isDraw()) {
@@ -117,11 +132,8 @@ Engine = (function() {
         item = _ref[_i];
         robot = item[0];
         status = item[1];
-        if (status.queue.length > 0) {
-          item = status.queue.shift();
-          item(robot, status);
-        } else {
-          this.event.emit('onIdle', {
+        if (!this.executeAction(robot, status)) {
+          robot.onIdle({
             robot: new RobotActions(robot, status)
           });
         }

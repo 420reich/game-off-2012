@@ -5,10 +5,12 @@ class RobotActions
         offset = if forward then 1 else -1
 
         for [1..amount]
-            @status.queue.push((robot, status) ->
-                status.x += offset
-                status.y += offset
+            @status.queue.push(
+                action: "move"
+                x: offset
+                y: offset
             )
+        true
 
     ahead: (amount) ->
         @move(amount, true)
@@ -18,14 +20,16 @@ class RobotActions
 
     rotateCannon: (degrees) ->
         for [1..degrees]
-            @status.queue.push((robot, status) ->
-                status.cannonAngle += 1
+            @status.queue.push(
+                action: "rotateCannon"
+                cannonAngle: 1
             )
 
     turn: (degrees) ->
         for [1..degrees]
-            @status.queue.push((robot, status) ->
-                status.angle += 1
+            @status.queue.push(
+                action: "turn"
+                angle: 1
             )
 
     fire: (bullets) ->
@@ -47,27 +51,41 @@ class RobotStatus
 class Engine
     constructor: (@robotA, @robotB) ->
         @round = 0 # unit of time
-        #@boundFightRound = @fightRound.bind(this)
-
-        @event = new EventEmitter
 
         @robotStatusA = new RobotStatus(@robotA)
         @robotStatusB = new RobotStatus(@robotB)
-        for robot in [@robotA, @robotB]
-            robot.init(this)
 
     isDraw: ->
         return @round > 1800
 
-    fight: ->
-        @event.emit('fightStarted')
+    executeAction: (robot, status) ->
+        queue = status.queue
+        return false if queue.length == 0
 
-        @event.emit('onIdle', {
+        item = queue.shift()
+
+        switch item.action
+            when 'move'
+                status.x += item.x
+                status.y += item.y
+
+            when 'rotateCannon'
+                status.cannonAngle += item.cannonAngle
+
+            when 'turn'
+                status.angle += item.angle
+
+        true
+
+    fight: ->
+        @robotA.onIdle({
             robot: new RobotActions(@robotA, @robotStatusA)
         })
-        @event.emit('onIdle', {
+
+        @robotA.onIdle({
             robot: new RobotActions(@robotB, @robotStatusB)
         })
+
 
         while @robotStatusA.isAlive() and @robotStatusB.isAlive() and not @isDraw()
             @round++
@@ -77,14 +95,11 @@ class Engine
             for item in [[@robotA, @robotStatusA], [@robotB, @robotStatusB]]
                 robot = item[0]
                 status = item[1]
-                if status.queue.length > 0
-                    item = status.queue.shift()
-                    item(robot, status)
-                else
-                    @event.emit('onIdle', {
+
+                if not @executeAction(robot, status)
+                    robot.onIdle({
                         robot: new RobotActions(robot, status)
                     })
-            #@boundFightRound(@round)
 
         if @isDraw()
             console.log("DRAW!") if @isDraw()
