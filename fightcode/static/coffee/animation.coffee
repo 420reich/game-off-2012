@@ -26,9 +26,16 @@ class Game
 
     createTank: (object) =>
         tank = $('<div class="tank"><div class="body"></div><div class="cannon"></div></div>')
+
+        tankObject = {
+            tank: tank
+            body: tank.find('.body')
+            cannon: tank.find('.cannon')
+        }
+
         @board.append(tank)
-        @objects[object.id] = tank
-        return tank
+        @objects[object.id] = tankObject
+        return tankObject
 
     play: (timestamp) =>
         progress = timestamp - @lastRound
@@ -45,7 +52,14 @@ class Game
                     else
                         tank = @objects[object.id]
 
-                    tank.css('top', object.position.y)
-                    tank.css('left', object.position.x)
+                    tank.tank.css('top', object.position.y)
+                    tank.tank.css('left', object.position.x)
+                    tank.cannon.css('transform', "rotate(#{ object.cannonAngle }deg)")
+
+            for event in round.events
+                if event.type == 'moving'
+                    @objects[event.id].tank.addClass('moving')
+                if event.type == 'stopped'
+                    @objects[event.id].tank.removeClass('moving')
 
         requestAnimationFrame(@play) if @events.length > 0

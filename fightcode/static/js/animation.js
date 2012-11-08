@@ -48,15 +48,20 @@ Game = (function() {
   };
 
   Game.prototype.createTank = function(object) {
-    var tank;
+    var tank, tankObject;
     tank = $('<div class="tank"><div class="body"></div><div class="cannon"></div></div>');
+    tankObject = {
+      tank: tank,
+      body: tank.find('.body'),
+      cannon: tank.find('.cannon')
+    };
     this.board.append(tank);
-    this.objects[object.id] = tank;
-    return tank;
+    this.objects[object.id] = tankObject;
+    return tankObject;
   };
 
   Game.prototype.play = function(timestamp) {
-    var object, progress, round, roundNumber, rounds, tank, _i, _j, _len, _ref;
+    var event, object, progress, round, roundNumber, rounds, tank, _i, _j, _k, _len, _len1, _ref, _ref1;
     progress = timestamp - this.lastRound;
     rounds = progress / this.options.msPerRound;
     this.lastRound = window.mozAnimationStartTime || Date.now();
@@ -74,8 +79,19 @@ Game = (function() {
           } else {
             tank = this.objects[object.id];
           }
-          tank.css('top', object.position.y);
-          tank.css('left', object.position.x);
+          tank.tank.css('top', object.position.y);
+          tank.tank.css('left', object.position.x);
+          tank.cannon.css('transform', "rotate(" + object.cannonAngle + "deg)");
+        }
+      }
+      _ref1 = round.events;
+      for (_k = 0, _len1 = _ref1.length; _k < _len1; _k++) {
+        event = _ref1[_k];
+        if (event.type === 'moving') {
+          this.objects[event.id].tank.addClass('moving');
+        }
+        if (event.type === 'stopped') {
+          this.objects[event.id].tank.removeClass('moving');
         }
       }
     }

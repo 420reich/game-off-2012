@@ -11,12 +11,12 @@
 
 @-moz-keyframes movement {
   /* line 15, ../scss/fight.scss */
-  0% {
+  10% {
     background-position: -2px -4px;
   }
 
   /* line 19, ../scss/fight.scss */
-  12% {
+  15% {
     background-position: -34px -4px;
   }
 
@@ -51,19 +51,19 @@
   }
 
   /* line 47, ../scss/fight.scss */
-  100% {
+  90% {
     background-position: -2px -4px;
   }
 }
 
 @-webkit-keyframes movement {
   /* line 15, ../scss/fight.scss */
-  0% {
+  10% {
     background-position: -2px -4px;
   }
 
   /* line 19, ../scss/fight.scss */
-  12% {
+  15% {
     background-position: -34px -4px;
   }
 
@@ -98,19 +98,19 @@
   }
 
   /* line 47, ../scss/fight.scss */
-  100% {
+  90% {
     background-position: -2px -4px;
   }
 }
 
 @-o-keyframes movement {
   /* line 15, ../scss/fight.scss */
-  0% {
+  10% {
     background-position: -2px -4px;
   }
 
   /* line 19, ../scss/fight.scss */
-  12% {
+  15% {
     background-position: -34px -4px;
   }
 
@@ -145,19 +145,19 @@
   }
 
   /* line 47, ../scss/fight.scss */
-  100% {
+  90% {
     background-position: -2px -4px;
   }
 }
 
 @-ms-keyframes movement {
   /* line 15, ../scss/fight.scss */
-  0% {
+  10% {
     background-position: -2px -4px;
   }
 
   /* line 19, ../scss/fight.scss */
-  12% {
+  15% {
     background-position: -34px -4px;
   }
 
@@ -192,19 +192,19 @@
   }
 
   /* line 47, ../scss/fight.scss */
-  100% {
+  90% {
     background-position: -2px -4px;
   }
 }
 
 @keyframes movement {
   /* line 15, ../scss/fight.scss */
-  0% {
+  10% {
     background-position: -2px -4px;
   }
 
   /* line 19, ../scss/fight.scss */
-  12% {
+  15% {
     background-position: -34px -4px;
   }
 
@@ -239,7 +239,7 @@
   }
 
   /* line 47, ../scss/fight.scss */
-  100% {
+  90% {
     background-position: -2px -4px;
   }
 }
@@ -278,12 +278,12 @@
   transform: rotate(0deg);
 }
 /* line 80, ../scss/fight.scss */
-.tank.running .body {
-  -webkit-animation-duration: 1000ms;
-  -moz-animation-duration: 1000ms;
-  -ms-animation-duration: 1000ms;
-  -o-animation-duration: 1000ms;
-  animation-duration: 1000ms;
+.tank.moving .body {
+  -webkit-animation-duration: 500ms;
+  -moz-animation-duration: 500ms;
+  -ms-animation-duration: 500ms;
+  -o-animation-duration: 500ms;
+  animation-duration: 500ms;
   -webkit-animation-name: movement;
   -moz-animation-name: movement;
   -ms-animation-name: movement;
