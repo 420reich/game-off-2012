@@ -1,5 +1,16 @@
 @import "compass/css3";
 
+.board {
+    background: url('../img/grass.png');
+    border: solid 10px #175307;
+    border-radius: 15px;
+    width: 800px;
+    height: 600px;
+
+    position: relative;
+    margin: 40px auto 0;
+}
+
 @include keyframes(movement) {
     0% {
         background-position: -2px -4px;
@@ -40,8 +51,8 @@
 
 .tank {
     position: absolute;
-    top: 100px;
-    left: 100px;
+    top: 0px;
+    left: 0px;
 
     .body {
         background-image: url('../img/tanks.png');

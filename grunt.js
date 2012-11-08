@@ -15,10 +15,13 @@ module.exports = function(grunt) {
         ],
 
         animation: [
-            'fightcode/static/js/animation.js'
+            'fightcode/static/js/animation.js',
+            'fightcode/static/js/animationInline.js'
         ],
 
-        thirdParty: []
+        thirdParty: [
+            'fightcode/static/js/jquery-1.8.2.min.js'
+        ]
     };
 
     grunt.loadNpmTasks('grunt-compass');
