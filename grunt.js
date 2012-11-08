@@ -1,121 +1,124 @@
 /*global module:false*/
 module.exports = function(grunt) {
 
-  var jsFiles = [
-    'fightcode/static/js/eventEmitter.js',
-    'fightcode/static/js/engine.js',
-    'fightcode/static/js/robot.js',
-    'fightcode/static/js/inline.js'
-  ];
+    var cssFiles = {
+        website: [
+            'fightcode/static/css/fight.css'
+        ]
+    };
 
-  grunt.loadNpmTasks('grunt-compass');
-  grunt.loadNpmTasks('grunt-css');
-  grunt.loadNpmTasks('grunt-shell');
-  grunt.loadNpmTasks('grunt-coffee');
-  grunt.loadNpmTasks('grunt-growl');
+    var jsFiles = {
+        engine: [
+            'fightcode/static/js/engine.js',
+            'fightcode/static/js/robot.js',
+            'fightcode/static/js/inline.js'
+        ],
 
-  var growl = require('growl');
-  ['warn', 'fatal'].forEach(function(level) {
-    grunt.utils.hooker.hook(grunt.fail, level, function(opt) {
-      growl('FightCode Error', {
-        title: opt.message,
-        image: 'Console'
-      });
+        animation: [
+            'fightcode/static/js/animation.js'
+        ],
+
+        thirdParty: []
+    };
+
+    grunt.loadNpmTasks('grunt-compass');
+    grunt.loadNpmTasks('grunt-css');
+    grunt.loadNpmTasks('grunt-shell');
+    grunt.loadNpmTasks('grunt-coffee');
+    grunt.loadNpmTasks('grunt-growl');
+
+    var growl = require('growl');
+    ['warn', 'fatal'].forEach(function(level) {
+        grunt.utils.hooker.hook(grunt.fail, level, function(opt) {
+            growl('FightCode Error', {
+                title: opt.message,
+                image: 'Console'
+            });
+        });
     });
-  });
 
-  grunt.initConfig({
-    meta: {
-      version: '0.1.0',
-      banner: '/*! FightCode - v<%= meta.version %> - ' +
-              '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
-              '* http://fightcodega.me/\n*/'
-    },
+    grunt.initConfig({
+        meta: {
+            version: '0.1.0',
+            banner: '/*! FightCode - v<%= meta.version %> - ' +
+                    '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
+                    '* http://fightcodega.me/\n*/'
+        },
 
-    //lint: {
-      //files: ['grunt.js', 'fightcode/static/js/*.js']
-    //},
+        coffee: {
+            app: {
+                src: ['./fightcode/static/coffee/*.coffee'],
+                dest: './fightcode/static/js/',
+                options: {
+                    bare: true
+                }
+            }
+        },
 
-    coffee: {
-      app: {
-        src: ['./fightcode/static/coffee/*.coffee'],
-        dest: './fightcode/static/js/',
-        options: {
-            bare: true
-        }
-      }
-    },
+        concat: {
+            engine: {
+                src: ['<banner:meta.banner>'].concat(jsFiles.engine),
+                dest: 'fightcode/static/output/fightcode.engine.min.js'
+            },
+            animation: {
+                src: ['<banner:meta.banner>'].concat(jsFiles.animation),
+                dest: 'fightcode/static/output/fightcode.animation.min.js'
+            },
+            thirdParty: {
+                src: ['<banner:meta.banner>'].concat(jsFiles.thirdParty),
+                dest: 'fightcode/static/output/fightcode.thirdParty.min.js'
+            }
+        },
 
-    concat: {
-      js: {
-        src: ['<banner:meta.banner>'].concat(jsFiles),
-        dest: 'fightcode/static/output/fightcode.min.js'
-      }
-    },
+        min: {
+            engine: {
+                src: ['<banner:meta.banner>'].concat(jsFiles.engine),
+                dest: 'fightcode/static/output/fightcode.engine.min.js'
+            },
+            animation: {
+                src: ['<banner:meta.banner>'].concat(jsFiles.animation),
+                dest: 'fightcode/static/output/fightcode.animation.min.js'
+            },
+            thirdParty: {
+                src: ['<banner:meta.banner>'].concat(jsFiles.thirdParty),
+                dest: 'fightcode/static/output/fightcode.thirdParty.min.js'
+            }
+        },
 
-    min: {
-      js: {
-        src: ['<banner:meta.banner>'].concat(jsFiles),
-        dest: 'fightcode/static/output/fightcode.min.js'
-      }
-    },
+        compass: {
+            dist: {
+                src: 'fightcode/static/scss',
+                dest: 'fightcode/static/css',
+                images: 'fightcode/static/img',
+                linecomments: true,
+                forcecompile: false,
+                relativeassets: true
+            }
+        },
 
-    compass: {
-      dist: {
-        src: 'fightcode/static/scss',
-        dest: 'fightcode/static/css',
-        images: 'fightcode/static/img',
-        linecomments: true,
-        forcecompile: false,
-        relativeassets: true
-      }
-    },
+        cssmin: {
+            dist: {
+                src: cssFiles.website,
+                dest: 'fightcode/static/output/fightcode.min.css'
+            }
+        },
 
-    cssmin: {
-        dist: {
-            src: [
-                'fightcode/static/css/fight.css'
+        shell: {
+            clean: {
+                command: 'rm -rf ./fightcode/static/output/*'
+            }
+        },
+
+        watch: {
+            files: [
+                './fightcode/static/coffee/*.coffee',
+                './fightcode/*.html',
+                './fightcode/static/scss/*.scss'
             ],
-            dest: 'fightcode/static/output/fightcode.min.css'
+            tasks: 'dev'
         }
-    },
+    });
 
-    shell: {
-      clean: {
-        command: 'rm -rf ./fightcode/static/output/*'
-      }
-    },
-
-    watch: {
-      files: [
-        './fightcode/static/coffee/*.coffee',
-        './fightcode/*.html',
-        './fightcode/static/scss/*.scss'
-      ],
-      tasks: 'dev'
-    },
-
-    jshint: {
-      options: {
-        curly: true,
-        eqeqeq: true,
-        immed: true,
-        latedef: true,
-        newcap: true,
-        noarg: true,
-        sub: true,
-        boss: true,
-        eqnull: true,
-        browser: true
-      },
-      globals: {
-        jQuery: true
-      }
-    },
-
-    uglify: {}
-  });
-
-  grunt.registerTask('default', 'shell:clean coffee concat min compass cssmin');
-  grunt.registerTask('dev', 'shell:clean coffee concat compass cssmin');
+    grunt.registerTask('default', 'shell:clean coffee concat min compass cssmin');
+    grunt.registerTask('dev', 'shell:clean coffee concat compass cssmin');
 };
