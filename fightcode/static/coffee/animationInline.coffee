@@ -10,9 +10,9 @@ for i in [1..numberOfRounds]
             id: 'tank001',
             position:
                 x: 10 + (i / 3)
-                y: 11
+                y: 100
             health:
-                100 - (i / 5)
+                100 - (i / 20)
             angle:
                 120
             cannonAngle:

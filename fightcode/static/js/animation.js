@@ -49,11 +49,12 @@ Game = (function() {
 
   Game.prototype.createTank = function(object) {
     var tank, tankObject;
-    tank = $('<div class="tank"><div class="body"></div><div class="cannon"></div></div>');
+    tank = $('<div class="tank"><div class="body"></div><div class="cannon"></div><div class="life"></div></div>');
     tankObject = {
       tank: tank,
       body: tank.find('.body'),
-      cannon: tank.find('.cannon')
+      cannon: tank.find('.cannon'),
+      life: tank.find('.life')
     };
     this.board.append(tank);
     this.objects[object.id] = tankObject;
@@ -82,6 +83,7 @@ Game = (function() {
           tank.tank.css('top', object.position.y);
           tank.tank.css('left', object.position.x);
           tank.cannon.css('transform', "rotate(" + object.cannonAngle + "deg)");
+          tank.life.css('width', 30 * object.health / 100);
         }
       }
       _ref1 = round.events;

@@ -13,9 +13,9 @@ for (i = _i = 1; 1 <= numberOfRounds ? _i <= numberOfRounds : _i >= numberOfRoun
         id: 'tank001',
         position: {
           x: 10 + (i / 3),
-          y: 11
+          y: 100
         },
-        health: 100 - (i / 5),
+        health: 100 - (i / 20),
         angle: 120,
         cannonAngle: 130 + i
       }

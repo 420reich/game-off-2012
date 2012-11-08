@@ -277,7 +277,22 @@
   -o-transform: rotate(0deg);
   transform: rotate(0deg);
 }
-/* line 80, ../scss/fight.scss */
+/* line 79, ../scss/fight.scss */
+.tank .life {
+  background-color: #c70000;
+  border: solid 1px red;
+  border-radius: 1px;
+  width: 30px;
+  height: 6px;
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  margin-left: -17px;
+  -webkit-box-shadow: 2px 2px 0 0 rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 2px 2px 0 0 rgba(0, 0, 0, 0.25);
+  box-shadow: 2px 2px 0 0 rgba(0, 0, 0, 0.25);
+}
+/* line 94, ../scss/fight.scss */
 .tank.moving .body {
   -webkit-animation-duration: 500ms;
   -moz-animation-duration: 500ms;
@@ -305,7 +320,7 @@
   -o-animation-direction: reverse;
   animation-direction: reverse;
 }
-/* line 90, ../scss/fight.scss */
+/* line 104, ../scss/fight.scss */
 .tank.backwards .body {
   -webkit-animation-direction: normal;
   -moz-animation-direction: normal;
