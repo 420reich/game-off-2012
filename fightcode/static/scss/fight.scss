@@ -39,26 +39,47 @@
 }
 
 .tank {
-    background-image: url('../img/tanks.png');
-    background-position: -2px -4px;
-    background-repeat: no-repeat;
-
     position: absolute;
     top: 100px;
     left: 100px;
 
-    width: 27px;
-    height: 24px;
+    .body {
+        background-image: url('../img/tanks.png');
+        background-position: -2px -4px;
+        background-repeat: no-repeat;
+
+        width: 27px;
+        height: 24px;
+    }
+
+    .cannon {
+        background: url('../img/cannon.png') 0 0 no-repeat;
+        width: 24px;
+        height: 14px;
+
+        position: absolute;
+        left: 5px;
+        top: 5px;
+
+        @include transform-origin(7px 7px 0);
+        @include rotate(0deg);
+    }
 
     &.running {
-        @include animation-duration(1000ms);
-        @include animation-name(movement);
-        @include animation-iteration-count(infinite);
-        @include animation-timing-function(step-start);
-        @include animation-direction(reverse);
+        .body {
+            @include animation-duration(1000ms);
+            @include animation-name(movement);
+            @include animation-iteration-count(infinite);
+            @include animation-timing-function(step-start);
+            @include animation-direction(reverse);
+        }
     }
 
     &.backwards {
-        @include animation-direction(normal);
+        .body {
+            @include animation-direction(normal);
+        }
     }
+
 }
+

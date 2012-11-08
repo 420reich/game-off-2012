@@ -235,17 +235,39 @@
 
 /* line 41, ../scss/fight.scss */
 .tank {
-  background-image: url("../img/tanks.png");
-  background-position: -2px -4px;
-  background-repeat: no-repeat;
   position: absolute;
   top: 100px;
   left: 100px;
+}
+/* line 46, ../scss/fight.scss */
+.tank .body {
+  background-image: url("../img/tanks.png");
+  background-position: -2px -4px;
+  background-repeat: no-repeat;
   width: 27px;
   height: 24px;
 }
-/* line 53, ../scss/fight.scss */
-.tank.running {
+/* line 55, ../scss/fight.scss */
+.tank .cannon {
+  background: url("../img/cannon.png") 0 0 no-repeat;
+  width: 24px;
+  height: 14px;
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  -webkit-transform-origin: 7px 7px 0 50%;
+  -moz-transform-origin: 7px 7px 0 50%;
+  -ms-transform-origin: 7px 7px 0 50%;
+  -o-transform-origin: 7px 7px 0 50%;
+  transform-origin: 7px 7px 0 50%;
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+}
+/* line 69, ../scss/fight.scss */
+.tank.running .body {
   -webkit-animation-duration: 1000ms;
   -moz-animation-duration: 1000ms;
   -ms-animation-duration: 1000ms;
@@ -272,8 +294,8 @@
   -o-animation-direction: reverse;
   animation-direction: reverse;
 }
-/* line 61, ../scss/fight.scss */
-.tank.backwards {
+/* line 79, ../scss/fight.scss */
+.tank.backwards .body {
   -webkit-animation-direction: normal;
   -moz-animation-direction: normal;
   -ms-animation-direction: normal;
