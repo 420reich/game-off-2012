@@ -1,0 +1,64 @@
+@import "compass/css3";
+
+@include keyframes(movement) {
+    0% {
+        background-position: -2px -4px;
+    }
+
+    12% {
+        background-position: -34px -4px;
+    }
+
+    25% {
+        background-position: -66px -4px;
+    }
+
+    37%{
+        background-position: -98px -4px;
+    }
+
+    50% {
+        background-position: -130px -4px;
+    }
+
+    62% {
+        background-position: -162px -4px;
+    }
+
+    75% {
+        background-position: -194px -4px;
+    }
+
+    87% {
+        background-position: -226px -4px;
+    }
+
+    100% {
+        background-position: -2px -4px;
+    }
+}
+
+.tank {
+    background-image: url('../img/tanks.png');
+    background-position: -2px -4px;
+    background-repeat: no-repeat;
+
+    position: absolute;
+    top: 100px;
+    left: 100px;
+
+    width: 27px;
+    height: 24px;
+
+    &.running {
+        @include animation-duration(1000ms);
+        @include animation-name(movement);
+        @include animation-iteration-count(infinite);
+        @include animation-timing-function(step-start);
+        @include animation-direction(reverse);
+    }
+
+    &.backwards {
+        @include animation-direction(normal);
+    }
+}

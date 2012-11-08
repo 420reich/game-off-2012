@@ -1,0 +1,282 @@
+@-moz-keyframes movement {
+  /* line 4, ../scss/fight.scss */
+  0% {
+    background-position: -2px -4px;
+  }
+
+  /* line 8, ../scss/fight.scss */
+  12% {
+    background-position: -34px -4px;
+  }
+
+  /* line 12, ../scss/fight.scss */
+  25% {
+    background-position: -66px -4px;
+  }
+
+  /* line 16, ../scss/fight.scss */
+  37% {
+    background-position: -98px -4px;
+  }
+
+  /* line 20, ../scss/fight.scss */
+  50% {
+    background-position: -130px -4px;
+  }
+
+  /* line 24, ../scss/fight.scss */
+  62% {
+    background-position: -162px -4px;
+  }
+
+  /* line 28, ../scss/fight.scss */
+  75% {
+    background-position: -194px -4px;
+  }
+
+  /* line 32, ../scss/fight.scss */
+  87% {
+    background-position: -226px -4px;
+  }
+
+  /* line 36, ../scss/fight.scss */
+  100% {
+    background-position: -2px -4px;
+  }
+}
+
+@-webkit-keyframes movement {
+  /* line 4, ../scss/fight.scss */
+  0% {
+    background-position: -2px -4px;
+  }
+
+  /* line 8, ../scss/fight.scss */
+  12% {
+    background-position: -34px -4px;
+  }
+
+  /* line 12, ../scss/fight.scss */
+  25% {
+    background-position: -66px -4px;
+  }
+
+  /* line 16, ../scss/fight.scss */
+  37% {
+    background-position: -98px -4px;
+  }
+
+  /* line 20, ../scss/fight.scss */
+  50% {
+    background-position: -130px -4px;
+  }
+
+  /* line 24, ../scss/fight.scss */
+  62% {
+    background-position: -162px -4px;
+  }
+
+  /* line 28, ../scss/fight.scss */
+  75% {
+    background-position: -194px -4px;
+  }
+
+  /* line 32, ../scss/fight.scss */
+  87% {
+    background-position: -226px -4px;
+  }
+
+  /* line 36, ../scss/fight.scss */
+  100% {
+    background-position: -2px -4px;
+  }
+}
+
+@-o-keyframes movement {
+  /* line 4, ../scss/fight.scss */
+  0% {
+    background-position: -2px -4px;
+  }
+
+  /* line 8, ../scss/fight.scss */
+  12% {
+    background-position: -34px -4px;
+  }
+
+  /* line 12, ../scss/fight.scss */
+  25% {
+    background-position: -66px -4px;
+  }
+
+  /* line 16, ../scss/fight.scss */
+  37% {
+    background-position: -98px -4px;
+  }
+
+  /* line 20, ../scss/fight.scss */
+  50% {
+    background-position: -130px -4px;
+  }
+
+  /* line 24, ../scss/fight.scss */
+  62% {
+    background-position: -162px -4px;
+  }
+
+  /* line 28, ../scss/fight.scss */
+  75% {
+    background-position: -194px -4px;
+  }
+
+  /* line 32, ../scss/fight.scss */
+  87% {
+    background-position: -226px -4px;
+  }
+
+  /* line 36, ../scss/fight.scss */
+  100% {
+    background-position: -2px -4px;
+  }
+}
+
+@-ms-keyframes movement {
+  /* line 4, ../scss/fight.scss */
+  0% {
+    background-position: -2px -4px;
+  }
+
+  /* line 8, ../scss/fight.scss */
+  12% {
+    background-position: -34px -4px;
+  }
+
+  /* line 12, ../scss/fight.scss */
+  25% {
+    background-position: -66px -4px;
+  }
+
+  /* line 16, ../scss/fight.scss */
+  37% {
+    background-position: -98px -4px;
+  }
+
+  /* line 20, ../scss/fight.scss */
+  50% {
+    background-position: -130px -4px;
+  }
+
+  /* line 24, ../scss/fight.scss */
+  62% {
+    background-position: -162px -4px;
+  }
+
+  /* line 28, ../scss/fight.scss */
+  75% {
+    background-position: -194px -4px;
+  }
+
+  /* line 32, ../scss/fight.scss */
+  87% {
+    background-position: -226px -4px;
+  }
+
+  /* line 36, ../scss/fight.scss */
+  100% {
+    background-position: -2px -4px;
+  }
+}
+
+@keyframes movement {
+  /* line 4, ../scss/fight.scss */
+  0% {
+    background-position: -2px -4px;
+  }
+
+  /* line 8, ../scss/fight.scss */
+  12% {
+    background-position: -34px -4px;
+  }
+
+  /* line 12, ../scss/fight.scss */
+  25% {
+    background-position: -66px -4px;
+  }
+
+  /* line 16, ../scss/fight.scss */
+  37% {
+    background-position: -98px -4px;
+  }
+
+  /* line 20, ../scss/fight.scss */
+  50% {
+    background-position: -130px -4px;
+  }
+
+  /* line 24, ../scss/fight.scss */
+  62% {
+    background-position: -162px -4px;
+  }
+
+  /* line 28, ../scss/fight.scss */
+  75% {
+    background-position: -194px -4px;
+  }
+
+  /* line 32, ../scss/fight.scss */
+  87% {
+    background-position: -226px -4px;
+  }
+
+  /* line 36, ../scss/fight.scss */
+  100% {
+    background-position: -2px -4px;
+  }
+}
+
+/* line 41, ../scss/fight.scss */
+.tank {
+  background-image: url("../img/tanks.png");
+  background-position: -2px -4px;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 100px;
+  left: 100px;
+  width: 27px;
+  height: 24px;
+}
+/* line 53, ../scss/fight.scss */
+.tank.running {
+  -webkit-animation-duration: 1000ms;
+  -moz-animation-duration: 1000ms;
+  -ms-animation-duration: 1000ms;
+  -o-animation-duration: 1000ms;
+  animation-duration: 1000ms;
+  -webkit-animation-name: movement;
+  -moz-animation-name: movement;
+  -ms-animation-name: movement;
+  -o-animation-name: movement;
+  animation-name: movement;
+  -webkit-animation-iteration-count: infinite;
+  -moz-animation-iteration-count: infinite;
+  -ms-animation-iteration-count: infinite;
+  -o-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-timing-function: step-start;
+  -moz-animation-timing-function: step-start;
+  -ms-animation-timing-function: step-start;
+  -o-animation-timing-function: step-start;
+  animation-timing-function: step-start;
+  -webkit-animation-direction: reverse;
+  -moz-animation-direction: reverse;
+  -ms-animation-direction: reverse;
+  -o-animation-direction: reverse;
+  animation-direction: reverse;
+}
+/* line 61, ../scss/fight.scss */
+.tank.backwards {
+  -webkit-animation-direction: normal;
+  -moz-animation-direction: normal;
+  -ms-animation-direction: normal;
+  -o-animation-direction: normal;
+  animation-direction: normal;
+}
