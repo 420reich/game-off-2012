@@ -107,3 +107,86 @@
     }
 }
 
+@include keyframes(explosion) {
+    6% {
+        background-position: 0px 0px;
+    }
+    12% {
+        background-position: -24px 0px;
+    }
+    19% {
+        background-position: -48px 0px;
+    }
+    25% {
+        background-position: -72px 0px;
+    }
+    31% {
+        background-position: 0px -24px;
+    }
+    38% {
+        background-position: -24px -24px;
+    }
+    44% {
+        background-position: -48px -24px;
+    }
+    50% {
+        background-position: -72px -24px;
+    }
+    56% {
+        background-position: 0px -48px;
+    }
+    62% {
+        background-position: -24px -48px;
+    }
+    69% {
+        background-position: -48px -48px;
+    }
+    75% {
+        background-position: -72px -48px;
+    }
+    81% {
+        background-position: 0px -72px;
+    }
+    88% {
+        background-position: -24px -72px;
+    }
+    94% {
+        background-position: -48px -72px;
+    }
+    100% {
+        background-position: -72px -72px;
+    }
+}
+
+.bullet {
+    background: url('../img/bullet.png') 0 0 no-repeat;
+    width: 13px;
+    height: 5px;
+    position: absolute;
+
+    top: 100px;
+    left: 100px;
+
+    .explosion {
+        background: url('../img/explosprite.png') 0 0 no-repeat;
+        display: none;
+        width: 24px;
+        height: 24px;
+        position: absolute;
+        top: -10px;
+        left: -5px;
+    }
+
+    &.exploding {
+        background: none;
+
+        .explosion {
+            display: block;
+            @include animation-duration(1000ms);
+            @include animation-name(explosion);
+            @include animation-timing-function(step-start);
+            @include animation-fill-mode(forwards);
+        }
+    }
+}
+

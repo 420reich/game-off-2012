@@ -34,7 +34,11 @@ Game = (function() {
     this.options = options;
     this.play = __bind(this.play, this);
 
+    this.handleBullet = __bind(this.handleBullet, this);
+
     this.handleTank = __bind(this.handleTank, this);
+
+    this.createBullet = __bind(this.createBullet, this);
 
     this.createTank = __bind(this.createTank, this);
 
@@ -63,6 +67,19 @@ Game = (function() {
     return tankObject;
   };
 
+  Game.prototype.createBullet = function(object) {
+    var bullet, bulletObject;
+    bullet = $('<div class="bullet"><div class="explosion"></div></div>');
+    this.board.append(bullet);
+    bulletObject = {
+      bullet: bullet,
+      width: bullet.width(),
+      height: bullet.height()
+    };
+    this.objects[object.id] = bulletObject;
+    return bulletObject;
+  };
+
   Game.prototype.handleTank = function(object) {
     var tank;
     if (!this.objects[object.id]) {
@@ -75,6 +92,18 @@ Game = (function() {
     tank.body.css('transform', "rotate(" + object.angle + "deg)");
     tank.cannon.css('transform', "rotate(" + (object.angle + object.cannonAngle) + "deg)");
     return tank.life.css('width', 30 * object.health / 100);
+  };
+
+  Game.prototype.handleBullet = function(object) {
+    var bullet;
+    if (!this.objects[object.id]) {
+      bullet = this.createBullet(object);
+    } else {
+      bullet = this.objects[object.id];
+    }
+    bullet.bullet.css('top', object.position.y - (bullet.height / 2));
+    bullet.bullet.css('left', object.position.x - (bullet.width / 2));
+    return bullet.bullet.css('transform', "rotate(" + object.angle + "deg)");
   };
 
   Game.prototype.play = function(timestamp) {
@@ -93,6 +122,9 @@ Game = (function() {
         switch (object.type) {
           case 'tank':
             this.handleTank(object);
+            break;
+          case 'bullet':
+            this.handleBullet(object);
         }
       }
       _ref1 = round.events;
@@ -107,6 +139,9 @@ Game = (function() {
             break;
           case 'stopped':
             this.objects[event.id].tank.removeClass('backwards').removeClass('moving');
+            break;
+          case 'exploded':
+            this.objects[event.id].bullet.addClass('exploding');
         }
       }
     }

@@ -328,3 +328,461 @@
   -o-animation-direction: normal;
   animation-direction: normal;
 }
+
+@-moz-keyframes explosion {
+  /* line 111, ../scss/fight.scss */
+  6% {
+    background-position: 0px 0px;
+  }
+
+  /* line 114, ../scss/fight.scss */
+  12% {
+    background-position: -24px 0px;
+  }
+
+  /* line 117, ../scss/fight.scss */
+  19% {
+    background-position: -48px 0px;
+  }
+
+  /* line 120, ../scss/fight.scss */
+  25% {
+    background-position: -72px 0px;
+  }
+
+  /* line 123, ../scss/fight.scss */
+  31% {
+    background-position: 0px -24px;
+  }
+
+  /* line 126, ../scss/fight.scss */
+  38% {
+    background-position: -24px -24px;
+  }
+
+  /* line 129, ../scss/fight.scss */
+  44% {
+    background-position: -48px -24px;
+  }
+
+  /* line 132, ../scss/fight.scss */
+  50% {
+    background-position: -72px -24px;
+  }
+
+  /* line 135, ../scss/fight.scss */
+  56% {
+    background-position: 0px -48px;
+  }
+
+  /* line 138, ../scss/fight.scss */
+  62% {
+    background-position: -24px -48px;
+  }
+
+  /* line 141, ../scss/fight.scss */
+  69% {
+    background-position: -48px -48px;
+  }
+
+  /* line 144, ../scss/fight.scss */
+  75% {
+    background-position: -72px -48px;
+  }
+
+  /* line 147, ../scss/fight.scss */
+  81% {
+    background-position: 0px -72px;
+  }
+
+  /* line 150, ../scss/fight.scss */
+  88% {
+    background-position: -24px -72px;
+  }
+
+  /* line 153, ../scss/fight.scss */
+  94% {
+    background-position: -48px -72px;
+  }
+
+  /* line 156, ../scss/fight.scss */
+  100% {
+    background-position: -72px -72px;
+  }
+}
+
+@-webkit-keyframes explosion {
+  /* line 111, ../scss/fight.scss */
+  6% {
+    background-position: 0px 0px;
+  }
+
+  /* line 114, ../scss/fight.scss */
+  12% {
+    background-position: -24px 0px;
+  }
+
+  /* line 117, ../scss/fight.scss */
+  19% {
+    background-position: -48px 0px;
+  }
+
+  /* line 120, ../scss/fight.scss */
+  25% {
+    background-position: -72px 0px;
+  }
+
+  /* line 123, ../scss/fight.scss */
+  31% {
+    background-position: 0px -24px;
+  }
+
+  /* line 126, ../scss/fight.scss */
+  38% {
+    background-position: -24px -24px;
+  }
+
+  /* line 129, ../scss/fight.scss */
+  44% {
+    background-position: -48px -24px;
+  }
+
+  /* line 132, ../scss/fight.scss */
+  50% {
+    background-position: -72px -24px;
+  }
+
+  /* line 135, ../scss/fight.scss */
+  56% {
+    background-position: 0px -48px;
+  }
+
+  /* line 138, ../scss/fight.scss */
+  62% {
+    background-position: -24px -48px;
+  }
+
+  /* line 141, ../scss/fight.scss */
+  69% {
+    background-position: -48px -48px;
+  }
+
+  /* line 144, ../scss/fight.scss */
+  75% {
+    background-position: -72px -48px;
+  }
+
+  /* line 147, ../scss/fight.scss */
+  81% {
+    background-position: 0px -72px;
+  }
+
+  /* line 150, ../scss/fight.scss */
+  88% {
+    background-position: -24px -72px;
+  }
+
+  /* line 153, ../scss/fight.scss */
+  94% {
+    background-position: -48px -72px;
+  }
+
+  /* line 156, ../scss/fight.scss */
+  100% {
+    background-position: -72px -72px;
+  }
+}
+
+@-o-keyframes explosion {
+  /* line 111, ../scss/fight.scss */
+  6% {
+    background-position: 0px 0px;
+  }
+
+  /* line 114, ../scss/fight.scss */
+  12% {
+    background-position: -24px 0px;
+  }
+
+  /* line 117, ../scss/fight.scss */
+  19% {
+    background-position: -48px 0px;
+  }
+
+  /* line 120, ../scss/fight.scss */
+  25% {
+    background-position: -72px 0px;
+  }
+
+  /* line 123, ../scss/fight.scss */
+  31% {
+    background-position: 0px -24px;
+  }
+
+  /* line 126, ../scss/fight.scss */
+  38% {
+    background-position: -24px -24px;
+  }
+
+  /* line 129, ../scss/fight.scss */
+  44% {
+    background-position: -48px -24px;
+  }
+
+  /* line 132, ../scss/fight.scss */
+  50% {
+    background-position: -72px -24px;
+  }
+
+  /* line 135, ../scss/fight.scss */
+  56% {
+    background-position: 0px -48px;
+  }
+
+  /* line 138, ../scss/fight.scss */
+  62% {
+    background-position: -24px -48px;
+  }
+
+  /* line 141, ../scss/fight.scss */
+  69% {
+    background-position: -48px -48px;
+  }
+
+  /* line 144, ../scss/fight.scss */
+  75% {
+    background-position: -72px -48px;
+  }
+
+  /* line 147, ../scss/fight.scss */
+  81% {
+    background-position: 0px -72px;
+  }
+
+  /* line 150, ../scss/fight.scss */
+  88% {
+    background-position: -24px -72px;
+  }
+
+  /* line 153, ../scss/fight.scss */
+  94% {
+    background-position: -48px -72px;
+  }
+
+  /* line 156, ../scss/fight.scss */
+  100% {
+    background-position: -72px -72px;
+  }
+}
+
+@-ms-keyframes explosion {
+  /* line 111, ../scss/fight.scss */
+  6% {
+    background-position: 0px 0px;
+  }
+
+  /* line 114, ../scss/fight.scss */
+  12% {
+    background-position: -24px 0px;
+  }
+
+  /* line 117, ../scss/fight.scss */
+  19% {
+    background-position: -48px 0px;
+  }
+
+  /* line 120, ../scss/fight.scss */
+  25% {
+    background-position: -72px 0px;
+  }
+
+  /* line 123, ../scss/fight.scss */
+  31% {
+    background-position: 0px -24px;
+  }
+
+  /* line 126, ../scss/fight.scss */
+  38% {
+    background-position: -24px -24px;
+  }
+
+  /* line 129, ../scss/fight.scss */
+  44% {
+    background-position: -48px -24px;
+  }
+
+  /* line 132, ../scss/fight.scss */
+  50% {
+    background-position: -72px -24px;
+  }
+
+  /* line 135, ../scss/fight.scss */
+  56% {
+    background-position: 0px -48px;
+  }
+
+  /* line 138, ../scss/fight.scss */
+  62% {
+    background-position: -24px -48px;
+  }
+
+  /* line 141, ../scss/fight.scss */
+  69% {
+    background-position: -48px -48px;
+  }
+
+  /* line 144, ../scss/fight.scss */
+  75% {
+    background-position: -72px -48px;
+  }
+
+  /* line 147, ../scss/fight.scss */
+  81% {
+    background-position: 0px -72px;
+  }
+
+  /* line 150, ../scss/fight.scss */
+  88% {
+    background-position: -24px -72px;
+  }
+
+  /* line 153, ../scss/fight.scss */
+  94% {
+    background-position: -48px -72px;
+  }
+
+  /* line 156, ../scss/fight.scss */
+  100% {
+    background-position: -72px -72px;
+  }
+}
+
+@keyframes explosion {
+  /* line 111, ../scss/fight.scss */
+  6% {
+    background-position: 0px 0px;
+  }
+
+  /* line 114, ../scss/fight.scss */
+  12% {
+    background-position: -24px 0px;
+  }
+
+  /* line 117, ../scss/fight.scss */
+  19% {
+    background-position: -48px 0px;
+  }
+
+  /* line 120, ../scss/fight.scss */
+  25% {
+    background-position: -72px 0px;
+  }
+
+  /* line 123, ../scss/fight.scss */
+  31% {
+    background-position: 0px -24px;
+  }
+
+  /* line 126, ../scss/fight.scss */
+  38% {
+    background-position: -24px -24px;
+  }
+
+  /* line 129, ../scss/fight.scss */
+  44% {
+    background-position: -48px -24px;
+  }
+
+  /* line 132, ../scss/fight.scss */
+  50% {
+    background-position: -72px -24px;
+  }
+
+  /* line 135, ../scss/fight.scss */
+  56% {
+    background-position: 0px -48px;
+  }
+
+  /* line 138, ../scss/fight.scss */
+  62% {
+    background-position: -24px -48px;
+  }
+
+  /* line 141, ../scss/fight.scss */
+  69% {
+    background-position: -48px -48px;
+  }
+
+  /* line 144, ../scss/fight.scss */
+  75% {
+    background-position: -72px -48px;
+  }
+
+  /* line 147, ../scss/fight.scss */
+  81% {
+    background-position: 0px -72px;
+  }
+
+  /* line 150, ../scss/fight.scss */
+  88% {
+    background-position: -24px -72px;
+  }
+
+  /* line 153, ../scss/fight.scss */
+  94% {
+    background-position: -48px -72px;
+  }
+
+  /* line 156, ../scss/fight.scss */
+  100% {
+    background-position: -72px -72px;
+  }
+}
+
+/* line 161, ../scss/fight.scss */
+.bullet {
+  background: url("../img/bullet.png") 0 0 no-repeat;
+  width: 13px;
+  height: 5px;
+  position: absolute;
+  top: 100px;
+  left: 100px;
+}
+/* line 170, ../scss/fight.scss */
+.bullet .explosion {
+  background: url("../img/explosprite.png") 0 0 no-repeat;
+  display: none;
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: -10px;
+  left: -5px;
+}
+/* line 180, ../scss/fight.scss */
+.bullet.exploding {
+  background: none;
+}
+/* line 183, ../scss/fight.scss */
+.bullet.exploding .explosion {
+  display: block;
+  -webkit-animation-duration: 1000ms;
+  -moz-animation-duration: 1000ms;
+  -ms-animation-duration: 1000ms;
+  -o-animation-duration: 1000ms;
+  animation-duration: 1000ms;
+  -webkit-animation-name: explosion;
+  -moz-animation-name: explosion;
+  -ms-animation-name: explosion;
+  -o-animation-name: explosion;
+  animation-name: explosion;
+  -webkit-animation-timing-function: step-start;
+  -moz-animation-timing-function: step-start;
+  -ms-animation-timing-function: step-start;
+  -o-animation-timing-function: step-start;
+  animation-timing-function: step-start;
+  -webkit-animation-fill-mode: forwards;
+  -moz-animation-fill-mode: forwards;
+  -ms-animation-fill-mode: forwards;
+  -o-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}

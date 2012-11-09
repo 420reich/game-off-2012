@@ -37,6 +37,21 @@ for i in [1..numberOfRounds]
         id: 'tank001'
     ) if i == numberOfRounds
 
+    round.events.push(
+        type: 'exploded',
+        id: 'bullet001'
+    ) if i == numberOfRounds - 10
+
+    round.objects.push(
+        type: 'bullet'
+        id: 'bullet001',
+        position:
+            x: round.objects[0].position.x + 100
+            y: round.objects[0].position.y + 100
+        angle:
+            45
+    ) if i >= 3 * numberOfRounds / 4
+
     rounds.push(round)
 
 board = $('.board')

@@ -38,6 +38,17 @@ class Game
         @objects[object.id] = tankObject
         return tankObject
 
+    createBullet: (object) =>
+        bullet = $('<div class="bullet"><div class="explosion"></div></div>')
+        @board.append(bullet)
+        bulletObject = {
+            bullet: bullet
+            width: bullet.width()
+            height: bullet.height()
+        }
+        @objects[object.id] = bulletObject
+        return bulletObject
+
     handleTank: (object) =>
         if not @objects[object.id]
             tank = @createTank(object)
@@ -52,6 +63,16 @@ class Game
 
         tank.life.css('width', 30 * object.health / 100)
 
+    handleBullet: (object) =>
+        if not @objects[object.id]
+            bullet = @createBullet(object)
+        else
+            bullet = @objects[object.id]
+
+        bullet.bullet.css('top', object.position.y - (bullet.height / 2))
+        bullet.bullet.css('left', object.position.x - (bullet.width / 2))
+        bullet.bullet.css('transform', "rotate(#{ object.angle }deg)")
+
     play: (timestamp) =>
         progress = timestamp - @lastRound
         rounds = progress / @options.msPerRound
@@ -64,6 +85,8 @@ class Game
                 switch object.type
                     when 'tank'
                         @handleTank(object)
+                    when 'bullet'
+                        @handleBullet(object)
 
             for event in round.events
                 switch event.type
@@ -73,5 +96,7 @@ class Game
                         @objects[event.id].tank.addClass('backwards')
                     when 'stopped'
                         @objects[event.id].tank.removeClass('backwards').removeClass('moving')
+                    when 'exploded'
+                        @objects[event.id].bullet.addClass('exploding')
 
         requestAnimationFrame(@play) if @events.length > 0

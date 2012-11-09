@@ -40,6 +40,23 @@ for (i = _i = 1; 1 <= numberOfRounds ? _i <= numberOfRounds : _i >= numberOfRoun
       id: 'tank001'
     });
   }
+  if (i === numberOfRounds - 10) {
+    round.events.push({
+      type: 'exploded',
+      id: 'bullet001'
+    });
+  }
+  if (i >= 3 * numberOfRounds / 4) {
+    round.objects.push({
+      type: 'bullet',
+      id: 'bullet001',
+      position: {
+        x: round.objects[0].position.x + 100,
+        y: round.objects[0].position.y + 100
+      },
+      angle: 45
+    });
+  }
   rounds.push(round);
 }
 
