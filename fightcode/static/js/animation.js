@@ -87,8 +87,8 @@ Game = (function() {
     } else {
       tank = this.objects[object.id];
     }
-    tank.tank.css('top', object.position.y);
-    tank.tank.css('left', object.position.x);
+    tank.tank.css('top', object.position.y - (object.dimension.height / 2));
+    tank.tank.css('left', object.position.x - (object.dimension.width / 2));
     tank.body.css('transform', "rotate(" + object.angle + "deg)");
     tank.cannon.css('transform', "rotate(" + (object.angle + object.cannonAngle) + "deg)");
     return tank.life.css('width', 30 * object.health / 100);

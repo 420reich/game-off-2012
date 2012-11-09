@@ -285,6 +285,15 @@ RobotStatus = (function(_super) {
     return buletStatus.destroy();
   };
 
+  RobotStatus.prototype.rollbackAfterCollision = function() {
+    if (this.previousPosition) {
+      this.position = this.previousPosition;
+    }
+    if (this.previousAngle) {
+      return this.angle = this.previousAngle;
+    }
+  };
+
   RobotStatus.prototype.runItem = function() {
     var direction, item, rad;
     item = this.queue.shift();
@@ -292,17 +301,23 @@ RobotStatus = (function(_super) {
     if (item.direction && item.direction < 0) {
       direction = -1;
     }
+    this.previousPosition = null;
+    this.previousAngle = null;
     switch (item.action) {
       case 'move':
         rad = (this.angle * Math.PI) / 180;
+        this.previousPosition = new Vector2(this.position);
         this.position.x += Math.cos(rad) * MOVE_INCREMENT * direction;
         this.position.y += Math.sin(rad) * MOVE_INCREMENT * direction;
         break;
       case 'rotateCannon':
         this.cannonAngle += ANG_INCREMENT * direction;
+        this.cannonAngle = this.cannonAngle % 360;
         break;
       case 'turn':
+        this.previousAngle = this.angle;
         this.angle += ANG_INCREMENT * direction;
+        this.angle = this.angle % 360;
         break;
       case 'fire':
         return new BulletStatus(this);
@@ -358,6 +373,7 @@ Engine = (function() {
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       wall = _ref[_i];
       if (robotStatus.intersects(wall)) {
+        robotStatus.rollbackAfterCollision();
         this.safeCall(robotStatus.robot, 'onWallCollision', actions);
       }
     }
@@ -372,6 +388,8 @@ Engine = (function() {
         if (status instanceof BulletStatus) {
           eventName = 'onHitByBullet';
           robotStatus.takeHit(status);
+        } else {
+          robotStatus.rollbackAfterCollision();
         }
         this.safeCall(robotStatus.robot, eventName, actions);
       }
@@ -403,6 +421,10 @@ Engine = (function() {
           position: {
             x: status.position.x,
             y: status.position.y
+          },
+          dimension: {
+            width: status.dimension.width,
+            height: status.dimension.height
           },
           health: status.health,
           angle: status.angle,

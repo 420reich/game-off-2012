@@ -17,9 +17,7 @@ SampleRobot = (function() {
     return console.log('onRobotCollision', ev);
   };
 
-  SampleRobot.prototype.onWallCollision = function(ev) {
-    return console.log('onWallCollision', ev);
-  };
+  SampleRobot.prototype.onWallCollision = function(ev) {};
 
   SampleRobot.prototype.onScannedRobot = function(ev) {
     var robot;

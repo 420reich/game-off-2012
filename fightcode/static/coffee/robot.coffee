@@ -11,7 +11,7 @@ class SampleRobot
         console.log('onRobotCollision', ev)
 
     onWallCollision: (ev) ->
-        console.log('onWallCollision', ev)
+        # console.log('onWallCollision', ev)
 
     onScannedRobot: (ev) ->
         console.log('onScannedRobot', ev)

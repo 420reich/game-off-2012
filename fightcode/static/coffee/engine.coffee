@@ -207,6 +207,10 @@ class RobotStatus extends ElementStatus
         @life -= buletStatus.strength
         buletStatus.destroy()
 
+    rollbackAfterCollision: ->
+        @position = @previousPosition if @previousPosition
+        @angle = @previousAngle if @previousAngle
+
     runItem: ->
         item = @queue.shift()
 
@@ -214,17 +218,24 @@ class RobotStatus extends ElementStatus
         if item.direction and item.direction < 0
             direction = -1
 
+        @previousPosition = null
+        @previousAngle = null
+
         switch item.action
             when 'move'
                 rad = (@angle * Math.PI) / 180
+                @previousPosition = new Vector2(@position)
                 @position.x += Math.cos(rad) * MOVE_INCREMENT * direction
                 @position.y += Math.sin(rad) * MOVE_INCREMENT * direction
 
             when 'rotateCannon'
                 @cannonAngle += ANG_INCREMENT * direction
+                @cannonAngle = @cannonAngle % 360
 
             when 'turn'
+                @previousAngle = @angle
                 @angle += ANG_INCREMENT * direction
+                @angle = @angle % 360
 
             when 'fire'
                 return new BulletStatus(this)
@@ -254,6 +265,7 @@ class Engine
 
         for wall in @arena.walls
             if robotStatus.intersects(wall)
+                robotStatus.rollbackAfterCollision()
                 @safeCall(robotStatus.robot, 'onWallCollision', actions)
 
         for status in @robotsStatus
@@ -264,6 +276,8 @@ class Engine
                 if status instanceof BulletStatus
                     eventName = 'onHitByBullet'
                     robotStatus.takeHit(status)
+                else
+                    robotStatus.rollbackAfterCollision()
 
                 @safeCall(robotStatus.robot, eventName, actions)
 
@@ -293,6 +307,9 @@ class Engine
                     position:
                         x: status.position.x
                         y: status.position.y
+                    dimension:
+                        width: status.dimension.width
+                        height: status.dimension.height
                     health:
                         status.health
                     angle:
