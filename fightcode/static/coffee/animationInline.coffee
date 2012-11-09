@@ -54,12 +54,18 @@
 
 #     rounds.push(round)
 
-robotA = new SampleRobot("a")
-robotB = new SampleRobot("b")
-engine = new Engine(robotA, robotB)
+numberOfRobots = 5
+robots = []
 
-engine.robotsStatus[0].position = new Vector2(750, 200)
-engine.robotsStatus[1].position = new Vector2(14, 13)
+for i in [0..numberOfRobots - 1]
+    robot = new SampleRobot(i)
+    robots.push(robot)
+
+engine = new Engine(robots...)
+
+for i in [0..numberOfRobots - 1]
+    engine.robotsStatus[i].position = new Vector2(Math.random() * 700 + 50, Math.random() * 500 + 50)
+    #engine.robotsStatus[1].position = new Vector2(14, 13)
 
 rounds = engine.fight()
 

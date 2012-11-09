@@ -7,10 +7,11 @@ SampleRobot = (function() {
   SampleRobot.prototype.onIdle = function(ev) {
     var robot;
     robot = ev.robot;
-    robot.ahead(100);
+    robot.ahead(150);
     robot.rotateCannon(360);
     robot.back(100);
-    return robot.rotateCannon(360);
+    robot.rotateCannon(360);
+    return robot.turn(20);
   };
 
   SampleRobot.prototype.onRobotCollision = function(ev) {

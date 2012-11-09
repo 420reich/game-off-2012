@@ -2,10 +2,11 @@ class SampleRobot
     onIdle: (ev) ->
         # console.log('onIdle', ev)
         robot = ev.robot
-        robot.ahead(100)
+        robot.ahead(150)
         robot.rotateCannon(360)
         robot.back(100)
         robot.rotateCannon(360)
+        robot.turn(20)
 
     onRobotCollision: (ev) ->
         console.log('onRobotCollision', ev)
