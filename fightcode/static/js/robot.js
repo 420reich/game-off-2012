@@ -1,16 +1,8 @@
-var SampleRobot,
-  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+var SampleRobot;
 
 SampleRobot = (function() {
 
-  function SampleRobot() {
-    this.onHitByBullet = __bind(this.onHitByBullet, this);
-
-    this.onScannedRobot = __bind(this.onScannedRobot, this);
-
-    this.onIdle = __bind(this.onIdle, this);
-
-  }
+  function SampleRobot() {}
 
   SampleRobot.prototype.onIdle = function(ev) {
     var robot;
@@ -21,14 +13,24 @@ SampleRobot = (function() {
     return robot.rotateCannon(360);
   };
 
+  SampleRobot.prototype.onRobotCollision = function(ev) {
+    return console.log('onRobotCollision', ev);
+  };
+
+  SampleRobot.prototype.onWallCollision = function(ev) {
+    return console.log('onWallCollision', ev);
+  };
+
   SampleRobot.prototype.onScannedRobot = function(ev) {
     var robot;
+    console.log('onScannedRobot', ev);
     robot = ev.robot;
     return robot.fire(1);
   };
 
   SampleRobot.prototype.onHitByBullet = function(ev) {
     var robot;
+    console.log('onHitByBullet', ev);
     robot = ev.robot;
     return robot.turn(90 - ev.bulletBearing);
   };
