@@ -81,6 +81,7 @@ class Game
         for roundNumber in [0..rounds]
             break if @events.length == 0
             round = @events.shift()
+
             for object in round.objects
                 switch object.type
                     when 'tank'
