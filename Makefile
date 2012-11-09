@@ -15,15 +15,7 @@ clean:
 
 setup:
 	@rm -rf ./node_modules
-	@npm install grunt
-	@npm install grunt-css
-	@npm install grunt-shell
-	@npm install grunt-compass
-	@npm install ejs
-	@npm install grunt-templater
-	@npm install grunt-coffee
-	@npm install growl
-	@npm install grunt-growl
+	@cat node-requirements | xargs npm install
 
 run: run-server sync
 
