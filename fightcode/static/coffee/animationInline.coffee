@@ -10,13 +10,13 @@ for i in [1..numberOfRounds]
             id: 'tank001',
             position:
                 x: 10 + (i / 3)
-                y: 100
+                y: 100 + (i / 6)
             health:
                 100 - (i / 20)
             angle:
-                120
+                (i / 10)
             cannonAngle:
-                130 + i
+                (i / 8)
         ],
 
         events: []
@@ -26,6 +26,11 @@ for i in [1..numberOfRounds]
         type: 'moving',
         id: 'tank001'
     ) if i == 1
+
+    round.events.push(
+        type: 'backwards',
+        id: 'tank001'
+    ) if i == (numberOfRounds / 2)
 
     round.events.push(
         type: 'stopped',

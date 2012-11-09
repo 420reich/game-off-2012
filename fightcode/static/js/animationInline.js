@@ -13,11 +13,11 @@ for (i = _i = 1; 1 <= numberOfRounds ? _i <= numberOfRounds : _i >= numberOfRoun
         id: 'tank001',
         position: {
           x: 10 + (i / 3),
-          y: 100
+          y: 100 + (i / 6)
         },
         health: 100 - (i / 20),
-        angle: 120,
-        cannonAngle: 130 + i
+        angle: i / 10,
+        cannonAngle: i / 8
       }
     ],
     events: []
@@ -25,6 +25,12 @@ for (i = _i = 1; 1 <= numberOfRounds ? _i <= numberOfRounds : _i >= numberOfRoun
   if (i === 1) {
     round.events.push({
       type: 'moving',
+      id: 'tank001'
+    });
+  }
+  if (i === (numberOfRounds / 2)) {
+    round.events.push({
+      type: 'backwards',
       id: 'tank001'
     });
   }

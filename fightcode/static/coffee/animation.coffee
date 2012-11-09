@@ -38,6 +38,20 @@ class Game
         @objects[object.id] = tankObject
         return tankObject
 
+    handleTank: (object) =>
+        if not @objects[object.id]
+            tank = @createTank(object)
+        else
+            tank = @objects[object.id]
+
+        tank.tank.css('top', object.position.y)
+        tank.tank.css('left', object.position.x)
+        tank.body.css('transform', "rotate(#{ object.angle }deg)")
+
+        tank.cannon.css('transform', "rotate(#{ object.angle + object.cannonAngle }deg)")
+
+        tank.life.css('width', 30 * object.health / 100)
+
     play: (timestamp) =>
         progress = timestamp - @lastRound
         rounds = progress / @options.msPerRound
@@ -47,22 +61,17 @@ class Game
             break if @events.length == 0
             round = @events.shift()
             for object in round.objects
-                if object.type == 'tank'
-                    if not @objects[object.id]
-                        tank = @createTank(object)
-                    else
-                        tank = @objects[object.id]
-
-                    tank.tank.css('top', object.position.y)
-                    tank.tank.css('left', object.position.x)
-                    tank.cannon.css('transform', "rotate(#{ object.cannonAngle }deg)")
-
-                    tank.life.css('width', 30 * object.health / 100)
+                switch object.type
+                    when 'tank'
+                        @handleTank(object)
 
             for event in round.events
-                if event.type == 'moving'
-                    @objects[event.id].tank.addClass('moving')
-                if event.type == 'stopped'
-                    @objects[event.id].tank.removeClass('moving')
+                switch event.type
+                    when 'moving'
+                        @objects[event.id].tank.addClass('moving')
+                    when 'backwards'
+                        @objects[event.id].tank.addClass('backwards')
+                    when 'stopped'
+                        @objects[event.id].tank.removeClass('backwards').removeClass('moving')
 
         requestAnimationFrame(@play) if @events.length > 0
