@@ -101,7 +101,7 @@ Arena = (function() {
   function Arena() {
     this.width = 800;
     this.height = 600;
-    this.walls = [new WallStatus(0, 0, this.width, 1), new WallStatus(this.width, 0, 1, this.height), new WallStatus(0, this.height, this.width, 1), new WallStatus(0, 0, 1, this.height)];
+    this.walls = [new WallStatus(this.width / 2, 0, this.width, 1), new WallStatus(this.width, this.height / 2, 1, this.height), new WallStatus(this.width / 2, this.height, this.width, 1), new WallStatus(0, this.height / 2, 1, this.height)];
   }
 
   return Arena;
@@ -380,7 +380,7 @@ Engine = (function() {
     _ref1 = this.robotsStatus;
     for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
       status = _ref1[_j];
-      if (status === robotStatus) {
+      if (status === robotStatus || !status.isAlive()) {
         continue;
       }
       if (robotStatus.intersects(status)) {
@@ -395,6 +395,11 @@ Engine = (function() {
       }
     }
     return actions;
+  };
+
+  Engine.prototype.checkSight = function(robotStatus) {
+    var actions;
+    return actions = new RobotActions();
   };
 
   Engine.prototype.fight = function() {
@@ -444,6 +449,8 @@ Engine = (function() {
         if (status instanceof RobotStatus) {
           aliveRobots++;
           actions = this.checkCollision(status);
+          status.updateQueue(actions);
+          actions = this.checkSight(status);
           status.updateQueue(actions);
         }
       }

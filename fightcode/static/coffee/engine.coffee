@@ -60,10 +60,10 @@ class Arena
         @width = 800
         @height = 600
         @walls = [
-            new WallStatus(0, 0, @width, 1),
-            new WallStatus(@width, 0, 1, @height),
-            new WallStatus(0, @height, @width, 1),
-            new WallStatus(0, 0, 1, @height)
+            new WallStatus(@width / 2, 0, @width, 1),
+            new WallStatus(@width, @height / 2, 1, @height),
+            new WallStatus(@width / 2, @height, @width, 1),
+            new WallStatus(0, @height / 2, 1, @height)
         ]
 
 class ElementStatus
@@ -269,7 +269,7 @@ class Engine
                 @safeCall(robotStatus.robot, 'onWallCollision', actions)
 
         for status in @robotsStatus
-            continue if status == robotStatus
+            continue if status == robotStatus or !status.isAlive()
 
             if robotStatus.intersects(status)
                 eventName = 'onRobotCollision'
@@ -282,6 +282,11 @@ class Engine
                 @safeCall(robotStatus.robot, eventName, actions)
 
         actions
+
+    checkSight: (robotStatus) ->
+        actions = new RobotActions()
+        # for status in @robotsStatus
+
 
     fight: ->
         aliveRobots = @robotsStatus.length
@@ -329,6 +334,8 @@ class Engine
                 if status instanceof RobotStatus
                     aliveRobots++
                     actions = @checkCollision(status)
+                    status.updateQueue(actions)
+                    actions = @checkSight(status)
                     status.updateQueue(actions)
 
         if @isDraw()
