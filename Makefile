@@ -20,12 +20,12 @@ setup:
 run: run-server sync
 
 run-server: kill-server
-	@cd fightcode && python -m SimpleHTTPServer &
+	@cd fightcode && node app.js &
 	@echo
-	@echo ">>>>> fightcode server running at http://localhost:8000/index.html <<<<<"
+	@echo ">>>>> fightcode server running at http://localhost:3000/index.html <<<<<"
 	@echo
 
 kill-server:
-	@-ps aux | egrep SimpleHTTPServer | egrep -v egrep | awk ' { print $$2 } ' | xargs kill -9
+	@-ps aux | egrep fightcode | egrep -v egrep | awk ' { print $$2 } ' | xargs kill -9
 	@echo 'fightcode server killed!'
 

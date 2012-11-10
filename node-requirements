@@ -8,3 +8,4 @@ grunt-coffee
 growl
 grunt-growl
 express
+ejs
