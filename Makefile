@@ -20,7 +20,7 @@ setup:
 run: run-server sync
 
 run-server: kill-server
-	@cd fightcode && node app.js &
+	@node fightcode/app.js &
 	@echo
 	@echo ">>>>> fightcode server running at http://localhost:3000/index.html <<<<<"
 	@echo
