@@ -3,3 +3,4 @@
 *.pyc
 output/
 .sass-cache
+node_modules
