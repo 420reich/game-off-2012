@@ -7,11 +7,11 @@ var express = require('express')
   , routes = require('./routes')
   , http = require('http')
   , path = require('path');
-  //, process = require('process');
 
 var app = express();
 
 process.env.CWD = process.cwd();
+console.log(process.env.CWD);
 
 app.configure(function(){
     app.set('port', process.env.PORT || 3000);
