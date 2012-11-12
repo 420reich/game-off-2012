@@ -12,7 +12,8 @@ var express = require('express'),
 var app = express();
 
 process.env.CWD = process.cwd();
-//console.log(fs.readdirSync(process.env.CWD));
+console.log(fs.readdirSync(process.env.CWD));
+console.log(path.join(process.env.CWD, 'fightcode', 'static'));
 
 app.configure(function(){
     app.set('port', process.env.PORT || 3000);
