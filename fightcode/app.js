@@ -13,9 +13,6 @@ var app = express();
 
 process.env.CWD = process.cwd();
 var staticPath = path.join(process.env.CWD, 'fightcode', 'static');
-console.log(fs.readdirSync(process.env.CWD));
-console.log(staticPath);
-console.log(fs.readdirSync(staticPath));
 
 app.configure(function(){
     app.set('port', process.env.PORT || 3000);
