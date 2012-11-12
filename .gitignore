@@ -1,17 +1,5 @@
 *.pyc
-exty/output
-exty/certificates
 .DS_Store
 *.pyc
 output/
-exty/chrome/static
-exty/firefox/data/static
-node_modules
-exty/chrome/manifest.json
-exty/firefox/package.json
-exty/common/static/css
 .sass-cache
-exty/firefox/lib/background.js
-exty/android/assets/www
-exty/android/bin
-exty/android/gen
