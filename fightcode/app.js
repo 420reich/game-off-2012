@@ -12,8 +12,10 @@ var express = require('express'),
 var app = express();
 
 process.env.CWD = process.cwd();
+var staticPath = path.join(process.env.CWD, 'fightcode', 'static');
 console.log(fs.readdirSync(process.env.CWD));
-console.log(path.join(process.env.CWD, 'fightcode', 'static'));
+console.log(staticPath);
+console.log(fs.readdirSync(staticPath));
 
 app.configure(function(){
     app.set('port', process.env.PORT || 3000);
@@ -26,7 +28,7 @@ app.configure(function(){
     app.use(express.cookieParser('fnakfnkj3141349139dsikdkw'));
     app.use(express.session());
     app.use(app.router);
-    app.use(express.static(path.join(process.env.CWD, 'fightcode', 'static')));
+    app.use(express.static(staticPath));
 });
 
 app.configure('development', function(){
