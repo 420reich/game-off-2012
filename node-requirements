@@ -9,3 +9,6 @@ growl
 grunt-growl
 express
 ejs
+everyauth
+pg
+sequelize

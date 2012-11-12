@@ -29,3 +29,9 @@ kill-server:
 	@-ps aux | egrep fightcode | egrep -v egrep | awk ' { print $$2 } ' | xargs kill -9
 	@echo 'fightcode server killed!'
 
+postgre:
+	@pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
+
+kill_postgre:
+	@pg_ctl -D /usr/local/var/postgres stop -s -m fast
+
