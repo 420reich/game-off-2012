@@ -54,6 +54,7 @@ var staticPath = path.join(process.env.CWD, 'fightcode', 'static');
 var modelsPath = path.join(process.env.CWD, 'fightcode', 'models');
 
 var db = process.env.DATABASE_URL;
+console.log(db);
 if (db == null) {
     db = {
         protocol: 'tcp',
@@ -64,7 +65,7 @@ if (db == null) {
         password: null
     }
 } else {
-    matches = db.match(/^(postgres)\:\/\/(\w+):(\w+)@(\w+):(\w+)\/(\w+)$/);
+    matches = db.match(/^(postgres)\:\/\/(\w+):(\w+)@(.+?):(\w+)\/(.+)$/);
     db = {
         protocol: matches[1],
         host: matches[4],
