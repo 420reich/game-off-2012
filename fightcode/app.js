@@ -7,8 +7,11 @@ var express = require('express')
   , routes = require('./routes')
   , http = require('http')
   , path = require('path');
+  //, process = require('process');
 
 var app = express();
+
+process.env.CWD = process.cwd();
 
 app.configure(function(){
     app.set('port', process.env.PORT || 3000);
@@ -21,7 +24,7 @@ app.configure(function(){
     app.use(express.cookieParser('fnakfnkj3141349139dsikdkw'));
     app.use(express.session());
     app.use(app.router);
-    app.use(express.static(path.join(__dirname, 'static')));
+    app.use(express.static(path.join(process.env.CWD, 'fightcode', 'static')));
 });
 
 app.configure('development', function(){
