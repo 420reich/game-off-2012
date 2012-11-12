@@ -3,16 +3,16 @@
  * Module dependencies.
  */
 
-var express = require('express')
-  , routes = require('./routes')
-  , http = require('http')
-  , path = require('path')
-  , fs = require('fs');
+var express = require('express'),
+    routes = require('./routes'),
+    http = require('http'),
+    path = require('path');
+  //, fs = require('fs');
 
 var app = express();
 
 process.env.CWD = process.cwd();
-console.log(fs.readdirSync(process.env.CWD));
+//console.log(fs.readdirSync(process.env.CWD));
 
 app.configure(function(){
     app.set('port', process.env.PORT || 3000);
