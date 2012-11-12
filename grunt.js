@@ -95,7 +95,8 @@ module.exports = function(grunt) {
                 images: 'fightcode/static/img',
                 linecomments: true,
                 forcecompile: false,
-                relativeassets: true
+                relativeassets: true,
+                bundleExec: true
             }
         },
 
