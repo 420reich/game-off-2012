@@ -15,6 +15,6 @@
     "everyauth": "*",
     "pg": "*",
     "sequelize": "*",
-    "node-gavatar": "*"
+    "node-gravatar": "*"
   }
 }
