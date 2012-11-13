@@ -6,6 +6,25 @@
     <link rel="stylesheet" href="/output/fightcode.min.css" type="text/css">
 </head>
 <body>
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <a class="brand" href="#">fightcode</a>
+            <ul class="nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">Ranking</a></li>
+                <li><a href="#">My Robots</a></li>
+            </ul>
+            <ul class="nav pull-right">
+                <% if (user != null) { %>
+                <li><a href="/logout">logout</a></li>
+                <% } else { %>
+                <li><a href="/auth/github">login with github</a></li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+
+
     <div class="board">
     </div>
     <script src="/output/fightcode.thirdParty.min.js"></script>

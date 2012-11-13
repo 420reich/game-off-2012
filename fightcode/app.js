@@ -54,7 +54,6 @@ var staticPath = path.join(process.env.CWD, 'fightcode', 'static');
 var modelsPath = path.join(process.env.CWD, 'fightcode', 'models');
 
 var db = process.env.DATABASE_URL;
-console.log(db);
 if (db == null) {
     db = {
         protocol: 'tcp',
@@ -99,9 +98,21 @@ app.configure(function(){
     app.use(express.methodOverride());
     app.use(express.cookieParser('fnakfnkj3141349139dsikdkw'));
     app.use(express.session());
-    app.use(app.router);
     app.use(express.static(staticPath));
-    app.use(everyauth.middleware());
+    app.use(everyauth.middleware(app));
+
+    app.use(function(req, res, next){
+        res.locals.session = req.session;
+
+        res.locals.user = null;
+        if (req.session.auth != null && req.session.auth.github.user != null) {
+            res.locals.user = req.session.auth.github.user;
+        }
+
+        next();
+    });
+
+    app.use(app.router);
 });
 
 app.configure('development', function(){
@@ -110,8 +121,6 @@ app.configure('development', function(){
 
 app.get('/', routes.index);
 
-everyauth.helpExpress(app);
-
 http.createServer(app).listen(app.get('port'), function(){
-  console.log("Express server listening on port " + app.get('port'));
+    console.log("Express server listening on port " + app.get('port'));
 });

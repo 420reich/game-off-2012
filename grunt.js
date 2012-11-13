@@ -3,6 +3,8 @@ module.exports = function(grunt) {
 
     var cssFiles = {
         website: [
+            'fightcode/static/css/bootstrap.min.css',
+            'fightcode/static/css/home.css',
             'fightcode/static/css/fight.css'
         ]
     };
