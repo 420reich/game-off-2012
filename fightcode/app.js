@@ -60,7 +60,7 @@ if (db == null) {
         host: 'localhost',
         port: 5432,
         database: 'fightcode',
-        user: 'bernardo',
+        user: 'fightcode',
         password: null
     }
 } else {
