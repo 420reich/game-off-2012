@@ -12,7 +12,6 @@ var app = express();
 
 process.env.CWD = process.cwd();
 var staticPath = path.join(process.env.CWD, 'fightcode', 'static');
-var modelsPath = path.join(process.env.CWD, 'fightcode', 'models');
 var configPath = path.join(process.env.CWD, 'fightcode', 'config');
 
 var everyauth = require(path.join(configPath, 'auth'));
@@ -31,13 +30,7 @@ app.configure(function(){
     app.use(everyauth.middleware(app));
 
     app.use(function(req, res, next){
-        res.locals.session = req.session;
-
-        res.locals.user = null;
-        if (req.session.auth != null && req.session.auth.github.user != null) {
-            res.locals.user = req.session.auth.github.user;
-        }
-
+        res.locals.req = req;
         next();
     });
 

@@ -15,8 +15,13 @@
                 <li><a href="#">My Robots</a></li>
             </ul>
             <ul class="nav pull-right">
-                <% if (user != null) { %>
-                <li><a href="/logout">logout</a></li>
+                <% if (req.loggedIn) { %>
+                <li>
+                    <a class="profile" href="#"><img src="<%= req.user.thumb() %>" /></a>
+                </li>
+                <li>
+                    <a href="/logout">logout</a>
+                </li>
                 <% } else { %>
                 <li><a href="/auth/github">login with github</a></li>
                 <% } %>
