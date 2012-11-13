@@ -2,40 +2,44 @@
 .navbar .navbar-inner {
   padding-left: 20px;
 }
+/* line 5, ../scss/home.scss */
+.navbar .nav > li > a.profile {
+  padding: 2px;
+}
 
-/* line 7, ../scss/home.scss */
+/* line 10, ../scss/home.scss */
 .home {
   padding: 60px 20px 0 20px;
 }
-/* line 10, ../scss/home.scss */
+/* line 13, ../scss/home.scss */
 .home .board {
   width: 600px;
   height: 450px;
   margin: 15px auto 0;
 }
-/* line 16, ../scss/home.scss */
+/* line 19, ../scss/home.scss */
 .home .row-fluid {
   width: 99%;
   margin: 0 20px;
   padding-top: 20px;
 }
-/* line 22, ../scss/home.scss */
+/* line 25, ../scss/home.scss */
 .home pre {
   max-height: 400px;
   max-width: 582px;
   margin-left: 36px;
 }
-/* line 28, ../scss/home.scss */
+/* line 31, ../scss/home.scss */
 .home .documentation {
   margin-top: 20px;
 }
 
-/* line 33, ../scss/home.scss */
+/* line 36, ../scss/home.scss */
 code[class*="language-"], pre[class*="language-"] {
   text-shadow: none;
 }
 
-/* line 37, ../scss/home.scss */
+/* line 40, ../scss/home.scss */
 code, pre {
   font-size: 16px;
 }
