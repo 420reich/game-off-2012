@@ -1,9 +1,26 @@
-body {
-    padding-top: 60px;
-}
-
 .navbar {
     .navbar-inner {
         padding-left: 20px;
     }
+}
+
+.home {
+    padding: 60px 20px 0 20px;
+
+    .board {
+        margin: 0 0 20px -20px;
+    }
+
+    .row-fluid {
+        width: 99%;
+        margin: 20px 20px 0;
+    }
+}
+
+code[class*="language-"], pre[class*="language-"] {
+    text-shadow: none;
+}
+
+code, pre {
+    font-size: 16px;
 }

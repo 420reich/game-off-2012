@@ -5,7 +5,7 @@
     <title>Test</title>
     <link rel="stylesheet" href="/output/fightcode.min.css" type="text/css">
 </head>
-<body>
+<body class="home">
     <div class="navbar navbar-fixed-top">
         <div class="navbar-inner">
             <a class="brand" href="#">fightcode</a>
@@ -24,16 +24,71 @@
         </div>
     </div>
 
-    <div class="container">
-        <div class="row">
-            <div class="span12">
-                <h1>How about coding while killing some tanks?</h1>
+    <div class="row-fluid">
+        <div class="span4">
+            <h1>How about coding while killing some robots?</h1>
+
+            <p class="lead"><a href="http://fightcodegame.com">FightCode</a> allows you to code your own robots using Javascript.</p>
+            <p>Code your winning robot and start climbing the ranks.</p>
+            <p>Challenge friends and foe to win glory and fortune (well, technically not fortune, but you get the idea).</p>
+            <p>You can always check the example robot to get a feel on how things happen in the game.</p>
+            <p><a href="http://fightcodegame.com">Create a robot</a> today and let the carnage begin.</p>
+            <p>You can also <a href="/invite">invite friends</a>. Killing a buddy is a lot cooler than killing a stranger (which is also cool, by the way).</p>
+        </div>
+        <div class="span8">
+            <div class="board">
             </div>
         </div>
     </div>
 
-    <div class="board">
+    <div class="row-fluid">
+        <div class="span4">
+            <h1>Ok, I want my robot!</h1>
+            <p>Coding robots is pretty easy and should be natural if you've ever done any javascript.</p>
+            <p>The robot described here is not exactly a champion, but it should be enough to showcase some of the stuff available to players.</p>
+            <p>If you feel adventurous, go ahead and <a href="/robots/create">create a robot</a>.</p>
+            <p>For more information on the available methods, keep reading.</p>
+        </div>
+        <div class="span8">
+            <pre><code class="language-javascript">
+function SampleRobot() {}
+
+// well, we need to do something...
+// whenever our robot is idle, this method gets called.
+SampleRobot.prototype.onIdle = function(ev) {
+    var robot;
+    robot = ev.robot;
+    robot.ahead(150);
+    robot.rotateCannon(360);
+    robot.back(100);
+    robot.rotateCannon(360);
+    return robot.turn(20);
+};
+
+// this method gets called whenever we hit another robot...
+SampleRobot.prototype.onRobotCollision = function(ev) {};
+
+// this method gets called whenever we hit a wall...
+SampleRobot.prototype.onWallCollision = function(ev) {};
+
+// yay we see another robot! time to wreak some havoc...
+SampleRobot.prototype.onScannedRobot = function(ev) {
+    var robot;
+    robot = ev.robot;
+    return robot.fire(1);
+};
+
+// ohhh... we were hit by another robot...
+SampleRobot.prototype.onHitByBullet = function(ev) {
+    var robot;
+    console.log('onHitByBullet', ev);
+    robot = ev.robot;
+    return robot.turn(90 - ev.bulletBearing);
+};
+            </code></pre>
+        </div>
     </div>
+
     <script src="/output/fightcode.thirdParty.min.js"></script>
     <!--<script src="/output/fightcode.engine.min.js"></script>-->
     <!--<script src="/output/fightcode.animation.min.js"></script>-->
