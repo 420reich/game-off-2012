@@ -42,6 +42,11 @@
     </div>
 
     <div class="row-fluid">
+        <div class="span12">
+        </div>
+    </div>
+
+    <div class="row-fluid">
         <div class="span5">
             <h1>Ok, I want my robot!</h1>
             <p>Coding robots is pretty easy and should be natural if you've ever done any javascript.</p>
@@ -88,6 +93,61 @@ SampleRobot.prototype.onHitByBullet = function(ev) {
             </code></pre>
         </div>
     </div>
+
+    <div class="row-fluid">
+        <div class="span12">
+            <h1>Documentation</h1>
+            <p class="lead">Robot Actions</p>
+            <p>It is important to understand how robots interact with the game, FightCode provides you with an action queue that you can put items in.</p>
+            <p>Whenever you call one of the actions available to your robot, one or more items get put in the queue.</p>
+            <p>FightCode uses this queue to synchronize your robot's actions with the other events in the game.</p>
+
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span5">
+            <p class="lead">Basic structure</p>
+            <p>The robot basic structure is just a regular javascript constructor function.</p>
+        </div>
+        <div class="span7">
+            <pre><code class="language-javascript">
+// pretty simple, huh?
+function MyRobot() {}
+            </code></pre>
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span5">
+            <p class="lead">onIdle</p>
+            <p>This method will be called any time your robot does not have any actions in the action queue.</p>
+            <p>This method takes an event object that is featured in the code to the right.</p>
+        </div>
+        <div class="span7">
+            <pre><code class="language-javascript">
+// well, we need to do something...
+// whenever our robot is idle, this method gets called.
+MyRobot.prototype.onIdle = function(ev) {
+    var robot;
+    robot = ev.robot;
+    robot.ahead(150);
+    robot.rotateCannon(360);
+    robot.back(100);
+    robot.rotateCannon(360);
+    return robot.turn(20);
+};
+
+// the ev argument has the following structure
+ev = {
+    robot: object // used to call actions for my robot
+                  // or to get informations about it
+};
+            </code></pre>
+        </div>
+    </div>
+
+
 
     <script src="/output/fightcode.thirdParty.min.js"></script>
     <!--<script src="/output/fightcode.engine.min.js"></script>-->
