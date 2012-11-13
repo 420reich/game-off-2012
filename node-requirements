@@ -12,4 +12,4 @@ ejs
 everyauth
 pg
 sequelize
-node-gravatar
+gravatar
