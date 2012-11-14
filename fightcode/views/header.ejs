@@ -18,7 +18,7 @@
             <ul class="nav pull-right">
                 <% if (req.loggedIn) { %>
                 <li>
-                    <a class="profile" href="#"><img src="<%= req.user.thumb() %>" /></a>
+                    <a class="profile" href="/user/<%= req.user.login %>"><img src="<%= req.user.thumb() %>" /></a>
                 </li>
                 <li>
                     <a href="/logout">logout</a>
