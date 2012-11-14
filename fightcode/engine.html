@@ -5,6 +5,29 @@
     <link rel="stylesheet" href="static/output/fightcode.min.css" type="text/css">
 </head>
 <body>
+    <div class="board"></div>
+    <script src="static/output/fightcode.thirdParty.min.js"></script>
     <script src="static/output/fightcode.engine.min.js"></script>
+    <script src="static/output/fightcode.animation.min.js"></script>
+    <script src="static/js/robot.js"></script>
+    <script>
+
+engine = new Engine(480, 480, 2000, new SampleRobot(), new SampleRobot());
+
+engine.robotsStatus[0].rectangle.angle = 36
+engine.robotsStatus[0].rectangle.position = new Vector2(400, 100)
+
+engine.robotsStatus[1].rectangle.angle = 90
+engine.robotsStatus[1].rectangle.position = new Vector2(500, 150)
+
+result = engine.fight();
+
+game = new Game($('.board'), result, {
+    msPerRound: 10
+});
+
+game.initialize();
+
+    </script>
 </body>
 </html>
