@@ -2,9 +2,9 @@ var GithubApi, User, basePath, path, sequelize;
 
 path = require('path');
 
-basePath = path.join(process.cwd(), 'fightcode');
+basePath = path.join(process.env.CWD, 'fightcode');
 
-sequelize = require(path.join(basePath, 'onfig', 'database'));
+sequelize = require(path.join(basePath, 'config', 'database'));
 
 User = sequelize["import"](path.join(basePath, 'models', 'user'));
 
