@@ -68,7 +68,7 @@
             ]
             var duck = new Function("window", "with(window){" + duckCode.join('') + "\nreturn robotClass;}")({});
 
-            engine = new Engine(480, 480, robot, new duck());
+            engine = new Engine(480, 480, 2000, robot, new duck());
 
             engine.robotsStatus[0].position = new Vector2(100, 100);
             engine.robotsStatus[1].position = new Vector2(250, 250);

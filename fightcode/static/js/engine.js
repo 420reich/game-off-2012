@@ -339,8 +339,9 @@ RobotStatus = (function(_super) {
 Engine = (function() {
 
   function Engine() {
-    var height, robot, robots, width;
-    width = arguments[0], height = arguments[1], robots = 3 <= arguments.length ? __slice.call(arguments, 2) : [];
+    var height, maxTurns, robot, robots, width;
+    width = arguments[0], height = arguments[1], maxTurns = arguments[2], robots = 4 <= arguments.length ? __slice.call(arguments, 3) : [];
+    this.maxTurns = maxTurns;
     this.robots = robots;
     this.round = 0;
     this.arena = new Arena(width, height);
@@ -357,7 +358,7 @@ Engine = (function() {
   }
 
   Engine.prototype.isDraw = function() {
-    return this.round > 20000;
+    return this.round > this.maxTurns;
   };
 
   Engine.prototype.safeCall = function() {

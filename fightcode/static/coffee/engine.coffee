@@ -246,14 +246,14 @@ class RobotStatus extends ElementStatus
         @queue = actions.queue.concat(@queue)
 
 class Engine
-    constructor: (width, height, @robots...) ->
+    constructor: (width, height, @maxTurns, @robots...) ->
         @round = 0 # unit of time
 
         @arena = new Arena(width, height)
         @robotsStatus = (new RobotStatus(robot, @arena) for robot in @robots)
 
     isDraw: ->
-        return @round > 20000
+        return @round > @maxTurns
 
     safeCall: (obj, method, params...) ->
         if !obj[method]
