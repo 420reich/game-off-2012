@@ -5,7 +5,9 @@ module.exports = function(grunt) {
         website: [
             'fightcode/static/css/bootstrap.min.css',
             'fightcode/static/css/prism.css',
+            'fightcode/static/css/codemirror.css',
             'fightcode/static/css/home.css',
+            'fightcode/static/css/create.css',
             'fightcode/static/css/fight.css'
         ]
     };
@@ -24,7 +26,10 @@ module.exports = function(grunt) {
 
         thirdParty: [
             'fightcode/static/js/jquery-1.8.2.min.js',
-            'fightcode/static/js/prism.js'
+            'fightcode/static/js/prism.js',
+            'fightcode/static/js/codemirror.js',
+            'fightcode/static/js/coffeescript.js',
+            'fightcode/static/js/javascript.js'
         ]
     };
 

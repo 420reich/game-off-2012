@@ -1,0 +1,53 @@
+<% include header.ejs %>
+<div class="create-robot">
+
+    <div class="row-fluid">
+        <div class="span12">
+            <h1>Let's create a new Robot?</h1>
+            <p>Just type and watch the live preview to the right.</p>
+        </div>
+    </div>
+ 
+    <div class="row-fluid">
+        <div class="span7">
+            <div class="editor"></div>
+        </div>
+        <div class="span5">
+            <div class="board">
+            </div>
+        </div>
+    </div>
+
+    <form method="POST">
+        <div class="row-fluid">
+            <div class="span5">
+                <h2>How to call this awesomeness?</h2>
+            </div>
+            <div class="span7">
+                <p><input type="text"></p>
+            </div>
+        </div>
+    </form>
+</div>
+
+<% include scripts.ejs %>
+<script>
+    $(function() {
+        var editor = $('.editor')[0];
+        var codeMirror = CodeMirror(editor, {
+            value: "//FightCode can only understand your robot\n//if it's class is called robotClass\nvar robotClass = function(){\n\t\n};\n\nrobotClass.prototype.onIdle = function(ev) {\n\tvar robot = ev.robot;\n\trobot.ahead(100);\n\t\n};\n\nrobotClass.prototype.onScannedRobot = function(ev) {\n\tvar robot = ev.robot;\n\t\n};",
+            mode:  "javascript",
+            theme: 'ambiance',
+            height: 500,
+            tabSize: 2,
+            lineNumbers: true,
+            onChange: function(editor, code) {
+                var robotCode = editor.getValue();
+                var robotModule = new Function(robotCode + "\nreturn robotClass;");
+                var robotClass = robotModule();
+                robot = new robotClass();
+            }
+        });
+    });
+</script>
+<% include footer.ejs %>

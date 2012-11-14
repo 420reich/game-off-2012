@@ -4,21 +4,24 @@
  */
 
 var express = require('express'),
-    routes = require('./routes'),
     http = require('http'),
     path = require('path');
+
+var index = require('./routes/index.js'),
+    create = require('./routes/create.js');
 
 var app = express();
 
 process.env.CWD = process.cwd();
 var staticPath = path.join(process.env.CWD, 'fightcode', 'static');
+var viewsPath = path.join(process.env.CWD, 'fightcode', 'views');
 var configPath = path.join(process.env.CWD, 'fightcode', 'config');
 
 var everyauth = require(path.join(configPath, 'auth'));
 
 app.configure(function(){
     app.set('port', process.env.PORT || 3000);
-    app.set('views', __dirname + '/views');
+    app.set('views', viewsPath);
     app.set('view engine', 'ejs');
     app.use(express.favicon());
     app.use(express.logger('dev'));
@@ -41,7 +44,8 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-app.get('/', routes.index);
+app.get('/robots/create', create.create);
+app.get('/', index.index);
 
 http.createServer(app).listen(app.get('port'), function(){
     console.log("Express server listening on port " + app.get('port'));

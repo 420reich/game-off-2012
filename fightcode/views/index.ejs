@@ -1,34 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>Test</title>
-    <link rel="stylesheet" href="/output/fightcode.min.css" type="text/css">
-</head>
-<body class="home">
-    <div class="navbar navbar-fixed-top">
-        <div class="navbar-inner">
-            <a class="brand" href="#">fightcode</a>
-            <ul class="nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#">Ranking</a></li>
-                <li><a href="#">My Robots</a></li>
-            </ul>
-            <ul class="nav pull-right">
-                <% if (req.loggedIn) { %>
-                <li>
-                    <a class="profile" href="#"><img src="<%= req.user.thumb() %>" /></a>
-                </li>
-                <li>
-                    <a href="/logout">logout</a>
-                </li>
-                <% } else { %>
-                <li><a href="/auth/github">login with github</a></li>
-                <% } %>
-            </ul>
-        </div>
-    </div>
-
+<% include header.ejs %>
+<div class="home">
     <div class="row-fluid">
         <div class="span5">
             <h1>How about coding while killing some robots?</h1>
@@ -61,11 +32,11 @@
         </div>
         <div class="span7">
             <pre><code class="language-javascript">
-function SampleRobot() {}
+    function SampleRobot() {}
 
-// well, we need to do something...
-// whenever our robot is idle, this method gets called.
-SampleRobot.prototype.onIdle = function(ev) {
+    // well, we need to do something...
+    // whenever our robot is idle, this method gets called.
+    SampleRobot.prototype.onIdle = function(ev) {
     var robot;
     robot = ev.robot;
     robot.ahead(150);
@@ -73,28 +44,28 @@ SampleRobot.prototype.onIdle = function(ev) {
     robot.back(100);
     robot.rotateCannon(360);
     robot.turn(20);
-};
+    };
 
-// this method gets called whenever we hit another robot...
-SampleRobot.prototype.onRobotCollision = function(ev) {};
+    // this method gets called whenever we hit another robot...
+    SampleRobot.prototype.onRobotCollision = function(ev) {};
 
-// this method gets called whenever we hit a wall...
-SampleRobot.prototype.onWallCollision = function(ev) {};
+    // this method gets called whenever we hit a wall...
+    SampleRobot.prototype.onWallCollision = function(ev) {};
 
-// yay we see another robot! time to wreak some havoc...
-SampleRobot.prototype.onScannedRobot = function(ev) {
+    // yay we see another robot! time to wreak some havoc...
+    SampleRobot.prototype.onScannedRobot = function(ev) {
     var robot;
     robot = ev.robot;
     robot.fire(1);
-};
+    };
 
-// ohhh... we were hit by another robot...
-SampleRobot.prototype.onHitByBullet = function(ev) {
+    // ohhh... we were hit by another robot...
+    SampleRobot.prototype.onHitByBullet = function(ev) {
     var robot;
     console.log('onHitByBullet', ev);
     robot = ev.robot;
     robot.turn(90 - ev.bulletBearing);
-};
+    };
             </code></pre>
         </div>
     </div>
@@ -117,8 +88,8 @@ SampleRobot.prototype.onHitByBullet = function(ev) {
         </div>
         <div class="span7">
             <pre><code class="language-javascript">
-// pretty simple, huh?
-function MyRobot() {}
+    // pretty simple, huh?
+    function MyRobot() {}
             </code></pre>
         </div>
     </div>
@@ -131,9 +102,9 @@ function MyRobot() {}
         </div>
         <div class="span7">
             <pre><code class="language-javascript">
-// well, we need to do something...
-// whenever our robot is idle, this method gets called.
-MyRobot.prototype.onIdle = function(ev) {
+    // well, we need to do something...
+    // whenever our robot is idle, this method gets called.
+    MyRobot.prototype.onIdle = function(ev) {
     var robot;
     robot = ev.robot;
     robot.ahead(150);
@@ -141,14 +112,14 @@ MyRobot.prototype.onIdle = function(ev) {
     robot.back(100);
     robot.rotateCannon(360);
     robot.turn(20);
-};
+    };
 
-// the ev argument has the following structure
-ev = {
+    // the ev argument has the following structure
+    ev = {
     robot: object,        // used to call actions
                           // for my robot or to get
                           // informations about it
-};
+    };
             </code></pre>
         </div>
     </div>
@@ -161,22 +132,22 @@ ev = {
         </div>
         <div class="span7">
             <pre><code class="language-javascript">
-// this method gets called whenever we hit another robot...
-MyRobot.prototype.onRobotCollision = function(ev) {
+    // this method gets called whenever we hit another robot...
+    MyRobot.prototype.onRobotCollision = function(ev) {
     var robot;
     robot = ev.robot;
     robot.rotateCannon(ev.robotBearing);
-};
+    };
 
-// the ev argument has the following structure
-ev = {
+    // the ev argument has the following structure
+    ev = {
     robot: object,        // used to call actions
                           // for my robot or to get
                           // informations about it
 
     robotBearing: angle   // angle of the other robot in
                           // relation to your robot
-};
+    };
             </code></pre>
         </div>
     </div>
@@ -189,22 +160,22 @@ ev = {
         </div>
         <div class="span7">
             <pre><code class="language-javascript">
-// this method gets called whenever we hit a wall...
-MyRobot.prototype.onWallCollision = function(ev) {
+    // this method gets called whenever we hit a wall...
+    MyRobot.prototype.onWallCollision = function(ev) {
     var robot;
     robot = ev.robot;
     robot.turn(ev.wallBearing);
-};
+    };
 
-// the ev argument has the following structure
-ev = {
+    // the ev argument has the following structure
+    ev = {
     robot: object,        // used to call actions
                           // for my robot or to get
                           // informations about it
 
     wallBearing: angle    // angle of the wall in relation
                           // to your robot
-};
+    };
             </code></pre>
         </div>
     </div>
@@ -224,19 +195,19 @@ ev = {
         </div>
         <div class="span7">
             <pre><code class="language-javascript">
-// yay we see another robot! time to wreak some havoc...
-MyRobot.prototype.onScannedRobot = function(ev) {
+    // yay we see another robot! time to wreak some havoc...
+    MyRobot.prototype.onScannedRobot = function(ev) {
     var robot;
     robot = ev.robot;
     robot.fire(1);
-};
+    };
 
-// the ev argument has the following structure
-ev = {
+    // the ev argument has the following structure
+    ev = {
     robot: object         // used to call actions
                           // for my robot or to get
                           // informations about it
-};
+    };
             </code></pre>
         </div>
     </div>
@@ -249,28 +220,26 @@ ev = {
         </div>
         <div class="span7">
             <pre><code class="language-javascript">
-// ohhh... we were hit by another robot...
-MyRobot.prototype.onHitByBullet = function(ev) {
+    // ohhh... we were hit by another robot...
+    MyRobot.prototype.onHitByBullet = function(ev) {
     var robot;
     robot = ev.robot;
     robot.turn(90 - ev.bulletBearing);
-};
+    };
 
-// the ev argument has the following structure
-ev = {
+    // the ev argument has the following structure
+    ev = {
     robot: object,        // used to call actions
                           // for my robot or to get
                           // informations about it
 
      bulletBearing: angle // angle of the bullet in
                           // relation to my robot
-};
+    };
             </code></pre>
         </div>
     </div>
+</div>
 
-    <script src="/output/fightcode.thirdParty.min.js"></script>
-    <!--<script src="/output/fightcode.engine.min.js"></script>-->
-    <!--<script src="/output/fightcode.animation.min.js"></script>-->
-</body>
-</html>
+<% include scripts.ejs %>
+<% include footer.ejs %>
