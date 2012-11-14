@@ -14,7 +14,10 @@ process.env.CWD = process.cwd();
 var staticPath = path.join(process.env.CWD, 'fightcode', 'static');
 var configPath = path.join(process.env.CWD, 'fightcode', 'config');
 
+var dbSession = require(path.join(configPath, 'session'));
 var everyauth = require(path.join(configPath, 'auth'));
+var migrator = require(path.join(configPath, 'migration'));
+migrator.migrate();
 
 app.configure(function(){
     app.set('port', process.env.PORT || 3000);
@@ -25,7 +28,7 @@ app.configure(function(){
     app.use(express.bodyParser());
     app.use(express.methodOverride());
     app.use(express.cookieParser('fnakfnkj3141349139dsikdkw'));
-    app.use(express.session());
+    app.use(express.session(dbSession));
     app.use(express.static(staticPath));
     app.use(everyauth.middleware(app));
 

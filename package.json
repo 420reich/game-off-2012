@@ -15,6 +15,7 @@
     "everyauth": "*",
     "pg": "*",
     "sequelize": "*",
-    "gravatar": "*"
+    "gravatar": "*",
+    "c3store": "*"
   }
 }
