@@ -69,9 +69,7 @@ class RobotActions
         )
 
 class Arena
-    constructor: ->
-        @width = 800
-        @height = 600
+    constructor: (@width, @height) ->
         @walls = [
             new WallStatus(@width / 2, 0, @width, 1),
             new WallStatus(@width, @height / 2, 1, @height),
@@ -97,16 +95,16 @@ class Rectangle
         @position.y + (@dimension.height / 2)
 
     upperRightCorner: ->
-        new Vector2(@right(), @top()).rotate(@angle, @position);
+        new Vector2(@right(), @top()).rotate(@angle, @position)
 
     upperLeftCorner: ->
-        new Vector2(@left(), @top()).rotate(@angle, @position);
+        new Vector2(@left(), @top()).rotate(@angle, @position)
 
     lowerLeftCorner: ->
-        new Vector2(@left(), @bottom()).rotate(@angle, @position);
+        new Vector2(@left(), @bottom()).rotate(@angle, @position)
 
     lowerRightCorner: ->
-        new Vector2(@right(), @bottom()).rotate(@angle, @position);
+        new Vector2(@right(), @bottom()).rotate(@angle, @position)
 
     intersects: (other) ->
         axisList = [
@@ -154,7 +152,6 @@ class Rectangle
         projected = corner.projectTo(axis)
         (axis.x * projected.x) + (axis.y * projected.y);
 
-
 class ElementStatus
     @id: 1
 
@@ -188,7 +185,7 @@ class BulletStatus extends ElementStatus
         @speed = 2
         @strength = 1
         @running = true
-    
+
     isIdle: ->
         false
 
@@ -289,14 +286,14 @@ class RobotStatus extends ElementStatus
         @queue = actions.queue.concat(@queue)
 
 class Engine
-    constructor: (@robots...) ->
+    constructor: (width, height, @maxTurns, @robots...) ->
         @round = 0 # unit of time
 
-        @arena = new Arena()
+        @arena = new Arena(width, height)
         @robotsStatus = (new RobotStatus(robot, @arena) for robot in @robots)
 
     isDraw: ->
-        return @round > 600
+        return @round > @maxTurns
 
     safeCall: (obj, method, params...) ->
         if !obj[method]

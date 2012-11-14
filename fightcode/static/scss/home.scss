@@ -1,0 +1,43 @@
+.navbar {
+    .navbar-inner {
+        padding-left: 20px;
+    }
+    .nav > li > a.profile {
+        padding:3px;
+    }
+}
+
+.home {
+    padding: 60px 20px 0 20px;
+
+    .board {
+        width: 600px;
+        height: 450px;
+        margin: 15px auto 0;
+    }
+
+    .row-fluid {
+        width: 99%;
+        margin: 0 20px;
+        padding-top: 20px;
+    }
+
+    pre {
+        max-height: 400px;
+        max-width: 582px;
+        margin-left: 36px;
+    }
+
+    .documentation {
+        margin-top: 20px;
+    }
+
+    .btn-create-robot {
+        margin-top: 70px;
+    }
+}
+
+code, pre {
+    text-shadow: none !important;
+    font-size: 16px;
+}

@@ -15,25 +15,23 @@ clean:
 
 setup:
 	@rm -rf ./node_modules
-	@npm install grunt
-	@npm install grunt-css
-	@npm install grunt-shell
-	@npm install grunt-compass
-	@npm install ejs
-	@npm install grunt-templater
-	@npm install grunt-coffee
-	@npm install growl
-	@npm install grunt-growl
+	@cat node-requirements | xargs npm install
 
 run: run-server sync
 
 run-server: kill-server
-	@cd fightcode && python -m SimpleHTTPServer &
+	@node fightcode/app.js &
 	@echo
-	@echo ">>>>> fightcode server running at http://localhost:8000/index.html <<<<<"
+	@echo ">>>>> fightcode server running at http://localhost:3000/index.html <<<<<"
 	@echo
 
 kill-server:
-	@-ps aux | egrep SimpleHTTPServer | egrep -v egrep | awk ' { print $$2 } ' | xargs kill -9
+	@-ps aux | egrep fightcode | egrep -v egrep | awk ' { print $$2 } ' | xargs kill -9
 	@echo 'fightcode server killed!'
+
+postgre:
+	@pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
+
+kill_postgre:
+	@pg_ctl -D /usr/local/var/postgres stop -s -m fast
 

@@ -7,9 +7,11 @@ SampleRobot = (function() {
   SampleRobot.prototype.onIdle = function(ev) {
     var robot;
     robot = ev.robot;
-    if (robot.id === 'element6') {
-      return robot.ahead(100);
-    }
+    robot.ahead(150);
+    robot.rotateCannon(360);
+    robot.back(100);
+    robot.rotateCannon(360);
+    return robot.turn(20);
   };
 
   SampleRobot.prototype.onRobotCollision = function(ev) {

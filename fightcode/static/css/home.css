@@ -1,0 +1,45 @@
+/* line 2, ../scss/home.scss */
+.navbar .navbar-inner {
+  padding-left: 20px;
+}
+/* line 5, ../scss/home.scss */
+.navbar .nav > li > a.profile {
+  padding: 3px;
+}
+
+/* line 10, ../scss/home.scss */
+.home {
+  padding: 60px 20px 0 20px;
+}
+/* line 13, ../scss/home.scss */
+.home .board {
+  width: 600px;
+  height: 450px;
+  margin: 15px auto 0;
+}
+/* line 19, ../scss/home.scss */
+.home .row-fluid {
+  width: 99%;
+  margin: 0 20px;
+  padding-top: 20px;
+}
+/* line 25, ../scss/home.scss */
+.home pre {
+  max-height: 400px;
+  max-width: 582px;
+  margin-left: 36px;
+}
+/* line 31, ../scss/home.scss */
+.home .documentation {
+  margin-top: 20px;
+}
+/* line 35, ../scss/home.scss */
+.home .btn-create-robot {
+  margin-top: 70px;
+}
+
+/* line 40, ../scss/home.scss */
+code, pre {
+  text-shadow: none !important;
+  font-size: 16px;
+}
