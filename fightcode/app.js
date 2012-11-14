@@ -3,16 +3,18 @@
  * Module dependencies.
  */
 
+process.env.CWD = process.cwd();
+
 var express = require('express'),
     http = require('http'),
     path = require('path');
 
 var index = require('./routes/index.js'),
-    create = require('./routes/create.js');
+    create = require('./routes/create.js'),
+    user = require('./routes/user.js');
 
 var app = express();
 
-process.env.CWD = process.cwd();
 var staticPath = path.join(process.env.CWD, 'fightcode', 'static');
 var viewsPath = path.join(process.env.CWD, 'fightcode', 'views');
 var configPath = path.join(process.env.CWD, 'fightcode', 'config');
@@ -50,6 +52,7 @@ app.configure('development', function(){
 
 app.get('/robots/create', create.create);
 app.get('/', index.index);
+app.get(/^\/user\/(\w+)$/, user.show);
 
 http.createServer(app).listen(app.get('port'), function(){
     console.log("Express server listening on port " + app.get('port'));

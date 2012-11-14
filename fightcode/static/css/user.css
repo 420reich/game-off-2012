@@ -1,0 +1,8 @@
+/* line 1, ../scss/user.scss */
+.show-user {
+  padding: 60px 20px 0 20px;
+}
+/* line 5, ../scss/user.scss */
+.show-user .stats h3, .show-user .stats p {
+  text-align: center;
+}
