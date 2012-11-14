@@ -50,7 +50,8 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-app.get('/robots/create', create.create);
+app.get('/robots/create', create.showPage);
+app.post('/robots/create', create.createAction);
 app.get('/', index.index);
 app.get(/^\/user\/(\w+)$/, user.show);
 

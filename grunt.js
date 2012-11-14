@@ -65,6 +65,13 @@ module.exports = function(grunt) {
                 options: {
                     bare: true
                 }
+            },
+            backendRoutes: {
+                src: ['./fightcode/coffee/routes/*.coffee'],
+                dest: './fightcode/routes/',
+                options: {
+                    bare: true
+                }
             }
         },
 
@@ -126,6 +133,7 @@ module.exports = function(grunt) {
         watch: {
             files: [
                 './fightcode/static/coffee/*.coffee',
+                './fightcode/coffee/routes/*.coffee',
                 './fightcode/*.html',
                 './fightcode/static/scss/*.scss'
             ],
