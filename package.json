@@ -14,7 +14,7 @@
     "ejs": "*",
     "everyauth": "*",
     "pg": "*",
-    "sequelize": "*",
+    "sequelize": "1.6.0-alpha-3",
     "gravatar": "*",
     "c3store": "*"
   }
