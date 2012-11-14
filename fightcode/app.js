@@ -17,7 +17,7 @@ var staticPath = path.join(process.env.CWD, 'fightcode', 'static');
 var viewsPath = path.join(process.env.CWD, 'fightcode', 'views');
 var configPath = path.join(process.env.CWD, 'fightcode', 'config');
 
-var dbSession = require(path.join(configPath, 'session'));
+//var dbSession = require(path.join(configPath, 'session'));
 var everyauth = require(path.join(configPath, 'auth'));
 var migrator = require(path.join(configPath, 'migration'));
 migrator.migrate();
