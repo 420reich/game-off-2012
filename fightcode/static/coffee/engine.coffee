@@ -56,9 +56,7 @@ class RobotActions
         )
 
 class Arena
-    constructor: ->
-        @width = 800
-        @height = 600
+    constructor: (@width, @height) ->
         @walls = [
             new WallStatus(@width / 2, 0, @width, 1),
             new WallStatus(@width, @height / 2, 1, @height),
@@ -214,6 +212,8 @@ class RobotStatus extends ElementStatus
     runItem: ->
         item = @queue.shift()
 
+        return null if not item
+
         direction = 1
         if item.direction and item.direction < 0
             direction = -1
@@ -246,10 +246,10 @@ class RobotStatus extends ElementStatus
         @queue = actions.queue.concat(@queue)
 
 class Engine
-    constructor: (@robots...) ->
+    constructor: (width, height, @robots...) ->
         @round = 0 # unit of time
 
-        @arena = new Arena()
+        @arena = new Arena(width, height)
         @robotsStatus = (new RobotStatus(robot, @arena) for robot in @robots)
 
     isDraw: ->

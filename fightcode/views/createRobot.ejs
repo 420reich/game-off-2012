@@ -34,18 +34,52 @@
 <script>
     $(function() {
         var editor = $('.editor')[0];
+        var board = $('.board');
+
         var codeMirror = CodeMirror(editor, {
-            value: "//FightCode can only understand your robot\n//if it's class is called robotClass\nvar robotClass = function(){\n\t\n};\n\nrobotClass.prototype.onIdle = function(ev) {\n\tvar robot = ev.robot;\n\trobot.ahead(100);\n\t\n};\n\nrobotClass.prototype.onScannedRobot = function(ev) {\n\tvar robot = ev.robot;\n\t\n};",
+            value: "//FightCode can only understand your robot\n//if it's class is called robotClass\nvar robotClass = function(){\n\t\n};\n\nrobotClass.prototype.onIdle = function(ev) {\n\tvar robot = ev.robot;\n\trobot.ahead(100);\n\trobot.back(100);\n\t\n};\n\nrobotClass.prototype.onScannedRobot = function(ev) {\n\tvar robot = ev.robot;\n\t\n};",
             mode:  "javascript",
             theme: 'ambiance',
             height: 500,
             tabSize: 2,
             lineNumbers: true,
             onChange: function(editor, code) {
-                var robotCode = editor.getValue();
-                var robotClass = new Function("window", "with(window){" + robotCode + "\nreturn robotClass;}")({});
-                robot = new robotClass();
-            }
+                            }
+        });
+
+        board.bind('click', function(ev) {
+            board.empty();
+            var container = $('<div></div>');
+            board.append(container);
+
+            var robotCode = codeMirror.getValue();
+            var robotClass = new Function("window", "with(window){" + robotCode + "\nreturn robotClass;}")({});
+            robot = new robotClass('a');
+
+            var duckCode = [
+                'var duck = function() {};',
+                'duck.prototype.onIdle = function(ev) {',
+                '   var robot = ev.robot;',
+                '   robot.turn(90);',
+                '   robot.ahead(50);',
+                '   robot.back(50);',
+                '};',
+                'return duck;'
+            ]
+            var duck = new Function("window", "with(window){" + duckCode.join('') + "\nreturn robotClass;}")({});
+
+            engine = new Engine(480, 480, robot, new duck());
+
+            engine.robotsStatus[0].position = new Vector2(100, 100);
+            engine.robotsStatus[1].position = new Vector2(250, 250);
+
+            result = engine.fight();
+
+            game = new Game(container, result, {
+                msPerRound: 3
+            });
+
+            game.initialize();
         });
     });
 </script>
