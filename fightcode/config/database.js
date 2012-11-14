@@ -13,7 +13,7 @@ if (db == null) {
         password: null
     };
 } else {
-    matches = db.match(/^(postgres)\:\/\/(\w+):(\w+)@(.+?):(\w+)\/(.+)$/);
+    matches = db.match(/^(postgres)\:\/\/(.+?):(.+?)@(.+?):(.+?)\/(.+)$/);
     db = {
         protocol: matches[1],
         host: matches[4],
