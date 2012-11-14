@@ -31,7 +31,7 @@ app.configure(function(){
     app.use(express.bodyParser());
     app.use(express.methodOverride());
     app.use(express.cookieParser('fnakfnkj3141349139dsikdkw'));
-    app.use(express.session(dbSession));
+    app.use(express.session());
     app.use(express.static(staticPath));
     app.use(everyauth.middleware(app));
 

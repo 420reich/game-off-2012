@@ -43,8 +43,7 @@
             lineNumbers: true,
             onChange: function(editor, code) {
                 var robotCode = editor.getValue();
-                var robotModule = new Function(robotCode + "\nreturn robotClass;");
-                var robotClass = robotModule();
+                var robotClass = new Function("window", "with(window){" + robotCode + "\nreturn robotClass;}")({});
                 robot = new robotClass();
             }
         });
