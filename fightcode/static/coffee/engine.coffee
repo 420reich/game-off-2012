@@ -66,7 +66,7 @@ class Arena
 
 class ElementStatus
     @id: 1
-    
+
     constructor: ->
         @id = 'element' + (RobotStatus.id++)
         @angle = 0
@@ -89,16 +89,16 @@ class ElementStatus
         true
 
     upperRightCorner: ->
-        new Vector2(@right(), @top()).rotate(@angle, @position);
+        new Vector2(@right(), @top()).rotate(@angle, @position)
 
     upperLeftCorner: ->
-        new Vector2(@left(), @top()).rotate(@angle, @position);
+        new Vector2(@left(), @top()).rotate(@angle, @position)
 
     lowerLeftCorner: ->
-        new Vector2(@left(), @bottom()).rotate(@angle, @position);
+        new Vector2(@left(), @bottom()).rotate(@angle, @position)
 
     lowerRightCorner: ->
-        new Vector2(@right(), @bottom()).rotate(@angle, @position);
+        new Vector2(@right(), @bottom()).rotate(@angle, @position)
 
     intersects: (other) ->
         axisList = [
@@ -143,11 +143,11 @@ class ElementStatus
         return false
 
     generateScalar: (corner, axis) ->
-        numerator = (corner.x * axis.x) + (corner.y * axis.y);
-        denominator = (axis.x * axis.x) + (axis.y * axis.y);
-        divisionResult = numerator / denominator;
-        projected = new Vector2(divisionResult * axis.x, divisionResult * axis.y);
-        (axis.x * projected.x) + (axis.y * projected.y);
+        numerator = (corner.x * axis.x) + (corner.y * axis.y)
+        denominator = (axis.x * axis.x) + (axis.y * axis.y)
+        divisionResult = numerator / denominator
+        projected = new Vector2(divisionResult * axis.x, divisionResult * axis.y)
+        (axis.x * projected.x) + (axis.y * projected.y)
 
 class WallStatus extends ElementStatus
     constructor: (x, y, width, height) ->
@@ -170,7 +170,7 @@ class BulletStatus extends ElementStatus
         @speed = 5
         @strength = 1
         @running = true
-    
+
     isIdle: ->
         false
 
