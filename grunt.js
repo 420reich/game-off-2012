@@ -8,7 +8,8 @@ module.exports = function(grunt) {
             'fightcode/static/css/codemirror.css',
             'fightcode/static/css/home.css',
             'fightcode/static/css/create.css',
-            'fightcode/static/css/fight.css'
+            'fightcode/static/css/fight.css',
+            'fightcode/static/css/user.css'
         ]
     };
 
