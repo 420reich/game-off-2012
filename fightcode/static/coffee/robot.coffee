@@ -2,10 +2,11 @@ class SampleRobot
     onIdle: (ev) ->
         # console.log('onIdle', ev)
         robot = ev.robot
-        robot.ahead(100)
-        robot.rotateCannon(360)
-        robot.back(100)
-        robot.rotateCannon(360)
+        if robot.id == 'element6'
+            robot.ahead(100)
+        # robot.rotateCannon(360)
+        # robot.back(100)
+        # robot.rotateCannon(360)
 
     onRobotCollision: (ev) ->
         console.log('onRobotCollision', ev)
@@ -19,6 +20,6 @@ class SampleRobot
         robot.fire(1)
 
     onHitByBullet: (ev) ->
-        console.log('onHitByBullet', ev)
-        robot = ev.robot
-        robot.turn(90 - ev.bulletBearing)
+        # console.log('onHitByBullet', ev, ev.bulletBearing)
+        # robot = ev.robot
+        # robot.turn(270 - ev.bulletBearing)

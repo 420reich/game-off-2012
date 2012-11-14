@@ -7,10 +7,9 @@ SampleRobot = (function() {
   SampleRobot.prototype.onIdle = function(ev) {
     var robot;
     robot = ev.robot;
-    robot.ahead(100);
-    robot.rotateCannon(360);
-    robot.back(100);
-    return robot.rotateCannon(360);
+    if (robot.id === 'element6') {
+      return robot.ahead(100);
+    }
   };
 
   SampleRobot.prototype.onRobotCollision = function(ev) {
@@ -26,12 +25,7 @@ SampleRobot = (function() {
     return robot.fire(1);
   };
 
-  SampleRobot.prototype.onHitByBullet = function(ev) {
-    var robot;
-    console.log('onHitByBullet', ev);
-    robot = ev.robot;
-    return robot.turn(90 - ev.bulletBearing);
-  };
+  SampleRobot.prototype.onHitByBullet = function(ev) {};
 
   return SampleRobot;
 
