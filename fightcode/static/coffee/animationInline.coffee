@@ -51,26 +51,19 @@
 #         angle:
 #             45
 #     ) if i >= 3 * numberOfRounds / 4
-
 #     rounds.push(round)
 
 #numberOfRobots = 5
 #robots = []
 
-#for i in [0..numberOfRobots - 1]
-    #robot = new SampleRobot(i)
-    #robots.push(robot)
+# engine.robotsStatus[0].cannonAngle = 1
+# engine.robotsStatus[0].rectangle.position = new Vector2(400, 100)
 
-#engine = new Engine(robots...)
+# engine.robotsStatus[1].rectangle.angle = 91
+# engine.robotsStatus[1].rectangle.position = new Vector2(500, 15)
 
-#for i in [0..numberOfRobots - 1]
-    #engine.robotsStatus[i].position = new Vector2(Math.random() * 700 + 50, Math.random() * 500 + 50)
-    ##engine.robotsStatus[1].position = new Vector2(14, 13)
-
-#rounds = engine.fight()
-
-#board = $('.board')
-#game = new Game(board, rounds,
-    #msPerRound: 3
-#)
-#game.initialize()
+# board = $('.board')
+# game = new Game(board, rounds,
+#     msPerRound: 8
+# )
+# game.initialize()

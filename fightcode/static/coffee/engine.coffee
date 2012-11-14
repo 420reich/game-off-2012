@@ -1,5 +1,7 @@
 MOVE_INCREMENT = 1
 ANG_INCREMENT = 1
+PI2 = Math.PI * 2
+RAD2DEG = 180 / Math.PI
 
 class Vector2
     constructor: (@x, @y) ->
@@ -8,9 +10,13 @@ class Vector2
             @x = @x.x
 
     rotate: (angle, reference) ->
-        newX = reference.x + ((@x - reference.x) * Math.cos(angle)) - ((@y - reference.y) * Math.sin(angle))
-        newY = reference.y + ((@y - reference.y) * Math.cos(angle)) - ((@x - reference.x) * Math.cos(angle))
+        angle = (angle * Math.PI) / 180
+        @x = reference.x + ((@x - reference.x) * Math.cos(angle)) - ((@y - reference.y) * Math.sin(angle))
+        @y = reference.y + ((@y - reference.y) * Math.cos(angle)) - ((@x - reference.x) * Math.sin(angle))
         this
+
+    angleTo: (other) ->
+        Math.atan2(other.y - @y, other.x - @x)
 
     @add: (v1, v2) ->
         new Vector2(v1.x + v2.x, v1.y + v2.y)
@@ -18,8 +24,15 @@ class Vector2
     @subtract: (v1, v2) ->
         new Vector2(v1.x - v2.x, v1.y - v2.y)
 
+    projectTo: (axis) ->
+        numerator = (@x * axis.x) + (@y * axis.y);
+        denominator = (axis.x * axis.x) + (axis.y * axis.y);
+        divisionResult = numerator / denominator;
+        new Vector2(divisionResult * axis.x, divisionResult * axis.y);
+
 class RobotActions
-    constructor: ->
+    constructor: (currentStatus) ->
+        @id = currentStatus.id
         @queue = []
 
     move: (amount, direction) ->
@@ -64,16 +77,12 @@ class Arena
             new WallStatus(0, @height / 2, 1, @height)
         ]
 
-class ElementStatus
-    @id: 1
-
-    constructor: ->
-        @id = 'element' + (RobotStatus.id++)
-        @angle = 0
-        @position = new Vector2()
+class Rectangle
+    constructor: (x = 0, y = 0, width = 1, height = 1, @angle = 0) ->
+        @position = new Vector2(x, y)
         @dimension = {
-            width: 1,
-            height: 1
+            width: width,
+            height: height
         }
 
     top: ->
@@ -84,9 +93,6 @@ class ElementStatus
         @position.x + (@dimension.width / 2)
     bottom: ->
         @position.y + (@dimension.height / 2)
-
-    isAlive: ->
-        true
 
     upperRightCorner: ->
         new Vector2(@right(), @top()).rotate(@angle, @position)
@@ -143,31 +149,40 @@ class ElementStatus
         return false
 
     generateScalar: (corner, axis) ->
-        numerator = (corner.x * axis.x) + (corner.y * axis.y)
-        denominator = (axis.x * axis.x) + (axis.y * axis.y)
-        divisionResult = numerator / denominator
-        projected = new Vector2(divisionResult * axis.x, divisionResult * axis.y)
-        (axis.x * projected.x) + (axis.y * projected.y)
+        projected = corner.projectTo(axis)
+        (axis.x * projected.x) + (axis.y * projected.y);
+
+class ElementStatus
+    @id: 1
+
+    constructor: ->
+        @id = 'element' + (RobotStatus.id++)
+        @rectangle = new Rectangle()
+
+    isAlive: ->
+        true
+
 
 class WallStatus extends ElementStatus
     constructor: (x, y, width, height) ->
         super()
-        @position.x = x
-        @position.y = y
-        @dimension.width = width
-        @dimension.height = height
+        @rectangle.position.x = x
+        @rectangle.position.y = y
+        @rectangle.dimension.width = width
+        @rectangle.dimension.height = height
 
 class BulletStatus extends ElementStatus
     constructor: (@robotStatus) ->
         super()
-        @angle = (@robotStatus.angle + @robotStatus.cannonAngle) % 360
-        @angleRad = (@angle * Math.PI) / 180
+        @rectangle.angle = (@robotStatus.rectangle.angle + @robotStatus.cannonAngle) % 360
+        @angleRad = (@rectangle.angle * Math.PI) / 180
 
-        xInc = Math.cos(@angleRad) * (@robotStatus.dimension.width / 2)
-        yInc = Math.sin(@angleRad) * (@robotStatus.dimension.height / 2)
-        @position.x = @robotStatus.position.x + xInc
-        @position.y = @robotStatus.position.y + yInc
-        @speed = 5
+        xInc = Math.cos(@angleRad) * (@robotStatus.rectangle.dimension.width / 2)
+        yInc = Math.sin(@angleRad) * (@robotStatus.rectangle.dimension.height / 2)
+        @rectangle.position.x = @robotStatus.rectangle.position.x + xInc
+        @rectangle.position.y = @robotStatus.rectangle.position.y + yInc
+
+        @speed = 2
         @strength = 1
         @running = true
 
@@ -178,21 +193,33 @@ class BulletStatus extends ElementStatus
         @running
 
     runItem: ->
-        @position.x += Math.cos(@angleRad) * @speed
-        @position.y += Math.sin(@angleRad) * @speed
+        @previousPosition = new Vector2(@rectangle.position)
+
+        @rectangle.position.x += Math.cos(@angleRad) * @speed
+        @rectangle.position.y += Math.sin(@angleRad) * @speed
+
+        null
 
     destroy: ->
         @running = false
+
+    rollbackAfterCollision: ->
+        @rectangle.position = @previousPosition if @previousPosition
+
+    updateQueue: ->
+        #no-op
 
 class RobotStatus extends ElementStatus
     constructor: (@robot, @arena) ->
         super()
         @life = 100
         @cannonAngle = 0
-        @dimension = {
+        @rectangle.dimension = {
             width: 27,
             height: 24
         }
+        @baseScanWaitTime = 50
+        @scanWaitTime = 0
         @queue = []
 
     isAlive: ->
@@ -206,13 +233,24 @@ class RobotStatus extends ElementStatus
         buletStatus.destroy()
 
     rollbackAfterCollision: ->
-        @position = @previousPosition if @previousPosition
-        @angle = @previousAngle if @previousAngle
+        @rectangle.position = @previousPosition if @previousPosition
+        @rectangle.angle = @previousAngle if @previousAngle
+
+    cannonTotalAngle: ->
+        (@rectangle.angle + @cannonAngle) % 360
+
+    canScan: ->
+        @scanWaitTime == 0
+
+    tickScan: ->
+        @scanWaitTime -= 1 if @scanWaitTime > 0
+
+    preventScan: ->
+        @scanWaitTime = @baseScanWaitTime
 
     runItem: ->
         item = @queue.shift()
-
-        return null if not item
+        return unless item
 
         direction = 1
         if item.direction and item.direction < 0
@@ -220,22 +258,24 @@ class RobotStatus extends ElementStatus
 
         @previousPosition = null
         @previousAngle = null
+        @previousCannonAngle = null
 
         switch item.action
             when 'move'
-                rad = (@angle * Math.PI) / 180
-                @previousPosition = new Vector2(@position)
-                @position.x += Math.cos(rad) * MOVE_INCREMENT * direction
-                @position.y += Math.sin(rad) * MOVE_INCREMENT * direction
+                rad = (@rectangle.angle * Math.PI) / 180
+                @previousPosition = new Vector2(@rectangle.position)
+                @rectangle.position.x += Math.cos(rad) * MOVE_INCREMENT * direction
+                @rectangle.position.y += Math.sin(rad) * MOVE_INCREMENT * direction
 
             when 'rotateCannon'
+                @previousCannonAngle = @cannonAngl
                 @cannonAngle += ANG_INCREMENT * direction
                 @cannonAngle = @cannonAngle % 360
 
             when 'turn'
                 @previousAngle = @angle
-                @angle += ANG_INCREMENT * direction
-                @angle = @angle % 360
+                @rectangle.angle += ANG_INCREMENT * direction
+                @rectangle.angle = @rectangle.angle % 360
 
             when 'fire'
                 return new BulletStatus(this)
@@ -261,32 +301,63 @@ class Engine
         obj[method].apply(obj, params)
 
     checkCollision: (robotStatus) ->
-        actions = new RobotActions()
+        actions = new RobotActions(robotStatus)
 
         for wall in @arena.walls
-            if robotStatus.intersects(wall)
+            if robotStatus.rectangle.intersects(wall.rectangle)
                 robotStatus.rollbackAfterCollision()
-                @safeCall(robotStatus.robot, 'onWallCollision', actions)
+                if robotStatus instanceof BulletStatus
+                    @roundLog.events.push({
+                        type: 'exploded',
+                        id: robotStatus.id
+                    })
+                else
+                    @safeCall(robotStatus.robot, 'onWallCollision', {robot: actions})
+
+        return actions if robotStatus instanceof BulletStatus
 
         for status in @robotsStatus
             continue if status == robotStatus or !status.isAlive()
 
-            if robotStatus.intersects(status)
+            if robotStatus.rectangle.intersects(status.rectangle)
                 eventName = 'onRobotCollision'
                 if status instanceof BulletStatus
+                    continue if status.robotStatus == robotStatus
                     eventName = 'onHitByBullet'
                     robotStatus.takeHit(status)
+                    @roundLog.events.push({
+                        type: 'exploded',
+                        id: status.id
+                    })
                 else
                     robotStatus.rollbackAfterCollision()
 
-                @safeCall(robotStatus.robot, eventName, actions)
+                @safeCall(robotStatus.robot, eventName, {robot: actions, bulletBearing: robotStatus.rectangle.angle - status.rectangle.angle})
 
         actions
 
     checkSight: (robotStatus) ->
-        actions = new RobotActions()
-        # for status in @robotsStatus
+        actions = new RobotActions(robotStatus)
 
+        virtualRect = new Rectangle(
+            robotStatus.rectangle.position.x,
+            robotStatus.rectangle.position.y,
+            1000, 2, robotStatus.cannonTotalAngle())
+
+        robotStatus.tickScan()
+        for status in @robotsStatus
+            continue if status == robotStatus or !status.isAlive()
+            continue unless status instanceof RobotStatus
+
+            if robotStatus.canScan() and virtualRect.intersects(status.rectangle)
+                robotStatus.preventScan()
+                @safeCall(robotStatus.robot, 'onScannedRobot', {robot: actions})
+                @roundLog.events.push({
+                    type: 'onScannedRobot',
+                    id: robotStatus.id
+                })
+
+        actions
 
     fight: ->
         aliveRobots = @robotsStatus.length
@@ -296,7 +367,7 @@ class Engine
         while aliveRobots > 1 and not @isDraw()
             @round++
 
-            fightLog.push(roundLog = {
+            fightLog.push(@roundLog = {
                 round: @round,
                 objects: [],
                 events: []
@@ -304,39 +375,43 @@ class Engine
 
             aliveRobots = 0
             for status in @robotsStatus
-                continue if !status.isAlive()
+                continue unless status.isAlive()
 
-                roundLog.objects.push({
+                @roundLog.objects.push({
                     type: if status instanceof RobotStatus then 'tank' else 'bullet'
                     id: status.id,
                     position:
-                        x: status.position.x
-                        y: status.position.y
+                        x: status.rectangle.position.x
+                        y: status.rectangle.position.y
                     dimension:
-                        width: status.dimension.width
-                        height: status.dimension.height
+                        width: status.rectangle.dimension.width
+                        height: status.rectangle.dimension.height
                     health:
                         status.health
                     angle:
-                        status.angle
+                        status.rectangle.angle
                     cannonAngle:
                         status.cannonAngle
                 })
 
                 if status.isIdle()
-                    actions = new RobotActions()
+                    actions = new RobotActions(status)
                     @safeCall(status.robot, 'onIdle', {robot: actions})
                     status.updateQueue(actions)
 
                 newStatus = status.runItem()
                 @robotsStatus.push(newStatus) if newStatus
 
+                actions = @checkCollision(status)
+                status.updateQueue(actions)
+
                 if status instanceof RobotStatus
                     aliveRobots++
-                    actions = @checkCollision(status)
-                    status.updateQueue(actions)
-                    actions = @checkSight(status)
-                    status.updateQueue(actions)
+
+            for status in @robotsStatus
+                continue unless status.isAlive() and status instanceof RobotStatus
+                actions = @checkSight(status)
+                status.updateQueue(actions)
 
         if @isDraw()
             console.log("DRAW!") if @isDraw()

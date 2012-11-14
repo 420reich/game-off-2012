@@ -20,6 +20,6 @@ class SampleRobot
         robot.fire(1)
 
     onHitByBullet: (ev) ->
-        console.log('onHitByBullet', ev)
-        robot = ev.robot
-        robot.turn(90 - ev.bulletBearing)
+        # console.log('onHitByBullet', ev, ev.bulletBearing)
+        # robot = ev.robot
+        # robot.turn(270 - ev.bulletBearing)

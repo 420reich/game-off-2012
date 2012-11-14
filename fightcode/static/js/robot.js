@@ -27,12 +27,7 @@ SampleRobot = (function() {
     return robot.fire(1);
   };
 
-  SampleRobot.prototype.onHitByBullet = function(ev) {
-    var robot;
-    console.log('onHitByBullet', ev);
-    robot = ev.robot;
-    return robot.turn(90 - ev.bulletBearing);
-  };
+  SampleRobot.prototype.onHitByBullet = function(ev) {};
 
   return SampleRobot;
 
