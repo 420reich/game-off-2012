@@ -14,6 +14,7 @@ everyauth.everymodule.findUserById(function (userId, callback) {
 everyauth.github
     .appId(process.env.GITHUB_ID || 'b02ea2e0c17338aee416')
     .appSecret(process.env.GITHUB_SECRET || 'dbd2f9c0c1bcd303aab1745d348cc8e008dd278e')
+    .scope('gist')
     .findOrCreateUser(function (session, accessToken, accessTokenExtra, githubUserMetadata) {
         var promise = this.Promise();
 

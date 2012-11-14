@@ -11,8 +11,20 @@ class Vector2
 
     rotate: (angle, reference) ->
         angle = (angle * Math.PI) / 180
-        @x = reference.x + ((@x - reference.x) * Math.cos(angle)) - ((@y - reference.y) * Math.sin(angle))
-        @y = reference.y + ((@y - reference.y) * Math.cos(angle)) - ((@x - reference.x) * Math.sin(angle))
+        sin = Math.sin(angle);
+        cos = Math.cos(angle);
+
+        # @x = reference.x + (@x - reference.x) * cos - (@y - reference.y) * sin
+        # @y = reference.y - (@y - reference.y) * cos + (@x - reference.x) * sin
+        @x -= reference.x;
+        @y -= reference.y;
+
+        xnew = @x * cos - @y * sin;
+        ynew = @x * sin + @y * cos;
+
+        @x = xnew + reference.x;
+        @y = ynew + reference.y;
+
         this
 
     angleTo: (other) ->

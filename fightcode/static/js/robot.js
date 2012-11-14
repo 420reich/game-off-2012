@@ -6,12 +6,7 @@ SampleRobot = (function() {
 
   SampleRobot.prototype.onIdle = function(ev) {
     var robot;
-    robot = ev.robot;
-    robot.ahead(150);
-    robot.rotateCannon(360);
-    robot.back(100);
-    robot.rotateCannon(360);
-    return robot.turn(20);
+    return robot = ev.robot;
   };
 
   SampleRobot.prototype.onRobotCollision = function(ev) {
@@ -22,7 +17,6 @@ SampleRobot = (function() {
 
   SampleRobot.prototype.onScannedRobot = function(ev) {
     var robot;
-    console.log('onScannedRobot', ev);
     robot = ev.robot;
     return robot.fire(1);
   };
