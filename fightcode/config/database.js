@@ -35,6 +35,5 @@ var sequelize = new Sequelize(db.database, db.user, db.password, {
 });
 
 var User = sequelize.import(path.join(modelsPath, 'user'));
-sequelize.sync();
 
 module.exports = sequelize;
