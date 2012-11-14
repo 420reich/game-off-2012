@@ -29,6 +29,7 @@ var sequelize = new Sequelize(db.database, db.user, db.password, {
     host: db.host,
     port: db.port,
     dialect: 'postgres',
+    omitNull: true,
     sync: {
         force: true
     }
