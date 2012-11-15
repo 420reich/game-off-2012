@@ -1,4 +1,4 @@
-var GithubApi, User, basePath, path, sequelize;
+var GithubApi, Robot, basePath, path, sequelize;
 
 path = require('path');
 
@@ -6,11 +6,11 @@ basePath = path.join(process.env.CWD, 'fightcode');
 
 sequelize = require(path.join(basePath, 'config', 'database'));
 
-User = sequelize["import"](path.join(basePath, 'models', 'user'));
+Robot = sequelize["import"](path.join(basePath, 'models', 'robot'));
 
 GithubApi = require('github');
 
-exports.showPage = function(req, res) {
+exports.createView = function(req, res) {
   if (!req.loggedIn) {
     return res.redirect('/auth/github');
   }
@@ -42,11 +42,18 @@ exports.create = function(req, res) {
     }
   };
   return github.gists.create(robotData, function(err, githubResponse) {
-    return res.redirect('/robots/update/' + githubResponse.id);
+    return Robot.create({
+      ownerLogin: req.user.login,
+      gists: githubResponse.id,
+      isPublic: true,
+      title: req.param('title')
+    }).success(function(user) {
+      return res.redirect('/robots/update/' + githubResponse.id);
+    });
   });
 };
 
-exports.update = function(req, res) {
+exports.updateView = function(req, res) {
   var github;
   if (!req.loggedIn) {
     return res.redirect('/auth/github');
@@ -68,4 +75,10 @@ exports.update = function(req, res) {
       'roboCode': encodeURI(githubResponse.files[files[0]].content)
     });
   });
+};
+
+exports.update = function(req, res) {
+  if (!req.loggedIn) {
+    return res.redirect('/auth/github');
+  }
 };

@@ -50,9 +50,10 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-app.get('/robots/create', create.showPage);
+app.get('/robots/create', create.createView);
 app.post('/robots/create', create.create);
-app.get(/^\/robots\/update\/(\w+)$/, create.update);
+app.get(/^\/robots\/update\/(\w+)$/, create.updateView);
+app.post(/^\/robots\/update\/(\w+)$/, create.update);
 app.get('/', index.index);
 app.get(/^\/user\/(\w+)$/, user.show);
 

@@ -3,11 +3,11 @@ basePath = path.join(process.env.CWD, 'fightcode')
 
 sequelize = require path.join(basePath, 'config', 'database')
 
-User = sequelize.import(path.join(basePath, 'models', 'user'))
+Robot = sequelize.import(path.join(basePath, 'models', 'robot'))
 GithubApi = require 'github'
 
 
-exports.showPage = (req, res) ->
+exports.createView = (req, res) ->
     return res.redirect '/auth/github' if !req.loggedIn
     res.render 'createRobot', title: 'Create My Robot!', 'roboCode': ''
 
@@ -26,10 +26,17 @@ exports.create = (req, res) ->
                 'content': req.param('code')
 
     github.gists.create robotData, (err, githubResponse) ->
-        res.redirect '/robots/update/' + githubResponse.id
+        Robot.create(
+            ownerLogin: req.user.login,
+            gists: githubResponse.id,
+            isPublic: true,
+            title: req.param('title')
+        ).success((user) ->
+            res.redirect '/robots/update/' + githubResponse.id
+        )
 
 
-exports.update = (req, res) ->
+exports.updateView = (req, res) ->
     return res.redirect '/auth/github' if !req.loggedIn
 
     github = new GithubApi version: '3.0.0'
@@ -38,3 +45,7 @@ exports.update = (req, res) ->
     github.gists.get id: req.params[0], (err, githubResponse) ->
         files = Object.keys githubResponse.files
         res.render 'createRobot', title: 'Update my robot', 'roboCode': encodeURI(githubResponse.files[files[0]].content)
+
+
+exports.update = (req, res) ->
+    return res.redirect '/auth/github' if !req.loggedIn
