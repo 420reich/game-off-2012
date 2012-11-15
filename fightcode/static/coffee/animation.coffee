@@ -50,10 +50,7 @@ class Game
         return bulletObject
 
     handleTank: (object) =>
-        if not @objects[object.id]
-            tank = @createTank(object)
-        else
-            tank = @objects[object.id]
+        tank = @objects[object.id] or @createTank(object)
 
         tank.tank.css('top', object.position.y - (object.dimension.height / 2))
         tank.tank.css('left', object.position.x - (object.dimension.width / 2))
@@ -64,10 +61,7 @@ class Game
         tank.life.css('width', 30 * object.health / 100)
 
     handleBullet: (object) =>
-        if not @objects[object.id]
-            bullet = @createBullet(object)
-        else
-            bullet = @objects[object.id]
+        bullet = @objects[object.id] or @createBullet(object)
 
         bullet.bullet.css('top', object.position.y - (bullet.height / 2))
         bullet.bullet.css('left', object.position.x - (bullet.width / 2))
