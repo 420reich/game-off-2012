@@ -9,10 +9,10 @@ GithubApi = require 'github'
 
 exports.showPage = (req, res) ->
     return res.redirect '/auth/github' if !req.loggedIn
-    res.render 'createRobot', title: 'Create My Robot!'
+    res.render 'createRobot', title: 'Create My Robot!', 'roboCode': ''
 
 
-exports.createAction = (req, res) ->
+exports.create = (req, res) ->
     return res.redirect '/auth/github' if !req.loggedIn
 
     github = new GithubApi version: '3.0.0'
@@ -20,10 +20,21 @@ exports.createAction = (req, res) ->
 
     robotData =
         description: req.param('title'),
-        public: req.param('public') == 'yes',
+        public: 'true',
         files:
             'robot.js':
                 'content': req.param('code')
 
-    github.gists.create robotData, (err, res) ->
-        console.log err
+    github.gists.create robotData, (err, githubResponse) ->
+        res.redirect '/robots/update/' + githubResponse.id
+
+
+exports.update = (req, res) ->
+    return res.redirect '/auth/github' if !req.loggedIn
+
+    github = new GithubApi version: '3.0.0'
+    github.authenticate type: 'oauth', token: req.user.token
+
+    github.gists.get id: req.params[0], (err, githubResponse) ->
+        files = Object.keys githubResponse.files
+        res.render 'createRobot', title: 'Update my robot', 'roboCode': encodeURI(githubResponse.files[files[0]].content)

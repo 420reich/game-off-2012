@@ -51,7 +51,8 @@ app.configure('development', function(){
 });
 
 app.get('/robots/create', create.showPage);
-app.post('/robots/create', create.createAction);
+app.post('/robots/create', create.create);
+app.get(/^\/robots\/update\/(\w+)$/, create.update);
 app.get('/', index.index);
 app.get(/^\/user\/(\w+)$/, user.show);
 

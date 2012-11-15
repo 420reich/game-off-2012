@@ -18,7 +18,8 @@
         </div>
     </div>
 
-    <form method="POST">
+    <form id="robo-code-form" method="POST" action="">
+        <input type="hidden" class="code" name="code" value="">
         <div class="row-fluid">
             <div class="span5">
                 <h2>How to call this awesomeness?</h2>
@@ -35,6 +36,7 @@
                 <p><select name="public"><option value="yes">Yes</option><option value="no">No</option></select></p>
             </div>
         </div>
+        <button id="submit-btn">Save</button>
     </form>
 </div>
 
@@ -42,7 +44,8 @@
 <script>
     $(function() {
         var editor = $('.editor')[0];
-        var board = $('.board');
+        var board = $('.board'),
+            submitButton = $('#submit-btn');
 
         var defaultCode = [
             "//FightCode can only understand your robot",
@@ -65,15 +68,36 @@
             "   robot.fire();",
             "   ",
             "};"
-        ];
+        ],
+        roboCodeText = decodeURI("<%= roboCode %>"),
+        code = null,
+        unescapeHtml = function (text) {
+            var temp = document.createElement("div");
+            temp.innerHTML = text;
+            var result = temp.childNodes[0].nodeValue;
+            temp.removeChild(temp.firstChild);
+            return result;
+        };
+
+        if (roboCodeText != "") {
+            code = unescapeHtml(roboCodeText);
+        } else {
+            code = defaultCode.join('\n');
+        }
 
         var codeMirror = CodeMirror(editor, {
-            value: defaultCode.join('\n'),
+            value: code,
             mode:  "javascript",
             theme: 'ambiance',
             height: 500,
             tabSize: 2,
             lineNumbers: true
+        });
+
+        submitButton.bind('click', function(ev) {
+            var form = $('robo-code-form');
+            $('.code').val(codeMirror.getValue());
+            form.submit();
         });
 
         board.bind('click', function(ev) {
