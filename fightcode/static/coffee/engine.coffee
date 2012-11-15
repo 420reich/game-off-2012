@@ -11,19 +11,19 @@ class Vector2
 
     rotate: (angle, reference) ->
         angle = (angle * Math.PI) / 180
-        sin = Math.sin(angle);
-        cos = Math.cos(angle);
+        sin = Math.sin(angle)
+        cos = Math.cos(angle)
 
         # @x = reference.x + (@x - reference.x) * cos - (@y - reference.y) * sin
         # @y = reference.y - (@y - reference.y) * cos + (@x - reference.x) * sin
-        @x -= reference.x;
-        @y -= reference.y;
+        @x -= reference.x
+        @y -= reference.y
 
-        xnew = @x * cos - @y * sin;
-        ynew = @x * sin + @y * cos;
+        xnew = @x * cos - @y * sin
+        ynew = @x * sin + @y * cos
 
-        @x = xnew + reference.x;
-        @y = ynew + reference.y;
+        @x = xnew + reference.x
+        @y = ynew + reference.y
 
         this
 
@@ -37,10 +37,10 @@ class Vector2
         new Vector2(v1.x - v2.x, v1.y - v2.y)
 
     projectTo: (axis) ->
-        numerator = (@x * axis.x) + (@y * axis.y);
-        denominator = (axis.x * axis.x) + (axis.y * axis.y);
-        divisionResult = numerator / denominator;
-        new Vector2(divisionResult * axis.x, divisionResult * axis.y);
+        numerator = (@x * axis.x) + (@y * axis.y)
+        denominator = (axis.x * axis.x) + (axis.y * axis.y)
+        divisionResult = numerator / denominator
+        new Vector2(divisionResult * axis.x, divisionResult * axis.y)
 
 class RobotActions
     constructor: (currentStatus) ->
