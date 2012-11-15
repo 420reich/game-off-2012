@@ -16,7 +16,8 @@ exports.createView = function(req, res) {
   }
   return res.render('createRobot', {
     title: 'Create My Robot!',
-    'roboCode': ''
+    'roboCode': '',
+    robotTitle: ''
   });
 };
 
@@ -47,17 +48,18 @@ exports.create = function(req, res) {
       gists: githubResponse.id,
       isPublic: true,
       title: req.param('title')
-    }).success(function(user) {
-      return res.redirect('/robots/update/' + githubResponse.id);
+    }).success(function(robot) {
+      return res.redirect('/robots/update/' + robot.gists);
     });
   });
 };
 
 exports.updateView = function(req, res) {
-  var github;
+  var gistsId, github;
   if (!req.loggedIn) {
     return res.redirect('/auth/github');
   }
+  gistsId = req.params[0];
   github = new GithubApi({
     version: '3.0.0'
   });
@@ -65,15 +67,43 @@ exports.updateView = function(req, res) {
     type: 'oauth',
     token: req.user.token
   });
-  return github.gists.get({
-    id: req.params[0]
-  }, function(err, githubResponse) {
-    var files;
-    files = Object.keys(githubResponse.files);
-    return res.render('createRobot', {
-      title: 'Update my robot',
-      'roboCode': encodeURI(githubResponse.files[files[0]].content)
-    });
+  return Robot.find({
+    where: {
+      gists: gistsId
+    }
+  }).success(function(robot) {
+    if (!robot) {
+      return Robot.create({
+        ownerLogin: req.user.login,
+        gists: gistsId,
+        isPublic: true,
+        title: 'No title'
+      }).success(function(robot) {
+        return github.gists.get({
+          id: gistsId
+        }, function(err, githubResponse) {
+          var files;
+          files = Object.keys(githubResponse.files);
+          return res.render('createRobot', {
+            title: 'Update my robot',
+            roboCode: encodeURI(githubResponse.files[files[0]].content),
+            robotTitle: robot.title
+          });
+        });
+      });
+    } else {
+      return github.gists.get({
+        id: gistsId
+      }, function(err, githubResponse) {
+        var files;
+        files = Object.keys(githubResponse.files);
+        return res.render('createRobot', {
+          title: 'Update my robot',
+          roboCode: encodeURI(githubResponse.files[files[0]].content),
+          robotTitle: robot.title
+        });
+      });
+    }
   });
 };
 

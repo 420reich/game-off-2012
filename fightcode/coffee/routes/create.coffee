@@ -9,7 +9,7 @@ GithubApi = require 'github'
 
 exports.createView = (req, res) ->
     return res.redirect '/auth/github' if !req.loggedIn
-    res.render 'createRobot', title: 'Create My Robot!', 'roboCode': ''
+    res.render 'createRobot', title: 'Create My Robot!', 'roboCode': '', robotTitle: ''
 
 
 exports.create = (req, res) ->
@@ -31,20 +31,42 @@ exports.create = (req, res) ->
             gists: githubResponse.id,
             isPublic: true,
             title: req.param('title')
-        ).success((user) ->
-            res.redirect '/robots/update/' + githubResponse.id
+        ).success((robot) ->
+            res.redirect '/robots/update/' + robot.gists
         )
 
 
 exports.updateView = (req, res) ->
     return res.redirect '/auth/github' if !req.loggedIn
 
+    gistsId = req.params[0]
     github = new GithubApi version: '3.0.0'
     github.authenticate type: 'oauth', token: req.user.token
 
-    github.gists.get id: req.params[0], (err, githubResponse) ->
-        files = Object.keys githubResponse.files
-        res.render 'createRobot', title: 'Update my robot', 'roboCode': encodeURI(githubResponse.files[files[0]].content)
+    Robot.find(where: gists: gistsId).success (robot) ->
+        if !robot
+            Robot.create(
+                ownerLogin: req.user.login,
+                gists: gistsId,
+                isPublic: true,
+                title: 'No title'
+            ).success((robot) ->
+                github.gists.get id: gistsId, (err, githubResponse) ->
+                    files = Object.keys githubResponse.files
+                    res.render('createRobot',
+                        title: 'Update my robot',
+                        roboCode: encodeURI(githubResponse.files[files[0]].content),
+                        robotTitle: robot.title
+                    )
+            )
+        else
+            github.gists.get id: gistsId, (err, githubResponse) ->
+                    files = Object.keys githubResponse.files
+                    res.render('createRobot',
+                        title: 'Update my robot',
+                        roboCode: encodeURI(githubResponse.files[files[0]].content),
+                        robotTitle: robot.title
+                    )
 
 
 exports.update = (req, res) ->
