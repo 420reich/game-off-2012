@@ -353,8 +353,8 @@ class Engine
 
         virtualRect = new Rectangle(
             robotStatus.rectangle.position.x,
-            robotStatus.rectangle.position.y,
-            1000, 2, robotStatus.cannonTotalAngle())
+            robotStatus.rectangle.position.y + 0.5,
+            1000, 1, robotStatus.cannonTotalAngle())
 
         robotStatus.tickScan()
         for status in @robotsStatus

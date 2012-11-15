@@ -501,7 +501,7 @@ Engine = (function() {
   Engine.prototype.checkSight = function(robotStatus) {
     var actions, status, virtualRect, _i, _len, _ref;
     actions = new RobotActions(robotStatus);
-    virtualRect = new Rectangle(robotStatus.rectangle.position.x, robotStatus.rectangle.position.y, 1000, 2, robotStatus.cannonTotalAngle());
+    virtualRect = new Rectangle(robotStatus.rectangle.position.x, robotStatus.rectangle.position.y + 0.5, 1000, 1, robotStatus.cannonTotalAngle());
     robotStatus.tickScan();
     _ref = this.robotsStatus;
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {

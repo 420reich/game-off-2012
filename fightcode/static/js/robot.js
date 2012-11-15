@@ -6,7 +6,10 @@ SampleRobot = (function() {
 
   SampleRobot.prototype.onIdle = function(ev) {
     var robot;
-    return robot = ev.robot;
+    robot = ev.robot;
+    if (robot.id === 'element5') {
+      return robot.ahead(1);
+    }
   };
 
   SampleRobot.prototype.onRobotCollision = function(ev) {

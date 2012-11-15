@@ -2,8 +2,8 @@ class SampleRobot
     onIdle: (ev) ->
         # console.log('onIdle', ev)
         robot = ev.robot
-        # if robot.id == 'element6'
-            # robot.ahead(1)
+        if robot.id == 'element5'
+            robot.ahead(1)
 
     onRobotCollision: (ev) ->
         console.log('onRobotCollision', ev)
