@@ -14,16 +14,11 @@ class Vector2
         sin = Math.sin(angle)
         cos = Math.cos(angle)
 
-        # @x = reference.x + (@x - reference.x) * cos - (@y - reference.y) * sin
-        # @y = reference.y - (@y - reference.y) * cos + (@x - reference.x) * sin
-        @x -= reference.x
-        @y -= reference.y
+        translatedX = @x - reference.x
+        translatedY = @y - reference.y
 
-        xnew = @x * cos - @y * sin
-        ynew = @x * sin + @y * cos
-
-        @x = xnew + reference.x
-        @y = ynew + reference.y
+        @x = translatedX * cos - translatedY * sin + reference.x
+        @y = translatedX * sin + translatedY * cos + reference.y
 
         this
 

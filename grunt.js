@@ -53,8 +53,7 @@ module.exports = function(grunt) {
     grunt.initConfig({
         meta: {
             version: '0.1.0',
-            banner: '/*! FightCode - v<%= meta.version %> - ' +
-                    '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
+            banner: '/*! FightCode - v<%= meta.version %>\n' +
                     '* http://fightcodega.me/\n*/'
         },
 
@@ -128,6 +127,10 @@ module.exports = function(grunt) {
             clean: {
                 command: 'rm -rf ./fightcode/static/output/*'
             }
+        },
+
+        qunit: {
+            all: ['test/*.html']
         },
 
         watch: {

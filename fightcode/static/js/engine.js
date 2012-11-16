@@ -23,16 +23,14 @@ Vector2 = (function() {
   }
 
   Vector2.prototype.rotate = function(angle, reference) {
-    var cos, sin, xnew, ynew;
+    var cos, sin, translatedX, translatedY;
     angle = (angle * Math.PI) / 180;
     sin = Math.sin(angle);
     cos = Math.cos(angle);
-    this.x -= reference.x;
-    this.y -= reference.y;
-    xnew = this.x * cos - this.y * sin;
-    ynew = this.x * sin + this.y * cos;
-    this.x = xnew + reference.x;
-    this.y = ynew + reference.y;
+    translatedX = this.x - reference.x;
+    translatedY = this.y - reference.y;
+    this.x = translatedX * cos - translatedY * sin + reference.x;
+    this.y = translatedX * sin + translatedY * cos + reference.y;
     return this;
   };
 
