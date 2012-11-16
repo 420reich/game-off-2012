@@ -3,7 +3,7 @@ class SampleRobot
         # console.log('onIdle', ev)
         robot = ev.robot
         if robot.id == 'element5'
-            robot.ahead(1)
+            robot.turn(1)
 
     onRobotCollision: (ev) ->
         console.log('onRobotCollision', ev)

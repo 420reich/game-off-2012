@@ -22,9 +22,6 @@ class Vector2
 
         this
 
-    angleTo: (other) ->
-        Math.atan2(other.y - @y, other.x - @x)
-
     @add: (v1, v2) ->
         new Vector2(v1.x + v2.x, v1.y + v2.y)
 
@@ -346,10 +343,15 @@ class Engine
     checkSight: (robotStatus) ->
         actions = new RobotActions(robotStatus)
 
+        virtualWidth = 2000
+        virtualHeight = 1
+        dirVec = new Vector2(robotStatus.rectangle.position.x + virtualWidth / 2, robotStatus.rectangle.position.y - virtualHeight / 2);
+        dirVec.rotate(robotStatus.cannonTotalAngle(), robotStatus.rectangle.position)
+
         virtualRect = new Rectangle(
-            robotStatus.rectangle.position.x,
-            robotStatus.rectangle.position.y + 0.5,
-            1000, 1, robotStatus.cannonTotalAngle())
+            dirVec.x,
+            dirVec.y,
+            virtualWidth, virtualHeight, robotStatus.cannonTotalAngle())
 
         robotStatus.tickScan()
         for status in @robotsStatus

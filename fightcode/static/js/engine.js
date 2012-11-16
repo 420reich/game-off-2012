@@ -34,10 +34,6 @@ Vector2 = (function() {
     return this;
   };
 
-  Vector2.prototype.angleTo = function(other) {
-    return Math.atan2(other.y - this.y, other.x - this.x);
-  };
-
   Vector2.add = function(v1, v2) {
     return new Vector2(v1.x + v2.x, v1.y + v2.y);
   };
@@ -497,9 +493,13 @@ Engine = (function() {
   };
 
   Engine.prototype.checkSight = function(robotStatus) {
-    var actions, status, virtualRect, _i, _len, _ref;
+    var actions, dirVec, status, virtualHeight, virtualRect, virtualWidth, _i, _len, _ref;
     actions = new RobotActions(robotStatus);
-    virtualRect = new Rectangle(robotStatus.rectangle.position.x, robotStatus.rectangle.position.y + 0.5, 1000, 1, robotStatus.cannonTotalAngle());
+    virtualWidth = 2000;
+    virtualHeight = 1;
+    dirVec = new Vector2(robotStatus.rectangle.position.x + virtualWidth / 2, robotStatus.rectangle.position.y - virtualHeight / 2);
+    dirVec.rotate(robotStatus.cannonTotalAngle(), robotStatus.rectangle.position);
+    virtualRect = new Rectangle(dirVec.x, dirVec.y, virtualWidth, virtualHeight, robotStatus.cannonTotalAngle());
     robotStatus.tickScan();
     _ref = this.robotsStatus;
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {

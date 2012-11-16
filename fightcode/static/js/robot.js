@@ -8,7 +8,7 @@ SampleRobot = (function() {
     var robot;
     robot = ev.robot;
     if (robot.id === 'element5') {
-      return robot.ahead(1);
+      return robot.turn(1);
     }
   };
 
