@@ -40,11 +40,11 @@ class RobotActions
         @queue = []
 
     move: (amount, direction) ->
-        for [1..(amount / MOVE_INCREMENT)]
-            @queue.push(
-                action: "move"
-                direction: direction
-            )
+        @queue.push(
+            action: "move"
+            direction: direction
+            count: amount / MOVE_INCREMENT
+        )
         true
 
     ahead: (amount) ->
@@ -54,18 +54,18 @@ class RobotActions
         @move(amount, -1)
 
     rotateCannon: (degrees) ->
-        for [1..(degrees / ANG_INCREMENT)]
-            @queue.push(
-                action: "rotateCannon"
-                direction: degrees
-            )
+        @queue.push(
+            action: "rotateCannon"
+            direction: degrees
+            count: degrees / ANG_INCREMENT
+        )
 
     turn: (degrees) ->
-        for [1..(degrees / ANG_INCREMENT)]
-            @queue.push(
-                action: "turn"
-                direction: degrees
-            )
+        @queue.push(
+            action: "turn"
+            direction: degrees
+            count: degrees / ANG_INCREMENT
+        )
 
     fire: (bullets) ->
         @queue.push(
@@ -255,6 +255,10 @@ class RobotStatus extends ElementStatus
     runItem: ->
         item = @queue.shift()
         return unless item
+
+        if 'count' of item
+            item.count--
+            @queue.unshift(item) if item.count > 0
 
         direction = 1
         if item.direction and item.direction < 0
