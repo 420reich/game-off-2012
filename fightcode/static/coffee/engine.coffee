@@ -22,17 +22,20 @@ class Vector2
 
         this
 
-    @add: (v1, v2) ->
-        new Vector2(v1.x + v2.x, v1.y + v2.y)
-
-    @subtract: (v1, v2) ->
-        new Vector2(v1.x - v2.x, v1.y - v2.y)
+    module: ->
+        Math.sqrt(@x * @x + @y *@y)
 
     projectTo: (axis) ->
         numerator = (@x * axis.x) + (@y * axis.y)
         denominator = (axis.x * axis.x) + (axis.y * axis.y)
         divisionResult = numerator / denominator
         new Vector2(divisionResult * axis.x, divisionResult * axis.y)
+
+    @add: (v1, v2) ->
+        new Vector2(v1.x + v2.x, v1.y + v2.y)
+
+    @subtract: (v1, v2) ->
+        new Vector2(v1.x - v2.x, v1.y - v2.y)
 
 class RobotActions
     constructor: (currentStatus) ->
@@ -84,38 +87,53 @@ class Arena
 class Rectangle
     constructor: (x = 0, y = 0, width = 1, height = 1, @angle = 0) ->
         @position = new Vector2(x, y)
+        @setDimension(width, height)
+        @updateCoords()
+
+    setAngle: (@angle) ->
+        @updateCoords()
+
+    setDimension: (width, height) ->
         @dimension = {
             width: width,
             height: height
         }
+        @halfWidth = width / 2
+        @halfHeight = height / 2
+        @radius = @halfWidth + @halfHeight
+        @updateCoords()
 
-    top: ->
-        @position.y - (@dimension.height / 2)
-    left: ->
-        @position.x - (@dimension.width / 2)
-    right: ->
-        @position.x + (@dimension.width / 2)
-    bottom: ->
-        @position.y + (@dimension.height / 2)
+    setPosition: (x, y) ->
+        @position.x = x
+        @position.y = y
+        @updateCoords()
 
-    upperRightCorner: ->
-        new Vector2(@right(), @top()).rotate(@angle, @position)
+    incPosition: (x, y) ->
+        @position.x += x
+        @position.y += y
+        @updateCoords()
 
-    upperLeftCorner: ->
-        new Vector2(@left(), @top()).rotate(@angle, @position)
+    updateCoords: ->
+        top = @position.y - @halfHeight
+        left = @position.x - @halfWidth
+        bottom = @position.y + @halfHeight
+        right = @position.x + @halfWidth
 
-    lowerLeftCorner: ->
-        new Vector2(@left(), @bottom()).rotate(@angle, @position)
+        @upperRight = new Vector2(right, top).rotate(@angle, @position)
+        @upperLeft = new Vector2(left, top).rotate(@angle, @position)
+        @lowerLeft = new Vector2(left, bottom).rotate(@angle, @position)
+        @lowerRight = new Vector2(right, bottom).rotate(@angle, @position)
 
-    lowerRightCorner: ->
-        new Vector2(@right(), @bottom()).rotate(@angle, @position)
+    intersects: (other, smart = true) ->
+        distance = Vector2.subtract(@position, other.position).module()
+        if distance > (@radius + other.radius)
+            return false
 
-    intersects: (other) ->
         axisList = [
-            Vector2.subtract(@upperRightCorner(), @upperLeftCorner()),
-            Vector2.subtract(@upperRightCorner(), @lowerRightCorner()),
-            Vector2.subtract(other.upperRightCorner(), other.upperLeftCorner()),
-            Vector2.subtract(other.upperRightCorner(), other.lowerRightCorner())
+            Vector2.subtract(@upperRight, @upperLeft),
+            Vector2.subtract(@upperRight, @lowerRight),
+            Vector2.subtract(other.upperRight, other.upperLeft),
+            Vector2.subtract(other.upperRight, other.lowerRight)
         ]
 
         for axis in axisList
@@ -126,17 +144,17 @@ class Rectangle
 
     isAxisCollision: (other, axis) ->
         myProjections = [
-            @generateScalar(@upperLeftCorner(), axis),
-            @generateScalar(@upperRightCorner(), axis),
-            @generateScalar(@lowerLeftCorner(), axis),
-            @generateScalar(@lowerRightCorner(), axis)
+            @generateScalar(@upperLeft, axis),
+            @generateScalar(@upperRight, axis),
+            @generateScalar(@lowerLeft, axis),
+            @generateScalar(@lowerRight, axis)
         ]
 
         otherProjections = [
-            @generateScalar(other.upperLeftCorner(), axis),
-            @generateScalar(other.upperRightCorner(), axis),
-            @generateScalar(other.lowerLeftCorner(), axis),
-            @generateScalar(other.lowerRightCorner(), axis)
+            @generateScalar(other.upperLeft, axis),
+            @generateScalar(other.upperRight, axis),
+            @generateScalar(other.lowerLeft, axis),
+            @generateScalar(other.lowerRight, axis)
         ]
 
         minMine = Math.min.apply(Math, myProjections)
@@ -170,21 +188,21 @@ class ElementStatus
 class WallStatus extends ElementStatus
     constructor: (x, y, width, height) ->
         super()
-        @rectangle.position.x = x
-        @rectangle.position.y = y
-        @rectangle.dimension.width = width
-        @rectangle.dimension.height = height
+        @rectangle.setPosition(x, y)
+        @rectangle.setDimension(width, height)
 
 class BulletStatus extends ElementStatus
     constructor: (@robotStatus) ->
         super()
-        @rectangle.angle = (@robotStatus.rectangle.angle + @robotStatus.cannonAngle) % 360
-        @angleRad = (@rectangle.angle * Math.PI) / 180
+        @rectangle.setAngle((@robotStatus.rectangle.angle + @robotStatus.cannonAngle) % 360)
 
-        xInc = Math.cos(@angleRad) * (@robotStatus.rectangle.dimension.width / 2)
-        yInc = Math.sin(@angleRad) * (@robotStatus.rectangle.dimension.height / 2)
-        @rectangle.position.x = @robotStatus.rectangle.position.x + xInc
-        @rectangle.position.y = @robotStatus.rectangle.position.y + yInc
+        angleRad = (@rectangle.angle * Math.PI) / 180
+        @sinAngle = Math.sin(angleRad)
+        @cosAngle = Math.cos(angleRad)
+
+        xInc = @cosAngle * (@robotStatus.rectangle.dimension.width / 2)
+        yInc = @sinAngle * (@robotStatus.rectangle.dimension.height / 2)
+        @rectangle.setPosition(@robotStatus.rectangle.position.x + xInc, @robotStatus.rectangle.position.y + yInc)
 
         @speed = 2
         @strength = 1
@@ -198,9 +216,7 @@ class BulletStatus extends ElementStatus
 
     runItem: ->
         @previousPosition = new Vector2(@rectangle.position)
-
-        @rectangle.position.x += Math.cos(@angleRad) * @speed
-        @rectangle.position.y += Math.sin(@angleRad) * @speed
+        @rectangle.incPosition(@cosAngle * @speed, @sinAngle * @speed)
 
         null
 
@@ -208,7 +224,7 @@ class BulletStatus extends ElementStatus
         @running = false
 
     rollbackAfterCollision: ->
-        @rectangle.position = @previousPosition if @previousPosition
+        @rectangle.setPosition(@previousPosition.x, @previousPosition.y) if @previousPosition
 
     updateQueue: ->
         #no-op
@@ -218,10 +234,7 @@ class RobotStatus extends ElementStatus
         super()
         @life = 100
         @cannonAngle = 0
-        @rectangle.dimension = {
-            width: 27,
-            height: 24
-        }
+        @rectangle.setDimension(27, 24)
         @baseScanWaitTime = 50
         @scanWaitTime = 0
         @queue = []
@@ -237,8 +250,8 @@ class RobotStatus extends ElementStatus
         buletStatus.destroy()
 
     rollbackAfterCollision: ->
-        @rectangle.position = @previousPosition if @previousPosition
-        @rectangle.angle = @previousAngle if @previousAngle
+        @rectangle.setPosition(@previousPosition.x, @previousPosition.y) if @previousPosition
+        @rectangle.setAngle(@previousAngle) if @previousAngle
 
     cannonTotalAngle: ->
         (@rectangle.angle + @cannonAngle) % 360
@@ -272,8 +285,7 @@ class RobotStatus extends ElementStatus
             when 'move'
                 rad = (@rectangle.angle * Math.PI) / 180
                 @previousPosition = new Vector2(@rectangle.position)
-                @rectangle.position.x += Math.cos(rad) * MOVE_INCREMENT * direction
-                @rectangle.position.y += Math.sin(rad) * MOVE_INCREMENT * direction
+                @rectangle.incPosition(Math.cos(rad) * MOVE_INCREMENT * direction, Math.sin(rad) * MOVE_INCREMENT * direction)
 
             when 'rotateCannon'
                 @previousCannonAngle = @cannonAngl
@@ -281,9 +293,9 @@ class RobotStatus extends ElementStatus
                 @cannonAngle = @cannonAngle % 360
 
             when 'turn'
-                @previousAngle = @angle
-                @rectangle.angle += ANG_INCREMENT * direction
-                @rectangle.angle = @rectangle.angle % 360
+                @previousAngle = @rectangle.angle
+                angle = @previousAngle + ANG_INCREMENT * direction
+                @rectangle.setAngle(angle % 360)
 
             when 'fire'
                 return new BulletStatus(this)
@@ -312,7 +324,7 @@ class Engine
         actions = new RobotActions(robotStatus)
 
         for wall in @arena.walls
-            if robotStatus.rectangle.intersects(wall.rectangle)
+            if robotStatus.rectangle.intersects(wall.rectangle, false)
                 robotStatus.rollbackAfterCollision()
                 if robotStatus instanceof BulletStatus
                     @roundLog.events.push({
