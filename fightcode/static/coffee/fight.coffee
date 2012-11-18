@@ -22,20 +22,15 @@ class FightArena
         @startWorker()
 
     startWorker: ->
-        console.log "Starting worker..."
         worker = new Worker('/output/fightcode.worker.min.js')
-        console.log "Worker started!"
         worker.onmessage = @receiveWorkerEvent
-        console.log "Sending message"
 
         eventData =
             robots: 2
             robot1: @defaultCode
             robot2: @defaultCode
 
-        console.log(eventData)
         worker.postMessage(eventData)
-        console.log "Message sent"
 
     receiveWorkerEvent: (ev) ->
         evData = ev.data
@@ -44,14 +39,21 @@ class FightArena
             console.log "LOG", evData.message
 
         if evData.type is 'results'
+            board = container.find('.board')
+            board.empty()
+            boardContainer = $('<div></div>')
+            board.append(boardContainer)
+
             loading = container.find('.loading')
             loading.addClass('animate')
+
             setTimeout(
                 ->
                     loading.detach()
 
-                    game = new Game(container, evData.result, {
-                        msPerRound: 12
+                    console.log(evData.result)
+                    game = new Game(boardContainer, evData.result, {
+                        msPerRound: 7
                     })
 
                     game.initialize()

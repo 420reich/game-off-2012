@@ -580,12 +580,10 @@ Engine = (function() {
         status.updateQueue(actions);
       }
     }
-    if (this.isDraw()) {
-      if (this.isDraw()) {
-        console.log("DRAW!");
-      }
-    }
-    return fightLog;
+    return {
+      draw: this.isDraw(),
+      result: fightLog
+    };
   };
 
   return Engine;

@@ -84,14 +84,16 @@ class Game
                         @handleBullet(object)
 
             for event in round.events
+                object = @objects[event.id]
+
                 switch event.type
                     when 'moving'
-                        @objects[event.id].tank.addClass('moving')
+                        object.tank.addClass('moving') if object
                     when 'backwards'
-                        @objects[event.id].tank.addClass('backwards')
+                        object.tank.addClass('backwards') if object
                     when 'stopped'
-                        @objects[event.id].tank.removeClass('backwards').removeClass('moving')
+                        object.tank.removeClass('backwards').removeClass('moving') if object
                     when 'exploded'
-                        @objects[event.id].bullet.addClass('exploding')
+                        object.bullet.addClass('exploding') if object
 
         requestAnimationFrame(@play) if @events.length > 0

@@ -426,7 +426,7 @@ class Engine
                 actions = @checkSight(status)
                 status.updateQueue(actions)
 
-        if @isDraw()
-            console.log("DRAW!") if @isDraw()
-
-        fightLog
+        return {
+            draw: @isDraw()
+            result: fightLog
+        }

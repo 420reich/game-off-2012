@@ -1,15 +1,17 @@
+worker = self
+
 class Fight
     constructor: ->
         @bindEvents()
 
     log: (message) =>
-        self.postMessage(
+        worker.postMessage(
             type: "log"
             message: message
         )
 
     bindEvents: ->
-        self.onmessage = (event) =>
+        worker.onmessage = (event) =>
             evData = event.data
             robots = []
             for i in [1..evData.robots]
@@ -18,6 +20,11 @@ class Fight
             @processFight(robots)
 
     processFight: (robots) ->
+        maxRounds = 10000
+        boardSize =
+            width: 800
+            height: 500
+
         robotInstances = []
         for robot in robots
             robotCode = "with(window){#{ robot }\nreturn window.robotClass;}"
@@ -25,16 +32,17 @@ class Fight
             robotInstance = new constr()
             robotInstances.push(robotInstance)
 
-        engine = new Engine(800, 600, 20000, robotInstances...)
+        engine = new Engine(boardSize.width, boardSize.height, maxRounds, robotInstances...)
 
         for robotStatus in engine.robotsStatus
-            robotStatus.rectangle.position = new Vector2(Math.random(800), Math.random(600))
+            robotStatus.rectangle.position = new Vector2(Math.random() * boardSize.width, Math.random() * boardSize.height)
 
         result = engine.fight()
 
-        self.postMessage(
+        eventData =
             type: "results"
-            result: result
-        )
+            result: result.result
+
+        worker.postMessage(eventData)
 
 fight = new Fight()

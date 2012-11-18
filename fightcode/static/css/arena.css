@@ -160,3 +160,8 @@
   z-index: 9999;
   opacity: 1;
 }
+/* line 147, ../scss/arena.scss */
+.fight-arena .board {
+  width: 800px;
+  height: 500px;
+}
