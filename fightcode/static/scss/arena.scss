@@ -1,0 +1,147 @@
+@import "compass/css3";
+
+.fight-arena {
+    padding: 60px 20px 0 20px;
+
+    .loading {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1500;
+        font-size: 0;
+        overflow-x: hidden;
+
+        .left-half,
+        .right-half {
+            @include transition(all 500ms cubic-bezier(.82,.02,.36,.96) 150ms);
+
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 50%;
+            background: url('../img/subtle_carbon.png');
+        }
+
+        .left-half {
+            left: 0;
+
+        }
+
+        .right-half {
+            right: 0;
+        }
+
+        &.animate {
+            .left-half {
+                left: -50%;
+            }
+            .right-half {
+                right: -50%;
+            }
+            .vs {
+                opacity: 0;
+            }
+        }
+    }
+
+    .my-robot,
+    .opponent-robot {
+        @include box-sizing(border-box);
+        height: 100%;
+        width: 70%;
+
+        position: absolute;
+        top: 0;
+        display: table;
+
+        font-size: 72px;
+        text-align: center;
+
+        .robotData {
+            display: table-cell;
+            vertical-align: middle;
+        }
+
+        img {
+            height: 30%;
+        }
+
+        h2 {
+            font-family: 'fightcode';
+            font-size: 90px;
+            color: #e9e9e9;
+
+            .name {
+                color: #d92432;
+            }
+        }
+
+        .victories,
+        .defeats,
+        .draws {
+            font-family: 'fightcode';
+            font-size: 62px;
+            line-height: 65px;
+            color: #e9e9e9;
+        }
+
+        .victories .number {
+            color: #95ff7c;
+        }
+        .defeats .number {
+            color: #d92432;
+        }
+        .draws .number {
+            color: #fff665;
+        }
+    }
+
+    .my-robot {
+        left: 50px;
+
+        h2 {
+            margin-top: 40px;
+        }
+
+        .victories {
+            margin-top: 40px;
+        }
+    }
+
+    .opponent-robot {
+        right: 50px;
+
+        img {
+            margin-top: 40px;
+        }
+
+        .victories {
+            margin-top: 40px;
+        }
+    }
+
+    .vs {
+        @include transition(all 100ms linear);
+        @include box-sizing(border-box);
+        height: 180px;
+        width: 100px;
+
+        position: absolute;
+        top: 50%;
+        left: 50%;
+
+        margin-top: -90px;
+        margin-left: -50px;
+        padding-top: 70px;
+
+        font-size:  200px;
+        font-family: 'fightcode';
+        text-align: center;
+        text-indent: -45px;
+        z-index: 9999;
+        opacity: 1;
+    }
+
+}
