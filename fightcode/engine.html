@@ -12,15 +12,19 @@
     <script src="static/js/robot.js"></script>
     <script>
 
+
+var t0 = new Date().getTime();
 engine = new Engine(480, 480, 5000, new SampleRobot(), new SampleRobot());
 
-engine.robotsStatus[0].rectangle.angle = 90
-engine.robotsStatus[0].rectangle.position = new Vector2(200, 100)
+engine.robotsStatus[0].rectangle.setAngle(90)
+engine.robotsStatus[0].rectangle.setPosition(200, 100)
 
-engine.robotsStatus[1].rectangle.angle = 0
-engine.robotsStatus[1].rectangle.position = new Vector2(300, 350)
+engine.robotsStatus[1].rectangle.setAngle(0)
+engine.robotsStatus[1].rectangle.setPosition(300, 350)
 
 result = engine.fight();
+
+console.log('total time', ((new Date().getTime()) - t0) / 1000);
 
 game = new Game($('.board'), result, {
     msPerRound: 10

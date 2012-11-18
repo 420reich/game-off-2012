@@ -2,8 +2,12 @@ class SampleRobot
     onIdle: (ev) ->
         # console.log('onIdle', ev)
         robot = ev.robot
-        if robot.id == 'element5'
-            robot.turn(1)
+        # if robot.id == 'element5'
+        robot.ahead(100)
+        robot.rotateCannon(360)
+        robot.back(100)
+        robot.rotateCannon(360)
+
 
     onRobotCollision: (ev) ->
         console.log('onRobotCollision', ev)
@@ -18,5 +22,5 @@ class SampleRobot
 
     onHitByBullet: (ev) ->
         # console.log('onHitByBullet', ev, ev.bulletBearing)
-        # robot = ev.robot
-        # robot.turn(270 - ev.bulletBearing)
+        robot = ev.robot
+        robot.turn(ev.bulletBearing)
