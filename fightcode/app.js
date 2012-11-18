@@ -11,7 +11,9 @@ var express = require('express'),
 
 var index = require('./routes/index.js'),
     create = require('./routes/create.js'),
-    user = require('./routes/user.js');
+    user = require('./routes/user.js'),
+    ranking = require('./routes/ranking.js'),
+    fight = require('./routes/fight.js');
 
 var app = express();
 
@@ -50,12 +52,14 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
+app.get(/^\/robots\/ranking\/?/, ranking.index);
 app.get('/robots/create', create.createView);
 app.post('/robots/create', create.create);
 app.get(/^\/robots\/update\/(\w+)$/, create.updateView);
 app.post(/^\/robots\/update\/(\w+)$/, create.update);
 app.get('/', index.index);
-app.get(/^\/user\/(\w+)$/, user.show);
+app.get(/^\/(.+?)\/robots\/(.+?)\/fight\/(\d+)\/?$/, fight.startFight);
+app.get(/^\/(\w+)\/?$/, user.show);
 
 http.createServer(app).listen(app.get('port'), function(){
     console.log("Express server listening on port " + app.get('port'));
