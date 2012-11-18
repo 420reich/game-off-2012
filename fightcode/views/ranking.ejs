@@ -1,0 +1,40 @@
+<% include header.ejs %>
+<div class="ranking-container">
+
+    <div class="row-fluid">
+        <div class="span12">
+            <h1>The Amazing Robot League</h1>
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span12">
+            <h2>Maniac</h2>
+
+            <table class="fight-table table table-bordered table-hover">
+                <tbody>
+                    <% for (var i=0; i<10; i++) { %>
+                    <tr>
+                        <td><span class="ranking">#<%-20 + i%></span><span class="name">IronMaiden</span></td>
+                        <td class="actions"><a href="#" data-robot-id="<%- i%>" class="fight">fight</a></td>
+                    </tr>
+                    <% } %>
+
+                    <tr class="my-robot">
+                        <td><span class="ranking">#30</span><span class="name">Maniac</span></td>
+                        <td class="actions"></td>
+                    </tr>
+
+                    <% for (var i=0; i<10; i++) { %>
+                    <tr>
+                        <td><span class="ranking">#<%- 30 + i %></span><span class="name">IronMaiden</span></td>
+                        <td class="actions"><a href="#" data-robot-id="<%- 12 + i%>" class="fight">fight</a></td>
+                    </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+<% include scripts.ejs %>
+<% include footer.ejs %>

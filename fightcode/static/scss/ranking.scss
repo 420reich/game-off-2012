@@ -1,0 +1,27 @@
+.ranking-container {
+    padding: 60px 20px 0 20px;
+
+    .fight-table {
+        width: 500px;
+        margin-bottom: 20px;
+
+        .actions {
+            width: 50px;
+            text-align: center;
+        }
+
+        .ranking {
+            color: #dedede;
+            padding-right: 5px;
+        }
+
+        .my-robot {
+            height: 60px;
+            font-size: 30px;
+
+            td {
+                vertical-align: middle;
+            }
+        }
+    }
+}

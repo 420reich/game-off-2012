@@ -1,0 +1,28 @@
+/* line 1, ../scss/ranking.scss */
+.ranking-container {
+  padding: 60px 20px 0 20px;
+}
+/* line 4, ../scss/ranking.scss */
+.ranking-container .fight-table {
+  width: 500px;
+  margin-bottom: 20px;
+}
+/* line 8, ../scss/ranking.scss */
+.ranking-container .fight-table .actions {
+  width: 50px;
+  text-align: center;
+}
+/* line 13, ../scss/ranking.scss */
+.ranking-container .fight-table .ranking {
+  color: #dedede;
+  padding-right: 5px;
+}
+/* line 18, ../scss/ranking.scss */
+.ranking-container .fight-table .my-robot {
+  height: 60px;
+  font-size: 30px;
+}
+/* line 22, ../scss/ranking.scss */
+.ranking-container .fight-table .my-robot td {
+  vertical-align: middle;
+}

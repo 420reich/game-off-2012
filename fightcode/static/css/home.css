@@ -6,39 +6,45 @@
 .navbar .nav > li > a.profile {
   padding: 3px;
 }
+/* line 8, ../scss/home.scss */
+.navbar .brand {
+  padding: 14px 20px 14px;
+  font-family: 'fightcode';
+  font-size: 32px;
+}
 
-/* line 10, ../scss/home.scss */
+/* line 15, ../scss/home.scss */
 .home {
   padding: 60px 20px 0 20px;
 }
-/* line 13, ../scss/home.scss */
+/* line 18, ../scss/home.scss */
 .home .board {
   width: 600px;
   height: 450px;
   margin: 15px auto 0;
 }
-/* line 19, ../scss/home.scss */
+/* line 24, ../scss/home.scss */
 .home .row-fluid {
   width: 99%;
   margin: 0 20px;
   padding-top: 20px;
 }
-/* line 25, ../scss/home.scss */
+/* line 30, ../scss/home.scss */
 .home pre {
   max-height: 400px;
   max-width: 582px;
   margin-left: 36px;
 }
-/* line 31, ../scss/home.scss */
+/* line 36, ../scss/home.scss */
 .home .documentation {
   margin-top: 20px;
 }
-/* line 35, ../scss/home.scss */
+/* line 40, ../scss/home.scss */
 .home .btn-create-robot {
   margin-top: 70px;
 }
 
-/* line 40, ../scss/home.scss */
+/* line 45, ../scss/home.scss */
 code, pre {
   text-shadow: none !important;
   font-size: 16px;
