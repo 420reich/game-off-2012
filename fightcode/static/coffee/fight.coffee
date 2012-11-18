@@ -53,7 +53,7 @@ class FightArena
 
                     console.log(evData.result)
                     game = new Game(boardContainer, evData.result, {
-                        msPerRound: 7
+                        msPerRound: 3
                     })
 
                     game.initialize()

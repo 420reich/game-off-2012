@@ -400,7 +400,7 @@ class Engine
                         width: status.rectangle.dimension.width
                         height: status.rectangle.dimension.height
                     health:
-                        status.health
+                        status.life
                     angle:
                         status.rectangle.angle
                     cannonAngle:
