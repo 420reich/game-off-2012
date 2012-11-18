@@ -1,113 +1,192 @@
 @import "compass/css3";
 
-.fight-arena {
-    padding: 60px 20px 0 20px;
+.board {
+    background: url('../img/grass.png');
+    border: solid 10px #175307;
+    border-radius: 15px;
+    width: 480px;
+    height: 480px;
 
-    .loading {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 1500;
-        font-size: 0;
-
-        background: url('../img/subtle_carbon.png');
-    }
-
-    .my-robot,
-    .opponent-robot {
-        @include box-sizing(border-box);
-        height: 100%;
-        width: 40%;
-
-        position: absolute;
-        top: 0;
-        display: table;
-
-        font-size: 72px;
-        text-align: center;
-
-        .robotData {
-            display: table-cell;
-            vertical-align: middle;
-        }
-
-        img {
-            height: 30%;
-        }
-
-        h2 {
-            font-family: 'fightcode';
-            font-size: 90px;
-            color: #e9e9e9;
-
-            .name {
-                color: #d92432;
-            }
-        }
-
-        .victories,
-        .defeats,
-        .draws {
-            font-family: 'fightcode';
-            font-size: 62px;
-            line-height: 65px;
-            color: #e9e9e9;
-        }
-
-        .victories .number {
-            color: #95ff7c;
-        }
-        .defeats .number {
-            color: #d92432;
-        }
-        .draws .number {
-            color: #fff665;
-        }
-    }
-
-    .my-robot {
-        left: 50px;
-
-        h2 {
-            margin-top: 40px;
-        }
-
-        .victories {
-            margin-top: 40px;
-        }
-    }
-
-    .opponent-robot {
-        right: 50px;
-
-        img {
-            margin-top: 40px;
-        }
-
-        .victories {
-            margin-top: 40px;
-        }
-    }
-
-    .vs {
-        @include box-sizing(border-box);
-        height: 180px;
-        width: 100px;
-
-        position: absolute;
-        top: 50%;
-        left: 50%;
-
-        margin-top: -90px;
-        margin-left: -50px;
-        padding-top: 70px;
-
-        font-size:  200px;
-        font-family: 'fightcode';
-        text-align: center;
-        text-indent: -45px;
-    }
-
+    position: relative;
+    margin: 40px auto 0;
 }
+
+@include keyframes(movement) {
+    10% {
+        background-position: -2px -4px;
+    }
+
+    15% {
+        background-position: -34px -4px;
+    }
+
+    25% {
+        background-position: -66px -4px;
+    }
+
+    37%{
+        background-position: -98px -4px;
+    }
+
+    50% {
+        background-position: -130px -4px;
+    }
+
+    62% {
+        background-position: -162px -4px;
+    }
+
+    75% {
+        background-position: -194px -4px;
+    }
+
+    87% {
+        background-position: -226px -4px;
+    }
+
+    90% {
+        background-position: -2px -4px;
+    }
+}
+
+.tank {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+
+    .body {
+        background-image: url('../img/tanks.png');
+        background-position: -2px -4px;
+        background-repeat: no-repeat;
+
+        width: 27px;
+        height: 24px;
+    }
+
+    .cannon {
+        background: url('../img/cannon.png') 0 0 no-repeat;
+        width: 24px;
+        height: 14px;
+
+        position: absolute;
+        left: 5px;
+        top: 5px;
+
+        @include transform-origin(7px 7px 0);
+        @include rotate(0deg);
+    }
+
+    .life {
+        background-color: #c70000;
+        border: solid 1px red;
+        border-radius: 1px;
+        width: 30px;
+        height: 6px;
+        position: absolute;
+        top: -12px;
+        left: 50%;
+        margin-left: -17px;
+
+        @include box-shadow(2px 2px 0 0 rgba(0, 0, 0, 0.25))
+    }
+
+    &.moving {
+        .body {
+            @include animation-duration(500ms);
+            @include animation-name(movement);
+            @include animation-iteration-count(infinite);
+            @include animation-timing-function(step-start);
+            @include animation-direction(reverse);
+        }
+    }
+
+    &.backwards {
+        .body {
+            @include animation-direction(normal);
+        }
+    }
+}
+
+@include keyframes(explosion) {
+    6% {
+        background-position: 0px 0px;
+    }
+    12% {
+        background-position: -24px 0px;
+    }
+    19% {
+        background-position: -48px 0px;
+    }
+    25% {
+        background-position: -72px 0px;
+    }
+    31% {
+        background-position: 0px -24px;
+    }
+    38% {
+        background-position: -24px -24px;
+    }
+    44% {
+        background-position: -48px -24px;
+    }
+    50% {
+        background-position: -72px -24px;
+    }
+    56% {
+        background-position: 0px -48px;
+    }
+    62% {
+        background-position: -24px -48px;
+    }
+    69% {
+        background-position: -48px -48px;
+    }
+    75% {
+        background-position: -72px -48px;
+    }
+    81% {
+        background-position: 0px -72px;
+    }
+    88% {
+        background-position: -24px -72px;
+    }
+    94% {
+        background-position: -48px -72px;
+    }
+    100% {
+        background-position: -72px -72px;
+    }
+}
+
+.bullet {
+    background: url('../img/bullet.png') 0 0 no-repeat;
+    width: 13px;
+    height: 5px;
+    position: absolute;
+
+    top: 100px;
+    left: 100px;
+
+    .explosion {
+        background: url('../img/explosprite.png') 0 0 no-repeat;
+        display: none;
+        width: 24px;
+        height: 24px;
+        position: absolute;
+        top: -10px;
+        left: -5px;
+    }
+
+    &.exploding {
+        background: none;
+
+        .explosion {
+            display: block;
+            @include animation-duration(1000ms);
+            @include animation-name(explosion);
+            @include animation-timing-function(step-start);
+            @include animation-fill-mode(forwards);
+        }
+    }
+}
+

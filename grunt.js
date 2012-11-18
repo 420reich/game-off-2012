@@ -10,6 +10,7 @@ module.exports = function(grunt) {
             'fightcode/static/css/home.css',
             'fightcode/static/css/create.css',
             'fightcode/static/css/fight.css',
+            'fightcode/static/css/arena.css',
             'fightcode/static/css/ranking.css',
             'fightcode/static/css/user.css'
         ]
@@ -38,6 +39,11 @@ module.exports = function(grunt) {
             'fightcode/static/js/codemirror.js',
             'fightcode/static/js/coffeescript.js',
             'fightcode/static/js/javascript.js'
+        ],
+
+        worker: [
+            'fightcode/static/js/engine.js',
+            'fightcode/static/js/worker.js'
         ]
     };
 
@@ -94,6 +100,10 @@ module.exports = function(grunt) {
                 src: ['<banner:meta.banner>'].concat(jsFiles.webApp),
                 dest: 'fightcode/static/output/fightcode.webApp.min.js'
             },
+            worker: {
+                src: ['<banner:meta.banner>'].concat(jsFiles.worker),
+                dest: 'fightcode/static/output/fightcode.worker.min.js'
+            },
             thirdParty: {
                 src: ['<banner:meta.banner>'].concat(jsFiles.thirdParty),
                 dest: 'fightcode/static/output/fightcode.thirdParty.min.js'
@@ -112,6 +122,10 @@ module.exports = function(grunt) {
             webApp: {
                 src: ['<banner:meta.banner>'].concat(jsFiles.webApp),
                 dest: 'fightcode/static/output/fightcode.webApp.min.js'
+            },
+            worker: {
+                src: ['<banner:meta.banner>'].concat(jsFiles.worker),
+                dest: 'fightcode/static/output/fightcode.worker.min.js'
             },
             thirdParty: {
                 src: ['<banner:meta.banner>'].concat(jsFiles.thirdParty),
