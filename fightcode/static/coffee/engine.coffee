@@ -205,7 +205,7 @@ class BulletStatus extends ElementStatus
         @rectangle.setPosition(@robotStatus.rectangle.position.x + xInc, @robotStatus.rectangle.position.y + yInc)
 
         @speed = 2
-        @strength = 1
+        @strength = 20
         @running = true
 
     isIdle: ->
@@ -411,7 +411,7 @@ class Engine
                     dimension:
                         width: status.rectangle.dimension.width
                         height: status.rectangle.dimension.height
-                    health:
+                    life:
                         status.life
                     angle:
                         status.rectangle.angle
