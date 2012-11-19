@@ -40,6 +40,17 @@ everyauth.github
 
         return promise;
     })
-    .redirectPath('/');
+    .redirectPath('/')
+    .sendResponse( function (res, data) {
+        var redirect;
+
+        if (data.session.redirectPath) {
+            redirect = data.session.redirectPath;
+            data.session.redirectPath = null;
+        }
+
+        res.redirect(redirect || // Re-direct to the path stored in the session by route middleware
+            this.redirectPath());              // Or redirect to the configured redirectPath
+    });
 
 module.exports = everyauth;

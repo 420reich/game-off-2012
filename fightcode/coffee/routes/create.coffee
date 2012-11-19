@@ -8,12 +8,10 @@ GithubApi = require 'github'
 
 
 exports.createView = (req, res) ->
-    return res.redirect '/auth/github' if !req.loggedIn
     res.render 'createRobot', title: 'Create My Robot!', 'roboCode': '', robotTitle: ''
 
 
 exports.create = (req, res) ->
-    return res.redirect '/auth/github' if !req.loggedIn
 
     github = new GithubApi version: '3.0.0'
     github.authenticate type: 'oauth', token: req.user.token
@@ -37,7 +35,6 @@ exports.create = (req, res) ->
 
 
 exports.updateView = (req, res) ->
-    return res.redirect '/auth/github' if !req.loggedIn
 
     gistsId = req.params[0]
     github = new GithubApi version: '3.0.0'
@@ -70,4 +67,3 @@ exports.updateView = (req, res) ->
 
 
 exports.update = (req, res) ->
-    return res.redirect '/auth/github' if !req.loggedIn

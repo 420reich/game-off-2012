@@ -20,10 +20,12 @@ var app = express();
 var staticPath = path.join(process.env.CWD, 'fightcode', 'static');
 var viewsPath = path.join(process.env.CWD, 'fightcode', 'views');
 var configPath = path.join(process.env.CWD, 'fightcode', 'config');
+var helpersPath = path.join(process.env.CWD, 'fightcode', 'helpers');
 
 var dbSession = require(path.join(configPath, 'session'));
 var everyauth = require(path.join(configPath, 'auth'));
 var migrator = require(path.join(configPath, 'migration'));
+var checkCredentials = require(path.join(helpersPath, 'login'));
 migrator.migrate();
 
 app.configure(function(){
@@ -53,12 +55,12 @@ app.configure('development', function(){
 });
 
 app.get(/^\/robots\/ranking\/?/, ranking.index);
-app.get('/robots/create', create.createView);
-app.post('/robots/create', create.create);
-app.get(/^\/robots\/update\/(\w+)$/, create.updateView);
-app.post(/^\/robots\/update\/(\w+)$/, create.update);
+app.get('/robots/create', checkCredentials, create.createView);
+app.post('/robots/create', checkCredentials, create.create);
+app.get(/^\/robots\/update\/(\w+)$/, checkCredentials, create.updateView);
+app.post(/^\/robots\/update\/(\w+)$/, checkCredentials, create.update);
 app.get('/', index.index);
-app.get(/^\/(.+?)\/robots\/(.+?)\/fight\/(\d+)\/?$/, fight.startFight);
+app.get(/^\/(.+?)\/robots\/(.+?)\/fight\/(\d+)\/?$/, checkCredentials, fight.startFight);
 app.get(/^\/(\w+)\/?$/, user.show);
 
 http.createServer(app).listen(app.get('port'), function(){

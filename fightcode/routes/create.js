@@ -11,9 +11,6 @@ Robot = sequelize["import"](path.join(basePath, 'models', 'robot'));
 GithubApi = require('github');
 
 exports.createView = function(req, res) {
-  if (!req.loggedIn) {
-    return res.redirect('/auth/github');
-  }
   return res.render('createRobot', {
     title: 'Create My Robot!',
     'roboCode': '',
@@ -23,9 +20,6 @@ exports.createView = function(req, res) {
 
 exports.create = function(req, res) {
   var github, robotData;
-  if (!req.loggedIn) {
-    return res.redirect('/auth/github');
-  }
   github = new GithubApi({
     version: '3.0.0'
   });
@@ -56,9 +50,6 @@ exports.create = function(req, res) {
 
 exports.updateView = function(req, res) {
   var gistsId, github;
-  if (!req.loggedIn) {
-    return res.redirect('/auth/github');
-  }
   gistsId = req.params[0];
   github = new GithubApi({
     version: '3.0.0'
@@ -107,8 +98,4 @@ exports.updateView = function(req, res) {
   });
 };
 
-exports.update = function(req, res) {
-  if (!req.loggedIn) {
-    return res.redirect('/auth/github');
-  }
-};
+exports.update = function(req, res) {};
