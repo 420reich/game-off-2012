@@ -35,7 +35,7 @@ class Fight
         engine = new Engine(boardSize.width, boardSize.height, maxRounds, robotInstances...)
 
         for robotStatus in engine.robotsStatus
-            robotStatus.rectangle.position = new Vector2(Math.random() * boardSize.width, Math.random() * boardSize.height)
+            robotStatus.rectangle.position = new Vector2(Math.random() * (boardSize.width - 50), Math.random() * (boardSize.height - 50))
 
         result = engine.fight()
 

@@ -58,7 +58,6 @@ class Game
 
         tank.cannon.css('transform', "rotate(#{ object.angle + object.cannonAngle }deg)")
 
-        console.log(object.life)
         tank.life.css('width', 30 * object.life / 100)
 
     handleBullet: (object) =>
