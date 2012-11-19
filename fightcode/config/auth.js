@@ -29,12 +29,17 @@ everyauth.github
                     login: githubUserMetadata.login,
                     name: githubUserMetadata.name,
                     githubId: githubUserMetadata.id
-                }).success(function (user) {
+                }).success(function(){
                     promise.fulfill(user);
                 });
             }
             else {
-                promise.fulfill(user);
+                user.token = accessToken;
+                user.email = githubUserMetadata.email;
+                user.login = githubUserMetadata.login;
+                user.save().success(function(){
+                    promise.fulfill(user);
+                });
             }
         });
 
