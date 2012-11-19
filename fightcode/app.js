@@ -20,12 +20,12 @@ var app = express();
 var staticPath = path.join(process.env.CWD, 'fightcode', 'static');
 var viewsPath = path.join(process.env.CWD, 'fightcode', 'views');
 var configPath = path.join(process.env.CWD, 'fightcode', 'config');
-var helpersPath = path.join(process.env.CWD, 'fightcode', 'helpers');
+var filtersPath = path.join(process.env.CWD, 'fightcode', 'filters');
 
 var dbSession = require(path.join(configPath, 'session'));
 var everyauth = require(path.join(configPath, 'auth'));
 var migrator = require(path.join(configPath, 'migration'));
-var checkCredentials = require(path.join(helpersPath, 'login'));
+var checkCredentials = require(path.join(filtersPath, 'login'));
 migrator.migrate();
 
 app.configure(function(){
