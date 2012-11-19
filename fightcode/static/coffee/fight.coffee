@@ -19,6 +19,30 @@ class FightArena
             "   robot.fire();",
             "};"
         ].join('\n')
+
+        @wallCode = "
+            window.rotated = false;
+            window.robotClass = function(){
+            };
+            window.robotClass.prototype.onIdle = function(ev) {
+               var robot = ev.robot;
+               robot.ahead(1);
+               if (!window.rotated) {
+                   robot.rotateCannon(90);
+                   window.rotated = true;
+               }
+            };
+            window.robotClass.prototype.onWallCollision = function(ev) {
+               var robot = ev.robot;
+               robot.back(10);
+               robot.turn(90);
+            };
+            window.robotClass.prototype.onScannedRobot = function(ev) {
+               var robot = ev.robot;
+               robot.fire();
+            };"
+
+
         @startWorker()
 
     startWorker: ->
@@ -26,9 +50,11 @@ class FightArena
         worker.onmessage = @receiveWorkerEvent
 
         eventData =
-            robots: 2
+            robots: 4
             robot1: @defaultCode
             robot2: @defaultCode
+            robot3: @wallCode
+            robot4: @wallCode
 
         worker.postMessage(eventData)
 
@@ -52,7 +78,7 @@ class FightArena
                     loading.detach()
 
                     game = new Game(boardContainer, evData.result, {
-                        msPerRound: 3
+                        msPerRound: 5
                     })
 
                     game.initialize()
