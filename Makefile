@@ -17,6 +17,9 @@ setup:
 	@rm -rf ./node_modules
 	@cat node-requirements | xargs npm install
 
+drop:
+	psql -d postgres -f drop.sql
+
 run: run-server sync
 
 run-server: kill-server
