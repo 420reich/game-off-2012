@@ -40,13 +40,18 @@ class Vector2
 class RobotActions
     constructor: (currentStatus) ->
         @id = currentStatus.id
+        @angle = currentStatus.rectangle.angle
+        @cannonAngle = currentStatus.cannonAngle
+        @position = new Vector2(currentStatus.rectangle.position)
+        @life = currentStatus.life
         @queue = []
 
     move: (amount, direction) ->
+        return if amount == 0
         @queue.push(
             action: "move"
             direction: direction
-            count: amount / MOVE_INCREMENT
+            count: Math.abs(amount) / MOVE_INCREMENT
         )
         true
 
@@ -57,17 +62,19 @@ class RobotActions
         @move(amount, -1)
 
     rotateCannon: (degrees) ->
+        return if degrees == 0
         @queue.push(
             action: "rotateCannon"
             direction: degrees
-            count: degrees / ANG_INCREMENT
+            count: Math.abs(degrees) / ANG_INCREMENT
         )
 
     turn: (degrees) ->
+        return if degrees == 0
         @queue.push(
             action: "turn"
             direction: degrees
-            count: degrees / ANG_INCREMENT
+            count: Math.abs(degrees) / ANG_INCREMENT
         )
 
     fire: (bullets) ->
@@ -352,7 +359,8 @@ class Engine
                 else
                     robotStatus.rollbackAfterCollision()
 
-                @safeCall(robotStatus.robot, eventName, {robot: actions, bulletBearing: robotStatus.rectangle.angle - status.rectangle.angle})
+                bearing = ((status.rectangle.angle + 180 - robotStatus.rectangle.angle) + 360) % 360
+                @safeCall(robotStatus.robot, eventName, {robot: actions, bulletBearing: bearing})
 
         actions
 
@@ -404,7 +412,7 @@ class Engine
 
                 @roundLog.objects.push({
                     type: if status instanceof RobotStatus then 'tank' else 'bullet'
-                    id: status.id,
+                    id: status.id
                     position:
                         x: status.rectangle.position.x
                         y: status.rectangle.position.y
