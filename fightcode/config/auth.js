@@ -29,8 +29,8 @@ everyauth.github
                     login: githubUserMetadata.login,
                     name: githubUserMetadata.name,
                     githubId: githubUserMetadata.id
-                }).success(function(){
-                    promise.fulfill(user);
+                }).success(function(newUser){
+                    promise.fulfill(newUser);
                 });
             }
             else {
