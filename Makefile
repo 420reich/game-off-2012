@@ -1,4 +1,5 @@
 GRUNT_CMD = "./node_modules/grunt/bin/grunt"
+POSTGRES_DATA_FOLDER = "/usr/local/var/postgres"
 
 sync watch:
 	@${GRUNT_CMD} dev
@@ -17,9 +18,6 @@ setup:
 	@rm -rf ./node_modules
 	@cat node-requirements | xargs npm install
 
-drop:
-	psql -d postgres -f drop.sql
-
 run: run-server sync
 
 run-server: kill-server
@@ -32,8 +30,11 @@ kill-server:
 	@-ps aux | egrep fightcode | egrep -v egrep | awk ' { print $$2 } ' | xargs kill -9
 	@echo 'fightcode server killed!'
 
+drop:
+	psql -d postgres -f drop.sql
+
 postgre:
-	@pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
+	@pg_ctl -D ${POSTGRES_DATA_FOLDER} -l ${POSTGRES_DATA_FOLDER}/server.log start
 
 kill_postgre:
-	@pg_ctl -D /usr/local/var/postgres stop -s -m fast
+	@pg_ctl -D ${POSTGRES_DATA_FOLDER} stop -s -m fast
