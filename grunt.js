@@ -1,4 +1,3 @@
-/*global module:false*/
 module.exports = function(grunt) {
 
     var cssFiles = {
@@ -30,7 +29,8 @@ module.exports = function(grunt) {
 
         webApp: [
             'fightcode/static/js/ranking.js',
-            'fightcode/static/js/fight.js'
+            'fightcode/static/js/fight.js',
+            'fightcode/static/js/navbar.js'
         ],
 
         thirdParty: [
