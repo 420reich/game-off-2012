@@ -1,5 +1,5 @@
 REVOKE ALL ON SCHEMA public FROM fightcode;
-DROP DATABASE fightcode;
+DROP DATABASE IF EXISTS fightcode;
 DROP ROLE fightcode;
 
 CREATE ROLE fightcode LOGIN
