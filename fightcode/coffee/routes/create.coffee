@@ -6,7 +6,6 @@ sequelize = require path.join(basePath, 'config', 'database')
 Robot = sequelize.import(path.join(basePath, 'models', 'robot'))
 GithubApi = require 'github'
 
-
 exports.createView = (req, res) ->
     res.render 'createRobot', title: 'Create My Robot!', 'roboCode': '', robotTitle: ''
 

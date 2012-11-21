@@ -31,10 +31,43 @@ module.exports = function(sequelize, DataTypes) {
             addDraw: function() {
                 this.draws += 1;
                 this.updateScore();
+            },
+
+            rankNear: function(callback) {
+                /*
+                sequelize has a bug that if the query doesn't start
+                with SELECT, it returns null
+                https://github.com/sdepold/sequelize/issues/314
+                */
+                var sql = ['SELECT id FROM "Robots" LIMIT 1;',
+                            'WITH robot_position AS (',
+                                  'SELECT * FROM',
+                                    '(SELECT id,score,row_number()',
+                                      'OVER (ORDER BY score DESC)',
+                                      'FROM "Robots" ORDER BY score) AS rank',
+                                    'WHERE rank.id = \''+ this.id +'\'',
+                                    'ORDER BY rank.row_number)',
+                            'SELECT *',
+                              'FROM (SELECT *, row_number()',
+                                'OVER (ORDER BY score DESC)',
+                                'FROM "Robots") AS robots',
+                              'WHERE row_number',
+                              'BETWEEN',
+                                '(SELECT row_number FROM robot_position) - 10',
+                                'AND',
+                                '(SELECT row_number FROM robot_position)',
+                              'OR',
+                              'row_number BETWEEN',
+                                '(SELECT row_number FROM robot_position)',
+                                'AND',
+                                '(SELECT row_number FROM robot_position)+10'].join(' ');
+                sequelize.query(sql, null, {raw: true})
+                    .success(function(data){
+                        data.shift();
+                        callback(data);
+                    });
             }
-        }
-      },
-      {
+        },
         underscored: true
       }
     );

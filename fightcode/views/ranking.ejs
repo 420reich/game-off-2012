@@ -8,32 +8,30 @@
     </div>
 
     <div class="row-fluid">
-        <div class="span12">
-            <h2>Maniac</h2>
+        <% for (var i=0; i<robotRank.length; i++) { %>
+            <div class="span3">
+                <h2><%= robotRank[i].robot.title || 'The nameless' %></h2>
 
-            <table class="fight-table table table-bordered table-hover">
-                <tbody>
-                    <% for (var i=0; i<10; i++) { %>
-                    <tr>
-                        <td><span class="ranking">#<%-20 + i%></span><span class="name">IronMaiden</span></td>
-                        <td class="actions"><a href="#" data-robot-id="<%- i%>" class="fight">fight</a></td>
-                    </tr>
-                    <% } %>
-
-                    <tr class="my-robot">
-                        <td><span class="ranking">#30</span><span class="name">Maniac</span></td>
-                        <td class="actions"></td>
-                    </tr>
-
-                    <% for (var i=0; i<10; i++) { %>
-                    <tr>
-                        <td><span class="ranking">#<%- 30 + i %></span><span class="name">IronMaiden</span></td>
-                        <td class="actions"><a href="#" data-robot-id="<%- 12 + i%>" class="fight">fight</a></td>
-                    </tr>
-                    <% } %>
-                </tbody>
-            </table>
-        </div>
+                <table class="fight-table table table-bordered table-hover">
+                    <tbody>
+                        <% for (var x=0; x<robotRank[i].rank.length; x++) {%>
+                            <% if (robotRank[i].robot.ownerLogin == req.user.login) {%>
+                                <tr class="my-robot">
+                            <%} else {%>
+                                <tr class="my-robot">
+                            <%}%>
+                                <td><span class="ranking">#<%= robotRank[i].rank[x].row_number %></span><span class="name"><%= robotRank[i].rank[x].title %></span></td>
+                                <td class="actions">
+                                    <% if (robotRank[i].robot.ownerLogin != req.user.login) {%>
+                                        <a href="#" data-robot-id="<%- i%>" class="fight">fight</a>
+                                    <%}%>
+                                </td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        <% } %>
     </div>
 
 <% include scripts.ejs %>
