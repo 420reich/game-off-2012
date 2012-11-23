@@ -1,0 +1,176 @@
+/* line 132, menu/*.png */
+.menu-sprite, .menu-container .fighter .icon, .menu-container .fighter:hover .icon, .menu-container .fighter.active .icon, .menu-container .ranking .icon, .menu-container .ranking:hover .icon, .menu-container .ranking.active .icon, .menu-container .robot .icon, .menu-container .robot:hover .icon, .menu-container .robot.active .icon, .menu-container .logout .icon, .menu-container .logout:hover .icon, .menu-container .logout.active .icon, .menu-container .ribbon, .menu-container .ribbon .logo, .menu-container .ribbon .tip {
+  background: url('../img/menu-s345c4c9a5a.png') no-repeat;
+}
+
+/* line 4, ../scss/menu.scss */
+.navbar-inner {
+  background: url(../img/background.png);
+  border: 0;
+}
+
+/* line 11, ../scss/menu.scss */
+.navbar .nav > .active > a,
+.navbar .nav > .active > a:hover,
+.navbar .nav > .active > a:focus {
+  background: transparent;
+}
+
+/* line 15, ../scss/menu.scss */
+.navbar .nav > li > a:focus,
+.navbar .nav > li > a:hover {
+  background: transparent;
+}
+
+/* line 34, ../scss/menu.scss */
+.menu-container {
+  position: absolute;
+  font-family: arial;
+  width: 100%;
+  z-index: 10;
+  top: -201px;
+}
+/* line 41, ../scss/menu.scss */
+.menu-container .menu {
+  background: #f5f5f5;
+  padding: 51px 130px 40px 200px;
+  text-align: center;
+}
+/* line 46, ../scss/menu.scss */
+.menu-container .menu > span {
+  display: inline-block;
+  vertical-align: bottom;
+}
+/* line 49, ../scss/menu.scss */
+.menu-container .menu > span a {
+  display: block;
+  color: #999;
+  -webkit-transition: color 200ms ease-in;
+  -moz-transition: color 200ms ease-in;
+  -ms-transition: color 200ms ease-in;
+  -o-transition: color 200ms ease-in;
+  transition: color 200ms ease-in;
+}
+/* line 55, ../scss/menu.scss */
+.menu-container .menu > span:hover a, .menu-container .menu > span.active a {
+  text-decoration: none;
+  color: #ed0027;
+}
+/* line 60, ../scss/menu.scss */
+.menu-container .menu > span .icon {
+  display: block;
+  margin: 0 auto 15px auto;
+}
+/* line 67, ../scss/menu.scss */
+.menu-container .fighter {
+  margin: 0 48px;
+}
+/* line 20, ../scss/menu.scss */
+.menu-container .fighter .icon {
+  background-position: 0 -295px;
+  height: 75px;
+  width: 74px;
+}
+/* line 44, ../../../../../.rvm/gems/ruby-1.9.3-p286@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.menu-container .fighter .icon:active, .menu-container .fighter .icon.fighter-active {
+  background-position: 0 -220px;
+}
+/* line 28, ../scss/menu.scss */
+.menu-container .fighter:hover .icon, .menu-container .fighter.active .icon {
+  background-position: 0 -220px;
+}
+/* line 71, ../scss/menu.scss */
+.menu-container .ranking {
+  margin: 0 30px;
+}
+/* line 20, ../scss/menu.scss */
+.menu-container .ranking .icon {
+  background-position: 0 -711px;
+  height: 69px;
+  width: 65px;
+}
+/* line 44, ../../../../../.rvm/gems/ruby-1.9.3-p286@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.menu-container .ranking .icon:active, .menu-container .ranking .icon.prize-active {
+  background-position: 0 -574px;
+}
+/* line 28, ../scss/menu.scss */
+.menu-container .ranking:hover .icon, .menu-container .ranking.active .icon {
+  background-position: 0 -574px;
+}
+/* line 75, ../scss/menu.scss */
+.menu-container .robot {
+  margin: 0 30px;
+}
+/* line 20, ../scss/menu.scss */
+.menu-container .robot .icon {
+  background-position: 0 -506px;
+  height: 68px;
+  width: 91px;
+}
+/* line 44, ../../../../../.rvm/gems/ruby-1.9.3-p286@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.menu-container .robot .icon:active, .menu-container .robot .icon.robot-active {
+  background-position: 0 -370px;
+}
+/* line 28, ../scss/menu.scss */
+.menu-container .robot:hover .icon, .menu-container .robot.active .icon {
+  background-position: 0 -370px;
+}
+/* line 80, ../scss/menu.scss */
+.menu-container .logout {
+  float: right;
+}
+/* line 20, ../scss/menu.scss */
+.menu-container .logout .icon {
+  background-position: 0 -643px;
+  height: 68px;
+  width: 67px;
+}
+/* line 44, ../../../../../.rvm/gems/ruby-1.9.3-p286@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.menu-container .logout .icon:active, .menu-container .logout .icon.logout-active {
+  background-position: 0 -438px;
+}
+/* line 28, ../scss/menu.scss */
+.menu-container .logout:hover .icon, .menu-container .logout.active .icon {
+  background-position: 0 -438px;
+}
+/* line 85, ../scss/menu.scss */
+.menu-container .ribbon-container {
+  border-top: 5px solid #ed0027;
+  height: 0;
+  -webkit-box-shadow: 0 2px 2px 0 black;
+  -moz-box-shadow: 0 2px 2px 0 black;
+  box-shadow: 0 2px 2px 0 black;
+}
+/* line 90, ../scss/menu.scss */
+.menu-container .ribbon {
+  background-position: 0 -95px;
+  height: 95px;
+  width: 218px;
+  margin: 0 auto;
+  display: block;
+  overflow: hidden;
+}
+/* line 97, ../scss/menu.scss */
+.menu-container .ribbon .logo {
+  display: block;
+  margin: 15px auto 0;
+  text-indent: -99999px;
+  background-position: 0 -190px;
+  height: 30px;
+  width: 157px;
+}
+/* line 105, ../scss/menu.scss */
+.menu-container .ribbon .tip {
+  display: block;
+  margin: 20px auto 0;
+  background-position: 0 -780px;
+  height: 16px;
+  width: 27px;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+  opacity: 0.5;
+}
+/* line 114, ../scss/menu.scss */
+.menu-container .ribbon:hover .tip {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  opacity: 1;
+}

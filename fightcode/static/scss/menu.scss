@@ -1,0 +1,119 @@
+@import "compass";
+@import "menu/*.png";
+
+.navbar-inner {
+  background: url(../img/background.png);
+  border:0;
+}
+
+.navbar .nav > .active > a,
+.navbar .nav > .active > a:hover,
+.navbar .nav > .active > a:focus, {
+  background:transparent;
+}
+.navbar .nav > li > a:focus,
+.navbar .nav > li > a:hover {
+  background:transparent;
+}
+
+@mixin icon($name) {
+  .icon {
+
+    @include menu-sprite($name);
+    @include menu-sprite-dimensions($name);
+  }
+
+  &:hover,
+  &.active {
+    .icon {
+      @include menu-sprite(#{$name}_active);
+    }
+  }
+}
+
+.menu-container {
+  position:absolute;
+  font-family:arial;
+  width: 100%;
+  z-index: 10;
+  top: -201px;
+
+  .menu {
+    background:#f5f5f5;
+    padding:51px 130px 40px 200px;
+    text-align:center;
+
+    > span {
+      display:inline-block;
+      vertical-align:bottom;
+      a {
+        display:block;
+        color:#999;
+        @include transition(color 200ms ease-in);
+      }
+      &:hover a,
+      &.active a {
+        text-decoration:none;
+        color:#ed0027;
+      }
+
+      .icon {
+        display:block;
+        margin: 0 auto 15px auto;
+      }
+    }
+  }
+
+  .fighter {
+    margin: 0 48px;
+    @include icon(fighter);
+  }
+  .ranking {
+    margin: 0 30px;
+    @include icon(prize);
+  }
+  .robot {
+    margin: 0 30px;
+    @include icon(robot);
+  }
+
+  .logout {
+    @include icon(logout);
+    float:right;
+  }
+
+  .ribbon-container {
+    border-top:5px solid #ed0027;
+    height:0;
+    @include single-box-shadow(#000, 0, 2px, 2px, 0);
+  }
+  .ribbon {
+    @include menu-sprite(ribbon_background);
+    @include menu-sprite-dimensions(ribbon_background);
+    margin:0 auto;
+    display:block;
+    overflow:hidden;
+
+    .logo {
+      display:block;
+      margin:15px auto 0;
+      text-indent: -99999px;
+      @include menu-sprite(logo);
+      @include menu-sprite-dimensions(logo);
+    }
+
+    .tip {
+      display:block;
+      margin:20px auto 0;
+      @include menu-sprite(tip);
+      @include menu-sprite-dimensions(tip);
+      @include opacity(.5);
+    }
+
+    &:hover {
+      .tip {
+        @include opacity(1);
+      }
+    }
+  }
+}

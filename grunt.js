@@ -11,6 +11,7 @@ module.exports = function(grunt) {
             'fightcode/static/css/fight.css',
             'fightcode/static/css/arena.css',
             'fightcode/static/css/ranking.css',
+            'fightcode/static/css/menu.css',
             'fightcode/static/css/user.css'
         ]
     };
