@@ -62,6 +62,7 @@ app.post(/^\/robots\/update\/(\w+)$/, checkCredentials, create.update);
 app.get('/', index.index);
 app.get(/^\/(.+?)\/robots\/(.+?)\/fight\/(\d+)\/?$/, checkCredentials, fight.startFight);
 app.get(/^\/(\w+)\/?$/, user.show);
+app.get('/my-profile', checkCredentials, user.myProfile);
 
 http.createServer(app).listen(app.get('port'), function(){
     console.log("Express server listening on port " + app.get('port'));
