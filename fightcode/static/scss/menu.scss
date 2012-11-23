@@ -4,6 +4,8 @@
 .navbar-inner {
   background: url(../img/background.png);
   border:0;
+  border-bottom: 1px solid black;
+  @include single-box-shadow(rgba(0, 0, 0, .75), 1px, 0, 3px);
 }
 
 .navbar .nav > .active > a,
@@ -14,6 +16,13 @@
 .navbar .nav > li > a:focus,
 .navbar .nav > li > a:hover {
   background:transparent;
+}
+
+.navbar .nav > li > a {
+  font-family: Arial, 'Helvetica Neue', Helvetica, Sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-shadow: 0 1px 0 black;
 }
 
 @mixin icon($name) {
@@ -40,6 +49,7 @@
   @include transition(top 300ms);
   position:absolute;
   font-family:arial;
+  font-weight: bold;
   width: 100%;
   z-index: 10;
   top: -201px;
@@ -51,7 +61,7 @@
   .menu {
     @include single-box-shadow(#000, 0, 3px, 8px, -5px, inset);
     background:#f5f5f5;
-    padding:51px 130px 40px 200px;
+    padding: 51px 130px 50px 200px;
     text-align:center;
 
     > span {
@@ -74,7 +84,7 @@
 
       .icon {
         display:block;
-        margin: 0 auto 15px auto;
+        margin: 0 auto 5px auto;
         @include transition(background-color 300ms);
       }
     }
