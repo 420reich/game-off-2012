@@ -31,6 +31,7 @@ module.exports = function(grunt) {
         webApp: [
             'fightcode/static/js/ranking.js',
             'fightcode/static/js/fight.js',
+            'fightcode/static/js/menu.js',
             'fightcode/static/js/navbar.js'
         ],
 

@@ -1,6 +1,6 @@
 /* line 132, menu/*.png */
-.menu-sprite, .menu-container .fighter .icon, .menu-container .fighter:hover .icon, .menu-container .fighter.active .icon, .menu-container .ranking .icon, .menu-container .ranking:hover .icon, .menu-container .ranking.active .icon, .menu-container .robot .icon, .menu-container .robot:hover .icon, .menu-container .robot.active .icon, .menu-container .logout .icon, .menu-container .logout:hover .icon, .menu-container .logout.active .icon, .menu-container .ribbon, .menu-container .ribbon .logo, .menu-container .ribbon .tip {
-  background: url('../img/menu-s345c4c9a5a.png') no-repeat;
+.menu-sprite, .menu-container .fighter .icon, .menu-container .fighter:hover .icon, .menu-container .fighter.active .icon, .menu-container .ranking .icon, .menu-container .ranking:hover .icon, .menu-container .ranking.active .icon, .menu-container .robot .icon, .menu-container .robot:hover .icon, .menu-container .robot.active .icon, .menu-container .logout .icon, .menu-container .logout:hover .icon, .menu-container .logout.active .icon, .menu-container .ribbon, .menu-container .ribbon:hover, .menu-container .ribbon .logo, .menu-container .ribbon .tip {
+  background: url('../img/menu-s5dfa483458.png') no-repeat;
 }
 
 /* line 4, ../scss/menu.scss */
@@ -24,44 +24,56 @@
 
 /* line 34, ../scss/menu.scss */
 .menu-container {
+  -webkit-transition: top 300ms;
+  -moz-transition: top 300ms;
+  -ms-transition: top 300ms;
+  -o-transition: top 300ms;
+  transition: top 300ms;
   position: absolute;
   font-family: arial;
   width: 100%;
   z-index: 10;
   top: -201px;
 }
-/* line 41, ../scss/menu.scss */
+/* line 42, ../scss/menu.scss */
+.menu-container.open {
+  top: 0;
+}
+/* line 46, ../scss/menu.scss */
 .menu-container .menu {
+  -webkit-box-shadow: inset 0 3px 8px -5px black;
+  -moz-box-shadow: inset 0 3px 8px -5px black;
+  box-shadow: inset 0 3px 8px -5px black;
   background: #f5f5f5;
   padding: 51px 130px 40px 200px;
   text-align: center;
 }
-/* line 46, ../scss/menu.scss */
+/* line 52, ../scss/menu.scss */
 .menu-container .menu > span {
   display: inline-block;
   vertical-align: bottom;
 }
-/* line 49, ../scss/menu.scss */
+/* line 55, ../scss/menu.scss */
 .menu-container .menu > span a {
   display: block;
   color: #999;
-  -webkit-transition: color 200ms ease-in;
-  -moz-transition: color 200ms ease-in;
-  -ms-transition: color 200ms ease-in;
-  -o-transition: color 200ms ease-in;
-  transition: color 200ms ease-in;
+  -webkit-transition: color 200ms;
+  -moz-transition: color 200ms;
+  -ms-transition: color 200ms;
+  -o-transition: color 200ms;
+  transition: color 200ms;
 }
-/* line 55, ../scss/menu.scss */
+/* line 61, ../scss/menu.scss */
 .menu-container .menu > span:hover a, .menu-container .menu > span.active a {
   text-decoration: none;
   color: #ed0027;
 }
-/* line 60, ../scss/menu.scss */
+/* line 66, ../scss/menu.scss */
 .menu-container .menu > span .icon {
   display: block;
   margin: 0 auto 15px auto;
 }
-/* line 67, ../scss/menu.scss */
+/* line 73, ../scss/menu.scss */
 .menu-container .fighter {
   margin: 0 48px;
 }
@@ -79,7 +91,7 @@
 .menu-container .fighter:hover .icon, .menu-container .fighter.active .icon {
   background-position: 0 -220px;
 }
-/* line 71, ../scss/menu.scss */
+/* line 77, ../scss/menu.scss */
 .menu-container .ranking {
   margin: 0 30px;
 }
@@ -97,7 +109,7 @@
 .menu-container .ranking:hover .icon, .menu-container .ranking.active .icon {
   background-position: 0 -574px;
 }
-/* line 75, ../scss/menu.scss */
+/* line 81, ../scss/menu.scss */
 .menu-container .robot {
   margin: 0 30px;
 }
@@ -115,7 +127,7 @@
 .menu-container .robot:hover .icon, .menu-container .robot.active .icon {
   background-position: 0 -370px;
 }
-/* line 80, ../scss/menu.scss */
+/* line 86, ../scss/menu.scss */
 .menu-container .logout {
   float: right;
 }
@@ -133,15 +145,19 @@
 .menu-container .logout:hover .icon, .menu-container .logout.active .icon {
   background-position: 0 -438px;
 }
-/* line 85, ../scss/menu.scss */
+/* line 91, ../scss/menu.scss */
 .menu-container .ribbon-container {
   border-top: 5px solid #ed0027;
   height: 0;
-  -webkit-box-shadow: 0 2px 2px 0 black;
-  -moz-box-shadow: 0 2px 2px 0 black;
-  box-shadow: 0 2px 2px 0 black;
+  -webkit-box-shadow: 0 0 6px -1px black;
+  -moz-box-shadow: 0 0 6px -1px black;
+  box-shadow: 0 0 6px -1px black;
 }
-/* line 90, ../scss/menu.scss */
+/* line 96, ../scss/menu.scss */
+.menu-container .ribbon-container:hover {
+  border-color: #ff3d3d;
+}
+/* line 100, ../scss/menu.scss */
 .menu-container .ribbon {
   background-position: 0 -95px;
   height: 95px;
@@ -150,7 +166,15 @@
   display: block;
   overflow: hidden;
 }
-/* line 97, ../scss/menu.scss */
+/* line 44, ../../../../../.rvm/gems/ruby-1.9.3-p286@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.menu-container .ribbon:active, .menu-container .ribbon.ribbon_background-active {
+  background-position: 0 0;
+}
+/* line 107, ../scss/menu.scss */
+.menu-container .ribbon:hover {
+  background-position: 0 0;
+}
+/* line 111, ../scss/menu.scss */
 .menu-container .ribbon .logo {
   display: block;
   margin: 15px auto 0;
@@ -159,7 +183,7 @@
   height: 30px;
   width: 157px;
 }
-/* line 105, ../scss/menu.scss */
+/* line 119, ../scss/menu.scss */
 .menu-container .ribbon .tip {
   display: block;
   margin: 20px auto 0;
@@ -168,8 +192,13 @@
   width: 27px;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
   opacity: 0.5;
+  -webkit-transition: opacity 200ms;
+  -moz-transition: opacity 200ms;
+  -ms-transition: opacity 200ms;
+  -o-transition: opacity 200ms;
+  transition: opacity 200ms;
 }
-/* line 114, ../scss/menu.scss */
+/* line 129, ../scss/menu.scss */
 .menu-container .ribbon:hover .tip {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
   opacity: 1;
