@@ -124,15 +124,21 @@
   -moz-box-shadow: inset 0 3px 8px -5px black;
   box-shadow: inset 0 3px 8px -5px black;
   background: #f5f5f5;
-  padding: 51px 130px 50px 200px;
+  padding: 50px 5%;
   text-align: center;
 }
 /* line 146, ../scss/menu.scss */
 .menu-container .menu > span {
   display: inline-block;
-  vertical-align: bottom;
+  vertical-align: top;
+  margin-left: 2%;
+  width: 100px;
 }
-/* line 149, ../scss/menu.scss */
+/* line 152, ../scss/menu.scss */
+.menu-container .menu > span:first-child {
+  margin-left: 0;
+}
+/* line 155, ../scss/menu.scss */
 .menu-container .menu > span a {
   display: block;
   color: #999;
@@ -142,16 +148,16 @@
   -o-transition: color 200ms;
   transition: color 200ms;
 }
-/* line 155, ../scss/menu.scss */
+/* line 161, ../scss/menu.scss */
 .menu-container .menu > span:hover a {
   color: #555;
   text-decoration: none;
 }
-/* line 160, ../scss/menu.scss */
+/* line 166, ../scss/menu.scss */
 .menu-container .menu > span.active a {
   color: #ed0027;
 }
-/* line 164, ../scss/menu.scss */
+/* line 170, ../scss/menu.scss */
 .menu-container .menu > span .icon {
   display: block;
   margin: 0 auto 5px auto;
@@ -160,10 +166,6 @@
   -ms-transition: background-color 300ms;
   -o-transition: background-color 300ms;
   transition: background-color 300ms;
-}
-/* line 172, ../scss/menu.scss */
-.menu-container .fighter {
-  margin: 0 48px;
 }
 /* line 108, ../scss/menu.scss */
 .menu-container .fighter .icon {
@@ -180,10 +182,6 @@
 .menu-container .fighter.active .icon {
   background-color: #ed0027;
 }
-/* line 176, ../scss/menu.scss */
-.menu-container .ranking {
-  margin: 0 30px;
-}
 /* line 108, ../scss/menu.scss */
 .menu-container .ranking .icon {
   background-position: 0 -445px;
@@ -198,10 +196,6 @@
 /* line 121, ../scss/menu.scss */
 .menu-container .ranking.active .icon {
   background-color: #ed0027;
-}
-/* line 180, ../scss/menu.scss */
-.menu-container .robot {
-  margin: 0 30px;
 }
 /* line 108, ../scss/menu.scss */
 .menu-container .robot .icon {
@@ -218,10 +212,6 @@
 .menu-container .robot.active .icon {
   background-color: #ed0027;
 }
-/* line 185, ../scss/menu.scss */
-.menu-container .logout {
-  float: right;
-}
 /* line 108, ../scss/menu.scss */
 .menu-container .logout .icon {
   background-position: 0 -220px;
@@ -237,7 +227,7 @@
 .menu-container .logout.active .icon {
   background-color: #ed0027;
 }
-/* line 190, ../scss/menu.scss */
+/* line 191, ../scss/menu.scss */
 .menu-container .ribbon-container {
   border-top: 5px solid #ed0027;
   height: 0;
@@ -245,11 +235,11 @@
   -moz-box-shadow: 0 0 6px -1px black;
   box-shadow: 0 0 6px -1px black;
 }
-/* line 195, ../scss/menu.scss */
+/* line 196, ../scss/menu.scss */
 .menu-container .ribbon-container:hover {
   border-color: #ff3d3d;
 }
-/* line 199, ../scss/menu.scss */
+/* line 200, ../scss/menu.scss */
 .menu-container .ribbon {
   background-position: 0 -95px;
   height: 95px;
@@ -258,15 +248,15 @@
   display: block;
   overflow: hidden;
 }
-/* line 44, ../../../../../.rvm/gems/ruby-1.9.3-p286@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+/* line 44, ../../../../../../.rvm/gems/ruby-1.9.3-p327@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
 .menu-container .ribbon:active, .menu-container .ribbon.ribbon_background-active {
   background-position: 0 0;
 }
-/* line 206, ../scss/menu.scss */
+/* line 207, ../scss/menu.scss */
 .menu-container .ribbon:hover {
   background-position: 0 0;
 }
-/* line 210, ../scss/menu.scss */
+/* line 211, ../scss/menu.scss */
 .menu-container .ribbon .logo {
   display: block;
   margin: 15px auto 0;
@@ -275,7 +265,7 @@
   height: 30px;
   width: 157px;
 }
-/* line 218, ../scss/menu.scss */
+/* line 219, ../scss/menu.scss */
 .menu-container .ribbon .tip {
   display: block;
   margin: 20px auto 0;
@@ -290,7 +280,7 @@
   -o-transition: opacity 200ms;
   transition: opacity 200ms;
 }
-/* line 228, ../scss/menu.scss */
+/* line 229, ../scss/menu.scss */
 .menu-container .ribbon:hover .tip {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
   opacity: 1;
