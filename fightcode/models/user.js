@@ -10,7 +10,7 @@ module.exports = function(sequelize, DataTypes) {
     }, {
         instanceMethods: {
             thumb: function() {
-                return gravatar.url(this.email, {s:'45'});
+                return gravatar.url(this.email, {s:'30'});
             },
             photo: function(size) {
                 return gravatar.url(this.email, {s: size || '185'});

@@ -123,26 +123,24 @@ Game = (function() {
       for (_k = 0, _len1 = _ref1.length; _k < _len1; _k++) {
         event = _ref1[_k];
         object = this.objects[event.id];
+        if (!object) {
+          continue;
+        }
         switch (event.type) {
           case 'moving':
-            if (object) {
-              object.tank.addClass('moving');
-            }
+            object.tank.addClass('moving');
             break;
           case 'backwards':
-            if (object) {
-              object.tank.addClass('backwards');
-            }
+            object.tank.addClass('backwards');
             break;
           case 'stopped':
-            if (object) {
-              object.tank.removeClass('backwards').removeClass('moving');
-            }
+            object.tank.removeClass('backwards').removeClass('moving');
             break;
           case 'exploded':
-            if (object) {
-              object.bullet.addClass('exploding');
-            }
+            object.bullet.addClass('exploding');
+            break;
+          case 'dead':
+            object.tank.addClass('dead');
         }
       }
     }

@@ -60,8 +60,8 @@ app.post('/robots/create', checkCredentials, create.create);
 app.get(/^\/robots\/update\/(\w+)$/, checkCredentials, create.updateView);
 app.post(/^\/robots\/update\/(\w+)$/, checkCredentials, create.update);
 app.get('/', index.index);
-app.get(/^\/(.+?)\/robots\/(.+?)\/fight\/(\d+)\/?$/, checkCredentials, fight.startFight);
-app.get(/^\/(\w+)\/?$/, user.show);
+app.get(/^\/profile\/(.+?)\/robots\/(.+?)\/fight\/(\d+)\/?$/, checkCredentials, fight.startFight);
+app.get(/^\/profile\/(\w+)\/?$/, user.show);
 app.get('/my-profile', checkCredentials, user.myProfile);
 
 http.createServer(app).listen(app.get('port'), function(){

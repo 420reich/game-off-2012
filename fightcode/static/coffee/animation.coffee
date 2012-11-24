@@ -85,15 +85,18 @@ class Game
 
             for event in round.events
                 object = @objects[event.id]
+                continue unless object
 
                 switch event.type
                     when 'moving'
-                        object.tank.addClass('moving') if object
+                        object.tank.addClass('moving')
                     when 'backwards'
-                        object.tank.addClass('backwards') if object
+                        object.tank.addClass('backwards')
                     when 'stopped'
-                        object.tank.removeClass('backwards').removeClass('moving') if object
+                        object.tank.removeClass('backwards').removeClass('moving')
                     when 'exploded'
-                        object.bullet.addClass('exploding') if object
+                        object.bullet.addClass('exploding')
+                    when 'dead'
+                        object.tank.addClass('dead')
 
         requestAnimationFrame(@play) if @events.length > 0

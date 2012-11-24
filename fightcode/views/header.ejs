@@ -7,25 +7,21 @@
     <link rel="stylesheet" href="/css/theme/ambiance.css" type="text/css">
 </head>
 <body>
-    <% include menu.ejs %>
-    <div class="navbar">
-        <div class="navbar-inner">
-            <ul class="nav">
-                <li class="active"><a href="/">Home</a></li>
-                <li><a href="/robots/ranking">Ranking</a></li>
-                <li><a href="#">My Robots</a></li>
-            </ul>
-            <ul class="nav pull-right">
-                <% if (req.loggedIn) { %>
-                <li>
-                    <a class="profile" href="/user/<%= req.user.login %>"><img src="<%= req.user.thumb() %>" /></a>
-                </li>
-                <li>
-                    <a href="/logout">logout</a>
-                </li>
-                <% } else { %>
-                <li><a href="/auth/github">login with github</a></li>
-                <% } %>
-            </ul>
+    <header>
+        <% include menu.ejs %>
+        <div class="context-bar">
+            <div class="container">
+                <ul>
+                    <li><a href="/">HOME</a></li>
+                    <li><a href="#">HOW TO PLAY</a></li>
+                </ul>
+                <div class="profile-container">
+                    <% if (req.loggedIn) { %>
+                    <a class="profile" href="/my-profile"><img src="<%= req.user.thumb() %>" /><span class="name"><%= req.user.name %></span></a>
+                    <% } else { %>
+                    <a href="/auth/github">login with github</a>
+                    <% } %>
+                </div>
+            </div>
         </div>
-    </div>
+    </header>

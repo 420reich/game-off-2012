@@ -22,7 +22,7 @@ exports.list = function(req, res){
 };
 
 exports.myProfile = function(req, res){
-    renderProfile(res, req.user.login);
+    res.redirect("/profile/" + req.user.login);
 };
 
 exports.show = function(req, res) {

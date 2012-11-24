@@ -1,9 +1,8 @@
 .show-user {
-  padding: 60px 20px 0 20px;
+    width: 100%;
+    background: #f3f3f3;
 
-  .stats {
-    h3, p {
-      text-align:center;
+    .user-header {
+        height: 145px;
     }
-  }
 }
