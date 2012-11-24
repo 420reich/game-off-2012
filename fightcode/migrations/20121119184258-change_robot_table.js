@@ -8,7 +8,7 @@ module.exports = {
         newFields[i],
       {
         type: DataTypes.INTEGER,
-        allowNull: true,
+        allowNull: false,
         default: 0
       });
     }
