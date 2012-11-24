@@ -44,6 +44,7 @@ class RobotActions
         @cannonAngle = currentStatus.cannonAngle
         @position = new Vector2(currentStatus.rectangle.position)
         @life = currentStatus.life
+        @gunCoolDownTime = currentStatus.gunCoolDownTime
         @queue = []
 
     move: (amount, direction) ->
@@ -243,7 +244,9 @@ class RobotStatus extends ElementStatus
         @cannonAngle = 0
         @rectangle.setDimension(27, 24)
         @baseScanWaitTime = 50
+        @baseGunCoolDownTime = 100
         @scanWaitTime = 0
+        @gunCoolDownTime = 0
         @queue = []
 
     isAlive: ->
@@ -252,9 +255,9 @@ class RobotStatus extends ElementStatus
     isIdle: ->
         @queue.length == 0
 
-    takeHit: (buletStatus) ->
-        @life -= buletStatus.strength
-        buletStatus.destroy()
+    takeHit: (bulletStatus) ->
+        @life -= bulletStatus.strength
+        bulletStatus.destroy()
 
     rollbackAfterCollision: ->
         @rectangle.setPosition(@previousPosition.x, @previousPosition.y) if @previousPosition
@@ -273,6 +276,8 @@ class RobotStatus extends ElementStatus
         @scanWaitTime = @baseScanWaitTime
 
     runItem: ->
+        @gunCoolDownTime-- if @gunCoolDownTime > 0
+
         item = @queue.shift()
         return unless item
 
@@ -305,6 +310,8 @@ class RobotStatus extends ElementStatus
                 @rectangle.setAngle(angle % 360)
 
             when 'fire'
+                return unless @gunCoolDownTime == 0
+                @gunCoolDownTime = @baseGunCoolDownTime
                 return new BulletStatus(this)
 
         null
@@ -334,6 +341,7 @@ class Engine
             if robotStatus.rectangle.intersects(wall.rectangle, false)
                 robotStatus.rollbackAfterCollision()
                 if robotStatus instanceof BulletStatus
+                    robotStatus.destroy()
                     @roundLog.events.push({
                         type: 'exploded',
                         id: robotStatus.id
@@ -356,9 +364,13 @@ class Engine
                         type: 'exploded',
                         id: status.id
                     })
+                    unless robotStatus.isAlive()
+                        @roundLog.events.push({
+                            type: 'dead',
+                            id: robotStatus.id
+                        })
                 else
                     robotStatus.rollbackAfterCollision()
-
                 bearing = ((status.rectangle.angle + 180 - robotStatus.rectangle.angle) + 360) % 360
                 @safeCall(robotStatus.robot, eventName, {robot: actions, bulletBearing: bearing})
 

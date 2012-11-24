@@ -8,7 +8,8 @@ class FightArena
             window.robotClass.prototype.onIdle = function(ev) {
                var robot = ev.robot;
                
-               robot.rotateCannon(360);
+               robot.rotateCannon(1);
+               robot.fire();
             };
             window.robotClass.prototype.onScannedRobot = function(ev) {
                var robot = ev.robot;
@@ -16,7 +17,6 @@ class FightArena
             };
             window.robotClass.prototype.onHitByBullet = function(ev) {
                var robot = ev.robot;
-               window.log('hitting');
                
                
             };"

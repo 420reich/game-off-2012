@@ -2,14 +2,13 @@ module.exports = {
   up: function(migration, DataTypes) {
     migration.addColumn(
       'Robots',
-      'score',
+      'user_id',
     {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      default: 0
+      allowNull: false
     });
   },
   down: function(migration) {
-    migration.removeColumn('Robots', 'score');
+    migration.removeColumn('Robots', 'user_id');
   }
 };

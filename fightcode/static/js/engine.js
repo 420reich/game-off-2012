@@ -66,6 +66,7 @@ RobotActions = (function() {
     this.cannonAngle = currentStatus.cannonAngle;
     this.position = new Vector2(currentStatus.rectangle.position);
     this.life = currentStatus.life;
+    this.gunCoolDownTime = currentStatus.gunCoolDownTime;
     this.queue = [];
   }
 
@@ -332,7 +333,9 @@ RobotStatus = (function(_super) {
     this.cannonAngle = 0;
     this.rectangle.setDimension(27, 24);
     this.baseScanWaitTime = 50;
+    this.baseGunCoolDownTime = 100;
     this.scanWaitTime = 0;
+    this.gunCoolDownTime = 0;
     this.queue = [];
   }
 
@@ -344,9 +347,9 @@ RobotStatus = (function(_super) {
     return this.queue.length === 0;
   };
 
-  RobotStatus.prototype.takeHit = function(buletStatus) {
-    this.life -= buletStatus.strength;
-    return buletStatus.destroy();
+  RobotStatus.prototype.takeHit = function(bulletStatus) {
+    this.life -= bulletStatus.strength;
+    return bulletStatus.destroy();
   };
 
   RobotStatus.prototype.rollbackAfterCollision = function() {
@@ -378,6 +381,9 @@ RobotStatus = (function(_super) {
 
   RobotStatus.prototype.runItem = function() {
     var angle, direction, item, rad;
+    if (this.gunCoolDownTime > 0) {
+      this.gunCoolDownTime--;
+    }
     item = this.queue.shift();
     if (!item) {
       return;
@@ -412,6 +418,10 @@ RobotStatus = (function(_super) {
         this.rectangle.setAngle(angle % 360);
         break;
       case 'fire':
+        if (this.gunCoolDownTime !== 0) {
+          return;
+        }
+        this.gunCoolDownTime = this.baseGunCoolDownTime;
         return new BulletStatus(this);
     }
     return null;
@@ -468,6 +478,7 @@ Engine = (function() {
       if (robotStatus.rectangle.intersects(wall.rectangle, false)) {
         robotStatus.rollbackAfterCollision();
         if (robotStatus instanceof BulletStatus) {
+          robotStatus.destroy();
           this.roundLog.events.push({
             type: 'exploded',
             id: robotStatus.id
@@ -500,6 +511,12 @@ Engine = (function() {
             type: 'exploded',
             id: status.id
           });
+          if (!robotStatus.isAlive()) {
+            this.roundLog.events.push({
+              type: 'dead',
+              id: robotStatus.id
+            });
+          }
         } else {
           robotStatus.rollbackAfterCollision();
         }

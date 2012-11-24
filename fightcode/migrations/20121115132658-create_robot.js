@@ -7,7 +7,7 @@ module.exports = {
         type: DataTypes.INTEGER,
         autoIncrement: true
       },
-      gists: {
+      gist: {
         type: DataTypes.STRING,
         allowNull: false
       },

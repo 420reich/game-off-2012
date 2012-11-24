@@ -58,7 +58,7 @@ app.get(/^\/robots\/ranking\/?/, checkCredentials, ranking.index);
 app.get('/robots/create', checkCredentials, create.createView);
 app.post('/robots/create', checkCredentials, create.create);
 app.get(/^\/robots\/update\/(\w+)$/, checkCredentials, create.updateView);
-app.post(/^\/robots\/update\/(\w+)$/, checkCredentials, create.update);
+app.put(/^\/robots\/update\/(\w+)$/, checkCredentials, create.update);
 app.get('/', index.index);
 app.get(/^\/profile\/(.+?)\/robots\/(.+?)\/fight\/(\d+)\/?$/, checkCredentials, fight.startFight);
 app.get(/^\/profile\/(\w+)\/?$/, user.show);

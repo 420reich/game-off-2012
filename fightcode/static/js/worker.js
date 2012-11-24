@@ -35,7 +35,7 @@ Fight = (function() {
   Fight.prototype.processFight = function(robots) {
     var boardSize, constr, engine, eventData, maxRounds, result, robot, robotCode, robotInstance, robotInstances, _i, _len,
       _this = this;
-    maxRounds = 10000;
+    maxRounds = 5000;
     boardSize = {
       width: 800,
       height: 500

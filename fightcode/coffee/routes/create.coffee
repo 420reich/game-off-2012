@@ -7,7 +7,9 @@ Robot = sequelize.import(path.join(basePath, 'models', 'robot'))
 GithubApi = require 'github'
 
 exports.createView = (req, res) ->
-    res.render 'createRobot', title: 'Create My Robot!', 'roboCode': '', robotTitle: ''
+    res.render 'createRobot',
+                title: 'Create My Robot!',
+                public: true
 
 
 exports.create = (req, res) ->
@@ -17,52 +19,68 @@ exports.create = (req, res) ->
 
     robotData =
         description: req.param('title'),
-        public: 'true',
+        public: !!req.param('public'),
         files:
             'robot.js':
                 'content': req.param('code')
 
     github.gists.create robotData, (err, githubResponse) ->
-        Robot.create(
+        robot = Robot.build (
             ownerLogin: req.user.login,
-            gists: githubResponse.id,
-            isPublic: true,
+            gist: githubResponse.id,
+            isPublic: !!req.param('public'),
             title: req.param('title')
-        ).success((robot) ->
-            res.redirect '/robots/update/' + robot.gists
         )
+        req.user.addRobot(robot)
+            .success( ->
+                res.redirect '/robots/update/' + robot.gist
+            )
 
 
 exports.updateView = (req, res) ->
 
-    gistsId = req.params[0]
+    gistId = req.params[0]
     github = new GithubApi version: '3.0.0'
     github.authenticate type: 'oauth', token: req.user.token
 
-    Robot.find(where: gists: gistsId).success (robot) ->
-        if !robot
-            Robot.create(
-                ownerLogin: req.user.login,
-                gists: gistsId,
-                isPublic: true,
-                title: 'No title'
-            ).success((robot) ->
-                github.gists.get id: gistsId, (err, githubResponse) ->
+    req.user.getRobots(where: gist: gistId).success (robots) ->
+        if robots.length == 1
+            robot = robots[0]
+            github.gists.get id: gistId, (err, githubResponse) ->
                     files = Object.keys githubResponse.files
                     res.render('createRobot',
                         title: 'Update my robot',
+                        public: githubResponse.public,
+                        update: true,
                         roboCode: encodeURI(githubResponse.files[files[0]].content),
                         robotTitle: robot.title
                     )
-            )
         else
-            github.gists.get id: gistsId, (err, githubResponse) ->
-                    files = Object.keys githubResponse.files
-                    res.render('createRobot',
-                        title: 'Update my robot',
-                        roboCode: encodeURI(githubResponse.files[files[0]].content),
-                        robotTitle: robot.title
-                    )
+            res.redirect '/'
 
 
 exports.update = (req, res) ->
+
+    gistId = req.params[0]
+    github = new GithubApi version: '3.0.0'
+    github.authenticate type: 'oauth', token: req.user.token
+
+    robotData =
+        id: gistId,
+        description: req.param('title'),
+        files:
+            'robot.js':
+                'content': req.param('code')
+
+    req.user.getRobots(where: gist: gistId).success (robots) ->
+        if robots.length == 1
+            robot = robots[0]
+            robot.title = req.param('title')
+            robot.save(['title']).success( ->
+                github.gists.edit robotData, (err, githubResponse) ->
+                        res.redirect '/robots/update/' + robot.gist
+            )
+        else
+            res.redirect '/'
+
+

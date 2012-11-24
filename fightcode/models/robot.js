@@ -1,7 +1,7 @@
 
 module.exports = function(sequelize, DataTypes) {
     return sequelize.define('Robot', {
-        gists: { type: DataTypes.STRING, allowNull: false},
+        gist: { type: DataTypes.STRING, allowNull: false},
         ownerLogin: { type: DataTypes.STRING, allowNull: false},
         victories: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0},
         defeats: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0},
