@@ -10,7 +10,11 @@
             <a href="#"><span class="icon"></span>CODE NEW ROBOT</a>
         </span>
         <span class="logout">
-            <a href="#"><span class="icon"></span>LOGOUT</a>
+            <% if (req.loggedIn) { %>
+            <a href="/logout"><span class="icon"></span>LOGOUT</a>
+            <% } else { %>
+            <a href="/auth/github"><span class="icon"></span>LOGIN</a>
+            <% } %>
         </span>
     </div>
     <div class="ribbon-container">
