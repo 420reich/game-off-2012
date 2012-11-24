@@ -2,7 +2,47 @@
     width: 100%;
     background: #f3f3f3;
 
-    .user-header {
+    .user-info {
         height: 145px;
+        position: relative;
+
+        img {
+            position: absolute;
+            top: 24px;
+            left: 0;
+
+            border-radius: 152px;
+        }
+
+        .info {
+            margin-left: 175px;
+            padding-top: 63px;
+            font-size: 0;
+
+            h2 {
+                font-family: arial;
+                font-weight: bold;
+                font-size: 25px;
+                color: #4f4f4f;
+                margin-bottom: 10px;
+            }
+
+            p {
+                display: inline-block;
+                font-family: arial;
+                font-size: 16px;
+                color: #4f4f4f;
+            }
+
+            p:before {
+                display: inline-block;
+                content: '';
+                background: url('../img/marker.png') 0 0 no-repeat;
+                width: 13px;
+                height: 15px;
+                margin-right: 7px;
+                margin-bottom: -2px;
+            }
+        }
     }
 }
