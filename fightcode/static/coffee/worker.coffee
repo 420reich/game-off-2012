@@ -20,7 +20,7 @@ class Fight
             @processFight(robots)
 
     processFight: (robots) ->
-        maxRounds = 10000
+        maxRounds = 5000
         boardSize =
             width: 800
             height: 500
