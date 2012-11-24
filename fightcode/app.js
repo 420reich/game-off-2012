@@ -54,7 +54,7 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-app.get(/^\/robots\/ranking\/?/, checkCredentials, ranking.index);
+app.get('/robots/ranking', checkCredentials, ranking.index);
 app.get('/robots/create', checkCredentials, create.createView);
 app.post('/robots/create', checkCredentials, create.create);
 app.get('/robots/update/:robot_id', checkCredentials, create.updateView);
