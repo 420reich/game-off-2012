@@ -33,7 +33,8 @@ Fight = (function() {
   };
 
   Fight.prototype.processFight = function(robots) {
-    var boardSize, constr, engine, eventData, maxRounds, result, robot, robotCode, robotInstance, robotInstances, robotStatus, _i, _j, _len, _len1, _ref;
+    var boardSize, constr, engine, eventData, maxRounds, result, robot, robotCode, robotInstance, robotInstances, _i, _len,
+      _this = this;
     maxRounds = 10000;
     boardSize = {
       width: 800,
@@ -42,8 +43,12 @@ Fight = (function() {
     robotInstances = [];
     for (_i = 0, _len = robots.length; _i < _len; _i++) {
       robot = robots[_i];
-      robotCode = "with(window){" + robot + "\nreturn window.robotClass;}";
-      constr = new Function("window", robotCode)({});
+      robotCode = "(function() {" + robot + "}.bind(window)()); return window.robotClass;";
+      constr = new Function("window", robotCode)({
+        log: function(message) {
+          return _this.log(message);
+        }
+      });
       robotInstance = new constr();
       robotInstances.push(robotInstance);
     }
@@ -52,11 +57,8 @@ Fight = (function() {
       var child = new ctor, result = func.apply(child, args), t = typeof result;
       return t == "object" || t == "function" ? result || child : child;
     })(Engine, [boardSize.width, boardSize.height, maxRounds].concat(__slice.call(robotInstances)), function(){});
-    _ref = engine.robotsStatus;
-    for (_j = 0, _len1 = _ref.length; _j < _len1; _j++) {
-      robotStatus = _ref[_j];
-      robotStatus.rectangle.position = new Vector2(Math.random() * (boardSize.width - 50), Math.random() * (boardSize.height - 50));
-    }
+    engine.robotsStatus[0].rectangle.setPosition(50, 50);
+    engine.robotsStatus[1].rectangle.setPosition(50, 200);
     result = engine.fight();
     eventData = {
       type: "results",

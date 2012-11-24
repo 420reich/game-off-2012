@@ -27,15 +27,19 @@ class Fight
 
         robotInstances = []
         for robot in robots
-            robotCode = "with(window){#{ robot }\nreturn window.robotClass;}"
-            constr = new Function("window", robotCode)({})
+            robotCode = "(function() {#{ robot }}.bind(window)()); return window.robotClass;"
+            constr = new Function("window", robotCode)({
+                log: (message) =>
+                    this.log(message)
+            })
             robotInstance = new constr()
             robotInstances.push(robotInstance)
 
         engine = new Engine(boardSize.width, boardSize.height, maxRounds, robotInstances...)
 
-        for robotStatus in engine.robotsStatus
-            robotStatus.rectangle.position = new Vector2(Math.random() * (boardSize.width - 50), Math.random() * (boardSize.height - 50))
+        # for robotStatus in engine.robotsStatus
+        engine.robotsStatus[0].rectangle.setPosition(50, 50)
+        engine.robotsStatus[1].rectangle.setPosition(50, 200)
 
         result = engine.fight()
 

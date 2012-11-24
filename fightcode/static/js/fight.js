@@ -6,7 +6,7 @@ FightArena = (function() {
 
   function FightArena(container) {
     this.container = container;
-    this.defaultCode = ["//FightCode can only understand your robot", "//if its class is called robotClass", "window.robotClass = function(){", "};", "window.robotClass.prototype.onIdle = function(ev) {", "   var robot = ev.robot;", "   robot.ahead(100);", "   robot.rotateCannon(360);", "   robot.back(100);", "   robot.rotateCannon(360);", "};", "window.robotClass.prototype.onScannedRobot = function(ev) {", "   var robot = ev.robot;", "   robot.fire();", "};"].join('\n');
+    this.defaultCode = "            window.robotClass = function(){            };            window.robotClass.prototype.onIdle = function(ev) {               var robot = ev.robot;                              robot.rotateCannon(360);            };            window.robotClass.prototype.onScannedRobot = function(ev) {               var robot = ev.robot;               robot.fire();            };            window.robotClass.prototype.onHitByBullet = function(ev) {               var robot = ev.robot;               window.log('hitting');                                          };";
     this.wallCode = "            window.rotated = false;            window.robotClass = function(){            };            window.robotClass.prototype.onIdle = function(ev) {               var robot = ev.robot;               robot.ahead(1);               if (!window.rotated) {                   robot.rotateCannon(90);                   window.rotated = true;               }            };            window.robotClass.prototype.onWallCollision = function(ev) {               var robot = ev.robot;               robot.back(10);               robot.turn(90);            };            window.robotClass.prototype.onScannedRobot = function(ev) {               var robot = ev.robot;               robot.fire();            };";
     this.startWorker();
   }
@@ -16,11 +16,9 @@ FightArena = (function() {
     worker = new Worker('/output/fightcode.worker.min.js');
     worker.onmessage = this.receiveWorkerEvent;
     eventData = {
-      robots: 4,
+      robots: 2,
       robot1: this.defaultCode,
-      robot2: this.defaultCode,
-      robot3: this.wallCode,
-      robot4: this.wallCode
+      robot2: this.defaultCode
     };
     return worker.postMessage(eventData);
   };

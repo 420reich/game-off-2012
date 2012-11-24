@@ -2,23 +2,24 @@ container = $(".fight-arena")
 
 class FightArena
     constructor: (@container) ->
-        @defaultCode = [
-            "//FightCode can only understand your robot",
-            "//if its class is called robotClass",
-            "window.robotClass = function(){",
-            "};",
-            "window.robotClass.prototype.onIdle = function(ev) {",
-            "   var robot = ev.robot;",
-            "   robot.ahead(100);",
-            "   robot.rotateCannon(360);",
-            "   robot.back(100);",
-            "   robot.rotateCannon(360);",
-            "};",
-            "window.robotClass.prototype.onScannedRobot = function(ev) {",
-            "   var robot = ev.robot;",
-            "   robot.fire();",
-            "};"
-        ].join('\n')
+        @defaultCode = "
+            window.robotClass = function(){
+            };
+            window.robotClass.prototype.onIdle = function(ev) {
+               var robot = ev.robot;
+               
+               robot.rotateCannon(360);
+            };
+            window.robotClass.prototype.onScannedRobot = function(ev) {
+               var robot = ev.robot;
+               robot.fire();
+            };
+            window.robotClass.prototype.onHitByBullet = function(ev) {
+               var robot = ev.robot;
+               window.log('hitting');
+               
+               
+            };"
 
         @wallCode = "
             window.rotated = false;
@@ -50,11 +51,11 @@ class FightArena
         worker.onmessage = @receiveWorkerEvent
 
         eventData =
-            robots: 4
+            robots: 2
             robot1: @defaultCode
             robot2: @defaultCode
-            robot3: @wallCode
-            robot4: @wallCode
+            # robot3: @wallCode
+            # robot4: @wallCode
 
         worker.postMessage(eventData)
 
