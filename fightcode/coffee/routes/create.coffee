@@ -39,7 +39,7 @@ exports.create = (req, res) ->
 
 exports.updateView = (req, res) ->
 
-    gistId = req.params[0]
+    gistId = req.params.robot_id
     github = new GithubApi version: '3.0.0'
     github.authenticate type: 'oauth', token: req.user.token
 
@@ -61,7 +61,7 @@ exports.updateView = (req, res) ->
 
 exports.update = (req, res) ->
 
-    gistId = req.params[0]
+    gistId = req.params.robot_id
     github = new GithubApi version: '3.0.0'
     github.authenticate type: 'oauth', token: req.user.token
 
@@ -83,4 +83,23 @@ exports.update = (req, res) ->
         else
             res.redirect '/'
 
+exports.fork = (req, res) ->
 
+    gistId = req.params.robot_id
+    github = new GithubApi version: '3.0.0'
+    github.authenticate type: 'oauth', token: req.user.token
+
+    Robot.find(where: gist: gistId).success((robot) ->
+        if (robot.is_public or (robot.user_id == req.user.id))
+            github.gists.fork id: gistId, (err, githubResponse) ->
+                robotFork = Robot.build(
+                    ownerLogin: req.user.login,
+                    gist: githubResponse.id,
+                    isPublic: githubResponse.public,
+                    title: githubResponse.description
+                )
+                req.user.addRobot(robotFork).success ->
+                    res.redirect '/robots/update/' + robotFork.gist
+        else
+            res.redirect '/'
+    )

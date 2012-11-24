@@ -6,7 +6,8 @@ module.exports = function(sequelize, DataTypes) {
         victories: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0},
         defeats: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0},
         draws: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0},
-        score: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0}
+        score: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0},
+        isPublic: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: true}
     },{
         instanceMethods:{
             updateScore: function(){
