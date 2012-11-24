@@ -500,6 +500,12 @@ Engine = (function() {
             type: 'exploded',
             id: status.id
           });
+          if (!robotStatus.isAlive()) {
+            this.roundLog.events.push({
+              type: 'dead',
+              id: robotStatus.id
+            });
+          }
         } else {
           robotStatus.rollbackAfterCollision();
         }

@@ -356,6 +356,11 @@ class Engine
                         type: 'exploded',
                         id: status.id
                     })
+                    unless robotStatus.isAlive()
+                        @roundLog.events.push({
+                            type: 'dead',
+                            id: robotStatus.id
+                        })
                 else
                     robotStatus.rollbackAfterCollision()
 
