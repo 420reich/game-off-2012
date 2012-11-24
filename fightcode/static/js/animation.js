@@ -55,7 +55,7 @@ Game = (function() {
 
   Game.prototype.createTank = function(object) {
     var tank, tankObject;
-    tank = $('<div class="tank"><div class="body"></div><div class="cannon"></div><div class="life"></div></div>');
+    tank = $('<div class="tank"><div class="body"></div><div class="cannon"></div><div class="life"></div><div class="explosion"></div></div>');
     tankObject = {
       tank: tank,
       body: tank.find('.body'),
@@ -142,6 +142,11 @@ Game = (function() {
           case 'exploded':
             if (object) {
               object.bullet.addClass('exploding');
+            }
+            break;
+          case 'dead':
+            if (object) {
+              object.tank.addClass('dead');
             }
         }
       }

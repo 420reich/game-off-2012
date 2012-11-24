@@ -25,7 +25,7 @@ class Game
         requestAnimationFrame(@play)
 
     createTank: (object) =>
-        tank = $('<div class="tank"><div class="body"></div><div class="cannon"></div><div class="life"></div></div>')
+        tank = $('<div class="tank"><div class="body"></div><div class="cannon"></div><div class="life"></div><div class="explosion"></div></div>')
 
         tankObject = {
             tank: tank
@@ -95,5 +95,7 @@ class Game
                         object.tank.removeClass('backwards').removeClass('moving') if object
                     when 'exploded'
                         object.bullet.addClass('exploding') if object
+                    when 'dead'
+                        object.tank.addClass('dead') if object
 
         requestAnimationFrame(@play) if @events.length > 0
