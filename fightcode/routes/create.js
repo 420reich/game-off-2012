@@ -140,7 +140,7 @@ exports.fork = function(req, res) {
       gist: gistId
     }
   }).success(function(robot) {
-    if (robot.is_public || (robot.user_id === req.user.id)) {
+    if (robot.is_public && !(robot.user_id === req.user.id)) {
       return github.gists.fork({
         id: gistId
       }, function(err, githubResponse) {
