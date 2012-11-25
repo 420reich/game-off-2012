@@ -22,8 +22,10 @@ kill-server:
 	@-ps aux | egrep fightcode | egrep -v egrep | awk ' { print $$2 } ' | xargs kill -9
 	@echo 'fightcode server killed!'
 
+run: kill-server start-server sync
 
-run: kill-server sync
+start-server:
+	@node fightcode/server.js &
 
 drop:
 	psql -d postgres -f drop.sql

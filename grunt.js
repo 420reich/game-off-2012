@@ -56,7 +56,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-shell');
     grunt.loadNpmTasks('grunt-coffee');
     grunt.loadNpmTasks('grunt-growl');
-    grunt.loadNpmTasks('grunt-forever');
 
     var growl = require('growl');
     ['warn', 'fatal'].forEach(function(level) {
@@ -167,10 +166,6 @@ module.exports = function(grunt) {
             all: ['test/*.html']
         },
 
-        forever: {
-          main: 'fightcode/server.js'
-        },
-
         watch: {
             files: [
                 './fightcode/static/coffee/*.coffee',
@@ -183,5 +178,5 @@ module.exports = function(grunt) {
     });
 
     grunt.registerTask('default', 'shell:clean coffee concat min compass cssmin');
-    grunt.registerTask('dev', 'shell:clean coffee concat compass cssmin forever:restart');
+    grunt.registerTask('dev', 'shell:clean coffee concat compass cssmin');
 };

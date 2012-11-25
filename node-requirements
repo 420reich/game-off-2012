@@ -15,5 +15,3 @@ sequelize
 gravatar
 c3store
 github
-forever
-grunt-forever
