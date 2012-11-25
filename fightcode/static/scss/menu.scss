@@ -5,8 +5,7 @@
     background: url(../img/background.png);
     border: 0;
     border-bottom: 1px solid black;
-    font-family: arial;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: bold;
     text-transform: uppercase;
     margin-bottom: 2px;
@@ -18,7 +17,7 @@
 
     ul {
         float: left;
-        margin: 19px 0 0 0;
+        margin: 22px 0 0 0;
 
         li {
             display: inline-block;
@@ -47,7 +46,7 @@
         float: right;
 
         .profile {
-            padding: 19px 0 7px;
+            padding: 22px 0 7px;
             display: block;
 
             img {
@@ -88,12 +87,11 @@
 
 .menu-container {
   @include transition(top 300ms);
-  position: absolute;
-  font-family: arial;
   font-weight: bold;
+  position: absolute;
   width: 100%;
   z-index: 10;
-  top: -192px;
+  top: -180px;
 
   &.open {
     top: 0;
@@ -121,7 +119,6 @@
         display: block;
         color: #999;
         @include transition(color 200ms);
-
 
         &:hover {
             color: #555;
