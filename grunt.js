@@ -178,7 +178,9 @@ module.exports = function(grunt) {
                 './fightcode/static/coffee/*.coffee',
                 './fightcode/coffee/routes/*.coffee',
                 './fightcode/*.html',
-                './fightcode/static/scss/*.scss'
+                './fightcode/static/scss/*.scss',
+                './fightcode/**/*.js',
+                './fightcode/**/*.ejs'
             ],
             tasks: 'dev'
         }
