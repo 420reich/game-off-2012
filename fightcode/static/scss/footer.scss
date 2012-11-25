@@ -39,7 +39,7 @@ footer {
         }
 
         img {
-            @include transition(all 120ms ease-out);
+            @include transition(all 160ms ease-out);
             float: left;
             width: 40px;
             height: 40px;
@@ -47,7 +47,7 @@ footer {
         }
 
         a {
-            @include transition(color 200ms ease-in-out);
+            @include transition(color 160ms ease-in-out);
             display: block;
 
             &:hover {
