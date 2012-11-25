@@ -4,6 +4,7 @@ var cluster = require('cluster'),
     app = require('./app');
 
 if (cluster.isMaster) {
+    console.log("Using " + numCPUs + "CPU(s)");
     // Fork workers.
     for (var i = 0; i < numCPUs; i++) {
         cluster.fork();
