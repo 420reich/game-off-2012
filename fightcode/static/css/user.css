@@ -13,26 +13,27 @@
   position: absolute;
   top: 24px;
   left: 0;
+  width: 152px;
+  height: 152px;
   border-radius: 152px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
 }
-/* line 17, ../scss/user.scss */
+/* line 19, ../scss/user.scss */
 .show-user .user-info .info {
   margin-left: 175px;
   padding-top: 63px;
   font-size: 0;
 }
-/* line 22, ../scss/user.scss */
+/* line 24, ../scss/user.scss */
 .show-user .user-info .info h2 {
-  font-family: arial;
   font-weight: bold;
   font-size: 25px;
   color: #4f4f4f;
   margin-bottom: 10px;
 }
-/* line 30, ../scss/user.scss */
+/* line 31, ../scss/user.scss */
 .show-user .user-info .info p {
   display: inline-block;
-  font-family: arial;
   font-size: 16px;
   color: #4f4f4f;
 }

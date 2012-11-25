@@ -67,9 +67,10 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 body {
   font-size: 14px;
   font-family: arial;
+  background: url(../img/bg-grill-dark.png) repeat;
 }
 
-/* line 8, ../scss/reset.scss */
+/* line 9, ../scss/reset.scss */
 a {
   text-decoration: none;
 }

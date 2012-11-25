@@ -10,8 +10,10 @@
             position: absolute;
             top: 24px;
             left: 0;
-
+            width: 152px;
+            height: 152px;
             border-radius: 152px;
+            box-shadow: 0 0 5px rgba(#000, .25);
         }
 
         .info {
@@ -20,7 +22,6 @@
             font-size: 0;
 
             h2 {
-                font-family: arial;
                 font-weight: bold;
                 font-size: 25px;
                 color: #4f4f4f;
@@ -29,7 +30,6 @@
 
             p {
                 display: inline-block;
-                font-family: arial;
                 font-size: 16px;
                 color: #4f4f4f;
             }

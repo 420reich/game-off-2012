@@ -1,14 +1,17 @@
 @import "compass";
 @import "menu/*.png";
 
+header {
+    position: relative;
+}
+
 .context-bar {
-    background: url(../img/background.png);
+    background: url(../img/bg-grill-light.png) repeat;
     border: 0;
     border-bottom: 1px solid black;
     font-size: 13px;
     font-weight: bold;
     text-transform: uppercase;
-    margin-bottom: 2px;
     @include box-shadow(0 0 5px 0 rgba(#000, .75));
 
     .container {

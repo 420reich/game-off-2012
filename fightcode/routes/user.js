@@ -8,13 +8,13 @@ var path = require('path'),
     User = sequelize.import(path.join(modelsPath, 'user'));
 
 function renderProfile(res, userLogin) {
-    User.find({where: { login: userLogin}})
-        .success(function(user){
+    User.find({where: {login: userLogin}})
+        .success(function(user) {
             return res.render('user', {
                 title: user.name,
                 user: user
             });
-    });
+        });
 }
 
 exports.list = function(req, res){
