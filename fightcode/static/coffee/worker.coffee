@@ -4,10 +4,10 @@ class Fight
     constructor: ->
         @bindEvents()
 
-    log: (message) =>
+    log: (messages...) =>
         worker.postMessage(
             type: "log"
-            message: message
+            message: messages.join(', ')
         )
 
     bindEvents: ->

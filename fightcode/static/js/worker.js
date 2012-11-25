@@ -11,10 +11,12 @@ Fight = (function() {
     this.bindEvents();
   }
 
-  Fight.prototype.log = function(message) {
+  Fight.prototype.log = function() {
+    var messages;
+    messages = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
     return worker.postMessage({
       type: "log",
-      message: message
+      message: messages.join(', ')
     });
   };
 

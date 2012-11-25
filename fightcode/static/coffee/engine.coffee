@@ -45,6 +45,7 @@ class RobotActions
         @position = new Vector2(currentStatus.rectangle.position)
         @life = currentStatus.life
         @gunCoolDownTime = currentStatus.gunCoolDownTime
+        @availableClones = currentStatus.availableClones
         @queue = []
 
     move: (amount, direction) ->
@@ -82,6 +83,9 @@ class RobotActions
         @queue.push(
             action: "fire"
         )
+
+    clone: ->
+        @queue.push(action: "clone")
 
 class Arena
     constructor: (@width, @height) ->
@@ -244,13 +248,26 @@ class RobotStatus extends ElementStatus
         @cannonAngle = 0
         @rectangle.setDimension(27, 24)
         @baseScanWaitTime = 50
-        @baseGunCoolDownTime = 100
+        @baseGunCoolDownTime = 50
         @scanWaitTime = 0
         @gunCoolDownTime = 0
+        @availableClones = 1
         @queue = []
+        @clones = []
+        @parentStatus = null
+
+    clone: ->
+        cloneRobotStatus = new RobotStatus(@robot, @arena)
+        cloneRobotStatus.rectangle.setAngle(@rectangle.angle)
+        cloneRobotStatus.rectangle.setPosition(@rectangle.position.x, @rectangle.position.y)
+        cloneRobotStatus.life = @life / 4
+        cloneRobotStatus.availableClones = 0
+        cloneRobotStatus.parentStatus = this
+        @clones.push(cloneRobotStatus)
+        cloneRobotStatus
 
     isAlive: ->
-        @life > 0
+        @life > 0 and (@parentStatus == null or @parentStatus.life > 0)
 
     isIdle: ->
         @queue.length == 0
@@ -314,10 +331,17 @@ class RobotStatus extends ElementStatus
                 @gunCoolDownTime = @baseGunCoolDownTime
                 return new BulletStatus(this)
 
+            when 'clone'
+                return unless @availableClones
+                @availableClones--
+                return @clone()
+
         null
 
     updateQueue: (actions) ->
         @queue = actions.queue.concat(@queue)
+
+POS = 200
 
 class Engine
     constructor: (width, height, @maxTurns, @robots...) ->
@@ -333,6 +357,35 @@ class Engine
         if !obj[method]
             return
         obj[method].apply(obj, params)
+
+    intersectsAnything: (robotStatus) ->
+        for wall in @arena.walls
+            if robotStatus.rectangle.intersects(wall.rectangle, false)
+                return true
+
+        for status in @robotsStatus
+            continue if status == robotStatus or !status.isAlive()
+            if robotStatus.rectangle.intersects(status.rectangle)
+                return true
+
+        false
+
+    findEmptyPosition: (robotStatus) ->
+        arenaW = @arena.width
+        arenaH = @arena.height
+        robotW = robotStatus.rectangle.dimension.width
+        robotH = robotStatus.rectangle.dimension.height
+        baseX = robotStatus.rectangle.position.x
+        baseY = robotStatus.rectangle.position.y
+
+        for y in [0..arenaH - 1] by robotH
+            for x in [0..arenaW - 1] by robotW
+                ny = (y + baseY + robotH) % arenaH
+                nx = (x + baseX + robotW) % arenaW
+                robotStatus.rectangle.setPosition(nx, ny)
+                return robotStatus unless @intersectsAnything(robotStatus)
+
+        return false
 
     checkCollision: (robotStatus) ->
         actions = new RobotActions(robotStatus)
@@ -369,6 +422,11 @@ class Engine
                             type: 'dead',
                             id: robotStatus.id
                         })
+                        for clone in robotStatus.clones
+                            @roundLog.events.push({
+                                type: 'dead',
+                                id: clone.id
+                            })
                 else
                     robotStatus.rollbackAfterCollision()
                 bearing = ((status.rectangle.angle + 180 - robotStatus.rectangle.angle) + 360) % 360
@@ -445,7 +503,10 @@ class Engine
                     status.updateQueue(actions)
 
                 newStatus = status.runItem()
-                @robotsStatus.push(newStatus) if newStatus
+                if newStatus
+                    @robotsStatus.push(newStatus)
+                    if newStatus instanceof RobotStatus
+                        @findEmptyPosition(newStatus)
 
                 actions = @checkCollision(status)
                 status.updateQueue(actions)

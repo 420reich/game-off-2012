@@ -14,6 +14,7 @@ class FightArena
             window.robotClass.prototype.onScannedRobot = function(ev) {
                var robot = ev.robot;
                robot.fire();
+               robot.clone();
             };
             window.robotClass.prototype.onHitByBullet = function(ev) {
                var robot = ev.robot;
