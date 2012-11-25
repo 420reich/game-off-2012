@@ -6,7 +6,7 @@ sequelize = require path.join(basePath, 'config', 'database')
 Robot = sequelize.import(path.join(basePath, 'models', 'robot'))
 
 exports.index = (req, res) ->
-    Robot.findAll(where: {ownerLogin: req.user.login}).success((robots) ->
+    req.user.getRobots().success((robots) ->
         if (robots.length > 0)
             size = robots.length
             robotRank = []

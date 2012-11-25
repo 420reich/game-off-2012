@@ -9,11 +9,7 @@ sequelize = require(path.join(basePath, 'config', 'database'));
 Robot = sequelize["import"](path.join(basePath, 'models', 'robot'));
 
 exports.index = function(req, res) {
-  return Robot.findAll({
-    where: {
-      ownerLogin: req.user.login
-    }
-  }).success(function(robots) {
+  return req.user.getRobots().success(function(robots) {
     var robot, robotRank, size, _fn, _i, _len;
     if (robots.length > 0) {
       size = robots.length;
