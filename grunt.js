@@ -168,8 +168,7 @@ module.exports = function(grunt) {
         },
 
         forever: {
-            main: 'fightcode/app.js',
-            logFile: '/tmp/teste.log'
+          main: 'fightcode/server.js'
         },
 
         watch: {
@@ -177,9 +176,7 @@ module.exports = function(grunt) {
                 './fightcode/static/coffee/*.coffee',
                 './fightcode/coffee/routes/*.coffee',
                 './fightcode/*.html',
-                './fightcode/static/scss/*.scss',
-                './fightcode/**/*.js',
-                './fightcode/**/*.ejs'
+                './fightcode/static/scss/*.scss'
             ],
             tasks: 'dev'
         }

@@ -7,7 +7,8 @@ process.env.CWD = process.cwd();
 
 var express = require('express'),
     http = require('http'),
-    path = require('path');
+    path = require('path'),
+    cluster = require('cluster');
 
 var index = require('./routes/index.js'),
     create = require('./routes/create.js'),
@@ -65,6 +66,4 @@ app.get(/^\/profile\/(.+?)\/robots\/(.+?)\/fight\/(\d+)\/?$/, checkCredentials, 
 app.get(/^\/profile\/(\w+)\/?$/, user.show);
 app.get('/my-profile', checkCredentials, user.myProfile);
 
-http.createServer(app).listen(app.get('port'), function(){
-    console.log("Express server listening on port " + app.get('port'));
-});
+module.exports = app;
