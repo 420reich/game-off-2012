@@ -1,18 +1,14 @@
 <% include header.ejs %>
 <div class="show-user">
     <div class="container">
-        <div class="row">
-            <div class="span6">
-                <div class="user">
-                    <img src="<%= user.photo(152) %>" />
-                    <div class="info">
-                        <h2><%= user.name %></h2>
-                        <p>Rio de Janeiro, RJ - Brazil</p>
-                    </div>
-                </div>
+        <div class="user-info">
+            <img alt="<%= user.name %>" src="<%= user.photo(152) %>" />
+            <div class="info">
+                <h2><%= user.name %></h2>
+                <p>Rio de Janeiro, RJ - Brazil</p>
             </div>
-            <div class="span6">
-                <a href="/robots/create">CODE NEW ROBOT</a>
+            <div class="actions">
+                <a class="btn" href="/robots/create">CODE NEW ROBOT</a>
             </div>
         </div>
     </div>

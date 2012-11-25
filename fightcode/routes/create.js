@@ -51,7 +51,7 @@ exports.create = function(req, res) {
 
 exports.updateView = function(req, res) {
   var gistId, github;
-  gistId = req.params[0];
+  gistId = req.params.robot_id;
   github = new GithubApi({
     version: '3.0.0'
   });
@@ -88,7 +88,7 @@ exports.updateView = function(req, res) {
 
 exports.update = function(req, res) {
   var gistId, github, robotData;
-  gistId = req.params[0];
+  gistId = req.params.robot_id;
   github = new GithubApi({
     version: '3.0.0'
   });
@@ -117,6 +117,42 @@ exports.update = function(req, res) {
       return robot.save(['title']).success(function() {
         return github.gists.edit(robotData, function(err, githubResponse) {
           return res.redirect('/robots/update/' + robot.gist);
+        });
+      });
+    } else {
+      return res.redirect('/');
+    }
+  });
+};
+
+exports.fork = function(req, res) {
+  var gistId, github;
+  gistId = req.params.robot_id;
+  github = new GithubApi({
+    version: '3.0.0'
+  });
+  github.authenticate({
+    type: 'oauth',
+    token: req.user.token
+  });
+  return Robot.find({
+    where: {
+      gist: gistId
+    }
+  }).success(function(robot) {
+    if (robot.is_public && !(robot.user_id === req.user.id)) {
+      return github.gists.fork({
+        id: gistId
+      }, function(err, githubResponse) {
+        var robotFork;
+        robotFork = Robot.build({
+          ownerLogin: req.user.login,
+          gist: githubResponse.id,
+          isPublic: githubResponse["public"],
+          title: githubResponse.description
+        });
+        return req.user.addRobot(robotFork).success(function() {
+          return res.redirect('/robots/update/' + robotFork.gist);
         });
       });
     } else {

@@ -1,1 +1,11 @@
 @import "compass/reset";
+
+body {
+    font-size: 14px;
+    font-family: arial;
+    background: url(../img/bg-grill-dark.png) repeat;
+}
+
+a {
+    text-decoration: none;
+}
