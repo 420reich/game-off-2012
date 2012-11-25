@@ -35,13 +35,7 @@ module.exports = function(sequelize, DataTypes) {
             },
 
             rankNear: function(callback) {
-                /*
-                sequelize has a bug that if the query doesn't start
-                with SELECT, it returns null
-                https://github.com/sdepold/sequelize/issues/314
-                */
-                var sql = ['SELECT id FROM "Robots" LIMIT 1;',
-                            'WITH robot_position AS (',
+                var sql = ['WITH robot_position AS (',
                                   'SELECT * FROM',
                                     '(SELECT id,score,row_number()',
                                       'OVER (ORDER BY score DESC)',
@@ -62,11 +56,7 @@ module.exports = function(sequelize, DataTypes) {
                                 '(SELECT row_number FROM robot_position)',
                                 'AND',
                                 '(SELECT row_number FROM robot_position)+10'].join(' ');
-                sequelize.query(sql, null, {raw: true, type: 'SELECT'})
-                    .success(function(results){
-                        results.shift();
-                        callback(results);
-                    });
+                sequelize.query(sql, null, {raw: true, type: 'SELECT'}).success(callback);
             }
         },
         underscored: true
