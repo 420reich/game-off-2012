@@ -11,6 +11,9 @@ compile:
 dev:
 	@${GRUNT_CMD} dev
 
+db:
+	@node fightcode/migrate.js
+
 clean:
 	@${GRUNT_CMD} shell:clean
 
@@ -24,7 +27,7 @@ kill-server:
 
 run: kill-server start-server sync
 
-start-server:
+start-server: db
 	@node fightcode/server.js &
 
 drop:

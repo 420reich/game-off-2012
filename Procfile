@@ -1,2 +1,2 @@
-web: node fightcode/server.js
+web: node fightcode/migrate.js; node fightcode/server.js
 

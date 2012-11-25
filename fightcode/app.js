@@ -25,9 +25,7 @@ var filtersPath = path.join(process.env.CWD, 'fightcode', 'filters');
 
 var dbSession = require(path.join(configPath, 'session'));
 var everyauth = require(path.join(configPath, 'auth'));
-var migrator = require(path.join(configPath, 'migration'));
 var checkCredentials = require(path.join(filtersPath, 'login'));
-migrator.migrate();
 
 app.configure(function(){
     app.set('port', process.env.PORT || 3000);
