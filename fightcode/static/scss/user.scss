@@ -19,7 +19,7 @@
         .info {
             margin-left: 175px;
             padding-top: 63px;
-            font-size: 0;
+            float: left;
 
             h2 {
                 font-weight: bold;
@@ -32,17 +32,22 @@
                 display: inline-block;
                 font-size: 16px;
                 color: #4f4f4f;
-            }
 
-            p:before {
-                display: inline-block;
-                content: '';
-                background: url('../img/marker.png') 0 0 no-repeat;
-                width: 13px;
-                height: 15px;
-                margin-right: 7px;
-                margin-bottom: -2px;
+                &:before {
+                    display: inline-block;
+                    content: '';
+                    background: url('../img/marker.png') 0 0 no-repeat;
+                    width: 13px;
+                    height: 15px;
+                    margin-right: 7px;
+                    margin-bottom: -2px;
+                }
             }
+        }
+
+        .actions {
+            float: right;
+            margin-top: 65px;
         }
     }
 }

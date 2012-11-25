@@ -3,7 +3,9 @@ module.exports = function(grunt) {
     var cssFiles = {
         website: [
             'fightcode/static/css/reset.css',
+            'fightcode/static/css/color.css',
             'fightcode/static/css/grid.css',
+            'fightcode/static/css/button.css',
             'fightcode/static/css/fonts.css',
             'fightcode/static/css/prism.css',
             'fightcode/static/css/header.css',
