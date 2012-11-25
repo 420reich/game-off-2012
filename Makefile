@@ -18,12 +18,12 @@ setup:
 	@rm -rf ./node_modules
 	@cat node-requirements | xargs npm install
 
-kill-monitor:
-	@-ps aux | egrep node_modules/forever/bin/monitor | egrep -v egrep | awk ' { print $$2 } ' | xargs kill -9
-	@echo 'Forever monitor killed!'
+kill-server:
+	@-ps aux | egrep fightcode | egrep -v egrep | awk ' { print $$2 } ' | xargs kill -9
+	@echo 'fightcode server killed!'
 
 
-run: kill-monitor sync
+run: kill-server sync
 
 drop:
 	psql -d postgres -f drop.sql
