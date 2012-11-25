@@ -45,11 +45,11 @@ footer ul li {
 }
 /* line 41, ../scss/footer.scss */
 footer ul img {
-  -webkit-transition: all 120ms ease-out;
-  -moz-transition: all 120ms ease-out;
-  -ms-transition: all 120ms ease-out;
-  -o-transition: all 120ms ease-out;
-  transition: all 120ms ease-out;
+  -webkit-transition: all 160ms ease-out;
+  -moz-transition: all 160ms ease-out;
+  -ms-transition: all 160ms ease-out;
+  -o-transition: all 160ms ease-out;
+  transition: all 160ms ease-out;
   float: left;
   width: 40px;
   height: 40px;
@@ -57,11 +57,11 @@ footer ul img {
 }
 /* line 49, ../scss/footer.scss */
 footer ul a {
-  -webkit-transition: color 200ms ease-in-out;
-  -moz-transition: color 200ms ease-in-out;
-  -ms-transition: color 200ms ease-in-out;
-  -o-transition: color 200ms ease-in-out;
-  transition: color 200ms ease-in-out;
+  -webkit-transition: color 160ms ease-in-out;
+  -moz-transition: color 160ms ease-in-out;
+  -ms-transition: color 160ms ease-in-out;
+  -o-transition: color 160ms ease-in-out;
+  transition: color 160ms ease-in-out;
   display: block;
 }
 /* line 53, ../scss/footer.scss */
