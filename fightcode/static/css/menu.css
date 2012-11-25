@@ -40,7 +40,7 @@
 .context-bar ul {
   float: left;
   font-size: 0;
-  margin-top: 21px;
+  margin-top: 18px;
 }
 /* line 43, ../scss/menu.scss */
 .context-bar ul li {
@@ -88,19 +88,21 @@
 .context-bar .profile-container .profile img {
   border-radius: 30px;
   margin-right: 8px;
+  width: 30px;
+  height: 30px;
 }
-/* line 94, ../scss/menu.scss */
+/* line 96, ../scss/menu.scss */
 .context-bar .profile-container .profile .name {
   margin-top: -24px;
   display: block;
   margin-left: 38px;
 }
-/* line 100, ../scss/menu.scss */
+/* line 102, ../scss/menu.scss */
 .context-bar .profile-container .profile:hover {
   text-decoration: underline;
 }
 
-/* line 127, ../scss/menu.scss */
+/* line 129, ../scss/menu.scss */
 .menu-container {
   -webkit-transition: top 300ms;
   -moz-transition: top 300ms;
@@ -112,13 +114,13 @@
   font-weight: bold;
   width: 100%;
   z-index: 10;
-  top: -185px;
+  top: -193px;
 }
-/* line 136, ../scss/menu.scss */
+/* line 138, ../scss/menu.scss */
 .menu-container.open {
   top: 0;
 }
-/* line 140, ../scss/menu.scss */
+/* line 142, ../scss/menu.scss */
 .menu-container .menu {
   -webkit-box-shadow: inset 0 3px 8px -5px black;
   -moz-box-shadow: inset 0 3px 8px -5px black;
@@ -127,18 +129,18 @@
   padding: 36px 5%;
   text-align: center;
 }
-/* line 146, ../scss/menu.scss */
+/* line 148, ../scss/menu.scss */
 .menu-container .menu > span {
   display: inline-block;
   vertical-align: top;
   margin-left: 2%;
   width: 100px;
 }
-/* line 152, ../scss/menu.scss */
+/* line 154, ../scss/menu.scss */
 .menu-container .menu > span:first-child {
   margin-left: 0;
 }
-/* line 155, ../scss/menu.scss */
+/* line 157, ../scss/menu.scss */
 .menu-container .menu > span a {
   display: block;
   color: #999;
@@ -148,16 +150,16 @@
   -o-transition: color 200ms;
   transition: color 200ms;
 }
-/* line 161, ../scss/menu.scss */
+/* line 163, ../scss/menu.scss */
 .menu-container .menu > span:hover a {
   color: #555;
   text-decoration: none;
 }
-/* line 166, ../scss/menu.scss */
+/* line 168, ../scss/menu.scss */
 .menu-container .menu > span.active a {
   color: #ed0027;
 }
-/* line 170, ../scss/menu.scss */
+/* line 172, ../scss/menu.scss */
 .menu-container .menu > span .icon {
   display: block;
   margin: 0 auto 5px auto;
@@ -167,67 +169,67 @@
   -o-transition: background-color 300ms;
   transition: background-color 300ms;
 }
-/* line 108, ../scss/menu.scss */
+/* line 110, ../scss/menu.scss */
 .menu-container .fighter .icon {
   background-position: 0 -295px;
   height: 75px;
   width: 78px;
   background-color: #c7c7c7;
 }
-/* line 115, ../scss/menu.scss */
+/* line 117, ../scss/menu.scss */
 .menu-container .fighter:hover .icon {
   background-color: #999;
 }
-/* line 121, ../scss/menu.scss */
+/* line 123, ../scss/menu.scss */
 .menu-container .fighter.active .icon {
   background-color: #ed0027;
 }
-/* line 108, ../scss/menu.scss */
+/* line 110, ../scss/menu.scss */
 .menu-container .ranking .icon {
   background-position: 0 -445px;
   height: 75px;
   width: 73px;
   background-color: #c7c7c7;
 }
-/* line 115, ../scss/menu.scss */
+/* line 117, ../scss/menu.scss */
 .menu-container .ranking:hover .icon {
   background-color: #999;
 }
-/* line 121, ../scss/menu.scss */
+/* line 123, ../scss/menu.scss */
 .menu-container .ranking.active .icon {
   background-color: #ed0027;
 }
-/* line 108, ../scss/menu.scss */
+/* line 110, ../scss/menu.scss */
 .menu-container .robot .icon {
   background-position: 0 -370px;
   height: 75px;
   width: 97px;
   background-color: #c7c7c7;
 }
-/* line 115, ../scss/menu.scss */
+/* line 117, ../scss/menu.scss */
 .menu-container .robot:hover .icon {
   background-color: #999;
 }
-/* line 121, ../scss/menu.scss */
+/* line 123, ../scss/menu.scss */
 .menu-container .robot.active .icon {
   background-color: #ed0027;
 }
-/* line 108, ../scss/menu.scss */
+/* line 110, ../scss/menu.scss */
 .menu-container .logout .icon {
   background-position: 0 -220px;
   height: 75px;
   width: 75px;
   background-color: #c7c7c7;
 }
-/* line 115, ../scss/menu.scss */
+/* line 117, ../scss/menu.scss */
 .menu-container .logout:hover .icon {
   background-color: #999;
 }
-/* line 121, ../scss/menu.scss */
+/* line 123, ../scss/menu.scss */
 .menu-container .logout.active .icon {
   background-color: #ed0027;
 }
-/* line 191, ../scss/menu.scss */
+/* line 193, ../scss/menu.scss */
 .menu-container .ribbon-container {
   border-top: 5px solid #ed0027;
   height: 0;
@@ -235,11 +237,11 @@
   -moz-box-shadow: 0 0 6px -1px black;
   box-shadow: 0 0 6px -1px black;
 }
-/* line 196, ../scss/menu.scss */
+/* line 198, ../scss/menu.scss */
 .menu-container .ribbon-container:hover {
   border-color: #ff3d3d;
 }
-/* line 200, ../scss/menu.scss */
+/* line 202, ../scss/menu.scss */
 .menu-container .ribbon {
   background-position: 0 -95px;
   height: 95px;
@@ -252,11 +254,11 @@
 .menu-container .ribbon:active, .menu-container .ribbon.ribbon_background-active {
   background-position: 0 0;
 }
-/* line 207, ../scss/menu.scss */
+/* line 209, ../scss/menu.scss */
 .menu-container .ribbon:hover {
   background-position: 0 0;
 }
-/* line 211, ../scss/menu.scss */
+/* line 213, ../scss/menu.scss */
 .menu-container .ribbon .logo {
   display: block;
   margin: 15px auto 0;
@@ -265,7 +267,7 @@
   height: 30px;
   width: 157px;
 }
-/* line 219, ../scss/menu.scss */
+/* line 221, ../scss/menu.scss */
 .menu-container .ribbon .tip {
   display: block;
   margin: 20px auto 0;
@@ -280,7 +282,7 @@
   -o-transition: opacity 200ms;
   transition: opacity 200ms;
 }
-/* line 229, ../scss/menu.scss */
+/* line 231, ../scss/menu.scss */
 .menu-container .ribbon:hover .tip {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
   opacity: 1;
