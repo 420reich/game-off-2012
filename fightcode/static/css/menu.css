@@ -16,8 +16,6 @@ header {
   font-size: 13px;
   font-weight: bold;
   text-transform: uppercase;
-  -webkit-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.75);
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.75);
 }
 /* line 17, ../scss/menu.scss */

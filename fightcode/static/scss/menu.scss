@@ -12,7 +12,7 @@ header {
     font-size: 13px;
     font-weight: bold;
     text-transform: uppercase;
-    @include box-shadow(0 0 5px 0 rgba(#000, .75));
+    box-shadow: 0 0 5px 0 rgba(#000, .75);
 
     .container {
         height: 55px;

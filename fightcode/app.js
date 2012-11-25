@@ -8,6 +8,7 @@ process.env.CWD = process.cwd();
 var express = require('express'),
     http = require('http'),
     path = require('path'),
+    gravatar = require('gravatar'),
     cluster = require('cluster');
 
 var index = require('./routes/index.js'),
@@ -43,6 +44,7 @@ app.configure(function(){
 
     app.use(function(req, res, next){
         res.locals.req = req;
+        res.locals.gravatar = gravatar;
         next();
     });
 
