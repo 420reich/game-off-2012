@@ -1,7 +1,11 @@
+var path = require('path'),
+    basePath = path.join(process.env.CWD, 'fightcode');
 
 module.exports = function(sequelize, DataTypes) {
-    return sequelize.define('Robot', {
+    Fighter = sequelize.import(path.join(basePath, 'models', 'fighter'));
+    Robot = sequelize.define('Robot', {
         gist: { type: DataTypes.STRING, allowNull: false},
+        title: { type: DataTypes.STRING, allowNull: false},
         ownerLogin: { type: DataTypes.STRING, allowNull: false},
         victories: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0},
         defeats: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0},
@@ -62,4 +66,6 @@ module.exports = function(sequelize, DataTypes) {
         underscored: true
       }
     );
+    Robot.hasMany(Fighter);
+    return Robot;
 };
