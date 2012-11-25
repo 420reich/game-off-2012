@@ -18,6 +18,8 @@ everyauth.github
     .findOrCreateUser(function (session, accessToken, accessTokenExtra, githubUserMetadata) {
         var promise = this.Promise();
 
+        console.log("Github reponse:" + githubUserMetadata);
+
         User.find({
             where: { githubId: githubUserMetadata.id }
         })
