@@ -1,2 +1,2 @@
-web: node fightcode/app.js
+web: forever start fightcode/app.js
 
