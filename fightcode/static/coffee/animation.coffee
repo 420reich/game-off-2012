@@ -107,6 +107,8 @@ class Game
                         object.tank[0].className = 'tank moving backwards'
                     when 'stopped'
                         object.tank[0].className = 'tank'
+                    when 'cloned'
+                        object.tank[0].className = 'tank cloning'
                     when 'exploded'
                         object.bullet[0].className = 'bullet exploding'
                         setTimeout(@removeBullet.bind(this, object), 1000);

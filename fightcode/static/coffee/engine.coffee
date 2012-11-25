@@ -46,6 +46,7 @@ class RobotActions
         @life = currentStatus.life
         @gunCoolDownTime = currentStatus.gunCoolDownTime
         @availableClones = currentStatus.availableClones
+        @parentId = if currentStatus.parentStatus then currentStatus.parentStatus.id else null
         @queue = []
 
     move: (amount, direction) ->
@@ -266,6 +267,9 @@ class RobotStatus extends ElementStatus
         @clones.push(cloneRobotStatus)
         cloneRobotStatus
 
+    isClone: ->
+        !!@parentStatus
+
     isAlive: ->
         @life > 0 and (@parentStatus == null or @parentStatus.life > 0)
 
@@ -341,7 +345,6 @@ class RobotStatus extends ElementStatus
     updateQueue: (actions) ->
         @queue = actions.queue.concat(@queue)
 
-POS = 200
 
 class Engine
     constructor: (width, height, @maxTurns, @robots...) ->
@@ -454,7 +457,16 @@ class Engine
 
             if robotStatus.canScan() and virtualRect.intersects(status.rectangle)
                 robotStatus.preventScan()
-                @safeCall(robotStatus.robot, 'onScannedRobot', {robot: actions})
+                @safeCall(robotStatus.robot, 'onScannedRobot', {
+                    robot: actions
+                    scannedRobot:
+                        id: status.id
+                        position: new Vector2(status.rectangle.position)
+                        angle: status.rectangle.angle
+                        cannonAngle: status.cannonAngle
+                        life: status.life
+                        parentId: if status.parentStatus then status.parentStatus.id else null
+                })
                 @roundLog.events.push({
                     type: 'onScannedRobot',
                     id: robotStatus.id
@@ -495,6 +507,7 @@ class Engine
                         status.rectangle.angle
                     cannonAngle:
                         status.cannonAngle
+                    parentId: status.parentStatus and status.parentStatus.id
                 })
 
                 if status.isIdle()
@@ -507,11 +520,16 @@ class Engine
                     @robotsStatus.push(newStatus)
                     if newStatus instanceof RobotStatus
                         @findEmptyPosition(newStatus)
+                        @roundLog.events.push({
+                            type: 'cloned'
+                            id: status.id
+                            cloneId: newStatus.id
+                        })
 
                 actions = @checkCollision(status)
                 status.updateQueue(actions)
 
-                if status instanceof RobotStatus
+                if status instanceof RobotStatus and not status.isClone()
                     aliveRobots++
 
             for status in @robotsStatus
@@ -519,7 +537,11 @@ class Engine
                 actions = @checkSight(status)
                 status.updateQueue(actions)
 
+        winner = null
+        if not @isDraw()
+            winner = if @robotsStatus[0].isClone() then @robotsStatus[0].parentStatus else @robotsStatus[0]
+
         return {
-            draw: @isDraw()
+            winner: winner
             result: fightLog
         }

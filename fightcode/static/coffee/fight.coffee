@@ -8,18 +8,25 @@ class FightArena
             window.robotClass.prototype.onIdle = function(ev) {
                var robot = ev.robot;
                
-               robot.rotateCannon(1);
-               robot.fire();
+               robot.rotateCannon(180);
+               robot.ahead(100);
+               robot.turn(45);
             };
             window.robotClass.prototype.onScannedRobot = function(ev) {
-               var robot = ev.robot;
+               var robot = ev.robot,
+                   scannedRobot = ev.scannedRobot;
+
+               if (robot.id == scannedRobot.parentId || robot.parentId == scannedRobot.id) {
+                   return;
+               }
                robot.fire();
-               robot.clone();
             };
             window.robotClass.prototype.onHitByBullet = function(ev) {
                var robot = ev.robot;
                
-               
+               if (robot.availableClones > 0) {
+                   robot.clone();
+               }
             };"
 
         @wallCode = "

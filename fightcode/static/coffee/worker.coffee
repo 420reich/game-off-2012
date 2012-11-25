@@ -29,8 +29,8 @@ class Fight
         for robot in robots
             robotCode = "(function() {#{ robot }}.bind(window)()); return window.robotClass;"
             constr = new Function("window", robotCode)({
-                log: (message) =>
-                    this.log(message)
+                log: (message...) =>
+                    this.log(message...)
             })
             robotInstance = new constr()
             robotInstances.push(robotInstance)
@@ -46,6 +46,7 @@ class Fight
         eventData =
             type: "results"
             result: result.result
+            winner: result.winner
 
         worker.postMessage(eventData)
 

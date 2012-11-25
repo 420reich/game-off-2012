@@ -1,4 +1,4 @@
-var ANG_INCREMENT, Arena, BulletStatus, ElementStatus, Engine, MOVE_INCREMENT, PI2, POS, RAD2DEG, Rectangle, RobotActions, RobotStatus, Vector2, WallStatus,
+var ANG_INCREMENT, Arena, BulletStatus, ElementStatus, Engine, MOVE_INCREMENT, PI2, RAD2DEG, Rectangle, RobotActions, RobotStatus, Vector2, WallStatus,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   __slice = [].slice;
@@ -68,6 +68,7 @@ RobotActions = (function() {
     this.life = currentStatus.life;
     this.gunCoolDownTime = currentStatus.gunCoolDownTime;
     this.availableClones = currentStatus.availableClones;
+    this.parentId = currentStatus.parentStatus ? currentStatus.parentStatus.id : null;
     this.queue = [];
   }
 
@@ -361,6 +362,10 @@ RobotStatus = (function(_super) {
     return cloneRobotStatus;
   };
 
+  RobotStatus.prototype.isClone = function() {
+    return !!this.parentStatus;
+  };
+
   RobotStatus.prototype.isAlive = function() {
     return this.life > 0 && (this.parentStatus === null || this.parentStatus.life > 0);
   };
@@ -462,8 +467,6 @@ RobotStatus = (function(_super) {
   return RobotStatus;
 
 })(ElementStatus);
-
-POS = 200;
 
 Engine = (function() {
 
@@ -632,7 +635,15 @@ Engine = (function() {
       if (robotStatus.canScan() && virtualRect.intersects(status.rectangle)) {
         robotStatus.preventScan();
         this.safeCall(robotStatus.robot, 'onScannedRobot', {
-          robot: actions
+          robot: actions,
+          scannedRobot: {
+            id: status.id,
+            position: new Vector2(status.rectangle.position),
+            angle: status.rectangle.angle,
+            cannonAngle: status.cannonAngle,
+            life: status.life,
+            parentId: status.parentStatus ? status.parentStatus.id : null
+          }
         });
         this.roundLog.events.push({
           type: 'onScannedRobot',
@@ -644,7 +655,7 @@ Engine = (function() {
   };
 
   Engine.prototype.fight = function() {
-    var actions, aliveRobots, fightLog, newStatus, status, _i, _j, _len, _len1, _ref, _ref1;
+    var actions, aliveRobots, fightLog, newStatus, status, winner, _i, _j, _len, _len1, _ref, _ref1;
     aliveRobots = this.robotsStatus.length;
     fightLog = [];
     while (aliveRobots > 1 && !this.isDraw()) {
@@ -674,7 +685,8 @@ Engine = (function() {
           },
           life: status.life,
           angle: status.rectangle.angle,
-          cannonAngle: status.cannonAngle
+          cannonAngle: status.cannonAngle,
+          parentId: status.parentStatus && status.parentStatus.id
         });
         if (status.isIdle()) {
           actions = new RobotActions(status);
@@ -688,11 +700,16 @@ Engine = (function() {
           this.robotsStatus.push(newStatus);
           if (newStatus instanceof RobotStatus) {
             this.findEmptyPosition(newStatus);
+            this.roundLog.events.push({
+              type: 'cloned',
+              id: status.id,
+              cloneId: newStatus.id
+            });
           }
         }
         actions = this.checkCollision(status);
         status.updateQueue(actions);
-        if (status instanceof RobotStatus) {
+        if (status instanceof RobotStatus && !status.isClone()) {
           aliveRobots++;
         }
       }
@@ -706,8 +723,12 @@ Engine = (function() {
         status.updateQueue(actions);
       }
     }
+    winner = null;
+    if (!this.isDraw()) {
+      winner = this.robotsStatus[0].isClone() ? this.robotsStatus[0].parentStatus : this.robotsStatus[0];
+    }
     return {
-      draw: this.isDraw(),
+      winner: winner,
       result: fightLog
     };
   };

@@ -47,8 +47,10 @@ Fight = (function() {
       robot = robots[_i];
       robotCode = "(function() {" + robot + "}.bind(window)()); return window.robotClass;";
       constr = new Function("window", robotCode)({
-        log: function(message) {
-          return _this.log(message);
+        log: function() {
+          var message;
+          message = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+          return _this.log.apply(_this, message);
         }
       });
       robotInstance = new constr();
@@ -64,7 +66,8 @@ Fight = (function() {
     result = engine.fight();
     eventData = {
       type: "results",
-      result: result.result
+      result: result.result,
+      winner: result.winner
     };
     return worker.postMessage(eventData);
   };
