@@ -1,7 +1,7 @@
 <div class="menu-container">
     <div class="menu">
         <span class="fighter">
-            <a href="/my-profile"><span class="icon"></span>MY PROFILE</a>
+            <a href="/my-profile" data-navbar-href="/profile/<%= req.user && req.user.login %>"><span class="icon"></span>MY PROFILE</a>
         </span>
         <span class="ranking">
             <a href="/robots/ranking"><span class="icon"></span>RANKING</a>

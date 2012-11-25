@@ -1,7 +1,7 @@
 do ->
     currentPathname = location.pathname
-    navbar = $('.navbar')
-    navbar.find('li.active')
-        .removeClass('active')
-    navbar.find("a[href='#{currentPathname}']")
-        .closest('li').addClass('active')
+    navbar = $('.menu-container')
+    navbar.find('.checked')
+        .removeClass('checked')
+    navbar.find("a[href='#{currentPathname}'], a[data-navbar-href='#{currentPathname}']")
+        .addClass('checked')
