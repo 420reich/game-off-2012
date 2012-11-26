@@ -1,10 +1,38 @@
 worker = self
+global = this
 
 class Fight
     constructor: ->
         @bindEvents()
 
-    log: (messages...) =>
+    overrideFunctions: ->
+        @originalFunctions = {
+            setTimeout: global.setTimeout,
+            setInterval: global.setInterval,
+            XmlHttpRequest: global.XmlHttpRequest,
+            Date: global.Date,
+            random: Math.random,
+            eval: global.eval,
+            func: global.Function
+        }
+        global.setTimeout = ->
+        global.setInterval = ->
+        global.XmlHttpRequest = ->
+        global.Date = -> null
+        Math.random = -> 0
+        global.eval = ->
+        global.Function = ->
+
+    restoreFunctions: ->
+        global.setTimeout = @originalFunctions.setTimeout
+        global.setInterval = @originalFunctions.setInterval
+        global.XmlHttpRequest = @originalFunctions.XmlHttpRequest
+        global.Date = -> @originalFunctions.Date
+        Math.random = -> @originalFunctions.random
+        global.eval = @originalFunctions.eval
+        global.Function = @originalFunctions.func
+
+    log: (messages...) ->
         worker.postMessage(
             type: "log"
             message: messages.join(', ')
@@ -20,6 +48,8 @@ class Fight
             @processFight(robots)
 
     processFight: (robots) ->
+        @overrideFunctions()
+
         maxRounds = 5000
         boardSize =
             width: 800
@@ -28,7 +58,7 @@ class Fight
         robotInstances = []
         for robot in robots
             robotCode = "(function() {#{ robot.code }}.bind(window)()); return window.robotClass;"
-            constr = new Function("window", robotCode)({
+            constr = new @originalFunctions.func("window", robotCode)({
                 log: (message...) =>
                     this.log(message...)
             })
@@ -37,11 +67,14 @@ class Fight
             robotInstances.push(robot)
 
         engine = new Engine(boardSize.width, boardSize.height, maxRounds, robotInstances...)
+        engine.log = this.log;
 
         engine.robotsStatus[0].rectangle.setPosition(50, 50)
         engine.robotsStatus[1].rectangle.setPosition(50, 200)
 
         result = engine.fight()
+
+        @restoreFunctions()
 
         eventData =
             type: "results"
@@ -50,4 +83,7 @@ class Fight
 
         worker.postMessage(eventData)
 
-fight = new Fight()
+runFight = ->
+    fight = new Fight()
+
+runFight()
