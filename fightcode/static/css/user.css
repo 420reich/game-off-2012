@@ -1,14 +1,14 @@
-/* line 1, ../scss/user.scss */
+/* line 3, ../scss/user.scss */
 .show-user {
   width: 100%;
   background: #f3f3f3;
 }
-/* line 5, ../scss/user.scss */
+/* line 7, ../scss/user.scss */
 .show-user .user-info {
   height: 145px;
   position: relative;
 }
-/* line 9, ../scss/user.scss */
+/* line 11, ../scss/user.scss */
 .show-user .user-info img {
   position: absolute;
   top: 24px;
@@ -18,26 +18,26 @@
   border-radius: 152px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
 }
-/* line 19, ../scss/user.scss */
+/* line 21, ../scss/user.scss */
 .show-user .user-info .info {
   margin-left: 175px;
   padding-top: 63px;
   float: left;
 }
-/* line 24, ../scss/user.scss */
+/* line 26, ../scss/user.scss */
 .show-user .user-info .info h2 {
   font-weight: bold;
   font-size: 25px;
   color: #4f4f4f;
   margin-bottom: 10px;
 }
-/* line 31, ../scss/user.scss */
+/* line 33, ../scss/user.scss */
 .show-user .user-info .info p {
   display: inline-block;
   font-size: 16px;
   color: #4f4f4f;
 }
-/* line 36, ../scss/user.scss */
+/* line 38, ../scss/user.scss */
 .show-user .user-info .info p:before {
   display: inline-block;
   content: '';
@@ -47,8 +47,123 @@
   margin-right: 7px;
   margin-bottom: -2px;
 }
-/* line 48, ../scss/user.scss */
+/* line 50, ../scss/user.scss */
 .show-user .user-info .actions {
   float: right;
   margin-top: 65px;
+}
+/* line 56, ../scss/user.scss */
+.show-user .robots-area {
+  background: url("../img/pattern.png");
+}
+/* line 59, ../scss/user.scss */
+.show-user .robots-area .header {
+  padding-top: 56px;
+  overflow: hidden;
+}
+/* line 63, ../scss/user.scss */
+.show-user .robots-area .header .title {
+  font-size: 0;
+}
+/* line 66, ../scss/user.scss */
+.show-user .robots-area .header .title .marker {
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 4px;
+  width: 380px;
+  height: 4px;
+  background-color: #fdfdfd;
+  opacity: 0.1;
+}
+/* line 76, ../scss/user.scss */
+.show-user .robots-area .header .title h1 {
+  display: inline-block;
+  vertical-align: top;
+  margin-bottom: 16px;
+  padding: 0 17px 0 13px;
+  font-family: "oswald-bold";
+  font-size: 32px;
+  line-height: 15px;
+  color: #ed0027;
+  text-shadow: #111111 -1px 1px 0, #5d000f -3px 3px 0;
+}
+/* line 91, ../scss/user.scss */
+.show-user .robots-area .header .performance {
+  margin-bottom: 46px;
+  font-family: "oswald";
+  font-size: 18px;
+  line-height: 15px;
+  text-align: center;
+  color: #ddd;
+}
+/* line 104, ../scss/user.scss */
+.show-user .robots-area .robots li {
+  font-size: 0;
+  padding-bottom: 50px;
+}
+/* line 108, ../scss/user.scss */
+.show-user .robots-area .robots li .left {
+  vertical-align: top;
+  display: inline-block;
+  position: relative;
+  width: 220px;
+  height: 230px;
+  background-color: #dfdfdf;
+}
+/* line 116, ../scss/user.scss */
+.show-user .robots-area .robots li .left .ranking {
+  position: absolute;
+  top: 20px;
+  left: -4px;
+  background: url("../img/ranking-bg.png") 0 0 no-repeat;
+  width: 121px;
+  height: 42px;
+  padding-top: 12px;
+  padding-left: 42px;
+  font-family: "oswald";
+  font-size: 18px;
+  color: #f3f3f3;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+/* line 134, ../scss/user.scss */
+.show-user .robots-area .robots li .right {
+  vertical-align: top;
+  display: inline-block;
+  width: 720px;
+  height: 230px;
+  background-color: #f7f7f7;
+}
+/* line 141, ../scss/user.scss */
+.show-user .robots-area .robots li .right .main-info {
+  margin-left: 26px;
+}
+/* line 144, ../scss/user.scss */
+.show-user .robots-area .robots li .right .main-info .summary {
+  margin-top: 24px;
+}
+/* line 147, ../scss/user.scss */
+.show-user .robots-area .robots li .right .main-info .summary .name {
+  font-family: "oswald-bold";
+  font-size: 32px;
+  color: #4f4f4f;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  text-shadow: #f7f7f7 -1px 1px 0, #999999 -2px 2px 0;
+}
+/* line 157, ../scss/user.scss */
+.show-user .robots-area .robots li .right .main-info .summary .data {
+  font-family: arial;
+  font-size: 12px;
+  color: #999;
+}
+/* line 162, ../scss/user.scss */
+.show-user .robots-area .robots li .right .main-info .summary .data .created {
+  padding-right: 12px;
+}
+/* line 165, ../scss/user.scss */
+.show-user .robots-area .robots li .right .main-info .summary .data .lines {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAEUlEQVQIW2PctGnTf0YGIAAAFsMDGOHG7Z0AAAAASUVORK5CYII=) 0 0 repeat-y;
+  padding-left: 12px;
 }

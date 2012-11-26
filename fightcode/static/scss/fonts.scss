@@ -1,3 +1,7 @@
 @import "compass/css3";
 
 @include font-face("fightcode", font-files("../../fonts/fightt3_-webfont.woff", woff, "../../fonts/fightt3_-webfont.otf", opentype, "../../fonts/fightt3_-webfont.ttf", truetype), "../../fonts/fightt3_-webfont.eot");
+
+@include font-face("oswald-bold", font-files("../../fonts/oswald-bold-webfont.woff", woff, "../../fonts/oswald-bold-webfont.otf", opentype, "../../fonts/oswald-bold-webfont.ttf", truetype), "../../fonts/oswald-bold-webfont.eot");
+@include font-face("oswald-light", font-files("../../fonts/oswald-light-webfont.woff", woff, "../../fonts/oswald-light-webfont.otf", opentype, "../../fonts/oswald-light-webfont.ttf", truetype), "../../fonts/oswald-light-webfont.eot");
+@include font-face("oswald", font-files("../../fonts/oswald-regular-webfont.woff", woff, "../../fonts/oswald-regular-webfont.otf", opentype, "../../fonts/oswald-regular-webfont.ttf", truetype), "../../fonts/oswald-regular-webfont.eot");

@@ -37,7 +37,8 @@ module.exports = function(grunt) {
             'fightcode/static/js/ranking.js',
             'fightcode/static/js/fight.js',
             'fightcode/static/js/menu.js',
-            'fightcode/static/js/navbar.js'
+            'fightcode/static/js/navbar.js',
+            'fightcode/static/js/components.js'
         ],
 
         thirdParty: [
@@ -45,7 +46,8 @@ module.exports = function(grunt) {
             'fightcode/static/js/prism.js',
             'fightcode/static/js/codemirror.js',
             'fightcode/static/js/coffeescript.js',
-            'fightcode/static/js/javascript.js'
+            'fightcode/static/js/javascript.js',
+            'fightcode/static/js/jquery.knobs.js'
         ],
 
         worker: [

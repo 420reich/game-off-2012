@@ -1,3 +1,5 @@
+@import "compass/css3";
+
 .show-user {
     width: 100%;
     background: #f3f3f3;
@@ -48,6 +50,127 @@
         .actions {
             float: right;
             margin-top: 65px;
+        }
+    }
+
+    .robots-area {
+        background: url('../img/pattern.png');
+
+        .header {
+            padding-top: 56px;
+            overflow: hidden;
+
+            .title {
+                font-size: 0;
+
+                .marker {
+                    display: inline-block;
+                    vertical-align: top;
+                    margin-top: 4px;
+                    width: 380px;
+                    height: 4px;
+                    background-color: #fdfdfd;
+                    opacity: 0.1;
+                }
+
+                h1 {
+                    display: inline-block;
+                    vertical-align: top;
+                    margin-bottom: 16px;
+                    padding: 0 17px 0 13px;
+
+                    font-family: "oswald-bold";
+                    font-size: 32px;
+                    line-height: 15px;
+                    color: #ed0027;
+
+                    @include text-shadow(#111 -1px 1px 0,#5D000F -3px 3px 0);
+                }
+            }
+
+            .performance {
+                margin-bottom: 46px;
+
+                font-family: "oswald";
+                font-size: 18px;
+                line-height: 15px;
+                text-align: center;
+                color: #ddd;
+            }
+        }
+
+
+        .robots {
+            li {
+                font-size: 0;
+                padding-bottom: 50px;
+
+                .left {
+                    vertical-align: top;
+                    display: inline-block;
+                    position: relative;
+                    width: 220px;
+                    height: 230px;
+                    background-color: #dfdfdf;
+
+                    .ranking {
+                        position: absolute;
+                        top: 20px;
+                        left: -4px;
+                        background: url('../img/ranking-bg.png') 0 0 no-repeat;
+                        width: 121px;
+                        height: 42px;
+                        padding-top: 12px;
+                        padding-left: 42px;
+
+                        font-family: "oswald";
+                        font-size: 18px;
+                        color: #f3f3f3;
+
+                        @include box-sizing(border-box);
+                    }
+                }
+
+                .right {
+                    vertical-align: top;
+                    display: inline-block;
+                    width: 720px;
+                    height: 230px;
+                    background-color: #f7f7f7;
+
+                    .main-info {
+                        margin-left: 26px;
+
+                        .summary {
+                            margin-top: 24px;
+
+                            .name {
+                                font-family: "oswald-bold";
+                                font-size: 32px;
+                                color: #4f4f4f;
+                                text-transform: uppercase;
+                                margin-bottom: 10px;
+
+                                @include text-shadow(#f7f7f7 -1px 1px 0, #999 -2px 2px 0);
+                            }
+
+                            .data {
+                                font-family: arial;
+                                font-size: 12px;
+                                color: #999;
+
+                                .created {
+                                    padding-right: 12px;
+                                }
+                                .lines {
+                                    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAEUlEQVQIW2PctGnTf0YGIAAAFsMDGOHG7Z0AAAAASUVORK5CYII=) 0 0 repeat-y;
+                                    padding-left: 12px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
