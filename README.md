@@ -50,3 +50,4 @@ a LOT of new stuff down the pipe.
 
 ![my profile](https://raw.github.com/timehome/game-off-2012/master/screenshots/my-profile.png)
 ![ranking](https://raw.github.com/timehome/game-off-2012/master/screenshots/ranking-0.png)
+![code robot](https://raw.github.com/timehome/game-off-2012/master/screenshots/code-new-robot.png)
