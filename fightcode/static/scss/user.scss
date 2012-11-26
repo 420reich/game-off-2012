@@ -129,6 +129,13 @@
 
                         @include box-sizing(border-box);
                     }
+
+                    .robot {
+                        background: url('../img/my-robot.png') 0 0 no-repeat;
+                        background-color: #00a0dc;
+                        width: 219px;
+                        height: 230px;
+                    }
                 }
 
                 .right {
@@ -162,12 +169,116 @@
                                 .created {
                                     padding-right: 12px;
                                 }
+
                                 .lines {
                                     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAEUlEQVQIW2PctGnTf0YGIAAAFsMDGOHG7Z0AAAAASUVORK5CYII=) 0 0 repeat-y;
                                     padding-left: 12px;
                                 }
                             }
                         }
+                    }
+
+                    .stats {
+                        font-size: 0;
+
+                        .numbers {
+                            display: inline-block;
+                            vertical-align: top;
+                            margin-left: 25px;
+                            margin-top: 44px;
+
+                            .kills,
+                            .shots-fired,
+                            .shots-hit {
+                                font-family: "oswald";
+                                font-size: 0;
+                                color: #ed003d;
+
+                                .icon {
+                                    display: inline-block;
+                                    vertical-align: top;
+                                    margin-right: 6px;
+                                }
+
+                                .text {
+                                    font-size: 15px;
+                                    display: inline-block;
+                                    vertical-align: top;
+                                    margin-right: 2px;
+                                }
+
+                                .label {
+                                    color: #4f4f4f;
+                                    font-size: 15px;
+                                    display: inline-block;
+                                    vertical-align: top;
+                                }
+                            }
+
+                            .kills {
+                                .icon {
+                                    background: url('../img/robot-icons-sprite.png') 0 0 no-repeat;
+                                    width: 33px;
+                                    height: 13px;
+                                }
+                            }
+
+                            .shots-fired {
+                                margin-top: 9px;
+
+                                .icon {
+                                    background: url('../img/robot-icons-sprite.png') 0 -24px no-repeat;
+                                    width: 33px;
+                                    height: 22px;
+                                }
+
+                                .text, .label {
+                                    padding-top: 6px;
+                                }
+                            }
+
+                            .shots-hit {
+                                margin-top: 9px;
+
+                                .icon {
+                                    background: url('../img/robot-icons-sprite.png') 0 -55px no-repeat;
+                                    width: 33px;
+                                    height: 20px;
+                                }
+
+                                .text, .label {
+                                    padding-top: 3px;
+                                }
+                            }
+                        }
+
+                        .chart {
+                            display: inline-block;
+                            vertical-align: top;
+                            margin-top: 35px;
+                            margin-left: 76px;
+                        }
+
+                        .average {
+                            display: inline-block;
+                            vertical-align: top;
+                            margin-top: 62px;
+                            margin-left: 14px;
+
+                            font-family: "oswald";
+
+                            .number {
+                                margin-bottom: 10px;
+                                font-size: 42px;
+                                color: #ed003d;
+                            }
+
+                            .label {
+                                font-size: 15px;
+                                color: #4f4f4f;
+                            }
+                        }
+
                     }
                 }
             }

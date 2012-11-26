@@ -127,7 +127,14 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-/* line 134, ../scss/user.scss */
+/* line 133, ../scss/user.scss */
+.show-user .robots-area .robots li .left .robot {
+  background: url("../img/my-robot.png") 0 0 no-repeat;
+  background-color: #00a0dc;
+  width: 219px;
+  height: 230px;
+}
+/* line 141, ../scss/user.scss */
 .show-user .robots-area .robots li .right {
   vertical-align: top;
   display: inline-block;
@@ -135,15 +142,15 @@
   height: 230px;
   background-color: #f7f7f7;
 }
-/* line 141, ../scss/user.scss */
+/* line 148, ../scss/user.scss */
 .show-user .robots-area .robots li .right .main-info {
   margin-left: 26px;
 }
-/* line 144, ../scss/user.scss */
+/* line 151, ../scss/user.scss */
 .show-user .robots-area .robots li .right .main-info .summary {
   margin-top: 24px;
 }
-/* line 147, ../scss/user.scss */
+/* line 154, ../scss/user.scss */
 .show-user .robots-area .robots li .right .main-info .summary .name {
   font-family: "oswald-bold";
   font-size: 32px;
@@ -152,18 +159,123 @@
   margin-bottom: 10px;
   text-shadow: #f7f7f7 -1px 1px 0, #999999 -2px 2px 0;
 }
-/* line 157, ../scss/user.scss */
+/* line 164, ../scss/user.scss */
 .show-user .robots-area .robots li .right .main-info .summary .data {
   font-family: arial;
   font-size: 12px;
   color: #999;
 }
-/* line 162, ../scss/user.scss */
+/* line 169, ../scss/user.scss */
 .show-user .robots-area .robots li .right .main-info .summary .data .created {
   padding-right: 12px;
 }
-/* line 165, ../scss/user.scss */
+/* line 173, ../scss/user.scss */
 .show-user .robots-area .robots li .right .main-info .summary .data .lines {
   background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAEUlEQVQIW2PctGnTf0YGIAAAFsMDGOHG7Z0AAAAASUVORK5CYII=) 0 0 repeat-y;
   padding-left: 12px;
+}
+/* line 181, ../scss/user.scss */
+.show-user .robots-area .robots li .right .stats {
+  font-size: 0;
+}
+/* line 184, ../scss/user.scss */
+.show-user .robots-area .robots li .right .stats .numbers {
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 25px;
+  margin-top: 44px;
+}
+/* line 192, ../scss/user.scss */
+.show-user .robots-area .robots li .right .stats .numbers .kills,
+.show-user .robots-area .robots li .right .stats .numbers .shots-fired,
+.show-user .robots-area .robots li .right .stats .numbers .shots-hit {
+  font-family: "oswald";
+  font-size: 0;
+  color: #ed003d;
+}
+/* line 197, ../scss/user.scss */
+.show-user .robots-area .robots li .right .stats .numbers .kills .icon,
+.show-user .robots-area .robots li .right .stats .numbers .shots-fired .icon,
+.show-user .robots-area .robots li .right .stats .numbers .shots-hit .icon {
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 6px;
+}
+/* line 203, ../scss/user.scss */
+.show-user .robots-area .robots li .right .stats .numbers .kills .text,
+.show-user .robots-area .robots li .right .stats .numbers .shots-fired .text,
+.show-user .robots-area .robots li .right .stats .numbers .shots-hit .text {
+  font-size: 15px;
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 2px;
+}
+/* line 210, ../scss/user.scss */
+.show-user .robots-area .robots li .right .stats .numbers .kills .label,
+.show-user .robots-area .robots li .right .stats .numbers .shots-fired .label,
+.show-user .robots-area .robots li .right .stats .numbers .shots-hit .label {
+  color: #4f4f4f;
+  font-size: 15px;
+  display: inline-block;
+  vertical-align: top;
+}
+/* line 219, ../scss/user.scss */
+.show-user .robots-area .robots li .right .stats .numbers .kills .icon {
+  background: url("../img/robot-icons-sprite.png") 0 0 no-repeat;
+  width: 33px;
+  height: 13px;
+}
+/* line 226, ../scss/user.scss */
+.show-user .robots-area .robots li .right .stats .numbers .shots-fired {
+  margin-top: 9px;
+}
+/* line 229, ../scss/user.scss */
+.show-user .robots-area .robots li .right .stats .numbers .shots-fired .icon {
+  background: url("../img/robot-icons-sprite.png") 0 -24px no-repeat;
+  width: 33px;
+  height: 22px;
+}
+/* line 235, ../scss/user.scss */
+.show-user .robots-area .robots li .right .stats .numbers .shots-fired .text, .show-user .robots-area .robots li .right .stats .numbers .shots-fired .label {
+  padding-top: 6px;
+}
+/* line 240, ../scss/user.scss */
+.show-user .robots-area .robots li .right .stats .numbers .shots-hit {
+  margin-top: 9px;
+}
+/* line 243, ../scss/user.scss */
+.show-user .robots-area .robots li .right .stats .numbers .shots-hit .icon {
+  background: url("../img/robot-icons-sprite.png") 0 -55px no-repeat;
+  width: 33px;
+  height: 20px;
+}
+/* line 249, ../scss/user.scss */
+.show-user .robots-area .robots li .right .stats .numbers .shots-hit .text, .show-user .robots-area .robots li .right .stats .numbers .shots-hit .label {
+  padding-top: 3px;
+}
+/* line 255, ../scss/user.scss */
+.show-user .robots-area .robots li .right .stats .chart {
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 35px;
+  margin-left: 76px;
+}
+/* line 262, ../scss/user.scss */
+.show-user .robots-area .robots li .right .stats .average {
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 62px;
+  margin-left: 14px;
+  font-family: "oswald";
+}
+/* line 270, ../scss/user.scss */
+.show-user .robots-area .robots li .right .stats .average .number {
+  margin-bottom: 10px;
+  font-size: 42px;
+  color: #ed003d;
+}
+/* line 276, ../scss/user.scss */
+.show-user .robots-area .robots li .right .stats .average .label {
+  font-size: 15px;
+  color: #4f4f4f;
 }
