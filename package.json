@@ -17,6 +17,7 @@
     "sequelize": "1.6.0-beta4",
     "gravatar": "*",
     "c3store": "*",
-    "github": "*"
+    "github": "*",
+    "nodetime": "*"
   }
 }
