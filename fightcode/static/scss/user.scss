@@ -264,6 +264,8 @@
                             vertical-align: top;
                             margin-top: 62px;
                             margin-left: 14px;
+                            padding-right: 14px;
+                            border-right: solid 1px #fff;
 
                             font-family: "oswald";
 
@@ -279,6 +281,56 @@
                             }
                         }
 
+                        .overtime {
+                            display: inline-block;
+                            vertical-align: top;
+                            padding-left: 14px;
+                            height: 152px;
+                            border-left: solid 1px #ebebeb;
+
+                            .label {
+                                margin-top: 10px;
+                                font-family: "oswald";
+                                font-size: 15px;
+                                color: #4f4f4f;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .adsense-container {
+            .container {
+                background-color: #1c1c1c;
+                padding: 10px 0;
+
+                .ad-body {
+                    @include box-sizing(border-box);
+                    position: relative;
+                    border: solid 1px #0e0e0e;
+                    width: 745px;
+                    height: 92px;
+                    margin: 0 auto;
+
+                    .ad-text {
+                        @include box-sizing(border-box);
+                        position: absolute;
+                        background: url('../img/ad.png') 0 0 no-repeat;
+                        left: 0;
+                        top: 0;
+
+                        width: 17px;
+                        height: 90px;
+
+                        background-color: #202020;
+                        border-right: solid 1px #0e0e0e;
+                    }
+
+                    .google-ad {
+                        width: 728px;
+                        height: 90px;
+                        padding-left: 17px;
                     }
                 }
             }

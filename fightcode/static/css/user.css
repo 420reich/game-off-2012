@@ -266,16 +266,69 @@
   vertical-align: top;
   margin-top: 62px;
   margin-left: 14px;
+  padding-right: 14px;
+  border-right: solid 1px #fff;
   font-family: "oswald";
 }
-/* line 270, ../scss/user.scss */
+/* line 272, ../scss/user.scss */
 .show-user .robots-area .robots li .right .stats .average .number {
   margin-bottom: 10px;
   font-size: 42px;
   color: #ed003d;
 }
-/* line 276, ../scss/user.scss */
+/* line 278, ../scss/user.scss */
 .show-user .robots-area .robots li .right .stats .average .label {
   font-size: 15px;
   color: #4f4f4f;
+}
+/* line 284, ../scss/user.scss */
+.show-user .robots-area .robots li .right .stats .overtime {
+  display: inline-block;
+  vertical-align: top;
+  padding-left: 14px;
+  height: 152px;
+  border-left: solid 1px #ebebeb;
+}
+/* line 291, ../scss/user.scss */
+.show-user .robots-area .robots li .right .stats .overtime .label {
+  margin-top: 10px;
+  font-family: "oswald";
+  font-size: 15px;
+  color: #4f4f4f;
+}
+/* line 304, ../scss/user.scss */
+.show-user .robots-area .adsense-container .container {
+  background-color: #1c1c1c;
+  padding: 10px 0;
+}
+/* line 308, ../scss/user.scss */
+.show-user .robots-area .adsense-container .container .ad-body {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  position: relative;
+  border: solid 1px #0e0e0e;
+  width: 745px;
+  height: 92px;
+  margin: 0 auto;
+}
+/* line 316, ../scss/user.scss */
+.show-user .robots-area .adsense-container .container .ad-body .ad-text {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  position: absolute;
+  background: url("../img/ad.png") 0 0 no-repeat;
+  left: 0;
+  top: 0;
+  width: 17px;
+  height: 90px;
+  background-color: #202020;
+  border-right: solid 1px #0e0e0e;
+}
+/* line 330, ../scss/user.scss */
+.show-user .robots-area .adsense-container .container .ad-body .google-ad {
+  width: 728px;
+  height: 90px;
+  padding-left: 17px;
 }
