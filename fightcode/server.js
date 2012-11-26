@@ -1,3 +1,8 @@
+require('nodetime').profile({
+    accountKey: '2c9daeb6fb9c12206982cb5cd2184dbbfad94d6e',
+    appName: 'FightCode'
+});
+
 var cluster = require('cluster'),
     http = require('http'),
     numCPUs = require('os').cpus().length,
