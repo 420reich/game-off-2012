@@ -48,6 +48,11 @@ a LOT of new stuff down the pipe.
 
 ## Screenshots
 
+### The User Profile Page
 ![my profile](https://raw.github.com/timehome/game-off-2012/master/screenshots/my-profile.png)
+
+### The League Rankings Page
 ![ranking](https://raw.github.com/timehome/game-off-2012/master/screenshots/ranking-0.png)
+
+### The Code Your Robot Page
 ![code robot](https://raw.github.com/timehome/game-off-2012/master/screenshots/code-new-robot.png)
