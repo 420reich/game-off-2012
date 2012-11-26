@@ -4,12 +4,11 @@ var gravatar = require('gravatar'),
 
 
 module.exports = function(sequelize, DataTypes) {
-    Fighter = sequelize.import(path.join(basePath, 'models', 'fighter'));
     Fight = sequelize.define('Fight', {
-        finished: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false}
-    },{
+        randomSeed: { type: DataTypes.STRING, allowNull: false}
+    }, {
         underscored: true
     });
-    Fight.hasMany(Fighter);
+    Fight.hasMany(RobotRevision);
     return Fight;
 };

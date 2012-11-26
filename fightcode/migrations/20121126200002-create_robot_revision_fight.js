@@ -1,11 +1,23 @@
 module.exports = {
   up: function(migration, DataTypes) {
     migration.createTable(
-      'Fighters',
+      'RobotRevisionFights',
     {
       id: {
         type: DataTypes.INTEGER,
         autoIncrement: true
+      },
+      robotId: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      },
+      fightId: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      },
+      position: {
+        type: DataTypes.INTEGER,
+        allowNull: false
       },
       shotsFired: {
         type: DataTypes.INTEGER,
@@ -15,24 +27,20 @@ module.exports = {
         type: DataTypes.INTEGER,
         allowNull: false
       },
-      shotsTaken: {
+      enemiesKilled: {
         type: DataTypes.INTEGER,
         allowNull: false
       },
-      winner: {
-        type: DataTypes.BOOLEAN,
+      positionX: {
+        type: DataTypes.FLOAT,
         allowNull: false
       },
-      gistContent: {
-        type: DataTypes.TEXT,
+      positionY: {
+        type: DataTypes.FLOAT,
         allowNull: false
       },
-      robot_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-      },
-      fight_id: {
-        type: DataTypes.INTEGER,
+      angle: {
+        type: DataTypes.FLOAT,
         allowNull: false
       },
       created_at: DataTypes.DATE,
@@ -40,6 +48,6 @@ module.exports = {
     });
   },
   down: function(migration) {
-    migration.dropTable('Fighters');
+    migration.dropTable('RobotRevisionFights');
   }
 };

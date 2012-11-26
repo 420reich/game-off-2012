@@ -7,10 +7,7 @@ module.exports = {
         type: DataTypes.INTEGER,
         autoIncrement: true
       },
-      finished: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false
-      },
+      randomSeed: DataTypes.STRING,
       created_at: DataTypes.DATE,
       updated_at: DataTypes.DATE
     });
