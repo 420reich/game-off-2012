@@ -49,3 +49,4 @@ a LOT of new stuff down the pipe.
 ## Screenshots
 
 ![my profile](https://raw.github.com/timehome/game-off-2012/master/screenshots/my-profile.png)
+![ranking](https://raw.github.com/timehome/game-off-2012/master/screenshots/ranking-0.png)
