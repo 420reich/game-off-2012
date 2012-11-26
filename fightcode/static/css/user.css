@@ -296,12 +296,16 @@
   font-size: 15px;
   color: #4f4f4f;
 }
-/* line 304, ../scss/user.scss */
+/* line 303, ../scss/user.scss */
+.show-user .robots-area .adsense-container {
+  margin-bottom: 40px;
+}
+/* line 306, ../scss/user.scss */
 .show-user .robots-area .adsense-container .container {
   background-color: #1c1c1c;
   padding: 10px 0;
 }
-/* line 308, ../scss/user.scss */
+/* line 310, ../scss/user.scss */
 .show-user .robots-area .adsense-container .container .ad-body {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -312,7 +316,7 @@
   height: 92px;
   margin: 0 auto;
 }
-/* line 316, ../scss/user.scss */
+/* line 318, ../scss/user.scss */
 .show-user .robots-area .adsense-container .container .ad-body .ad-text {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -326,7 +330,7 @@
   background-color: #202020;
   border-right: solid 1px #0e0e0e;
 }
-/* line 330, ../scss/user.scss */
+/* line 332, ../scss/user.scss */
 .show-user .robots-area .adsense-container .container .ad-body .google-ad {
   width: 728px;
   height: 90px;
