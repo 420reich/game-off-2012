@@ -403,7 +403,7 @@ class Engine
                         id: robotStatus.id
                     })
                 else
-                    @safeCall(robotStatus.robot, 'onWallCollision', {robot: actions})
+                    @safeCall(robotStatus.robot.instance, 'onWallCollision', {robot: actions})
 
         return actions if robotStatus instanceof BulletStatus
 
@@ -433,7 +433,7 @@ class Engine
                 else
                     robotStatus.rollbackAfterCollision()
                 bearing = ((status.rectangle.angle + 180 - robotStatus.rectangle.angle) + 360) % 360
-                @safeCall(robotStatus.robot, eventName, {robot: actions, bulletBearing: bearing})
+                @safeCall(robotStatus.robot.instance, eventName, {robot: actions, bulletBearing: bearing})
 
         actions
 
@@ -457,7 +457,7 @@ class Engine
 
             if robotStatus.canScan() and virtualRect.intersects(status.rectangle)
                 robotStatus.preventScan()
-                @safeCall(robotStatus.robot, 'onScannedRobot', {
+                @safeCall(robotStatus.robot.instance, 'onScannedRobot', {
                     robot: actions
                     scannedRobot:
                         id: status.id
@@ -512,7 +512,7 @@ class Engine
 
                 if status.isIdle()
                     actions = new RobotActions(status)
-                    @safeCall(status.robot, 'onIdle', {robot: actions})
+                    @safeCall(status.robot.instance, 'onIdle', {robot: actions})
                     status.updateQueue(actions)
 
                 newStatus = status.runItem()

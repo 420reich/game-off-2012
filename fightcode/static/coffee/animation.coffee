@@ -14,7 +14,9 @@ do ->
     w.cancelAnimationFrame or= (id) -> clearTimeout id
 
 class Game
-    constructor: (@board, @events, @options) ->
+    constructor: (@board, @result, @options) ->
+        @events = result.result
+
         @currentRound = 0
         @objects = {}
         @options = $.extend({
@@ -115,5 +117,8 @@ class Game
                     when 'dead'
                         object.tank[0].className = 'tank dead'
 
+        hasFinished = rounds + @currentRound >= @events.length
+        @options.onEndGame(@result) if hasFinished and @options.onEndGame
+
         @currentRound += rounds
-        requestAnimationFrame(@play) if @events.length > 0
+        requestAnimationFrame(@play) if not hasFinished

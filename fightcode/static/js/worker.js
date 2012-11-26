@@ -45,7 +45,7 @@ Fight = (function() {
     robotInstances = [];
     for (_i = 0, _len = robots.length; _i < _len; _i++) {
       robot = robots[_i];
-      robotCode = "(function() {" + robot + "}.bind(window)()); return window.robotClass;";
+      robotCode = "(function() {" + robot.code + "}.bind(window)()); return window.robotClass;";
       constr = new Function("window", robotCode)({
         log: function() {
           var message;
@@ -54,7 +54,8 @@ Fight = (function() {
         }
       });
       robotInstance = new constr();
-      robotInstances.push(robotInstance);
+      robot.instance = robotInstance;
+      robotInstances.push(robot);
     }
     engine = (function(func, args, ctor) {
       ctor.prototype = func.prototype;

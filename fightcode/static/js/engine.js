@@ -560,7 +560,7 @@ Engine = (function() {
             id: robotStatus.id
           });
         } else {
-          this.safeCall(robotStatus.robot, 'onWallCollision', {
+          this.safeCall(robotStatus.robot.instance, 'onWallCollision', {
             robot: actions
           });
         }
@@ -605,7 +605,7 @@ Engine = (function() {
           robotStatus.rollbackAfterCollision();
         }
         bearing = ((status.rectangle.angle + 180 - robotStatus.rectangle.angle) + 360) % 360;
-        this.safeCall(robotStatus.robot, eventName, {
+        this.safeCall(robotStatus.robot.instance, eventName, {
           robot: actions,
           bulletBearing: bearing
         });
@@ -634,7 +634,7 @@ Engine = (function() {
       }
       if (robotStatus.canScan() && virtualRect.intersects(status.rectangle)) {
         robotStatus.preventScan();
-        this.safeCall(robotStatus.robot, 'onScannedRobot', {
+        this.safeCall(robotStatus.robot.instance, 'onScannedRobot', {
           robot: actions,
           scannedRobot: {
             id: status.id,
@@ -690,7 +690,7 @@ Engine = (function() {
         });
         if (status.isIdle()) {
           actions = new RobotActions(status);
-          this.safeCall(status.robot, 'onIdle', {
+          this.safeCall(status.robot.instance, 'onIdle', {
             robot: actions
           });
           status.updateQueue(actions);

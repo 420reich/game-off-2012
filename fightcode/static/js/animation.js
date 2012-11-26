@@ -28,12 +28,13 @@ var Game,
 
 Game = (function() {
 
-  function Game(board, events, options) {
+  function Game(board, result, options) {
     this.board = board;
-    this.events = events;
+    this.result = result;
     this.options = options;
     this.play = __bind(this.play, this);
 
+    this.events = result.result;
     this.currentRound = 0;
     this.objects = {};
     this.options = $.extend({
@@ -103,7 +104,7 @@ Game = (function() {
   };
 
   Game.prototype.play = function(timestamp) {
-    var object, progress, round, roundEvent, roundNumber, rounds, _i, _j, _k, _len, _len1, _ref, _ref1;
+    var hasFinished, object, progress, round, roundEvent, roundNumber, rounds, _i, _j, _k, _len, _len1, _ref, _ref1;
     progress = timestamp - this.lastRound;
     rounds = Math.floor(progress / this.options.msPerRound);
     this.lastRound = window.mozAnimationStartTime || Date.now();
@@ -155,8 +156,12 @@ Game = (function() {
         }
       }
     }
+    hasFinished = rounds + this.currentRound >= this.events.length;
+    if (hasFinished && this.options.onEndGame) {
+      this.options.onEndGame(this.result);
+    }
     this.currentRound += rounds;
-    if (this.events.length > 0) {
+    if (!hasFinished) {
       return requestAnimationFrame(this.play);
     }
   };

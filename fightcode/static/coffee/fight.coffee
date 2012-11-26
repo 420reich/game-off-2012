@@ -60,8 +60,12 @@ class FightArena
 
         eventData =
             robots: 2
-            robot1: @defaultCode
-            robot2: @defaultCode
+            robot1:
+                name: "robot1"
+                code: @defaultCode
+            robot2:
+                name: "robot2"
+                code: @defaultCode
             # robot3: @wallCode
             # robot4: @wallCode
 
@@ -86,8 +90,10 @@ class FightArena
                 ->
                     loading.detach()
 
-                    game = new Game(boardContainer, evData.result, {
+                    game = new Game(boardContainer, evData, {
                         msPerRound: 5
+                        onEndGame: (result) ->
+                            console.log(result.winner.robot.name)
                     })
 
                     game.initialize()

@@ -27,17 +27,17 @@ class Fight
 
         robotInstances = []
         for robot in robots
-            robotCode = "(function() {#{ robot }}.bind(window)()); return window.robotClass;"
+            robotCode = "(function() {#{ robot.code }}.bind(window)()); return window.robotClass;"
             constr = new Function("window", robotCode)({
                 log: (message...) =>
                     this.log(message...)
             })
             robotInstance = new constr()
-            robotInstances.push(robotInstance)
+            robot.instance = robotInstance
+            robotInstances.push(robot)
 
         engine = new Engine(boardSize.width, boardSize.height, maxRounds, robotInstances...)
 
-        # for robotStatus in engine.robotsStatus
         engine.robotsStatus[0].rectangle.setPosition(50, 50)
         engine.robotsStatus[1].rectangle.setPosition(50, 200)
 

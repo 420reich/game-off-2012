@@ -17,8 +17,14 @@ FightArena = (function() {
     worker.onmessage = this.receiveWorkerEvent;
     eventData = {
       robots: 2,
-      robot1: this.defaultCode,
-      robot2: this.defaultCode
+      robot1: {
+        name: "robot1",
+        code: this.defaultCode
+      },
+      robot2: {
+        name: "robot2",
+        code: this.defaultCode
+      }
     };
     return worker.postMessage(eventData);
   };
@@ -39,8 +45,11 @@ FightArena = (function() {
       return setTimeout(function() {
         var game;
         loading.detach();
-        game = new Game(boardContainer, evData.result, {
-          msPerRound: 5
+        game = new Game(boardContainer, evData, {
+          msPerRound: 5,
+          onEndGame: function(result) {
+            return console.log(result.winner.robot.name);
+          }
         });
         return game.initialize();
       }, 700);
