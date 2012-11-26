@@ -42,6 +42,7 @@ module.exports = function(grunt) {
         ],
 
         thirdParty: [
+            'fightcode/static/js/ga.js',
             'fightcode/static/js/jquery-1.8.2.min.js',
             'fightcode/static/js/prism.js',
             'fightcode/static/js/codemirror.js',
