@@ -55,6 +55,7 @@
 
     .robots-area {
         background: url('../img/pattern.png');
+        overflow: hidden;
 
         .header {
             padding-top: 56px;
@@ -103,7 +104,7 @@
         .robots {
             li {
                 font-size: 0;
-                padding-bottom: 50px;
+                padding-bottom: 40px;
 
                 .left {
                     vertical-align: top;
@@ -337,5 +338,158 @@
                 }
             }
         }
+
+        .add-robot {
+            font-size: 0;
+            margin-bottom: 50px;
+ 
+            .left {
+                vertical-align: top;
+                display: inline-block;
+                position: relative;
+                width: 220px;
+                height: 210px;
+                background-color: #333;
+                background: url('../img/my-dark-robot.png') 0 0 no-repeat;
+            }
+
+            .right {
+                @include box-sizing(border-box);
+                vertical-align: top;
+                display: inline-block;
+                width: 720px;
+                height: 210px;
+                background-color: #222;
+                text-align: center;
+                padding-top: 82px;
+            }
+        }
+    }
+
+    .latest-combats {
+        background-color: #f3f3f3;
+
+        .header {
+            padding-top: 56px;
+            overflow: hidden;
+
+            .title {
+                font-size: 0;
+
+                .marker {
+                    display: inline-block;
+                    vertical-align: top;
+                    margin-top: 4px;
+                    width: 345px;
+                    height: 4px;
+                    background-color: #dfdfdf;
+                }
+
+                h1 {
+                    display: inline-block;
+                    vertical-align: top;
+                    margin-bottom: 18px;
+                    padding: 0 17px 0 13px;
+
+                    font-family: "oswald-bold";
+                    font-size: 32px;
+                    line-height: 15px;
+                    color: #ed0027;
+
+                    @include text-shadow(#f4f4f4 -1px 1px 0, #5D000F -3px 3px 0);
+                }
+            }
+
+            .performance {
+                margin-bottom: 46px;
+
+                font-family: "oswald";
+                font-size: 18px;
+                line-height: 15px;
+                text-align: center;
+                color: #999;
+            }
+        }
+
+        .combats {
+            font-size: 0;
+            padding-bottom: 105px;
+
+            li {
+                display: inline-block;
+                position: relative;
+                vertical-align: top;
+                margin-left: 68px;
+
+                &:first-child {
+                    margin-left: 0;
+                }
+
+                .left, .right {
+                    display: inline-block;
+                    vertical-align: top;
+                    position: relative;
+                }
+
+                .divider {
+                    position: absolute;
+                    width: 40px;
+                    height: 120px;
+                    top: 0;
+                    left: 116px;
+                    background: url('../img/triangle.png') 0 0 no-repeat;
+                    z-index: 9999;
+                }
+
+                .combat {
+                    margin: 0 auto;
+                    width: 268px;
+
+                    .player {
+                        width: 134px;
+                        height: 120px;
+                        overflow: hidden;
+                        position: relative;
+
+                        img {
+                            margin-top: -7px;
+                        }
+
+                        .robot-circle {
+                            position: absolute;
+                            bottom: 0;
+                            left: 50%;
+                            margin-left: -26px;
+                            width: 52px;
+                            height: 27px;
+                            background: url('../img/semi-circle.png') 0 0 no-repeat;
+                        }
+                    }
+
+                    .robot {
+                        background: url('../img/latest-combats-robot.png') 0 0 no-repeat;
+                        width: 38px;
+                        height: 28px;
+                        position: absolute;
+                        top: 104px;
+                        left: 50%;
+                        margin-left: -19px;
+                    }
+                }
+
+                .info {
+                    margin-top: 25px;
+                    text-align: center;
+                    font-family: "oswald";
+                    font-size: 14px;
+                    color: #4f4f4f;
+
+                    .ranking {
+                        margin-top: 5px;
+                    }
+                }
+            }
+        }
+
     }
 }

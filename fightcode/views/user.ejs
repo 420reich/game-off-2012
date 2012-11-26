@@ -96,6 +96,65 @@
                 </div>
             </div>
 
+            <div class="add-robot">
+                <div class="container">
+                    <div class="new-robot">
+                        <div class="left">
+                            <div class="robot"></div>
+                        </div>
+                        <div class="right">
+                            <div class="actions">
+                                <a class="btn" href="/robots/create">CODE NEW ROBOT</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="latest-combats">
+        <div class="container">
+            <div class="header">
+                <div class="title">
+                    <div class="marker"></div>
+                    <h1>LATEST COMBATS</h1>
+                    <div class="marker"></div>
+                </div>
+                <div class="performance">WATCH COMBATS HAPPENING RIGHT NOW</div>
+            </div>
+
+            <ul class="combats">
+                <% for (var i=0; i<3; i++) { %>
+                <li>
+                    <div class="combat">
+                        <div class="left">
+                            <div class="player">
+                                <img src="<%= user.photo(134) %>" />
+                                <div class="robot-circle"></div>
+                            </div>
+                            <div class="robot"></div>
+                            <div class="info">
+                                <div class="name">The Crazy Destroyer</div>
+                                <div class="ranking"># 1</div>
+                            </div>
+                        </div>
+                        <div class="divider"></div>
+                        <div class="right">
+                            <div class="player">
+                                <img src="<%= user.photo(134) %>" />
+                                <div class="robot-circle"></div>
+                            </div>
+                            <div class="robot"></div>
+                            <div class="info">
+                                <div class="name">The Crazy Destroyer</div>
+                                <div class="ranking"># 1</div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            <% } %>
+            </ul>
         </div>
     </div>
 </div>
