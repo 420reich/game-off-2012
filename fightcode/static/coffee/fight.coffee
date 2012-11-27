@@ -81,14 +81,16 @@ class FightArena
         worker.onmessage = @receiveWorkerEvent
 
         eventData =
-            robots: 2
+            robots: 3
             robot1:
                 name: "robot1"
                 code: @rotateCode
             robot2:
                 name: "robot2"
                 code: @wallCode
-            # robot3: @wallCode
+            robot3:
+                name: "robot3"
+                code: @defaultCode
             # robot4: @wallCode
 
         worker.postMessage(eventData)

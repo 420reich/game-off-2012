@@ -362,6 +362,8 @@ RobotStatus = (function(_super) {
 
   __extends(RobotStatus, _super);
 
+  RobotStatus.deathOrder = 1;
+
   function RobotStatus(robot, arena) {
     this.robot = robot;
     this.arena = arena;
@@ -378,6 +380,9 @@ RobotStatus = (function(_super) {
     this.clones = [];
     this.parentStatus = null;
     this.wallCollided = false;
+    this.bulletsFired = 0;
+    this.bulletsHit = 0;
+    this.deathIdx = null;
   }
 
   RobotStatus.prototype.clone = function() {
@@ -390,6 +395,17 @@ RobotStatus = (function(_super) {
     cloneRobotStatus.parentStatus = this;
     this.clones.push(cloneRobotStatus);
     return cloneRobotStatus;
+  };
+
+  RobotStatus.prototype.bulletsStats = function() {
+    return {
+      fired: this.bulletsFired + this.clones.reduce(function(a, b) {
+        return a + b.bulletsFired;
+      }, 0),
+      hit: this.bulletsHit + this.clones.reduce(function(a, b) {
+        return a + b.bulletsHit;
+      }, 0)
+    };
   };
 
   RobotStatus.prototype.isClone = function() {
@@ -406,7 +422,11 @@ RobotStatus = (function(_super) {
 
   RobotStatus.prototype.takeHit = function(bulletStatus) {
     this.life -= bulletStatus.strength;
-    return bulletStatus.destroy();
+    bulletStatus.destroy();
+    bulletStatus.robotStatus.bulletsHit += 1;
+    if (!this.isAlive()) {
+      return this.deathIdx = RobotStatus.deathOrder++;
+    }
   };
 
   RobotStatus.prototype.rollbackAfterCollision = function() {
@@ -479,6 +499,7 @@ RobotStatus = (function(_super) {
           return;
         }
         this.gunCoolDownTime = this.baseGunCoolDownTime;
+        this.bulletsFired += 1;
         return new BulletStatus(this);
       case 'clone':
         if (!this.availableClones) {
@@ -517,6 +538,7 @@ Engine = (function() {
       }
       return _results;
     }).call(this);
+    this.deadStatuses = [];
   }
 
   Engine.prototype.isDraw = function() {
@@ -677,7 +699,7 @@ Engine = (function() {
   };
 
   Engine.prototype.fight = function() {
-    var actions, aliveRobots, fightLog, newStatus, status, winner, _i, _j, _len, _len1, _ref, _ref1;
+    var actions, aliveRobots, fightLog, newStatus, r, robotsOnly, sortedRobots, stats, status, _i, _j, _k, _len, _len1, _len2, _ref, _ref1;
     aliveRobots = this.robotsStatus.length;
     fightLog = [];
     while (aliveRobots > 1 && !this.isDraw()) {
@@ -745,12 +767,23 @@ Engine = (function() {
         status.updateQueue(actions);
       }
     }
-    winner = null;
-    if (!this.isDraw()) {
-      winner = this.robotsStatus[0].isClone() ? this.robotsStatus[0].parentStatus : this.robotsStatus[0];
+    robotsOnly = this.robotsStatus.filter(function(el) {
+      return el instanceof RobotStatus && !el.isClone();
+    });
+    sortedRobots = robotsOnly.sort(function(a, b) {
+      var vA, vB;
+      vA = a.deathIdx ? a.deathIdx : a.life * 1000;
+      vB = b.deathIdx ? b.deathIdx : b.life * 1000;
+      return vB - vA;
+    });
+    for (_k = 0, _len2 = sortedRobots.length; _k < _len2; _k++) {
+      r = sortedRobots[_k];
+      stats = r.bulletsStats();
+      this.log(r.robot.name, r.deathIdx, r.life, stats.fired, stats.hit);
     }
     return {
-      winner: winner,
+      isDraw: this.isDraw(),
+      robots: sortedRobots,
       result: fightLog
     };
   };

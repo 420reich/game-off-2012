@@ -262,6 +262,8 @@ class BulletStatus extends ElementStatus
         #no-op
 
 class RobotStatus extends ElementStatus
+    @deathOrder: 1
+
     constructor: (@robot, @arena) ->
         super()
         @life = 100
@@ -276,6 +278,9 @@ class RobotStatus extends ElementStatus
         @clones = []
         @parentStatus = null
         @wallCollided = false
+        @bulletsFired = 0
+        @bulletsHit = 0
+        @deathIdx = null
 
     clone: ->
         cloneRobotStatus = new RobotStatus(@robot, @arena)
@@ -286,6 +291,17 @@ class RobotStatus extends ElementStatus
         cloneRobotStatus.parentStatus = this
         @clones.push(cloneRobotStatus)
         cloneRobotStatus
+
+    bulletsStats: ->
+        {
+            fired: @bulletsFired + @clones.reduce (a, b) ->
+                a + b.bulletsFired
+            , 0
+
+            hit: @bulletsHit + @clones.reduce (a, b) ->
+                a + b.bulletsHit
+            , 0
+        }
 
     isClone: ->
         !!@parentStatus
@@ -299,6 +315,9 @@ class RobotStatus extends ElementStatus
     takeHit: (bulletStatus) ->
         @life -= bulletStatus.strength
         bulletStatus.destroy()
+        bulletStatus.robotStatus.bulletsHit += 1
+        unless @isAlive()
+            @deathIdx = RobotStatus.deathOrder++
 
     rollbackAfterCollision: ->
         @rectangle.setPosition(@previousPosition.x, @previousPosition.y) if @previousPosition
@@ -353,6 +372,7 @@ class RobotStatus extends ElementStatus
             when 'fire'
                 return unless @gunCoolDownTime == 0
                 @gunCoolDownTime = @baseGunCoolDownTime
+                @bulletsFired += 1
                 return new BulletStatus(this)
 
             when 'clone'
@@ -372,6 +392,7 @@ class Engine
 
         @arena = new Arena(width, height)
         @robotsStatus = (new RobotStatus(robot, @arena) for robot in @robots)
+        @deadStatuses = []
 
     isDraw: ->
         return @round > @maxTurns
@@ -555,11 +576,20 @@ class Engine
                 actions = @checkSight(status)
                 status.updateQueue(actions)
 
-        winner = null
-        if not @isDraw()
-            winner = if @robotsStatus[0].isClone() then @robotsStatus[0].parentStatus else @robotsStatus[0]
+        robotsOnly = @robotsStatus.filter (el) ->
+            el instanceof RobotStatus and not el.isClone()
+
+        sortedRobots = robotsOnly.sort (a, b) ->
+            vA = if a.deathIdx then a.deathIdx else a.life * 1000
+            vB = if b.deathIdx then b.deathIdx else b.life * 1000
+            vB - vA
+
+        for r in sortedRobots
+            stats = r.bulletsStats()
+            @log(r.robot.name, r.deathIdx, r.life, stats.fired, stats.hit)
 
         return {
-            winner: winner
+            isDraw: @isDraw()
+            robots: sortedRobots
             result: fightLog
         }

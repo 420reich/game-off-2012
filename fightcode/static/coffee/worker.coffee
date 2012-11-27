@@ -71,6 +71,7 @@ class Fight
 
         engine.robotsStatus[0].rectangle.setPosition(13, 13)
         engine.robotsStatus[1].rectangle.setPosition(50, 200)
+        engine.robotsStatus[2].rectangle.setPosition(100, 200)
 
         result = engine.fight()
 

@@ -17,7 +17,7 @@ FightArena = (function() {
     worker = new Worker('/output/fightcode.worker.min.js');
     worker.onmessage = this.receiveWorkerEvent;
     eventData = {
-      robots: 2,
+      robots: 3,
       robot1: {
         name: "robot1",
         code: this.rotateCode
@@ -25,6 +25,10 @@ FightArena = (function() {
       robot2: {
         name: "robot2",
         code: this.wallCode
+      },
+      robot3: {
+        name: "robot3",
+        code: this.defaultCode
       }
     };
     return worker.postMessage(eventData);
