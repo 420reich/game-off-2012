@@ -56,18 +56,15 @@ class Fight
             width: 800
             height: 500
 
-        robotInstances = []
         for robot in robots
-            robotCode = "(function() {#{ robot.code }}.bind(window)()); return window.robotClass;"
-            constr = new @originalFunctions.func("window", robotCode)({
+            robotCode = "(function() {#{ robot.code }; global.Robot = Robot;}.bind(global)()); return global.Robot;"
+            robotConstructor = new @originalFunctions.func("global", robotCode)({
                 log: (message...) =>
                     this.log(message...)
             })
-            robotInstance = new constr()
-            robot.instance = robotInstance
-            robotInstances.push(robot)
+            robot.constructor = robotConstructor
 
-        engine = new Engine(boardSize.width, boardSize.height, maxRounds, @originalFunctions.random, @log, robotInstances...)
+        engine = new Engine(boardSize.width, boardSize.height, maxRounds, @originalFunctions.random, @log, robots...)
 
         result = engine.fight()
 

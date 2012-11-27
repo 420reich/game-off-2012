@@ -284,6 +284,11 @@ class RobotStatus extends ElementStatus
         @enemiesKilled = 0
         @friendsKilled = 0
 
+    instantiateRobot: ->
+        actions = new RobotActions(this)
+        @robotInstance = new @robot.constructor(actions)
+        @updateQueue(actions)
+
     clone: ->
         cloneRobotStatus = new RobotStatus(@robot, @arena)
         cloneRobotStatus.rectangle.setAngle(@rectangle.angle)
@@ -401,13 +406,16 @@ class RobotStatus extends ElementStatus
 
 
 class Engine
-    constructor: (width, height, @maxTurns, @randomFunc, @log, @robots...) ->
+    constructor: (width, height, @maxTurns, @randomFunc, @log, robotsData...) ->
         @round = 0 # unit of time
 
         @arena = new Arena(width, height)
-        @robotsStatus = (new RobotStatus(robot, @arena) for robot in @robots)
+
+        @robotsStatus = (new RobotStatus(robotData, @arena) for robotData in robotsData)
         @deadStatuses = []
         @initPositions()
+        for robotStatus in @robotsStatus
+            robotStatus.instantiateRobot()
 
     initPositions: ->
         for robotStatus in @robotsStatus
@@ -418,7 +426,7 @@ class Engine
             else
                 rx = @randomFunc() * @arena.rectangle.dimension.width
                 ry = @randomFunc() * @arena.rectangle.dimension.height
-                angle = @randomFunc() * 360
+                angle = Math.floor(@randomFunc() * 360)
                 robotStatus.rectangle.setAngle(angle)
                 robotStatus.rectangle.setPosition(rx, ry)
                 @findEmptyPosition(robotStatus)
@@ -477,7 +485,7 @@ class Engine
                     id: robotStatus.id
                 })
             else
-                @safeCall(robotStatus.robot.instance, 'onWallCollision', {robot: actions})
+                @safeCall(robotStatus.robotInstance, 'onWallCollision', {robot: actions})
 
         return actions if robotStatus instanceof BulletStatus
 
@@ -507,7 +515,7 @@ class Engine
                 else
                     robotStatus.rollbackAfterCollision()
                 bearing = ((status.rectangle.angle + 180 - robotStatus.rectangle.angle) + 360) % 360
-                @safeCall(robotStatus.robot.instance, eventName, {robot: actions, bulletBearing: bearing})
+                @safeCall(robotStatus.robotInstance, eventName, {robot: actions, bulletBearing: bearing})
 
         actions
 
@@ -532,7 +540,7 @@ class Engine
             if robotStatus.canScan() and virtualRect.intersects(status.rectangle)
                 robotStatus.preventScan()
                 # bearing = Math.atan2(status.rectangle.position.y - robotStatus.rectangle.position.y, status.rectangle.position.x - robotStatus.rectangle.position.x) * 180 / Math.PI
-                @safeCall(robotStatus.robot.instance, 'onScannedRobot', {
+                @safeCall(robotStatus.robotInstance, 'onScannedRobot', {
                     robot: actions
                     scannedRobot:
                         id: status.id
@@ -587,7 +595,7 @@ class Engine
 
                 if status.isIdle()
                     actions = new RobotActions(status)
-                    @safeCall(status.robot.instance, 'onIdle', {robot: actions})
+                    @safeCall(status.robotInstance, 'onIdle', {robot: actions})
                     status.updateQueue(actions)
 
                 newStatus = status.runItem()
