@@ -1,6 +1,10 @@
 path = require('path')
+fs = require('fs')
 async = require('async')
 basePath = path.join(process.env.CWD, 'fightcode')
+vm = require('vm')
+
+enginePath = path.join(basePath, 'static', 'output', 'fightcode.engine.min.js')
 
 sequelize = require path.join(basePath, 'config', 'database')
 
@@ -18,6 +22,7 @@ class FightRepository
             if robot
                 callback(null, robot)
             else
+                console.log("robot with gist #{ gistId } not found!")
                 callback(404)
         )
 
@@ -35,6 +40,7 @@ class FightRepository
                     hash: hash
                 )
             else
+                console.log("gist #{ gistId } not found!")
                 callback(404)
         )
 
@@ -69,8 +75,60 @@ class FightRepository
             callback(null, robotRevisionFight)
         )
 
-    runFight: (player, opponent) ->
-        return null
+    runFight: (player, opponent, callback) ->
+        fs.readFile(enginePath, 'utf8', (err,data) ->
+            init = "
+                maxRounds = 10000;
+                boardSize = {
+                    width: 800,
+                    height: 500
+                };
+
+                playerRobotInstance = new player.Robot();
+                opponentRobotInstance = new opponent.Robot();
+
+                player.instance = playerRobotInstance;
+                opponent.instance = opponentRobotInstance;
+
+                engineInstance = new engine.Engine(boardSize.width, boardSize.height, maxRounds, player, opponent);
+                engineInstance.log = function(log) { console.log(log); };
+
+                result = engineInstance.fight();
+
+                results = {
+                    type: 'results',
+                    result: result.result,
+                    winner: result.winner,
+                };
+            "
+
+            playerContext = {}
+            vm.runInNewContext(player.code.replace("var robotClass", "robotClass"), playerContext)
+            playerRobot = playerContext.robotClass
+
+            opponentContext = {}
+            vm.runInNewContext(opponent.code.replace("var robotClass", "robotClass"), opponentContext)
+            opponentRobot = opponentContext.robotClass
+
+            engineContext = {}
+            vm.runInNewContext(data, engineContext)
+
+            initContext =
+                console:
+                    log: (message) ->
+                engine: engineContext
+                player:
+                    name: player.name
+                    Robot: playerRobot
+                opponent:
+                    name: opponent.name
+                    Robot: opponentRobot
+
+            console.log('running the fight...')
+            vm.runInNewContext(init, initContext)
+            console.log('fight calculated successfully.')
+            callback(null, initContext.results)
+        )
 
     createFight: (createFightCallback) ->
         self = this
@@ -90,8 +148,9 @@ class FightRepository
                   }, {
                       name: "opponent"
                       code: self.opponentGist.code
-                  })
-
+                  }, callback)
+            , (result, callback) ->
+                  self.fightResult = result
                   fight = Fight.build({
                       randomSeed: Math.random()
                   })
@@ -103,7 +162,7 @@ class FightRepository
                   self.findRobot(self.playerRobotId, callback)
             , (robot, callback) ->
                   self.playerRobot = robot
-                  self.findOrCreateRobotRevision(self.playerRobot, gist, callback)
+                  self.findOrCreateRobotRevision(self.playerRobot, self.playerGist, callback)
             , (robotRevision, callback) ->
                   self.playerRobotRevision = robotRevision
                   self.createRobotRevisionFight(self.fight, robotRevision, callback)
@@ -112,7 +171,7 @@ class FightRepository
                   self.findRobot(self.opponentRobotId, callback)
             , (robot, callback) ->
                   self.opponentRobot = robot
-                  self.findOrCreateRobotRevision(self.opponentRobot, gist, callback)
+                  self.findOrCreateRobotRevision(self.opponentRobot, self.opponentGist, callback)
             , (robotRevision, callback) ->
                   self.opponentRobotRevision = robotRevision
                   self.createRobotRevisionFight(self.fight, robotRevision, callback)
@@ -120,6 +179,7 @@ class FightRepository
                   self.opponentRobotRevisionFight = robotRevisionFight
                   callback(null,
                       fight: self.fight
+                      result: self.fightResult
                       player: self.playerRobotRevision
                       opponent: self.opponentRobotRevision
                   )

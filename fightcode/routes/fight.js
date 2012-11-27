@@ -1,10 +1,16 @@
-var Fight, FightRepository, GithubApi, Robot, RobotRevision, RobotRevisionFight, async, basePath, path, sequelize;
+var Fight, FightRepository, GithubApi, Robot, RobotRevision, RobotRevisionFight, async, basePath, enginePath, fs, path, sequelize, vm;
 
 path = require('path');
+
+fs = require('fs');
 
 async = require('async');
 
 basePath = path.join(process.env.CWD, 'fightcode');
+
+vm = require('vm');
+
+enginePath = path.join(basePath, 'static', 'output', 'fightcode.engine.min.js');
 
 sequelize = require(path.join(basePath, 'config', 'database'));
 
@@ -35,6 +41,7 @@ FightRepository = (function() {
       if (robot) {
         return callback(null, robot);
       } else {
+        console.log("robot with gist " + gistId + " not found!");
         return callback(404);
       }
     });
@@ -61,6 +68,7 @@ FightRepository = (function() {
           hash: hash
         });
       } else {
+        console.log("gist " + gistId + " not found!");
         return callback(404);
       }
     });
@@ -104,8 +112,37 @@ FightRepository = (function() {
     });
   };
 
-  FightRepository.prototype.runFight = function(player, opponent) {
-    return null;
+  FightRepository.prototype.runFight = function(player, opponent, callback) {
+    return fs.readFile(enginePath, 'utf8', function(err, data) {
+      var engineContext, init, initContext, opponentContext, opponentRobot, playerContext, playerRobot;
+      init = "                maxRounds = 10000;                boardSize = {                    width: 800,                    height: 500                };                playerRobotInstance = new player.Robot();                opponentRobotInstance = new opponent.Robot();                player.instance = playerRobotInstance;                opponent.instance = opponentRobotInstance;                engineInstance = new engine.Engine(boardSize.width, boardSize.height, maxRounds, player, opponent);                engineInstance.log = function(log) { console.log(log); };                result = engineInstance.fight();                results = {                    type: 'results',                    result: result.result,                    winner: result.winner,                };            ";
+      playerContext = {};
+      vm.runInNewContext(player.code.replace("var robotClass", "robotClass"), playerContext);
+      playerRobot = playerContext.robotClass;
+      opponentContext = {};
+      vm.runInNewContext(opponent.code.replace("var robotClass", "robotClass"), opponentContext);
+      opponentRobot = opponentContext.robotClass;
+      engineContext = {};
+      vm.runInNewContext(data, engineContext);
+      initContext = {
+        console: {
+          log: function(message) {}
+        },
+        engine: engineContext,
+        player: {
+          name: player.name,
+          Robot: playerRobot
+        },
+        opponent: {
+          name: opponent.name,
+          Robot: opponentRobot
+        }
+      };
+      console.log('running the fight...');
+      vm.runInNewContext(init, initContext);
+      console.log('fight calculated successfully.');
+      return callback(null, initContext.results);
+    });
   };
 
   FightRepository.prototype.createFight = function(createFightCallback) {
@@ -118,15 +155,18 @@ FightRepository = (function() {
         self.playerGist = gist;
         return self.findLastGist(self.opponentRobotId, callback);
       }, function(gist, callback) {
-        var fight, result;
+        var result;
         self.opponentGist = gist;
-        result = self.runFight({
+        return result = self.runFight({
           name: "player",
           code: self.playerGist.code
         }, {
           name: "opponent",
           code: self.opponentGist.code
-        });
+        }, callback);
+      }, function(result, callback) {
+        var fight;
+        self.fightResult = result;
         fight = Fight.build({
           randomSeed: Math.random()
         });
@@ -138,7 +178,7 @@ FightRepository = (function() {
         return self.findRobot(self.playerRobotId, callback);
       }, function(robot, callback) {
         self.playerRobot = robot;
-        return self.findOrCreateRobotRevision(self.playerRobot, gist, callback);
+        return self.findOrCreateRobotRevision(self.playerRobot, self.playerGist, callback);
       }, function(robotRevision, callback) {
         self.playerRobotRevision = robotRevision;
         return self.createRobotRevisionFight(self.fight, robotRevision, callback);
@@ -147,7 +187,7 @@ FightRepository = (function() {
         return self.findRobot(self.opponentRobotId, callback);
       }, function(robot, callback) {
         self.opponentRobot = robot;
-        return self.findOrCreateRobotRevision(self.opponentRobot, gist, callback);
+        return self.findOrCreateRobotRevision(self.opponentRobot, self.opponentGist, callback);
       }, function(robotRevision, callback) {
         self.opponentRobotRevision = robotRevision;
         return self.createRobotRevisionFight(self.fight, robotRevision, callback);
@@ -155,6 +195,7 @@ FightRepository = (function() {
         self.opponentRobotRevisionFight = robotRevisionFight;
         return callback(null, {
           fight: self.fight,
+          result: self.fightResult,
           player: self.playerRobotRevision,
           opponent: self.opponentRobotRevision
         });
