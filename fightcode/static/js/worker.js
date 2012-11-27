@@ -73,7 +73,7 @@ Fight = (function() {
   };
 
   Fight.prototype.processFight = function(robots) {
-    var boardSize, constr, engine, eventData, maxRounds, result, robot, robotCode, robotInstance, robotInstances, _i, _len,
+    var boardSize, engine, eventData, maxRounds, result, robot, robotCode, robotConstructor, _i, _len,
       _this = this;
     this.overrideFunctions();
     maxRounds = 10000;
@@ -81,26 +81,23 @@ Fight = (function() {
       width: 800,
       height: 500
     };
-    robotInstances = [];
     for (_i = 0, _len = robots.length; _i < _len; _i++) {
       robot = robots[_i];
-      robotCode = "(function() {" + robot.code + "}.bind(window)()); return window.robotClass;";
-      constr = new this.originalFunctions.func("window", robotCode)({
+      robotCode = "(function() {" + robot.code + "; global.Robot = Robot;}.bind(global)()); return global.Robot;";
+      robotConstructor = new this.originalFunctions.func("global", robotCode)({
         log: function() {
           var message;
           message = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
           return _this.log.apply(_this, message);
         }
       });
-      robotInstance = new constr();
-      robot.instance = robotInstance;
-      robotInstances.push(robot);
+      robot.constructor = robotConstructor;
     }
     engine = (function(func, args, ctor) {
       ctor.prototype = func.prototype;
       var child = new ctor, result = func.apply(child, args), t = typeof result;
       return t == "object" || t == "function" ? result || child : child;
-    })(Engine, [boardSize.width, boardSize.height, maxRounds, this.originalFunctions.random, this.log].concat(__slice.call(robotInstances)), function(){});
+    })(Engine, [boardSize.width, boardSize.height, maxRounds, this.originalFunctions.random, this.log].concat(__slice.call(robots)), function(){});
     result = engine.fight();
     this.restoreFunctions();
     eventData = {

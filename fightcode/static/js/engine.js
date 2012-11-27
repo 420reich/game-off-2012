@@ -388,6 +388,13 @@ RobotStatus = (function(_super) {
     this.friendsKilled = 0;
   }
 
+  RobotStatus.prototype.instantiateRobot = function() {
+    var actions;
+    actions = new RobotActions(this);
+    this.robotInstance = new this.robot.constructor(actions);
+    return this.updateQueue(actions);
+  };
+
   RobotStatus.prototype.clone = function() {
     var cloneRobotStatus;
     cloneRobotStatus = new RobotStatus(this.robot, this.arena);
@@ -537,26 +544,29 @@ RobotStatus = (function(_super) {
 Engine = (function() {
 
   function Engine() {
-    var height, log, maxTurns, randomFunc, robot, robots, width;
-    width = arguments[0], height = arguments[1], maxTurns = arguments[2], randomFunc = arguments[3], log = arguments[4], robots = 6 <= arguments.length ? __slice.call(arguments, 5) : [];
+    var height, log, maxTurns, randomFunc, robotData, robotStatus, robotsData, width, _i, _len, _ref;
+    width = arguments[0], height = arguments[1], maxTurns = arguments[2], randomFunc = arguments[3], log = arguments[4], robotsData = 6 <= arguments.length ? __slice.call(arguments, 5) : [];
     this.maxTurns = maxTurns;
     this.randomFunc = randomFunc;
     this.log = log;
-    this.robots = robots;
     this.round = 0;
     this.arena = new Arena(width, height);
     this.robotsStatus = (function() {
-      var _i, _len, _ref, _results;
-      _ref = this.robots;
+      var _i, _len, _results;
       _results = [];
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        robot = _ref[_i];
-        _results.push(new RobotStatus(robot, this.arena));
+      for (_i = 0, _len = robotsData.length; _i < _len; _i++) {
+        robotData = robotsData[_i];
+        _results.push(new RobotStatus(robotData, this.arena));
       }
       return _results;
     }).call(this);
     this.deadStatuses = [];
     this.initPositions();
+    _ref = this.robotsStatus;
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      robotStatus = _ref[_i];
+      robotStatus.instantiateRobot();
+    }
   }
 
   Engine.prototype.initPositions = function() {
@@ -572,7 +582,7 @@ Engine = (function() {
       } else {
         rx = this.randomFunc() * this.arena.rectangle.dimension.width;
         ry = this.randomFunc() * this.arena.rectangle.dimension.height;
-        angle = this.randomFunc() * 360;
+        angle = Math.floor(this.randomFunc() * 360);
         robotStatus.rectangle.setAngle(angle);
         robotStatus.rectangle.setPosition(rx, ry);
         this.findEmptyPosition(robotStatus);
@@ -652,7 +662,7 @@ Engine = (function() {
           id: robotStatus.id
         });
       } else {
-        this.safeCall(robotStatus.robot.instance, 'onWallCollision', {
+        this.safeCall(robotStatus.robotInstance, 'onWallCollision', {
           robot: actions
         });
       }
@@ -696,7 +706,7 @@ Engine = (function() {
           robotStatus.rollbackAfterCollision();
         }
         bearing = ((status.rectangle.angle + 180 - robotStatus.rectangle.angle) + 360) % 360;
-        this.safeCall(robotStatus.robot.instance, eventName, {
+        this.safeCall(robotStatus.robotInstance, eventName, {
           robot: actions,
           bulletBearing: bearing
         });
@@ -725,7 +735,7 @@ Engine = (function() {
       }
       if (robotStatus.canScan() && virtualRect.intersects(status.rectangle)) {
         robotStatus.preventScan();
-        this.safeCall(robotStatus.robot.instance, 'onScannedRobot', {
+        this.safeCall(robotStatus.robotInstance, 'onScannedRobot', {
           robot: actions,
           scannedRobot: {
             id: status.id,
@@ -781,7 +791,7 @@ Engine = (function() {
         });
         if (status.isIdle()) {
           actions = new RobotActions(status);
-          this.safeCall(status.robot.instance, 'onIdle', {
+          this.safeCall(status.robotInstance, 'onIdle', {
             robot: actions
           });
           status.updateQueue(actions);
