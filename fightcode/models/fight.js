@@ -5,10 +5,9 @@ var gravatar = require('gravatar'),
 
 module.exports = function(sequelize, DataTypes) {
     Fight = sequelize.define('Fight', {
-        randomSeed: { type: DataTypes.STRING, allowNull: false}
+        random_seed: { type: DataTypes.STRING, allowNull: false}
     }, {
         underscored: true
     });
-    Fight.hasMany(RobotRevision);
     return Fight;
 };

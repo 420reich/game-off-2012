@@ -18,6 +18,7 @@
     "gravatar": "*",
     "c3store": "*",
     "github": "*",
-    "nodetime": "*"
+    "nodetime": "*",
+    "async": "*"
   }
 }

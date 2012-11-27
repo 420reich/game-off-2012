@@ -7,7 +7,7 @@ module.exports = {
         type: DataTypes.INTEGER,
         autoIncrement: true
       },
-      gistHash: {
+      gist_hash: {
           type: DataTypes.STRING,
           allowNull: false
       },
@@ -15,7 +15,7 @@ module.exports = {
           type: DataTypes.TEXT,
           allowNull: false
       },
-      robotId: {
+      robot_id: {
           type: DataTypes.INTEGER,
           allowNull: false
       },

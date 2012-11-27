@@ -6,11 +6,11 @@ module.exports = function(sequelize, DataTypes) {
     Fight = sequelize.import(path.join(basePath, 'models', 'fight'));
     RobotRevisionFight = sequelize.define('RobotRevisionFight', {
         position: { type: DataTypes.INTEGER, allowNull: false},
-        shotsFired: { type: DataTypes.INTEGER, allowNull: false},
-        shotsHit: { type: DataTypes.INTEGER, allowNull: false},
-        enemiesKilled: { type: DataTypes.INTEGER, allowNull: false},
-        positionX: { type: DataTypes.FLOAT, allowNull: false},
-        positionY: { type: DataTypes.FLOAT, allowNull: false},
+        shots_fired: { type: DataTypes.INTEGER, allowNull: false},
+        shots_hit: { type: DataTypes.INTEGER, allowNull: false},
+        enemies_killed: { type: DataTypes.INTEGER, allowNull: false},
+        position_x: { type: DataTypes.FLOAT, allowNull: false},
+        position_y: { type: DataTypes.FLOAT, allowNull: false},
         angle: { type: DataTypes.FLOAT, allowNull: false}
     },{
         instanceMethods:{

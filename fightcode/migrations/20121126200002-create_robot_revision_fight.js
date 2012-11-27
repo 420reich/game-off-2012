@@ -7,11 +7,11 @@ module.exports = {
         type: DataTypes.INTEGER,
         autoIncrement: true
       },
-      robotId: {
+      robot_id: {
         type: DataTypes.INTEGER,
         allowNull: false
       },
-      fightId: {
+      fight_id: {
         type: DataTypes.INTEGER,
         allowNull: false
       },
@@ -19,23 +19,23 @@ module.exports = {
         type: DataTypes.INTEGER,
         allowNull: false
       },
-      shotsFired: {
+      shots_fired: {
         type: DataTypes.INTEGER,
         allowNull: false
       },
-      shotsHit: {
+      shots_hit: {
         type: DataTypes.INTEGER,
         allowNull: false
       },
-      enemiesKilled: {
+      enemies_killed: {
         type: DataTypes.INTEGER,
         allowNull: false
       },
-      positionX: {
+      position_x: {
         type: DataTypes.FLOAT,
         allowNull: false
       },
-      positionY: {
+      position_y: {
         type: DataTypes.FLOAT,
         allowNull: false
       },
