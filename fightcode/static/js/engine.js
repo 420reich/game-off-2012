@@ -537,9 +537,11 @@ RobotStatus = (function(_super) {
 Engine = (function() {
 
   function Engine() {
-    var height, maxTurns, robot, robots, width;
-    width = arguments[0], height = arguments[1], maxTurns = arguments[2], robots = 4 <= arguments.length ? __slice.call(arguments, 3) : [];
+    var height, log, maxTurns, randomFunc, robot, robots, width;
+    width = arguments[0], height = arguments[1], maxTurns = arguments[2], randomFunc = arguments[3], log = arguments[4], robots = 6 <= arguments.length ? __slice.call(arguments, 5) : [];
     this.maxTurns = maxTurns;
+    this.randomFunc = randomFunc;
+    this.log = log;
     this.robots = robots;
     this.round = 0;
     this.arena = new Arena(width, height);
@@ -554,7 +556,33 @@ Engine = (function() {
       return _results;
     }).call(this);
     this.deadStatuses = [];
+    this.initPositions();
   }
+
+  Engine.prototype.initPositions = function() {
+    var angle, givenRect, robotStatus, rx, ry, _i, _len, _ref, _results;
+    _ref = this.robotsStatus;
+    _results = [];
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      robotStatus = _ref[_i];
+      givenRect = robotStatus.robot.rectangle;
+      if (givenRect) {
+        robotStatus.rectangle.setPosition(givenRect.position.x, givenRect.position.y);
+        _results.push(robotStatus.rectangle.setAngle(givenRect.angle));
+      } else {
+        rx = this.randomFunc() * this.arena.rectangle.dimension.width;
+        ry = this.randomFunc() * this.arena.rectangle.dimension.height;
+        angle = this.randomFunc() * 360;
+        robotStatus.rectangle.setAngle(angle);
+        robotStatus.rectangle.setPosition(rx, ry);
+        this.findEmptyPosition(robotStatus);
+        robotStatus.robot.rectangle = {};
+        robotStatus.robot.rectangle.position = new Vector2(robotStatus.rectangle.position);
+        _results.push(robotStatus.robot.rectangle.angle = robotStatus.rectangle.angle);
+      }
+    }
+    return _results;
+  };
 
   Engine.prototype.isDraw = function() {
     return this.round > this.maxTurns;
@@ -567,6 +595,10 @@ Engine = (function() {
       return;
     }
     return obj[method].apply(obj, params);
+  };
+
+  Engine.prototype.randomizePosition = function(robotStatus) {
+    return robotPosition;
   };
 
   Engine.prototype.intersectsAnything = function(robotStatus) {
@@ -793,7 +825,7 @@ Engine = (function() {
     });
     for (_k = 0, _len2 = sortedRobots.length; _k < _len2; _k++) {
       r = sortedRobots[_k];
-      stats = r.stats();
+      stats = r.stats = r.stats();
       this.log(r.robot.name, r.deathIdx, r.life, stats.bulletsFired, stats.bulletsHit, stats.friendsKilled, stats.enemiesKilled);
     }
     return {

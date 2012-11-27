@@ -65,6 +65,7 @@ Fight = (function() {
       robots = [];
       for (i = _i = 1, _ref = evData.robots; 1 <= _ref ? _i <= _ref : _i >= _ref; i = 1 <= _ref ? ++_i : --_i) {
         code = evData['robot' + i];
+        code.code = code.code.replace(/\/\/.*?\n/g, '').replace(/#.*?\n/g, '');
         robots.push(code);
       }
       return _this.processFight(robots);
@@ -99,11 +100,7 @@ Fight = (function() {
       ctor.prototype = func.prototype;
       var child = new ctor, result = func.apply(child, args), t = typeof result;
       return t == "object" || t == "function" ? result || child : child;
-    })(Engine, [boardSize.width, boardSize.height, maxRounds].concat(__slice.call(robotInstances)), function(){});
-    engine.log = this.log;
-    engine.robotsStatus[0].rectangle.setPosition(13, 13);
-    engine.robotsStatus[1].rectangle.setPosition(50, 200);
-    engine.robotsStatus[2].rectangle.setPosition(100, 200);
+    })(Engine, [boardSize.width, boardSize.height, maxRounds, this.originalFunctions.random, this.log].concat(__slice.call(robotInstances)), function(){});
     result = engine.fight();
     this.restoreFunctions();
     eventData = {

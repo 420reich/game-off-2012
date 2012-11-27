@@ -401,12 +401,30 @@ class RobotStatus extends ElementStatus
 
 
 class Engine
-    constructor: (width, height, @maxTurns, @robots...) ->
+    constructor: (width, height, @maxTurns, @randomFunc, @log, @robots...) ->
         @round = 0 # unit of time
 
         @arena = new Arena(width, height)
         @robotsStatus = (new RobotStatus(robot, @arena) for robot in @robots)
         @deadStatuses = []
+        @initPositions()
+
+    initPositions: ->
+        for robotStatus in @robotsStatus
+            givenRect = robotStatus.robot.rectangle
+            if givenRect
+                robotStatus.rectangle.setPosition(givenRect.position.x, givenRect.position.y)
+                robotStatus.rectangle.setAngle(givenRect.angle)
+            else
+                rx = @randomFunc() * @arena.rectangle.dimension.width
+                ry = @randomFunc() * @arena.rectangle.dimension.height
+                angle = @randomFunc() * 360
+                robotStatus.rectangle.setAngle(angle)
+                robotStatus.rectangle.setPosition(rx, ry)
+                @findEmptyPosition(robotStatus)
+                robotStatus.robot.rectangle = {}
+                robotStatus.robot.rectangle.position = new Vector2(robotStatus.rectangle.position)
+                robotStatus.robot.rectangle.angle = robotStatus.rectangle.angle
 
     isDraw: ->
         return @round > @maxTurns
@@ -415,6 +433,9 @@ class Engine
         if !obj[method]
             return
         obj[method].apply(obj, params)
+
+    randomizePosition: (robotStatus) ->
+        robotPosition
 
     intersectsAnything: (robotStatus) ->
         if not robotStatus.rectangle.simpleIsContained(@arena.rectangle)
@@ -510,6 +531,7 @@ class Engine
 
             if robotStatus.canScan() and virtualRect.intersects(status.rectangle)
                 robotStatus.preventScan()
+                # bearing = Math.atan2(status.rectangle.position.y - robotStatus.rectangle.position.y, status.rectangle.position.x - robotStatus.rectangle.position.x) * 180 / Math.PI
                 @safeCall(robotStatus.robot.instance, 'onScannedRobot', {
                     robot: actions
                     scannedRobot:
@@ -599,7 +621,7 @@ class Engine
             vB - vA
 
         for r in sortedRobots
-            stats = r.stats()
+            stats = r.stats = r.stats()
             @log(r.robot.name, r.deathIdx, r.life, stats.bulletsFired, stats.bulletsHit, stats.friendsKilled, stats.enemiesKilled)
 
         return {

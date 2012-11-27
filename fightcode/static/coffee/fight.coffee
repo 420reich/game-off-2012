@@ -2,7 +2,7 @@ container = $(".fight-arena")
 
 class FightArena
     constructor: (@container) ->
-        @defaultCode = "
+        @defaultCode = """
             window.robotClass = function(){
             };
             window.robotClass.prototype.onIdle = function(ev) {
@@ -27,9 +27,9 @@ class FightArena
                if (robot.availableClones > 0) {
                    robot.clone();
                }
-            };"
+            };"""
 
-        @rotateCode = "
+        @rotateCode = """
             window.robotClass = function(){
             };
             window.robotClass.prototype.onIdle = function(ev) {
@@ -43,9 +43,9 @@ class FightArena
             window.robotClass.prototype.onScannedRobot = function(ev) {
             };
             window.robotClass.prototype.onHitByBullet = function(ev) {
-            };"
+            };"""
 
-        @wallCode = "
+        @wallCode = """
             window.rotated = {};
             window.robotClass = function(){
             };
@@ -71,7 +71,7 @@ class FightArena
             window.robotClass.prototype.onScannedRobot = function(ev) {
                var robot = ev.robot;
                robot.fire();
-            };"
+            };"""
 
 
         @startWorker()
@@ -81,16 +81,16 @@ class FightArena
         worker.onmessage = @receiveWorkerEvent
 
         eventData =
-            robots: 3
+            robots: 2
             robot1:
                 name: "robot1"
                 code: @rotateCode
             robot2:
                 name: "robot2"
                 code: @wallCode
-            robot3:
-                name: "robot3"
-                code: @defaultCode
+            # robot3:
+            #     name: "robot3"
+            #     code: @defaultCode
             # robot4: @wallCode
 
         worker.postMessage(eventData)

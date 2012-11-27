@@ -44,6 +44,7 @@ class Fight
             robots = []
             for i in [1..evData.robots]
                 code = evData['robot' + i]
+                code.code = code.code.replace(/\/\/.*?\n/g, '').replace(/#.*?\n/g, '');
                 robots.push(code)
             @processFight(robots)
 
@@ -66,12 +67,7 @@ class Fight
             robot.instance = robotInstance
             robotInstances.push(robot)
 
-        engine = new Engine(boardSize.width, boardSize.height, maxRounds, robotInstances...)
-        engine.log = this.log;
-
-        engine.robotsStatus[0].rectangle.setPosition(13, 13)
-        engine.robotsStatus[1].rectangle.setPosition(50, 200)
-        engine.robotsStatus[2].rectangle.setPosition(100, 200)
+        engine = new Engine(boardSize.width, boardSize.height, maxRounds, @originalFunctions.random, @log, robotInstances...)
 
         result = engine.fight()
 
