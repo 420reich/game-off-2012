@@ -58,17 +58,17 @@ class FightRepository
             )
         )
 
-    createRobotRevisionFight: (fight, robotRevision, engineRobot, callback) ->
+    createRobotRevisionFight: (fight, robotRevision, engineRobot, robotPosition, callback) ->
         robotRevisionFight = RobotRevisionFight.build(
             robot_revision_id: robotRevision.id
             fight_id: fight.id
-            position: engineRobot.position
+            position: robotPosition
             shots_fired: engineRobot.stats.bulletsFired
             shots_hit: engineRobot.stats.bulletsHit
             enemies_killed: engineRobot.stats.enemiesKilled
-            position_x: engineRobot.x
-            position_y: engineRobot.y
-            angle: engineRobot.angle
+            position_x: engineRobot.robot.rectangle.position.x
+            position_y: engineRobot.robot.rectangle.position.y
+            angle: engineRobot.robot.rectangle.angle
         )
 
         robotRevision.save().success(->
@@ -90,19 +90,17 @@ class FightRepository
                 player.instance = playerRobotInstance;
                 opponent.instance = opponentRobotInstance;
 
-                engineInstance = new engine.Engine(boardSize.width, boardSize.height, maxRounds, player, opponent);
-                engineInstance.log = function(log) { console.log(log); };
-
+                engineInstance = new engine.Engine(boardSize.width, boardSize.height, maxRounds, Math.random, console.log, player, opponent);
                 result = engineInstance.fight();
             "
 
             playerContext = {}
-            vm.runInNewContext(player.code.replace("var robotClass", "robotClass"), playerContext)
-            playerRobot = playerContext.robotClass
+            vm.runInNewContext(player.code.replace("var Robot", "Robot"), playerContext)
+            playerRobot = playerContext.Robot
 
             opponentContext = {}
-            vm.runInNewContext(opponent.code.replace("var robotClass", "robotClass"), opponentContext)
-            opponentRobot = opponentContext.robotClass
+            vm.runInNewContext(opponent.code.replace("var Robot", "Robot"), opponentContext)
+            opponentRobot = opponentContext.Robot
 
             engineContext = {}
             vm.runInNewContext(data, engineContext)
@@ -159,8 +157,20 @@ class FightRepository
                   self.findOrCreateRobotRevision(self.playerRobot, self.playerGist, callback)
             , (robotRevision, callback) ->
                   self.playerRobotRevision = robotRevision
-                    #fight, robotRevision, engineRobot, callback
-                  self.createRobotRevisionFight(self.fight, robotRevision, self.fightResult.robots[0], callback)
+
+                  robotResult = null
+                  robotPosition = 0
+
+                  for robotIdx in [0..self.fightResult.robots.length]
+                      robotResult = self.fightResult.robots[robotIdx]
+                      robotPosition = robotIdx + 1
+                      break if robotResult.robot.name == 'player'
+
+                  if robotResult == null
+                      callback(404)
+                  else
+                      self.createRobotRevisionFight(self.fight, robotRevision, robotResult, robotPosition, callback)
+
             , (robotRevisionFight, callback) ->
                   self.playerRobotRevisionFight = robotRevisionFight
                   self.findRobot(self.opponentRobotId, callback)
@@ -169,7 +179,20 @@ class FightRepository
                   self.findOrCreateRobotRevision(self.opponentRobot, self.opponentGist, callback)
             , (robotRevision, callback) ->
                   self.opponentRobotRevision = robotRevision
-                  self.createRobotRevisionFight(self.fight, robotRevision, callback)
+
+                  robotResult = null
+                  robotPosition = 0
+
+                  for robotIdx in [0..self.fightResult.robots.length]
+                      robotResult = self.fightResult.robots[robotIdx]
+                      robotPosition = robotIdx + 1
+                      break if robotResult.robot.name == 'opponent'
+
+                  if robotResult == null
+                      callback(404)
+                  else
+                      self.createRobotRevisionFight(self.fight, robotRevision, robotResult, robotPosition, callback)
+
             , (robotRevisionFight, callback) ->
                   self.opponentRobotRevisionFight = robotRevisionFight
                   callback(null,
@@ -199,7 +222,13 @@ exports.createFight = (req, res) ->
         if result is 404
             res.send(404)
         else
-            console.log(result.result)
-            res.send(200)
-            #res.redirect("/robots/replay/#{ result.fight.id }")
+            res.redirect("/robots/replay/#{ result.fight.id }")
+    )
+
+exports.replayFight = (req, res) ->
+    fightId = req.params.fight_id
+
+    RobotRevisionFight.findAll({where: {fight_id: fightId}}).success((robotRevisions) ->
+        res.render 'replay', revisions: robotRevisions
+        
     )
