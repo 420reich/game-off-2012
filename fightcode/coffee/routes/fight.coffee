@@ -58,17 +58,17 @@ class FightRepository
             )
         )
 
-    createRobotRevisionFight: (fight, robotRevision, callback) ->
+    createRobotRevisionFight: (fight, robotRevision, engineRobot, callback) ->
         robotRevisionFight = RobotRevisionFight.build(
             robot_revision_id: robotRevision.id
             fight_id: fight.id
-            position: 0
-            shots_fired: 0
-            shots_hit: 0
-            enemies_killed: 0
-            position_x: 0
-            position_y: 0
-            angle: 0
+            position: engineRobot.position
+            shots_fired: engineRobot.stats.bulletsFired
+            shots_hit: engineRobot.stats.bulletsHit
+            enemies_killed: engineRobot.stats.enemiesKilled
+            position_x: engineRobot.x
+            position_y: engineRobot.y
+            angle: engineRobot.angle
         )
 
         robotRevision.save().success(->
@@ -94,12 +94,6 @@ class FightRepository
                 engineInstance.log = function(log) { console.log(log); };
 
                 result = engineInstance.fight();
-
-                results = {
-                    type: 'results',
-                    result: result.result,
-                    winner: result.winner,
-                };
             "
 
             playerContext = {}
@@ -127,7 +121,7 @@ class FightRepository
             console.log('running the fight...')
             vm.runInNewContext(init, initContext)
             console.log('fight calculated successfully.')
-            callback(null, initContext.results)
+            callback(null, initContext.result)
         )
 
     createFight: (createFightCallback) ->
@@ -165,7 +159,8 @@ class FightRepository
                   self.findOrCreateRobotRevision(self.playerRobot, self.playerGist, callback)
             , (robotRevision, callback) ->
                   self.playerRobotRevision = robotRevision
-                  self.createRobotRevisionFight(self.fight, robotRevision, callback)
+                    #fight, robotRevision, engineRobot, callback
+                  self.createRobotRevisionFight(self.fight, robotRevision, self.fightResult.robots[0], callback)
             , (robotRevisionFight, callback) ->
                   self.playerRobotRevisionFight = robotRevisionFight
                   self.findRobot(self.opponentRobotId, callback)
@@ -204,5 +199,7 @@ exports.createFight = (req, res) ->
         if result is 404
             res.send(404)
         else
-            res.redirect("/robots/replay/#{ result.fight.id }")
+            console.log(result.result)
+            res.send(200)
+            #res.redirect("/robots/replay/#{ result.fight.id }")
     )

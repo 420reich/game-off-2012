@@ -94,18 +94,18 @@ FightRepository = (function() {
     });
   };
 
-  FightRepository.prototype.createRobotRevisionFight = function(fight, robotRevision, callback) {
+  FightRepository.prototype.createRobotRevisionFight = function(fight, robotRevision, engineRobot, callback) {
     var robotRevisionFight;
     robotRevisionFight = RobotRevisionFight.build({
       robot_revision_id: robotRevision.id,
       fight_id: fight.id,
-      position: 0,
-      shots_fired: 0,
-      shots_hit: 0,
-      enemies_killed: 0,
-      position_x: 0,
-      position_y: 0,
-      angle: 0
+      position: engineRobot.position,
+      shots_fired: engineRobot.stats.bulletsFired,
+      shots_hit: engineRobot.stats.bulletsHit,
+      enemies_killed: engineRobot.stats.enemiesKilled,
+      position_x: engineRobot.x,
+      position_y: engineRobot.y,
+      angle: engineRobot.angle
     });
     return robotRevision.save().success(function() {
       return callback(null, robotRevisionFight);
@@ -115,7 +115,7 @@ FightRepository = (function() {
   FightRepository.prototype.runFight = function(player, opponent, callback) {
     return fs.readFile(enginePath, 'utf8', function(err, data) {
       var engineContext, init, initContext, opponentContext, opponentRobot, playerContext, playerRobot;
-      init = "                maxRounds = 10000;                boardSize = {                    width: 800,                    height: 500                };                playerRobotInstance = new player.Robot();                opponentRobotInstance = new opponent.Robot();                player.instance = playerRobotInstance;                opponent.instance = opponentRobotInstance;                engineInstance = new engine.Engine(boardSize.width, boardSize.height, maxRounds, player, opponent);                engineInstance.log = function(log) { console.log(log); };                result = engineInstance.fight();                results = {                    type: 'results',                    result: result.result,                    winner: result.winner,                };            ";
+      init = "                maxRounds = 10000;                boardSize = {                    width: 800,                    height: 500                };                playerRobotInstance = new player.Robot();                opponentRobotInstance = new opponent.Robot();                player.instance = playerRobotInstance;                opponent.instance = opponentRobotInstance;                engineInstance = new engine.Engine(boardSize.width, boardSize.height, maxRounds, player, opponent);                engineInstance.log = function(log) { console.log(log); };                result = engineInstance.fight();            ";
       playerContext = {};
       vm.runInNewContext(player.code.replace("var robotClass", "robotClass"), playerContext);
       playerRobot = playerContext.robotClass;
@@ -141,7 +141,7 @@ FightRepository = (function() {
       console.log('running the fight...');
       vm.runInNewContext(init, initContext);
       console.log('fight calculated successfully.');
-      return callback(null, initContext.results);
+      return callback(null, initContext.result);
     });
   };
 
@@ -181,7 +181,7 @@ FightRepository = (function() {
         return self.findOrCreateRobotRevision(self.playerRobot, self.playerGist, callback);
       }, function(robotRevision, callback) {
         self.playerRobotRevision = robotRevision;
-        return self.createRobotRevisionFight(self.fight, robotRevision, callback);
+        return self.createRobotRevisionFight(self.fight, robotRevision, self.fightResult.robots[0], callback);
       }, function(robotRevisionFight, callback) {
         self.playerRobotRevisionFight = robotRevisionFight;
         return self.findRobot(self.opponentRobotId, callback);
@@ -232,7 +232,8 @@ exports.createFight = function(req, res) {
     if (result === 404) {
       return res.send(404);
     } else {
-      return res.redirect("/robots/replay/" + result.fight.id);
+      console.log(result.result);
+      return res.send(200);
     }
   });
 };
