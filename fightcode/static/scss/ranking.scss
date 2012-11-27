@@ -49,13 +49,130 @@
         }
 
         .performance {
-            margin-bottom: 46px;
+            margin-bottom: 42px;
 
             font-family: "oswald";
             font-size: 18px;
             line-height: 15px;
             text-align: center;
             color: #ddd;
+        }
+    }
+
+    .rank {
+        .row {
+            height:60px;
+            font-size:0;
+            line-height:0;
+            white-space:nowrap;
+            margin-bottom:5px;
+            position:relative;
+            @include opacity(.7);
+
+            .position,
+            .robot-face,
+            .robot-name {
+                vertical-align:top;
+                display:inline-block;
+                font-size:20px;
+                line-height:15px;
+                font-family: "oswald";
+            }
+
+            .position {
+                background-color:#ed0027;
+                color:#fff;
+                padding: 22px 0 23px 12px;
+                width: 66px;
+                overflow: hidden;
+            }
+
+            &.mine {
+                .position {
+                    @include ranking-sprite('own-robot-tip');
+                    background-color:#525252;
+                }
+            }
+
+            .robot-face {
+                @include ranking-sprite('robot');
+                @include ranking-sprite-dimensions('robot');
+                background-color:red;
+            }
+
+            .robot-name {
+                background:#f7f7f7;
+                font-family: "oswald-bold";
+                font-size: 28px;
+                color: #4f4f4f;
+                text-transform: uppercase;
+                padding:25px 0 20px 22px;;
+                width:700px;
+                @include text-shadow(#f7f7f7 -1px 1px 0, #999 -2px 2px 0);
+                @include border-radius(0 28px 28px 0);
+            }
+
+            .actions {
+                display:none;
+                position:absolute;
+                width:189px;
+                height:39px;
+                right: 81px;
+                top: 10px;
+
+                a {
+                    display:inline-block;
+                    background-color:#ed0027;
+                    font-size:14px;
+                    font-weight:bold;
+                    color:#fff;
+                    @include text-shadow(1px 1px #000);
+
+                    &.fight {
+                        padding:19px 20px 20px 31px;
+                        @include border-radius(20px 0 0 20px);
+                    }
+
+                    &.fork {
+                        padding:19px 30px 20px 27px;
+                        @include border-radius(0 20px 20px 0);
+                    }
+                }
+            }
+
+            .user-photo {
+                position:absolute;
+                right: 1px;
+                top: 2px;
+                @include transition(right,top 200ms);
+
+                img {
+                    @include transition(width,height 200ms);
+                    width:57px;
+                    height:57px;
+                    @include border-radius(50px);
+                }
+            }
+
+            &:hover {
+                @include opacity(1);
+                .actions {
+                    display:block;
+
+                    a:hover {
+                        background-color:#ff3d3d;
+                    }
+                }
+
+                .user-photo {
+                    right:-1px;
+                    top:-1px;
+                    img {
+                        width:62px;
+                        height:62px;
+                    }
+                }
+            }
         }
     }
 }

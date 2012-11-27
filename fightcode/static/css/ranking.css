@@ -1,6 +1,6 @@
-/* line 52, ranking/*.png */
-.ranking-sprite, .ranking-area .header .prize {
-  background: url('../img/ranking-sb0e00f356d.png') no-repeat;
+/* line 60, ranking/*.png */
+.ranking-sprite, .ranking-area .header .prize, .ranking-area .rank .row.mine .position, .ranking-area .rank .row .robot-face {
+  background: url('../img/ranking-s100b7e4051.png') no-repeat;
 }
 
 /* line 3, ../scss/ranking.scss */
@@ -20,7 +20,7 @@
 }
 /* line 14, ../scss/ranking.scss */
 .ranking-area .header .prize {
-  background-position: 0 -60px;
+  background-position: 0 -120px;
   height: 69px;
   width: 65px;
   position: absolute;
@@ -56,10 +56,152 @@
 }
 /* line 51, ../scss/ranking.scss */
 .ranking-area .header .performance {
-  margin-bottom: 46px;
+  margin-bottom: 42px;
   font-family: "oswald";
   font-size: 18px;
   line-height: 15px;
   text-align: center;
   color: #ddd;
+}
+/* line 63, ../scss/ranking.scss */
+.ranking-area .rank .row {
+  height: 60px;
+  font-size: 0;
+  line-height: 0;
+  white-space: nowrap;
+  margin-bottom: 5px;
+  position: relative;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);
+  opacity: 0.7;
+}
+/* line 74, ../scss/ranking.scss */
+.ranking-area .rank .row .position,
+.ranking-area .rank .row .robot-face,
+.ranking-area .rank .row .robot-name {
+  vertical-align: top;
+  display: inline-block;
+  font-size: 20px;
+  line-height: 15px;
+  font-family: "oswald";
+}
+/* line 82, ../scss/ranking.scss */
+.ranking-area .rank .row .position {
+  background-color: #ed0027;
+  color: #fff;
+  padding: 22px 0 23px 12px;
+  width: 66px;
+  overflow: hidden;
+}
+/* line 91, ../scss/ranking.scss */
+.ranking-area .rank .row.mine .position {
+  background-position: 0 0;
+  background-color: #525252;
+}
+/* line 97, ../scss/ranking.scss */
+.ranking-area .rank .row .robot-face {
+  background-position: 0 -60px;
+  height: 60px;
+  width: 140px;
+  background-color: red;
+}
+/* line 103, ../scss/ranking.scss */
+.ranking-area .rank .row .robot-name {
+  background: #f7f7f7;
+  font-family: "oswald-bold";
+  font-size: 28px;
+  color: #4f4f4f;
+  text-transform: uppercase;
+  padding: 25px 0 20px 22px;
+  width: 700px;
+  text-shadow: #f7f7f7 -1px 1px 0, #999999 -2px 2px 0;
+  -webkit-border-radius: 0 28px 28px 0;
+  -moz-border-radius: 0 28px 28px 0;
+  -ms-border-radius: 0 28px 28px 0;
+  -o-border-radius: 0 28px 28px 0;
+  border-radius: 0 28px 28px 0;
+}
+/* line 115, ../scss/ranking.scss */
+.ranking-area .rank .row .actions {
+  display: none;
+  position: absolute;
+  width: 189px;
+  height: 39px;
+  right: 81px;
+  top: 10px;
+}
+/* line 123, ../scss/ranking.scss */
+.ranking-area .rank .row .actions a {
+  display: inline-block;
+  background-color: #ed0027;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 1px 1px black;
+}
+/* line 131, ../scss/ranking.scss */
+.ranking-area .rank .row .actions a.fight {
+  padding: 19px 20px 20px 31px;
+  -webkit-border-radius: 20px 0 0 20px;
+  -moz-border-radius: 20px 0 0 20px;
+  -ms-border-radius: 20px 0 0 20px;
+  -o-border-radius: 20px 0 0 20px;
+  border-radius: 20px 0 0 20px;
+}
+/* line 136, ../scss/ranking.scss */
+.ranking-area .rank .row .actions a.fork {
+  padding: 19px 30px 20px 27px;
+  -webkit-border-radius: 0 20px 20px 0;
+  -moz-border-radius: 0 20px 20px 0;
+  -ms-border-radius: 0 20px 20px 0;
+  -o-border-radius: 0 20px 20px 0;
+  border-radius: 0 20px 20px 0;
+}
+/* line 143, ../scss/ranking.scss */
+.ranking-area .rank .row .user-photo {
+  position: absolute;
+  right: 1px;
+  top: 2px;
+  -webkit-transition: right, top 200ms;
+  -moz-transition: right, top 200ms;
+  -ms-transition: right, top 200ms;
+  -o-transition: right, top 200ms;
+  transition: right, top 200ms;
+}
+/* line 149, ../scss/ranking.scss */
+.ranking-area .rank .row .user-photo img {
+  -webkit-transition: width, height 200ms;
+  -moz-transition: width, height 200ms;
+  -ms-transition: width, height 200ms;
+  -o-transition: width, height 200ms;
+  transition: width, height 200ms;
+  width: 57px;
+  height: 57px;
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
+  -ms-border-radius: 50px;
+  -o-border-radius: 50px;
+  border-radius: 50px;
+}
+/* line 157, ../scss/ranking.scss */
+.ranking-area .rank .row:hover {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  opacity: 1;
+}
+/* line 159, ../scss/ranking.scss */
+.ranking-area .rank .row:hover .actions {
+  display: block;
+}
+/* line 162, ../scss/ranking.scss */
+.ranking-area .rank .row:hover .actions a:hover {
+  background-color: #ff3d3d;
+}
+/* line 167, ../scss/ranking.scss */
+.ranking-area .rank .row:hover .user-photo {
+  right: -1px;
+  top: -1px;
+}
+/* line 170, ../scss/ranking.scss */
+.ranking-area .rank .row:hover .user-photo img {
+  width: 62px;
+  height: 62px;
 }
