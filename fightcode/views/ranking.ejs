@@ -28,6 +28,7 @@
                     <img src="http://www.gravatar.com/avatar/cd7e457f40593b01asdasbe23dfc1441392ae?s=62">
                 </span>
             </div>
+
             <div class="row mine">
                 <span class="position">#52</span>
                 <span class="robot-face"></span>
@@ -44,10 +45,64 @@
                     <img src="http://www.gravatar.com/avatar/cd7e457f40593b01be23dfc1441392ae?s=62">
                 </span>
             </div>
+
+            <div class="separator"></div>
+
         </div>
     </div>
 
-    <div class="row-fluid">
+    <div class="top10">
+        <div class="container">
+            <div class="header">
+                <div class="title">
+                    <div class="marker"></div>
+                    <h1>TOP 10</h1>
+                    <div class="marker"></div>
+                </div>
+                <div class="performance">THE BEST JS ROBOT CODERS!</div>
+            </div>
+            <ul>
+                <% for (var i=0; i< 10; i++) {%>
+                <li class="<% if (i===0) {%><%='open'%><%}%>">
+                    <div class="sidebar">
+                        <span class="robot"></span>
+                        <span class="user-photo">
+                            <img src="http://www.gravatar.com/avatar/cd7e457f40593b01be23dfc1441392ae?s=80">
+                        </span>
+                        <span class="position"># 1</span>
+                    </div>
+                    <div class="info">
+                        <p class="robot-name">THE CRAZY DESTROYER</p>
+                        <div class="robot-data">
+                            <span class="row kills">
+                                <span class="icon"></span>
+                                <p class="value">400</p>
+                                <p>KILLS</p>
+                            </span>
+                            <span class="row shots">
+                                <span class="icon"></span>
+                                <p class="value">3.123</p>
+                                <p>SHOTS</p>
+                            </span>
+                            <span class="row aim">
+                                <span class="icon"></span>
+                                <p class="value">45%</p>
+                                <p>PRECISION</p>
+                            </span>
+                        </div>
+                        <span class="actions">
+                            <a href="#" class="fight">FIGHT</a>
+                            <a href="#" class="fork">FORK</a>
+                        </span>
+                    </div>
+                    <div class="vertical-separator"></div>
+                </li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+
+    <!-- <div class="row-fluid">
         <% for (var i=0; i<robotRank.length; i++) { %>
             <div class="span3">
                 <h2><%= robotRank[i].robot.title || 'The nameless' %></h2>
@@ -72,7 +127,7 @@
                 </table>
             </div>
         <% } %>
-    </div>
+    </div> -->
 </div>
 
 <% include footer.ejs %>

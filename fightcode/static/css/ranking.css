@@ -1,6 +1,6 @@
-/* line 60, ranking/*.png */
-.ranking-sprite, .ranking-area .header .prize, .ranking-area .rank .row.mine .position, .ranking-area .rank .row .robot-face {
-  background: url('../img/ranking-s100b7e4051.png') no-repeat;
+/* line 92, ranking/*.png */
+.ranking-sprite, .ranking-area .header .prize, .ranking-area .rank .row.mine .position, .ranking-area .rank .row .robot-face, .ranking-area .top10 .sidebar .robot, .ranking-area .top10 .info .row.kills .icon, .ranking-area .top10 .info .row.shots .icon, .ranking-area .top10 .info .row.aim .icon {
+  background: url('../img/ranking-sd82d64e89b.png') no-repeat;
 }
 
 /* line 3, ../scss/ranking.scss */
@@ -20,7 +20,7 @@
 }
 /* line 14, ../scss/ranking.scss */
 .ranking-area .header .prize {
-  background-position: 0 -120px;
+  background-position: 0 -197px;
   height: 69px;
   width: 65px;
   position: absolute;
@@ -63,7 +63,59 @@
   text-align: center;
   color: #ddd;
 }
-/* line 63, ../scss/ranking.scss */
+/* line 62, ../scss/ranking.scss */
+.ranking-area .actions {
+  display: block;
+  position: absolute;
+  width: 189px;
+  height: 39px;
+  right: 81px;
+  top: 10px;
+}
+/* line 70, ../scss/ranking.scss */
+.ranking-area .actions a {
+  display: inline-block;
+  background-color: #ed0027;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 1px 1px black;
+}
+/* line 78, ../scss/ranking.scss */
+.ranking-area .actions a.fight {
+  padding: 19px 20px 20px 31px;
+  -webkit-border-radius: 20px 0 0 20px;
+  -moz-border-radius: 20px 0 0 20px;
+  -ms-border-radius: 20px 0 0 20px;
+  -o-border-radius: 20px 0 0 20px;
+  border-radius: 20px 0 0 20px;
+}
+/* line 83, ../scss/ranking.scss */
+.ranking-area .actions a.fork {
+  padding: 19px 30px 20px 27px;
+  -webkit-border-radius: 0 20px 20px 0;
+  -moz-border-radius: 0 20px 20px 0;
+  -ms-border-radius: 0 20px 20px 0;
+  -o-border-radius: 0 20px 20px 0;
+  border-radius: 0 20px 20px 0;
+}
+/* line 88, ../scss/ranking.scss */
+.ranking-area .actions a:hover {
+  background-color: #ff3d3d;
+}
+/* line 95, ../scss/ranking.scss */
+.ranking-area .rank .separator {
+  height: 1px;
+  background-color: #2f2f2f;
+  border-bottom: 1px solid #000;
+  margin-top: 41px;
+  margin-bottom: 41px;
+}
+/* line 102, ../scss/ranking.scss */
+.ranking-area .rank .separator:last-child {
+  display: none;
+}
+/* line 107, ../scss/ranking.scss */
 .ranking-area .rank .row {
   height: 60px;
   font-size: 0;
@@ -74,7 +126,7 @@
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);
   opacity: 0.7;
 }
-/* line 74, ../scss/ranking.scss */
+/* line 118, ../scss/ranking.scss */
 .ranking-area .rank .row .position,
 .ranking-area .rank .row .robot-face,
 .ranking-area .rank .row .robot-name {
@@ -84,7 +136,7 @@
   line-height: 15px;
   font-family: "oswald";
 }
-/* line 82, ../scss/ranking.scss */
+/* line 126, ../scss/ranking.scss */
 .ranking-area .rank .row .position {
   background-color: #ed0027;
   color: #fff;
@@ -92,19 +144,19 @@
   width: 66px;
   overflow: hidden;
 }
-/* line 91, ../scss/ranking.scss */
+/* line 135, ../scss/ranking.scss */
 .ranking-area .rank .row.mine .position {
   background-position: 0 0;
   background-color: #525252;
 }
-/* line 97, ../scss/ranking.scss */
+/* line 141, ../scss/ranking.scss */
 .ranking-area .rank .row .robot-face {
   background-position: 0 -60px;
   height: 60px;
   width: 140px;
   background-color: red;
 }
-/* line 103, ../scss/ranking.scss */
+/* line 147, ../scss/ranking.scss */
 .ranking-area .rank .row .robot-name {
   background: #f7f7f7;
   font-family: "oswald-bold";
@@ -120,43 +172,7 @@
   -o-border-radius: 0 28px 28px 0;
   border-radius: 0 28px 28px 0;
 }
-/* line 115, ../scss/ranking.scss */
-.ranking-area .rank .row .actions {
-  display: none;
-  position: absolute;
-  width: 189px;
-  height: 39px;
-  right: 81px;
-  top: 10px;
-}
-/* line 123, ../scss/ranking.scss */
-.ranking-area .rank .row .actions a {
-  display: inline-block;
-  background-color: #ed0027;
-  font-size: 14px;
-  font-weight: bold;
-  color: #fff;
-  text-shadow: 1px 1px black;
-}
-/* line 131, ../scss/ranking.scss */
-.ranking-area .rank .row .actions a.fight {
-  padding: 19px 20px 20px 31px;
-  -webkit-border-radius: 20px 0 0 20px;
-  -moz-border-radius: 20px 0 0 20px;
-  -ms-border-radius: 20px 0 0 20px;
-  -o-border-radius: 20px 0 0 20px;
-  border-radius: 20px 0 0 20px;
-}
-/* line 136, ../scss/ranking.scss */
-.ranking-area .rank .row .actions a.fork {
-  padding: 19px 30px 20px 27px;
-  -webkit-border-radius: 0 20px 20px 0;
-  -moz-border-radius: 0 20px 20px 0;
-  -ms-border-radius: 0 20px 20px 0;
-  -o-border-radius: 0 20px 20px 0;
-  border-radius: 0 20px 20px 0;
-}
-/* line 143, ../scss/ranking.scss */
+/* line 159, ../scss/ranking.scss */
 .ranking-area .rank .row .user-photo {
   position: absolute;
   right: 1px;
@@ -167,7 +183,7 @@
   -o-transition: right, top 200ms;
   transition: right, top 200ms;
 }
-/* line 149, ../scss/ranking.scss */
+/* line 165, ../scss/ranking.scss */
 .ranking-area .rank .row .user-photo img {
   -webkit-transition: width, height 200ms;
   -moz-transition: width, height 200ms;
@@ -182,26 +198,223 @@
   -o-border-radius: 50px;
   border-radius: 50px;
 }
-/* line 157, ../scss/ranking.scss */
+/* line 173, ../scss/ranking.scss */
 .ranking-area .rank .row:hover {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
   opacity: 1;
 }
-/* line 159, ../scss/ranking.scss */
+/* line 175, ../scss/ranking.scss */
 .ranking-area .rank .row:hover .actions {
   display: block;
 }
-/* line 162, ../scss/ranking.scss */
-.ranking-area .rank .row:hover .actions a:hover {
-  background-color: #ff3d3d;
-}
-/* line 167, ../scss/ranking.scss */
+/* line 179, ../scss/ranking.scss */
 .ranking-area .rank .row:hover .user-photo {
   right: -1px;
   top: -1px;
 }
-/* line 170, ../scss/ranking.scss */
+/* line 182, ../scss/ranking.scss */
 .ranking-area .rank .row:hover .user-photo img {
   width: 62px;
   height: 62px;
+}
+/* line 191, ../scss/ranking.scss */
+.ranking-area .top10 {
+  background-color: #f3f3f3;
+  margin-top: 70px;
+}
+/* line 195, ../scss/ranking.scss */
+.ranking-area .top10 .container {
+  padding-bottom: 100px;
+}
+/* line 199, ../scss/ranking.scss */
+.ranking-area .top10 .header {
+  padding-top: 63px;
+}
+/* line 201, ../scss/ranking.scss */
+.ranking-area .top10 .header .marker {
+  width: 409px;
+  background-color: #dfdfdf;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  opacity: 1;
+}
+/* line 206, ../scss/ranking.scss */
+.ranking-area .top10 .header h1 {
+  color: #ed0027;
+  padding: 0 19px 0 17px;
+  text-shadow: #f3f3f3 -1px 1px 0, #5d000f -2px 2px 0;
+}
+/* line 213, ../scss/ranking.scss */
+.ranking-area .top10 ul {
+  border: 1px solid #dadada;
+  font-size: 0;
+  line-height: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  border-radius: 5px;
+  -webkit-box-shadow: #e5e5e5 0 0 1px 1px;
+  -moz-box-shadow: #e5e5e5 0 0 1px 1px;
+  box-shadow: #e5e5e5 0 0 1px 1px;
+}
+/* line 222, ../scss/ranking.scss */
+.ranking-area .top10 ul li {
+  font-size: 0;
+  line-height: 0;
+  display: inline-block;
+  width: 70px;
+  -webkit-transition: width 500ms ease-out;
+  -moz-transition: width 500ms ease-out;
+  -ms-transition: width 500ms ease-out;
+  -o-transition: width 500ms ease-out;
+  transition: width 500ms ease-out;
+}
+/* line 229, ../scss/ranking.scss */
+.ranking-area .top10 ul li.open {
+  width: 311px;
+}
+/* line 237, ../scss/ranking.scss */
+.ranking-area .top10 .sidebar,
+.ranking-area .top10 .info,
+.ranking-area .top10 .vertical-separator {
+  display: inline-block;
+  vertical-align: top;
+}
+/* line 242, ../scss/ranking.scss */
+.ranking-area .top10 .sidebar {
+  border-right: 1px solid #f7f7f7;
+  width: 69px;
+}
+/* line 245, ../scss/ranking.scss */
+.ranking-area .top10 .sidebar .robot {
+  background-position: 0 -120px;
+  height: 77px;
+  width: 69px;
+  background-color: red;
+  display: block;
+}
+/* line 252, ../scss/ranking.scss */
+.ranking-area .top10 .sidebar .user-photo {
+  height: 80px;
+  width: 69px;
+  overflow: hidden;
+  display: block;
+}
+/* line 259, ../scss/ranking.scss */
+.ranking-area .top10 .sidebar .position {
+  display: block;
+  font-size: 20px;
+  font-family: "oswald";
+  background-color: #ed0027;
+  color: #fff;
+  padding: 30px 0 30px 21px;
+  width: 48px;
+  overflow: hidden;
+}
+/* line 270, ../scss/ranking.scss */
+.ranking-area .top10 .info {
+  background-color: #f7f7f7;
+  width: 236px;
+  height: 217px;
+}
+/* line 275, ../scss/ranking.scss */
+.ranking-area .top10 .info .robot-name {
+  font-family: "oswald-bold";
+  font-size: 23px;
+  color: #4f4f4f;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  text-shadow: #f7f7f7 -1px 1px 0, #999999 -2px 2px 0;
+  line-height: 26px;
+  padding-left: 21px;
+  width: 195px;
+  padding-top: 13px;
+  white-space: normal;
+}
+/* line 289, ../scss/ranking.scss */
+.ranking-area .top10 .info .robot-data {
+  padding-left: 17px;
+  padding-top: 6px;
+}
+/* line 294, ../scss/ranking.scss */
+.ranking-area .top10 .info .row {
+  display: block;
+}
+/* line 297, ../scss/ranking.scss */
+.ranking-area .top10 .info .row span,
+.ranking-area .top10 .info .row p {
+  display: inline-block;
+  vertical-align: top;
+  font-size: 15px;
+  font-family: "oswald";
+}
+/* line 304, ../scss/ranking.scss */
+.ranking-area .top10 .info .row p {
+  padding-top: 8px;
+  padding-left: 4px;
+  color: #4f4f4f;
+}
+/* line 309, ../scss/ranking.scss */
+.ranking-area .top10 .info .row p.value {
+  color: #ed003d;
+}
+/* line 315, ../scss/ranking.scss */
+.ranking-area .top10 .info .row.kills .icon {
+  background-position: 0 -308px;
+  height: 13px;
+  width: 33px;
+}
+/* line 321, ../scss/ranking.scss */
+.ranking-area .top10 .info .row.shots {
+  padding-top: 5px;
+  padding-left: 4px;
+}
+/* line 325, ../scss/ranking.scss */
+.ranking-area .top10 .info .row.shots p {
+  padding-top: 15px;
+  padding-left: 3px;
+}
+/* line 328, ../scss/ranking.scss */
+.ranking-area .top10 .info .row.shots p.value {
+  padding-left: 11px;
+}
+/* line 332, ../scss/ranking.scss */
+.ranking-area .top10 .info .row.shots .icon {
+  background-position: 0 -266px;
+  height: 22px;
+  width: 23px;
+}
+/* line 338, ../scss/ranking.scss */
+.ranking-area .top10 .info .row.aim {
+  padding-left: 6px;
+  padding-top: 5px;
+}
+/* line 342, ../scss/ranking.scss */
+.ranking-area .top10 .info .row.aim p {
+  padding-top: 13px;
+}
+/* line 345, ../scss/ranking.scss */
+.ranking-area .top10 .info .row.aim p.value {
+  padding-left: 11px;
+}
+/* line 350, ../scss/ranking.scss */
+.ranking-area .top10 .info .row.aim .icon {
+  background-position: 0 -288px;
+  height: 20px;
+  width: 20px;
+}
+/* line 357, ../scss/ranking.scss */
+.ranking-area .top10 .info .actions {
+  margin-top: 19px;
+  margin-left: 20px;
+  width: 191px;
+  position: static;
+}
+/* line 365, ../scss/ranking.scss */
+.ranking-area .top10 .vertical-separator {
+  -webkit-box-shadow: #c8c8c8 -1px 0 1px 0;
+  -moz-box-shadow: #c8c8c8 -1px 0 1px 0;
+  box-shadow: #c8c8c8 -1px 0 1px 0;
+  border-right: 1px solid #f7f7f7;
+  height: 217px;
+  width: 4px;
+  background-color: #ed0027;
 }

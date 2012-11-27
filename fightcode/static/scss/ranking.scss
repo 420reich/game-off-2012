@@ -59,7 +59,51 @@
         }
     }
 
+    .actions {
+        display:block;
+        position:absolute;
+        width:189px;
+        height:39px;
+        right: 81px;
+        top: 10px;
+
+        a {
+            display:inline-block;
+            background-color:#ed0027;
+            font-size:14px;
+            font-weight:bold;
+            color:#fff;
+            @include text-shadow(1px 1px #000);
+
+            &.fight {
+                padding:19px 20px 20px 31px;
+                @include border-radius(20px 0 0 20px);
+            }
+
+            &.fork {
+                padding:19px 30px 20px 27px;
+                @include border-radius(0 20px 20px 0);
+            }
+
+            &:hover {
+                background-color:#ff3d3d;
+            }
+        }
+    }
+
     .rank {
+        .separator {
+            height:1px;
+            background-color:#2f2f2f;
+            border-bottom:1px solid #000;
+            margin-top:41px;
+            margin-bottom:41px;
+
+            &:last-child {
+                display:none;
+            }
+        }
+
         .row {
             height:60px;
             font-size:0;
@@ -112,34 +156,6 @@
                 @include border-radius(0 28px 28px 0);
             }
 
-            .actions {
-                display:none;
-                position:absolute;
-                width:189px;
-                height:39px;
-                right: 81px;
-                top: 10px;
-
-                a {
-                    display:inline-block;
-                    background-color:#ed0027;
-                    font-size:14px;
-                    font-weight:bold;
-                    color:#fff;
-                    @include text-shadow(1px 1px #000);
-
-                    &.fight {
-                        padding:19px 20px 20px 31px;
-                        @include border-radius(20px 0 0 20px);
-                    }
-
-                    &.fork {
-                        padding:19px 30px 20px 27px;
-                        @include border-radius(0 20px 20px 0);
-                    }
-                }
-            }
-
             .user-photo {
                 position:absolute;
                 right: 1px;
@@ -158,10 +174,6 @@
                 @include opacity(1);
                 .actions {
                     display:block;
-
-                    a:hover {
-                        background-color:#ff3d3d;
-                    }
                 }
 
                 .user-photo {
@@ -173,6 +185,189 @@
                     }
                 }
             }
+        }
+    }
+
+    .top10 {
+        background-color:#f3f3f3;
+        margin-top:70px;
+
+        .container {
+            padding-bottom:100px;
+        }
+
+        .header {
+            padding-top:63px;
+            .marker {
+                width:409px;
+                background-color:#dfdfdf;
+                @include opacity(1);
+            }
+            h1 {
+                color:#ed0027;
+                padding:0 19px 0 17px;
+                @include text-shadow(#f3f3f3 -1px 1px 0, #5D000F -2px 2px 0);
+            }
+        }
+
+        ul {
+            border: 1px solid #dadada;
+            font-size: 0;
+            line-height: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            border-radius: 5px;
+            @include box-shadow(#e5e5e5 0 0 1px 1px);
+
+            li {
+                font-size:0;
+                line-height:0;
+                display: inline-block;
+                width:70px;
+                @include transition(width 500ms ease-out);
+
+                &.open {
+                    width:311px;
+                }
+            }
+        }
+
+        .sidebar,
+        .info,
+        .vertical-separator {
+            display:inline-block;
+            vertical-align:top;
+        }
+
+        .sidebar {
+            border-right:1px solid #f7f7f7;
+            width:69px;
+            .robot {
+                @include ranking-sprite('robot-small');
+                @include ranking-sprite-dimensions('robot-small');
+                background-color:red;
+                display:block;
+            }
+
+            .user-photo {
+                height:80px;
+                width:69px;
+                overflow:hidden;
+                display:block;
+            }
+
+            .position {
+                display:block;
+                font-size:20px;
+                font-family: "oswald";
+                background-color:#ed0027;
+                color:#fff;
+                padding: 30px 0 30px 21px;
+                width: 48px;
+                overflow: hidden;
+            }
+        }
+        .info {
+            background-color:#f7f7f7;
+            width:236px;
+            height:217px;
+
+            .robot-name {
+                font-family: "oswald-bold";
+                font-size: 23px;
+                color: #4f4f4f;
+                text-transform: uppercase;
+                margin-bottom: 10px;
+                @include text-shadow(#f7f7f7 -1px 1px 0, #999 -2px 2px 0);
+                line-height: 26px;
+                padding-left: 21px;
+                width: 195px;
+                padding-top: 13px;
+                white-space: normal;
+            }
+
+            .robot-data {
+                padding-left: 17px;
+                padding-top: 6px;
+            }
+
+            .row {
+                display:block;
+                span,
+                p {
+                    display:inline-block;
+                    vertical-align:top;
+                    font-size:15px;
+                    font-family: "oswald";
+                }
+
+                p {
+                    padding-top:8px;
+                    padding-left:4px;
+                    color:#4f4f4f;
+
+                    &.value {
+                        color:#ed003d;
+                    }
+                }
+
+                &.kills {
+                    .icon {
+                        @include ranking-sprite('killed');
+                        @include ranking-sprite-dimensions('killed');
+                    }
+                }
+
+                &.shots {
+                    padding-top: 5px;
+                    padding-left: 4px;
+
+                    p {
+                        padding-top: 15px;
+                        padding-left: 3px;
+                        &.value {
+                            padding-left: 11px;
+                        }
+                    }
+                    .icon {
+                        @include ranking-sprite('explosion');
+                        @include ranking-sprite-dimensions('explosion');
+                    }
+                }
+
+                &.aim {
+                    padding-left: 6px;
+                    padding-top: 5px;
+
+                    p {
+                        padding-top:13px;
+
+                        &.value {
+                            padding-left: 11px;
+                        }
+                    }
+
+                    .icon {
+                        @include ranking-sprite('crosshair');
+                        @include ranking-sprite-dimensions('crosshair');
+                    }
+                }
+            }
+
+            .actions {
+                margin-top: 19px;
+                margin-left: 20px;
+                width: 191px;
+                position: static;
+            }
+        }
+
+        .vertical-separator {
+            @include box-shadow(#c8c8c8 -1px 0 1px 0);
+            border-right:1px solid #f7f7f7;
+            height: 217px;
+            width: 4px;
+            background-color: #ed0027;
         }
     }
 }
