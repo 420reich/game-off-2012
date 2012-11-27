@@ -1,6 +1,7 @@
 var ANG_INCREMENT, Arena, BulletStatus, ElementStatus, Engine, Line, MOVE_INCREMENT, PI2, RAD2DEG, Rectangle, RobotActions, RobotStatus, Vector2, WallStatus,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; },
   __slice = [].slice;
 
 MOVE_INCREMENT = 1;
@@ -383,6 +384,8 @@ RobotStatus = (function(_super) {
     this.bulletsFired = 0;
     this.bulletsHit = 0;
     this.deathIdx = null;
+    this.enemiesKilled = 0;
+    this.friendsKilled = 0;
   }
 
   RobotStatus.prototype.clone = function() {
@@ -397,14 +400,20 @@ RobotStatus = (function(_super) {
     return cloneRobotStatus;
   };
 
-  RobotStatus.prototype.bulletsStats = function() {
+  RobotStatus.prototype.stats = function() {
     return {
-      fired: this.bulletsFired + this.clones.reduce(function(a, b) {
+      bulletsFired: this.clones.reduce(function(a, b) {
         return a + b.bulletsFired;
-      }, 0),
-      hit: this.bulletsHit + this.clones.reduce(function(a, b) {
+      }, this.bulletsFired),
+      bulletsHit: this.clones.reduce(function(a, b) {
         return a + b.bulletsHit;
-      }, 0)
+      }, this.bulletsHit),
+      enemiesKilled: this.clones.reduce(function(a, b) {
+        return a + b.enemiesKilled;
+      }, this.enemiesKilled),
+      friendsKilled: this.clones.reduce(function(a, b) {
+        return a + b.friendsKilled;
+      }, this.friendsKilled)
     };
   };
 
@@ -421,11 +430,17 @@ RobotStatus = (function(_super) {
   };
 
   RobotStatus.prototype.takeHit = function(bulletStatus) {
+    var _ref;
     this.life -= bulletStatus.strength;
     bulletStatus.destroy();
     bulletStatus.robotStatus.bulletsHit += 1;
     if (!this.isAlive()) {
-      return this.deathIdx = RobotStatus.deathOrder++;
+      this.deathIdx = RobotStatus.deathOrder++;
+      if (bulletStatus.robotStatus.parentStatus === this || (_ref = bulletStatus.robotStatus, __indexOf.call(this.clones, _ref) >= 0)) {
+        return this.friendsKilled += 1;
+      } else {
+        return this.enemiesKilled += 1;
+      }
     }
   };
 
@@ -778,8 +793,8 @@ Engine = (function() {
     });
     for (_k = 0, _len2 = sortedRobots.length; _k < _len2; _k++) {
       r = sortedRobots[_k];
-      stats = r.bulletsStats();
-      this.log(r.robot.name, r.deathIdx, r.life, stats.fired, stats.hit);
+      stats = r.stats();
+      this.log(r.robot.name, r.deathIdx, r.life, stats.bulletsFired, stats.bulletsHit, stats.friendsKilled, stats.enemiesKilled);
     }
     return {
       isDraw: this.isDraw(),

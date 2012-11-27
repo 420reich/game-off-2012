@@ -46,15 +46,15 @@ class FightArena
             };"
 
         @wallCode = "
-            window.rotated = false;
+            window.rotated = {};
             window.robotClass = function(){
             };
             window.robotClass.prototype.onIdle = function(ev) {
                var robot = ev.robot;
                robot.ahead(1);
-               if (!window.rotated) {
+               if (!window.rotated[robot.id]) {
                    robot.rotateCannon(90);
-                   window.rotated = true;
+                   window.rotated[robot.id] = true;
                }
             };
             window.robotClass.prototype.onWallCollision = function(ev) {
@@ -65,7 +65,7 @@ class FightArena
             window.robotClass.prototype.onRobotCollision = function(ev) {
                var robot = ev.robot;
                robot.back(100);
-               robot.turn(90);
+               robot.turn(270);
                robot.clone();
             };
             window.robotClass.prototype.onScannedRobot = function(ev) {

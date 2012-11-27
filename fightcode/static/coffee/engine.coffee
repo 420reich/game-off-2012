@@ -281,6 +281,8 @@ class RobotStatus extends ElementStatus
         @bulletsFired = 0
         @bulletsHit = 0
         @deathIdx = null
+        @enemiesKilled = 0
+        @friendsKilled = 0
 
     clone: ->
         cloneRobotStatus = new RobotStatus(@robot, @arena)
@@ -292,15 +294,23 @@ class RobotStatus extends ElementStatus
         @clones.push(cloneRobotStatus)
         cloneRobotStatus
 
-    bulletsStats: ->
+    stats: ->
         {
-            fired: @bulletsFired + @clones.reduce (a, b) ->
+            bulletsFired: @clones.reduce (a, b) ->
                 a + b.bulletsFired
-            , 0
+            , @bulletsFired
 
-            hit: @bulletsHit + @clones.reduce (a, b) ->
+            bulletsHit: @clones.reduce (a, b) ->
                 a + b.bulletsHit
-            , 0
+            , @bulletsHit
+
+            enemiesKilled: @clones.reduce (a, b) ->
+                a + b.enemiesKilled
+            , @enemiesKilled
+
+            friendsKilled: @clones.reduce (a, b) ->
+                a + b.friendsKilled
+            , @friendsKilled
         }
 
     isClone: ->
@@ -318,6 +328,10 @@ class RobotStatus extends ElementStatus
         bulletStatus.robotStatus.bulletsHit += 1
         unless @isAlive()
             @deathIdx = RobotStatus.deathOrder++
+            if bulletStatus.robotStatus.parentStatus == this or bulletStatus.robotStatus in @clones
+                @friendsKilled += 1
+            else
+                @enemiesKilled += 1
 
     rollbackAfterCollision: ->
         @rectangle.setPosition(@previousPosition.x, @previousPosition.y) if @previousPosition
@@ -585,8 +599,8 @@ class Engine
             vB - vA
 
         for r in sortedRobots
-            stats = r.bulletsStats()
-            @log(r.robot.name, r.deathIdx, r.life, stats.fired, stats.hit)
+            stats = r.stats()
+            @log(r.robot.name, r.deathIdx, r.life, stats.bulletsFired, stats.bulletsHit, stats.friendsKilled, stats.enemiesKilled)
 
         return {
             isDraw: @isDraw()
