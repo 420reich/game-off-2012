@@ -6,6 +6,19 @@ sequelize = require path.join(basePath, 'config', 'database')
 Robot = sequelize.import(path.join(basePath, 'models', 'robot'))
 GithubApi = require 'github'
 
+User = sequelize.import(path.join(basePath, 'models', 'user'))
+
+User.findAll().success((users) ->
+    for user in users
+        for i in [0..10]
+            robot = Robot.build(
+                ownerLogin: user.login,
+                gist: i+100,
+                isPublic: true,
+                title: "Mussum do Futuro "+i
+            )
+)
+
 exports.createView = (req, res) ->
     res.render 'createRobot',
                 title: 'Create My Robot!',

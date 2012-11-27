@@ -1,4 +1,4 @@
-var GithubApi, Robot, basePath, path, sequelize;
+var GithubApi, Robot, User, basePath, path, sequelize;
 
 path = require('path');
 
@@ -9,6 +9,30 @@ sequelize = require(path.join(basePath, 'config', 'database'));
 Robot = sequelize["import"](path.join(basePath, 'models', 'robot'));
 
 GithubApi = require('github');
+
+User = sequelize["import"](path.join(basePath, 'models', 'user'));
+
+User.findAll().success(function(users) {
+  var i, robot, user, _i, _len, _results;
+  _results = [];
+  for (_i = 0, _len = users.length; _i < _len; _i++) {
+    user = users[_i];
+    _results.push((function() {
+      var _j, _results1;
+      _results1 = [];
+      for (i = _j = 0; _j <= 10; i = ++_j) {
+        _results1.push(robot = Robot.build({
+          ownerLogin: user.login,
+          gist: i + 100,
+          isPublic: true,
+          title: "Mussum do Futuro " + i
+        }));
+      }
+      return _results1;
+    })());
+  }
+  return _results;
+});
 
 exports.createView = function(req, res) {
   return res.render('createRobot', {
