@@ -61,6 +61,7 @@ app.post('/robots/create', checkCredentials, create.create);
 app.get('/robots/update/:robot_id', checkCredentials, create.updateView);
 app.put('/robots/update/:robot_id', checkCredentials, create.update);
 app.get('/robots/fork/:robot_id', checkCredentials, create.fork);
+app.get('/robots/fight/:robot_id/:opponent_id', checkCredentials, fight.createFight);
 app.get('/', index.index);
 app.get(/^\/profile\/(.+?)\/robots\/(.+?)\/fight\/(\d+)\/?$/, checkCredentials, fight.startFight);
 app.get(/^\/profile\/(\w+)\/?$/, user.show);
