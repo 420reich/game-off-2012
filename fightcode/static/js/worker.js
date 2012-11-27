@@ -75,7 +75,7 @@ Fight = (function() {
     var boardSize, constr, engine, eventData, maxRounds, result, robot, robotCode, robotInstance, robotInstances, _i, _len,
       _this = this;
     this.overrideFunctions();
-    maxRounds = 5000;
+    maxRounds = 10000;
     boardSize = {
       width: 800,
       height: 500
@@ -101,7 +101,7 @@ Fight = (function() {
       return t == "object" || t == "function" ? result || child : child;
     })(Engine, [boardSize.width, boardSize.height, maxRounds].concat(__slice.call(robotInstances)), function(){});
     engine.log = this.log;
-    engine.robotsStatus[0].rectangle.setPosition(50, 50);
+    engine.robotsStatus[0].rectangle.setPosition(13, 13);
     engine.robotsStatus[1].rectangle.setPosition(50, 200);
     result = engine.fight();
     this.restoreFunctions();

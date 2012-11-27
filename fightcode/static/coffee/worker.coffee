@@ -50,7 +50,7 @@ class Fight
     processFight: (robots) ->
         @overrideFunctions()
 
-        maxRounds = 5000
+        maxRounds = 10000
         boardSize =
             width: 800
             height: 500
@@ -69,7 +69,7 @@ class Fight
         engine = new Engine(boardSize.width, boardSize.height, maxRounds, robotInstances...)
         engine.log = this.log;
 
-        engine.robotsStatus[0].rectangle.setPosition(50, 50)
+        engine.robotsStatus[0].rectangle.setPosition(13, 13)
         engine.robotsStatus[1].rectangle.setPosition(50, 200)
 
         result = engine.fight()

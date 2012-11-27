@@ -29,6 +29,22 @@ class FightArena
                }
             };"
 
+        @rotateCode = "
+            window.robotClass = function(){
+            };
+            window.robotClass.prototype.onIdle = function(ev) {
+               var robot = ev.robot;
+
+               robot.turn(1);
+               robot.fire();
+            };
+            window.robotClass.prototype.onWallCollision = function(ev) {
+            };
+            window.robotClass.prototype.onScannedRobot = function(ev) {
+            };
+            window.robotClass.prototype.onHitByBullet = function(ev) {
+            };"
+
         @wallCode = "
             window.rotated = false;
             window.robotClass = function(){
@@ -43,8 +59,14 @@ class FightArena
             };
             window.robotClass.prototype.onWallCollision = function(ev) {
                var robot = ev.robot;
-               robot.back(10);
                robot.turn(90);
+
+            };
+            window.robotClass.prototype.onRobotCollision = function(ev) {
+               var robot = ev.robot;
+               robot.back(100);
+               robot.turn(90);
+               robot.clone();
             };
             window.robotClass.prototype.onScannedRobot = function(ev) {
                var robot = ev.robot;
@@ -62,10 +84,10 @@ class FightArena
             robots: 2
             robot1:
                 name: "robot1"
-                code: @defaultCode
+                code: @rotateCode
             robot2:
                 name: "robot2"
-                code: @defaultCode
+                code: @wallCode
             # robot3: @wallCode
             # robot4: @wallCode
 

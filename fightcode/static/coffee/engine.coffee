@@ -31,11 +31,20 @@ class Vector2
         divisionResult = numerator / denominator
         new Vector2(divisionResult * axis.x, divisionResult * axis.y)
 
+    dot: (other) ->
+        @x * other.x + @y * other.y
+
     @add: (v1, v2) ->
         new Vector2(v1.x + v2.x, v1.y + v2.y)
 
     @subtract: (v1, v2) ->
         new Vector2(v1.x - v2.x, v1.y - v2.y)
+
+    @divide: (v1, scalar) ->
+        new Vector2(v1.x / scalar, v1.y / scalar)
+
+    @multiply: (v1, scalar) ->
+        new Vector2(v1.x * scalar, v1.y * scalar)
 
 class RobotActions
     constructor: (currentStatus) ->
@@ -90,12 +99,12 @@ class RobotActions
 
 class Arena
     constructor: (@width, @height) ->
-        @walls = [
-            new WallStatus(@width / 2, 0, @width, 1),
-            new WallStatus(@width, @height / 2, 1, @height),
-            new WallStatus(@width / 2, @height, @width, 1),
-            new WallStatus(0, @height / 2, 1, @height)
-        ]
+        @rectangle = new Rectangle(@width / 2, @height / 2, @width, @height)
+
+class Line
+    constructor: (x1, y1, x2, y2) ->
+        @p1 = new Vector2(x1, y1)
+        @p2 = new Vector2(x2, y2)
 
 class Rectangle
     constructor: (x = 0, y = 0, width = 1, height = 1, @angle = 0) ->
@@ -113,7 +122,8 @@ class Rectangle
         }
         @halfWidth = width / 2
         @halfHeight = height / 2
-        @radius = @halfWidth + @halfHeight
+        @radius = Math.sqrt(@halfWidth * @halfWidth + @halfHeight * @halfHeight)
+        @minRadius = Math.min(@halfWidth, @halfHeight)
         @updateCoords()
 
     setPosition: (x, y) ->
@@ -137,7 +147,17 @@ class Rectangle
         @lowerLeft = new Vector2(left, bottom).rotate(@angle, @position)
         @lowerRight = new Vector2(right, bottom).rotate(@angle, @position)
 
-    intersects: (other, smart = true) ->
+    simpleIsContained: (otherRectangle) ->
+        rad = @minRadius
+        if @position.x - rad > otherRectangle.upperLeft.x and
+                @position.x + rad < otherRectangle.lowerRight.x and
+                @position.y - rad > otherRectangle.upperLeft.y and
+                @position.y + rad < otherRectangle.lowerRight.y
+            return true
+
+        false
+
+    intersects: (other) ->
         distance = Vector2.subtract(@position, other.position).module()
         if distance > (@radius + other.radius)
             return false
@@ -199,10 +219,9 @@ class ElementStatus
 
 
 class WallStatus extends ElementStatus
-    constructor: (x, y, width, height) ->
+    constructor: (x1, y1, x2, y2) ->
         super()
-        @rectangle.setPosition(x, y)
-        @rectangle.setDimension(width, height)
+        @line = new Line(x1, y1, x2, y2)
 
 class BulletStatus extends ElementStatus
     constructor: (@robotStatus) ->
@@ -256,6 +275,7 @@ class RobotStatus extends ElementStatus
         @queue = []
         @clones = []
         @parentStatus = null
+        @wallCollided = false
 
     clone: ->
         cloneRobotStatus = new RobotStatus(@robot, @arena)
@@ -362,9 +382,8 @@ class Engine
         obj[method].apply(obj, params)
 
     intersectsAnything: (robotStatus) ->
-        for wall in @arena.walls
-            if robotStatus.rectangle.intersects(wall.rectangle, false)
-                return true
+        if not robotStatus.rectangle.simpleIsContained(@arena.rectangle)
+            return true
 
         for status in @robotsStatus
             continue if status == robotStatus or !status.isAlive()
@@ -393,17 +412,16 @@ class Engine
     checkCollision: (robotStatus) ->
         actions = new RobotActions(robotStatus)
 
-        for wall in @arena.walls
-            if robotStatus.rectangle.intersects(wall.rectangle, false)
-                robotStatus.rollbackAfterCollision()
-                if robotStatus instanceof BulletStatus
-                    robotStatus.destroy()
-                    @roundLog.events.push({
-                        type: 'exploded',
-                        id: robotStatus.id
-                    })
-                else
-                    @safeCall(robotStatus.robot.instance, 'onWallCollision', {robot: actions})
+        if not robotStatus.rectangle.simpleIsContained(@arena.rectangle)
+            robotStatus.rollbackAfterCollision()
+            if robotStatus instanceof BulletStatus
+                robotStatus.destroy()
+                @roundLog.events.push({
+                    type: 'exploded',
+                    id: robotStatus.id
+                })
+            else
+                @safeCall(robotStatus.robot.instance, 'onWallCollision', {robot: actions})
 
         return actions if robotStatus instanceof BulletStatus
 
