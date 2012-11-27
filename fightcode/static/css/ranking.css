@@ -1,28 +1,65 @@
-/* line 1, ../scss/ranking.scss */
-.ranking-container {
-  padding: 60px 20px 0 20px;
+/* line 52, ranking/*.png */
+.ranking-sprite, .ranking-area .header .prize {
+  background: url('../img/ranking-sb0e00f356d.png') no-repeat;
 }
-/* line 4, ../scss/ranking.scss */
-.ranking-container .fight-table {
-  width: 500px;
-  margin-bottom: 20px;
+
+/* line 3, ../scss/ranking.scss */
+.break {
+  background-color: #f3f3f3;
+  height: 100px;
 }
-/* line 8, ../scss/ranking.scss */
-.ranking-container .fight-table .actions {
-  width: 50px;
+
+/* line 7, ../scss/ranking.scss */
+.ranking-area {
+  background: url("../img/pattern.png");
+}
+/* line 10, ../scss/ranking.scss */
+.ranking-area .header {
+  padding-top: 65px;
+  position: relative;
+}
+/* line 14, ../scss/ranking.scss */
+.ranking-area .header .prize {
+  background-position: 0 -60px;
+  height: 69px;
+  width: 65px;
+  position: absolute;
+  display: block;
+  left: 438px;
+  top: -33px;
+}
+/* line 23, ../scss/ranking.scss */
+.ranking-area .header .title {
+  font-size: 0;
+}
+/* line 26, ../scss/ranking.scss */
+.ranking-area .header .title .marker {
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 4px;
+  width: 380px;
+  height: 4px;
+  background-color: #fdfdfd;
+  opacity: 0.1;
+}
+/* line 36, ../scss/ranking.scss */
+.ranking-area .header .title h1 {
+  display: inline-block;
+  vertical-align: top;
+  margin-bottom: 16px;
+  padding: 0 32px 0 30px;
+  font-family: "oswald-bold";
+  font-size: 32px;
+  line-height: 15px;
+  color: #ed0027;
+  text-shadow: #111111 -1px 1px 0, #5d000f -3px 3px 0;
+}
+/* line 51, ../scss/ranking.scss */
+.ranking-area .header .performance {
+  margin-bottom: 46px;
+  font-family: "oswald";
+  font-size: 18px;
+  line-height: 15px;
   text-align: center;
-}
-/* line 13, ../scss/ranking.scss */
-.ranking-container .fight-table .ranking {
-  color: #dedede;
-  padding-right: 5px;
-}
-/* line 18, ../scss/ranking.scss */
-.ranking-container .fight-table .my-robot {
-  height: 60px;
-  font-size: 30px;
-}
-/* line 22, ../scss/ranking.scss */
-.ranking-container .fight-table .my-robot td {
-  vertical-align: middle;
+  color: #ddd;
 }
