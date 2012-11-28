@@ -50,10 +50,10 @@
     var onRound = function(round) {
         for (var i=0; i<round.objects.length; i++) {
             var obj = round.objects[i];
-            if (obj.name == robot1Name) {
+            if (obj.name == robot1Name && !obj.isClone) {
                 robot1Life.css('width', obj.life + "%");
             }
-            if (obj.name == robot2Name) {
+            if (obj.name == robot2Name && !obj.isClone) {
                 robot2Life.css('width', obj.life + "%");
             }
         }

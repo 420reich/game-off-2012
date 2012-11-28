@@ -819,6 +819,7 @@ Engine = (function() {
           type: status instanceof RobotStatus ? 'tank' : 'bullet',
           id: status.id,
           name: status instanceof RobotStatus ? status.robot.name : 'bullet',
+          isClone: status instanceof RobotStatus ? status.isClone() : false,
           position: {
             x: status.rectangle.position.x,
             y: status.rectangle.position.y
