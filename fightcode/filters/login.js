@@ -1,5 +1,5 @@
 function checkCredentials (req, res, next) {
-    if (!req.loggedIn) { /* req.loggedIn is provided by everyauth */
+    if (!req.isAuthenticated()) { /* req.loggedIn is provided by everyauth */
         // Store the custom redirect path in the session for later use -- see above
         req.session.redirectPath = req.url;
 

@@ -9,7 +9,9 @@ var express = require('express'),
     http = require('http'),
     path = require('path'),
     gravatar = require('gravatar'),
-    cluster = require('cluster');
+    cluster = require('cluster'),
+    passport = require('passport'),
+    GitHubStrategy = require('passport-github').Strategy;
 
 var index = require('./routes/index.js'),
     create = require('./routes/create.js'),
@@ -24,12 +26,65 @@ var viewsPath = path.join(process.env.CWD, 'fightcode', 'views');
 var configPath = path.join(process.env.CWD, 'fightcode', 'config');
 var filtersPath = path.join(process.env.CWD, 'fightcode', 'filters');
 var helpersPath = path.join(process.env.CWD, 'fightcode', 'helpers');
+var modelsPath = path.join(process.env.CWD, 'fightcode', 'models');
 
 var dbSession = require(path.join(configPath, 'session'));
-var everyauth = require(path.join(configPath, 'auth'));
+//var everyauth = require(path.join(configPath, 'auth'));
 var checkCredentials = require(path.join(filtersPath, 'login'));
 
 require(path.join(helpersPath, 'rankingHelper'));
+
+var sequelize = require(path.join(configPath, 'database')),
+    User = sequelize.import(path.join(modelsPath, 'user'));
+
+passport.serializeUser(function(user, done) {
+    var profile = user.profile;
+    var token = user.accessToken;
+    User.find({
+        where: { githubId: profile.id }
+    })
+    .success(function(user) {
+        if (user == null) {
+            User.create({
+                token: token,
+                email: profile.email,
+                login: profile.login,
+                name: profile.name,
+                githubId: profile.id
+            }).success(function(newUser){
+                done(null, newUser.id);
+            });
+        }
+        else {
+            user.token = token;
+            user.email = profile.email;
+            user.login = profile.login;
+            user.save().success(function(){
+                done(null, user.id);
+            });
+        }
+    });
+});
+
+passport.deserializeUser(function(obj, done) {
+    User.find(obj).success(function(user) {
+        done(null, user);
+    });
+});
+
+passport.use(new GitHubStrategy({
+        clientID: process.env.GITHUB_ID || 'b02ea2e0c17338aee416',
+        clientSecret: process.env.GITHUB_SECRET || 'dbd2f9c0c1bcd303aab1745d348cc8e008dd278e',
+        callbackURL: "http://local.fightcodegame.com:3000/auth/github/callback"
+    },
+    function(accessToken, refreshToken, profile, done) {
+        return done(null, {
+            profile: profile,
+            accessToken: accessToken,
+            refreshToken: refreshToken
+        });
+    }
+));
 
 app.configure(function(){
     app.set('port', process.env.PORT || 3000);
@@ -43,7 +98,9 @@ app.configure(function(){
     app.use(express.cookieSession());
     app.use(express.session(dbSession));
     app.use(express.static(staticPath));
-    app.use(everyauth.middleware(app));
+    //app.use(everyauth.middleware(app));
+    app.use(passport.initialize());
+    app.use(passport.session());
 
     app.use(function(req, res, next){
         res.locals.req = req;
@@ -71,5 +128,36 @@ app.get('/robots/fight/:robot_id', checkCredentials, fight.prepareFight);
 app.get(/^\/profile\/(.+?)\/robots\/(.+?)\/fight\/(\d+)\/?$/, checkCredentials, fight.startFight);
 app.get(/^\/profile\/(\w+)\/?$/, user.show);
 app.get('/my-profile', checkCredentials, user.myProfile);
+
+
+// GET /auth/github
+//   Use passport.authenticate() as route middleware to authenticate the
+//   request.  The first step in GitHub authentication will involve redirecting
+//   the user to github.com.  After authorization, GitHubwill redirect the user
+//   back to this application at /auth/github/callback
+app.get('/auth/github',
+    passport.authenticate('github'),
+    function(req, res){
+    // The request will be redirected to GitHub for authentication, so this
+    // function will not be called.
+    }
+);
+
+// GET /auth/github/callback
+//   Use passport.authenticate() as route middleware to authenticate the
+//   request.  If authentication fails, the user will be redirected back to the
+//   login page.  Otherwise, the primary route function function will be called,
+//   which, in this example, will redirect the user to the home page.
+app.get('/auth/github/callback', 
+    passport.authenticate('github', { failureRedirect: '/login' }),
+    function(req, res) {
+        res.redirect(req.session.redirectPath || '/');
+    }
+);
+
+app.get('/logout', function(req, res){
+    req.logout();
+    res.redirect('/');
+});
 
 module.exports = app;

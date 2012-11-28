@@ -10,7 +10,7 @@
             <a href="/robots/create"><span class="icon"></span>CODE NEW ROBOT</a>
         </span>
         <span class="logout">
-            <% if (req.loggedIn) { %>
+            <% if (req.isAuthenticated()) { %>
             <a href="/logout"><span class="icon"></span>LOGOUT</a>
             <% } else { %>
             <a href="/auth/github"><span class="icon"></span>LOGIN</a>

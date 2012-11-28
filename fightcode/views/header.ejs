@@ -17,7 +17,7 @@
                     <li><a href="#">HOW TO PLAY</a></li>
                 </ul>
                 <div class="profile-container">
-                    <% if (req.loggedIn) { %>
+                    <% if (req.isAuthenticated()) { %>
                     <a class="profile profile-logged" href="/my-profile">
                         <img src="<%= req.user.thumb() %>" alt="<%= req.user.name %>" />
                         <span class="name"><%= req.user.name %></span>

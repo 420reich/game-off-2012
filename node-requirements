@@ -9,7 +9,6 @@ growl
 grunt-growl
 express
 ejs
-everyauth
 pg
 sequelize
 gravatar
@@ -17,3 +16,5 @@ c3store
 github
 nodetime
 async
+passport
+passport-github
