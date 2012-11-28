@@ -238,6 +238,7 @@ exports.replayFight = (req, res) ->
                             robotRevisionFight.code = revision.code
 
                             Robot.find(revision.robot_id).success((robot) ->
+                                robotRevisionFight.gistId = robot.gist
                                 robotRevisionFight.name = robot.title
                                 callback(null, revision, robot)
                             )
