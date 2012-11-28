@@ -1872,7 +1872,8 @@ code, pre {
   right: 81px;
   top: 10px;
 }
-.ranking-area .actions a {
+.ranking-area .actions a,
+.ranking-area .actions span {
   display: inline-block;
   background-color: #ed0027;
   font-size: 14px;
@@ -1880,16 +1881,25 @@ code, pre {
   color: #fff;
   text-shadow: 1px 1px #000;
 }
-.ranking-area .actions a.fight {
+.ranking-area .actions a.fight,
+.ranking-area .actions span.fight {
   padding: 19px 20px 20px 31px;
   border-radius: 20px 0 0 20px;
 }
-.ranking-area .actions a.fork {
+.ranking-area .actions a.fork,
+.ranking-area .actions span.fork {
   padding: 19px 30px 20px 27px;
   border-radius: 0 20px 20px 0;
 }
-.ranking-area .actions a:hover {
+.ranking-area .actions a:hover,
+.ranking-area .actions span:hover {
   background-color: #ff3d3d;
+}
+.ranking-area .actions span {
+  background-color: #525252;
+}
+.ranking-area .actions span:hover {
+  background-color: #525252;
 }
 .ranking-area .separator {
   height: 1px;

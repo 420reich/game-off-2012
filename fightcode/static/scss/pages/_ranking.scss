@@ -25,7 +25,8 @@
         right: 81px;
         top: 10px;
 
-        a {
+        a,
+        span {
             display:inline-block;
             background-color:#ed0027;
             font-size:14px;
@@ -45,6 +46,12 @@
 
             &:hover {
                 background-color:#ff3d3d;
+            }
+        }
+        span {
+            background-color:#525252;
+            &:hover {
+                background-color:#525252;
             }
         }
     }

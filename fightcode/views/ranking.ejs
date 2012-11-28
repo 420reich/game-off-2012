@@ -28,7 +28,11 @@
                         <% if (robotRank[i].rank[x].user_id !== req.user.id) {%>
                         <span class="actions">
                             <a href="/robots/fight/<%= robotRank[i].rank[x].id %>" class="fight">FIGHT</a>
-                            <a href="/fork/<%= robotRank[i].rank[x].id %>" class="fork">FORK</a>
+                            <% if (robotRank[i].rank[x].isPublic) {%>
+                                <a href="/fork/<%= robotRank[i].rank[x].id %>" class="fork">FORK</a>
+                            <% }else{ %>
+                                <span class="fork disabled">FORK</span>
+                            <% } %>
                         </span>
                         <% } %>
                         <span class="user-photo">
@@ -83,7 +87,11 @@
                         <% if (top10[i].user_id !== req.user.id) {%>
                             <span class="actions">
                                 <a href="/robots/fight/<%= top10[i].id %>" class="fight">FIGHT</a>
-                                <a href="/fork/<%= top10[i].id %>" class="fork">FORK</a>
+                                <% if (top10[i].isPublic) {%>
+                                    <a href="/fork/<%= top10[i].id %>" class="fork">FORK</a>
+                                <% }else{ %>
+                                    <span class="fork disabled">FORK</span>
+                                <% } %>
                             </span>
                         <%}%>
                     </div>
