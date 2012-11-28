@@ -23,10 +23,13 @@ var staticPath = path.join(process.env.CWD, 'fightcode', 'static');
 var viewsPath = path.join(process.env.CWD, 'fightcode', 'views');
 var configPath = path.join(process.env.CWD, 'fightcode', 'config');
 var filtersPath = path.join(process.env.CWD, 'fightcode', 'filters');
+var helpersPath = path.join(process.env.CWD, 'fightcode', 'helpers');
 
 var dbSession = require(path.join(configPath, 'session'));
 var everyauth = require(path.join(configPath, 'auth'));
 var checkCredentials = require(path.join(filtersPath, 'login'));
+
+require(path.join(helpersPath, 'rankingHelper'));
 
 app.configure(function(){
     app.set('port', process.env.PORT || 3000);
