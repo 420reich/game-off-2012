@@ -1,4 +1,4 @@
-var ANG_INCREMENT, Arena, BulletStatus, ElementStatus, Engine, Line, MOVE_INCREMENT, PI2, RAD2DEG, Rectangle, RobotActions, RobotStatus, Vector2, WallStatus,
+var ANG_INCREMENT, Arena, BulletStatus, ElementStatus, Engine, Line, MOVE_INCREMENT, PI2, RAD2DEG, Rectangle, RobotActions, RobotStatus, Vector2, WallStatus, normalizeAngle,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; },
@@ -11,6 +11,10 @@ ANG_INCREMENT = 1;
 PI2 = Math.PI * 2;
 
 RAD2DEG = 180 / Math.PI;
+
+normalizeAngle = function(a) {
+  return ((a % 360) + 360) % 360;
+};
 
 Vector2 = (function() {
 
@@ -75,13 +79,16 @@ RobotActions = (function() {
 
   function RobotActions(currentStatus) {
     this.id = currentStatus.id;
-    this.angle = currentStatus.rectangle.angle;
-    this.cannonAngle = currentStatus.cannonAngle;
+    this.angle = currentStatus.rectangle.angle + 90;
+    this.cannonRelativeAngle = currentStatus.cannonAngle + 90;
+    this.cannonAbsoluteAngle = this.angle + this.cannonAngle;
     this.position = new Vector2(currentStatus.rectangle.position);
     this.life = currentStatus.life;
     this.gunCoolDownTime = currentStatus.gunCoolDownTime;
     this.availableClones = currentStatus.availableClones;
     this.parentId = currentStatus.parentStatus ? currentStatus.parentStatus.id : null;
+    this.arenaWidth = currentStatus.arena.width;
+    this.arenaHeight = currentStatus.arena.height;
     this.queue = [];
   }
 
@@ -116,6 +123,14 @@ RobotActions = (function() {
     });
   };
 
+  RobotActions.prototype.turnGunLeft = function(degrees) {
+    return this.rotateCannon(-degrees);
+  };
+
+  RobotActions.prototype.turnGunRight = function(degrees) {
+    return this.rotateCannon(degrees);
+  };
+
   RobotActions.prototype.turn = function(degrees) {
     if (degrees === 0) {
       return;
@@ -125,6 +140,14 @@ RobotActions = (function() {
       direction: degrees,
       count: Math.abs(degrees) / ANG_INCREMENT
     });
+  };
+
+  RobotActions.prototype.turnLeft = function(degrees) {
+    return this.turn(-degrees);
+  };
+
+  RobotActions.prototype.turnRight = function(degrees) {
+    return this.turn(degrees);
   };
 
   RobotActions.prototype.fire = function(bullets) {
@@ -188,7 +211,7 @@ Rectangle = (function() {
   }
 
   Rectangle.prototype.setAngle = function(angle) {
-    this.angle = angle;
+    this.angle = normalizeAngle(angle);
     return this.updateCoords();
   };
 
@@ -317,13 +340,14 @@ BulletStatus = (function(_super) {
     var angleRad, xInc, yInc;
     this.robotStatus = robotStatus;
     BulletStatus.__super__.constructor.call(this);
-    this.rectangle.setAngle((this.robotStatus.rectangle.angle + this.robotStatus.cannonAngle) % 360);
+    this.rectangle.setAngle(this.robotStatus.rectangle.angle + this.robotStatus.cannonAngle);
     angleRad = (this.rectangle.angle * Math.PI) / 180;
     this.sinAngle = Math.sin(angleRad);
     this.cosAngle = Math.cos(angleRad);
     xInc = this.cosAngle * (this.robotStatus.rectangle.dimension.width / 2);
     yInc = this.sinAngle * (this.robotStatus.rectangle.dimension.height / 2);
     this.rectangle.setPosition(this.robotStatus.rectangle.position.x + xInc, this.robotStatus.rectangle.position.y + yInc);
+    this.rectangle.setDimension(2, 2);
     this.speed = 2;
     this.strength = 20;
     this.running = true;
@@ -380,7 +404,6 @@ RobotStatus = (function(_super) {
     this.queue = [];
     this.clones = [];
     this.parentStatus = null;
-    this.wallCollided = false;
     this.bulletsFired = 0;
     this.bulletsHit = 0;
     this.deathIdx = null;
@@ -391,7 +414,7 @@ RobotStatus = (function(_super) {
   RobotStatus.prototype.instantiateRobot = function() {
     var actions;
     actions = new RobotActions(this);
-    this.robotInstance = new this.robot.constructor(actions);
+    this.robot.instance = new this.robot.constructor(actions);
     return this.updateQueue(actions);
   };
 
@@ -461,7 +484,7 @@ RobotStatus = (function(_super) {
   };
 
   RobotStatus.prototype.cannonTotalAngle = function() {
-    return (this.rectangle.angle + this.cannonAngle) % 360;
+    return normalizeAngle(this.rectangle.angle + this.cannonAngle);
   };
 
   RobotStatus.prototype.canScan = function() {
@@ -507,14 +530,14 @@ RobotStatus = (function(_super) {
         this.rectangle.incPosition(Math.cos(rad) * MOVE_INCREMENT * direction, Math.sin(rad) * MOVE_INCREMENT * direction);
         break;
       case 'rotateCannon':
-        this.previousCannonAngle = this.cannonAngl;
+        this.previousCannonAngle = this.cannonAngle;
         this.cannonAngle += ANG_INCREMENT * direction;
-        this.cannonAngle = this.cannonAngle % 360;
+        this.cannonAngle = normalizeAngle(this.cannonAngle);
         break;
       case 'turn':
         this.previousAngle = this.rectangle.angle;
         angle = this.previousAngle + ANG_INCREMENT * direction;
-        this.rectangle.setAngle(angle % 360);
+        this.rectangle.setAngle(angle);
         break;
       case 'fire':
         if (this.gunCoolDownTime !== 0) {
@@ -580,12 +603,13 @@ Engine = (function() {
         robotStatus.rectangle.setPosition(givenRect.position.x, givenRect.position.y);
         _results.push(robotStatus.rectangle.setAngle(givenRect.angle));
       } else {
-        rx = this.randomFunc() * this.arena.rectangle.dimension.width;
-        ry = this.randomFunc() * this.arena.rectangle.dimension.height;
+        rx = Math.floor(this.randomFunc() * this.arena.rectangle.dimension.width);
+        ry = Math.floor(this.randomFunc() * this.arena.rectangle.dimension.height);
         angle = Math.floor(this.randomFunc() * 360);
         robotStatus.rectangle.setAngle(angle);
         robotStatus.rectangle.setPosition(rx, ry);
         this.findEmptyPosition(robotStatus);
+        this.log('conditions', robotStatus.rectangle.position.x, robotStatus.rectangle.position.y, robotStatus.rectangle.angle);
         robotStatus.robot.rectangle = {};
         robotStatus.robot.rectangle.position = new Vector2(robotStatus.rectangle.position);
         _results.push(robotStatus.robot.rectangle.angle = robotStatus.rectangle.angle);
@@ -605,10 +629,6 @@ Engine = (function() {
       return;
     }
     return obj[method].apply(obj, params);
-  };
-
-  Engine.prototype.randomizePosition = function(robotStatus) {
-    return robotPosition;
   };
 
   Engine.prototype.intersectsAnything = function(robotStatus) {
@@ -651,8 +671,8 @@ Engine = (function() {
   };
 
   Engine.prototype.checkCollision = function(robotStatus) {
-    var actions, bearing, clone, eventName, status, _i, _j, _len, _len1, _ref, _ref1;
-    actions = new RobotActions(robotStatus);
+    var actions, bearing, clone, eventName, status, vec, _i, _j, _len, _len1, _ref, _ref1;
+    actions = robotStatus instanceof RobotStatus ? new RobotActions(robotStatus) : null;
     if (!robotStatus.rectangle.simpleIsContained(this.arena.rectangle)) {
       robotStatus.rollbackAfterCollision();
       if (robotStatus instanceof BulletStatus) {
@@ -662,7 +682,7 @@ Engine = (function() {
           id: robotStatus.id
         });
       } else {
-        this.safeCall(robotStatus.robotInstance, 'onWallCollision', {
+        this.safeCall(robotStatus.robot.instance, 'onWallCollision', {
           robot: actions
         });
       }
@@ -679,6 +699,7 @@ Engine = (function() {
       if (robotStatus.rectangle.intersects(status.rectangle)) {
         eventName = 'onRobotCollision';
         if (status instanceof BulletStatus) {
+          bearing = normalizeAngle(status.rectangle.angle + 180 - robotStatus.rectangle.angle);
           if (status.robotStatus === robotStatus) {
             continue;
           }
@@ -703,12 +724,16 @@ Engine = (function() {
             }
           }
         } else {
+          vec = Vector2.subtract(status.rectangle.position, robotStatus.rectangle.position);
+          bearing = normalizeAngle((Math.atan2(vec.y, vec.x) * 180 / Math.PI) - robotStatus.rectangle.angle);
           robotStatus.rollbackAfterCollision();
         }
-        bearing = ((status.rectangle.angle + 180 - robotStatus.rectangle.angle) + 360) % 360;
-        this.safeCall(robotStatus.robotInstance, eventName, {
+        if (bearing > 180) {
+          bearing -= 360;
+        }
+        this.safeCall(robotStatus.robot.instance, eventName, {
           robot: actions,
-          bulletBearing: bearing
+          bearing: bearing
         });
       }
     }
@@ -735,7 +760,7 @@ Engine = (function() {
       }
       if (robotStatus.canScan() && virtualRect.intersects(status.rectangle)) {
         robotStatus.preventScan();
-        this.safeCall(robotStatus.robotInstance, 'onScannedRobot', {
+        this.safeCall(robotStatus.robot.instance, 'onScannedRobot', {
           robot: actions,
           scannedRobot: {
             id: status.id,
@@ -791,7 +816,7 @@ Engine = (function() {
         });
         if (status.isIdle()) {
           actions = new RobotActions(status);
-          this.safeCall(status.robotInstance, 'onIdle', {
+          this.safeCall(status.robot.instance, 'onIdle', {
             robot: actions
           });
           status.updateQueue(actions);
@@ -809,7 +834,9 @@ Engine = (function() {
           }
         }
         actions = this.checkCollision(status);
-        status.updateQueue(actions);
+        if (actions) {
+          status.updateQueue(actions);
+        }
         if (status instanceof RobotStatus && !status.isClone()) {
           aliveRobots++;
         }
