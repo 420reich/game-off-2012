@@ -52,9 +52,9 @@ class Vector2
 class RobotActions
     constructor: (currentStatus) ->
         @id = currentStatus.id
-        @angle = currentStatus.rectangle.angle + 90
-        @cannonRelativeAngle = currentStatus.cannonAngle + 90
-        @cannonAbsoluteAngle = @angle + @cannonAngle
+        @angle = normalizeAngle(currentStatus.rectangle.angle + 90)
+        @cannonRelativeAngle = normalizeAngle(currentStatus.cannonAngle + 90)
+        @cannonAbsoluteAngle = normalizeAngle(@angle + @cannonRelativeAngle)
         @position = new Vector2(currentStatus.rectangle.position)
         @life = currentStatus.life
         @gunCoolDownTime = currentStatus.gunCoolDownTime
@@ -166,13 +166,17 @@ class Rectangle
         @lowerLeft = new Vector2(left, bottom).rotate(@angle, @position)
         @lowerRight = new Vector2(right, bottom).rotate(@angle, @position)
 
-    simpleIsContained: (otherRectangle) ->
+    containingCollisionAngle: (otherRectangle) ->
         rad = @minRadius
-        if @position.x - rad > otherRectangle.upperLeft.x and
-                @position.x + rad < otherRectangle.lowerRight.x and
-                @position.y - rad > otherRectangle.upperLeft.y and
-                @position.y + rad < otherRectangle.lowerRight.y
-            return true
+
+        if @position.x - rad <= otherRectangle.upperLeft.x
+            return 270
+        if @position.x + rad >= otherRectangle.lowerRight.x
+            return 90
+        if @position.y - rad <= otherRectangle.upperLeft.y
+            return 360
+        if @position.y + rad >= otherRectangle.lowerRight.y
+            return 180
 
         false
 
@@ -465,7 +469,7 @@ class Engine
         obj[method].apply(obj, params)
 
     intersectsAnything: (robotStatus) ->
-        if not robotStatus.rectangle.simpleIsContained(@arena.rectangle)
+        if robotStatus.rectangle.containingCollisionAngle(@arena.rectangle)
             return true
 
         for status in @robotsStatus
@@ -495,7 +499,8 @@ class Engine
     checkCollision: (robotStatus) ->
         actions = if robotStatus instanceof RobotStatus then new RobotActions(robotStatus) else null
 
-        if not robotStatus.rectangle.simpleIsContained(@arena.rectangle)
+        wallCollisionAngle = robotStatus.rectangle.containingCollisionAngle(@arena.rectangle)
+        if wallCollisionAngle
             robotStatus.rollbackAfterCollision()
             if robotStatus instanceof BulletStatus
                 robotStatus.destroy()
@@ -504,8 +509,9 @@ class Engine
                     id: robotStatus.id
                 })
             else
-                #TODO wall bearing
-                @safeCall(robotStatus.robot.instance, 'onWallCollision', {robot: actions})
+                bearing = normalizeAngle(wallCollisionAngle - robotStatus.rectangle.angle - 90)
+                bearing -= 360 if bearing > 180
+                @safeCall(robotStatus.robot.instance, 'onWallCollision', {robot: actions, bearing: bearing})
 
         return actions if robotStatus instanceof BulletStatus
 
