@@ -3,145 +3,123 @@
 .fight-arena {
     padding: 60px 20px 0 20px;
 
-    .loading {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 1500;
+    .score {
         font-size: 0;
-        overflow-x: hidden;
+        margin-bottom: 50px;
 
-        .left-half,
-        .right-half {
-            @include transition(all 500ms cubic-bezier(.82,.02,.36,.96) 150ms);
+        .playerScore {
+            margin: 0 55px;
+            height: 110px;
+            background-color: #dfdfdf;
+        }
 
+        .left, .right {
+            display: inline-block;
+            vertical-align: top;
+            position: relative;
+            width: 50%;
+        }
+
+        .player {
             position: absolute;
             top: 0;
-            height: 100%;
-            width: 50%;
-            background: url('../img/subtle_carbon.png');
-        }
+            width: 110px;
 
-        .left-half {
-            left: 0;
-
-        }
-
-        .right-half {
-            right: 0;
-        }
-
-        &.animate {
-            .left-half {
-                left: -50%;
-            }
-            .right-half {
-                right: -50%;
-            }
-            .vs {
-                opacity: 0;
+            img {
+                width: 110px;
+                height: 110px;
+                border-radius: 110px;
             }
         }
-    }
 
-    .my-robot,
-    .opponent-robot {
-        @include box-sizing(border-box);
-        height: 100%;
-        width: 70%;
+        .left {
+            .player {
+                left: 0;
+                margin-left: -55px;
+            }
 
-        position: absolute;
-        top: 0;
-        display: table;
-
-        font-size: 72px;
-        text-align: center;
-
-        .robotData {
-            display: table-cell;
-            vertical-align: middle;
-        }
-
-        img {
-            height: 30%;
-        }
-
-        h2 {
-            font-family: 'fightcode';
-            font-size: 90px;
-            color: #e9e9e9;
+            .robot .icon {
+                margin-left: 55px;
+            }
 
             .name {
-                color: #d92432;
+                margin: 17px 0 13px 22px
+            }
+
+            .life {
+                margin-left: 22px;
             }
         }
 
-        .victories,
-        .defeats,
-        .draws {
-            font-family: 'fightcode';
-            font-size: 62px;
-            line-height: 65px;
-            color: #e9e9e9;
+        .right {
+            .player {
+                right: 0;
+                margin-right: -55px;
+            }
+
+            .robot .icon {
+                margin-left: 13px;
+            }
+
+            .name {
+                margin: 18px 0 11px 59px;
+            }
+
+            .life {
+                margin-left: 60px;
+            }
+
         }
 
-        .victories .number {
-            color: #95ff7c;
-        }
-        .defeats .number {
-            color: #d92432;
-        }
-        .draws .number {
-            color: #fff665;
-        }
-    }
+        .robot {
+            display: inline-block;
+            vertical-align: top;
+            width: 205px;
+            height: 110px;
 
-    .my-robot {
-        left: 50px;
-
-        h2 {
-            margin-top: 40px;
+            .icon {
+                background: url('../img/robot-sprite-arena.png') 0 0 no-repeat;
+                background-color: #ff0000;
+                width: 137px;
+                height: 107px;
+                margin-top: 3px;
+            }
         }
 
-        .victories {
-            margin-top: 40px;
+        .stats {
+            display: inline-block;
+            vertical-align: top;
+            width: 210px;
+            height: 109px;
+            margin-top: 1px;
+            background-color: #f3f3f3;
+
+            .name {
+                width: 135px;
+                font-family: "oswald-bold";
+                font-size: 24px;
+                line-height: 27px;
+                color: #4f4f4f;
+                @include text-shadow(#f7f7f7 -1px 1px 0, #999 -2px 2px 0);
+                text-transform: uppercase;
+            }
+
+            .life {
+                width: 116px;
+                height: 9px;
+                background: url('../img/life-rectangle.png') 0 0 no-repeat;
+                position: relative;
+
+                .filled {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    height: 9px;
+                    background-color: #ed0027;
+                    @include transition(all 200ms ease-in);
+                }
+            }
         }
-    }
-
-    .opponent-robot {
-        right: 50px;
-
-        img {
-            margin-top: 40px;
-        }
-
-        .victories {
-            margin-top: 40px;
-        }
-    }
-
-    .vs {
-        @include transition(all 100ms linear);
-        @include box-sizing(border-box);
-        height: 180px;
-        width: 100px;
-
-        position: absolute;
-        top: 50%;
-        left: 50%;
-
-        margin-top: -90px;
-        margin-left: -50px;
-        padding-top: 70px;
-
-        font-size:  200px;
-        font-family: 'fightcode';
-        text-align: center;
-        text-indent: -45px;
-        z-index: 9999;
-        opacity: 1;
     }
 
     .board {

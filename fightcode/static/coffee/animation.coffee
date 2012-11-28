@@ -85,10 +85,12 @@ class Game
         progress = timestamp - @lastRound
         rounds = Math.floor(progress / @options.msPerRound)
         @lastRound = window.mozAnimationStartTime || Date.now()
+        onRound = @options.onRound
 
         for roundNumber in [0..rounds]
             break if roundNumber + @currentRound >= @events.length
             round = @events[roundNumber + @currentRound]
+            onRound(round) if onRound
 
             for object in round.objects
                 switch object.type

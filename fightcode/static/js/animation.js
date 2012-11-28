@@ -104,15 +104,19 @@ Game = (function() {
   };
 
   Game.prototype.play = function(timestamp) {
-    var hasFinished, object, progress, round, roundEvent, roundNumber, rounds, _i, _j, _k, _len, _len1, _ref, _ref1;
+    var hasFinished, object, onRound, progress, round, roundEvent, roundNumber, rounds, _i, _j, _k, _len, _len1, _ref, _ref1;
     progress = timestamp - this.lastRound;
     rounds = Math.floor(progress / this.options.msPerRound);
     this.lastRound = window.mozAnimationStartTime || Date.now();
+    onRound = this.options.onRound;
     for (roundNumber = _i = 0; 0 <= rounds ? _i <= rounds : _i >= rounds; roundNumber = 0 <= rounds ? ++_i : --_i) {
       if (roundNumber + this.currentRound >= this.events.length) {
         break;
       }
       round = this.events[roundNumber + this.currentRound];
+      if (onRound) {
+        onRound(round);
+      }
       _ref = round.objects;
       for (_j = 0, _len = _ref.length; _j < _len; _j++) {
         object = _ref[_j];

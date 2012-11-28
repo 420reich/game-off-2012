@@ -1,5 +1,5 @@
 class FightArena
-    constructor: (@container, @robots) ->
+    constructor: (@container, @robots, @onRound) ->
         @defaultCode = """
             var Robot = function(){
             };
@@ -121,6 +121,8 @@ class FightArena
 
                     game = new Game(boardContainer, evData, {
                         msPerRound: 5
+                        onRound: (round) ->
+                            @onRound(round) if @onRound
                         onEndGame: (result) ->
                             console.log(result)
                     })

@@ -818,6 +818,7 @@ Engine = (function() {
         this.roundLog.objects.push({
           type: status instanceof RobotStatus ? 'tank' : 'bullet',
           id: status.id,
+          name: status instanceof RobotStatus ? status.robot.name : 'bullet',
           position: {
             x: status.rectangle.position.x,
             y: status.rectangle.position.y
