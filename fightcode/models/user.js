@@ -26,7 +26,7 @@ module.exports = function(sequelize, DataTypes) {
                 return gravatar.url(this.email, {s: size || '185'});
             },
 
-            myRobotsWithRank: function(callback) {
+            rankedRobots: function(callback) {
                 var sql = 'SELECT * FROM '+
                             '(SELECT *, row_number() '+
                             'OVER (ORDER BY score DESC) '+

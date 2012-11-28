@@ -37,7 +37,8 @@ selectFighter = (function() {
     return $.ajax(link).done(function(data) {
       console.log(data);
       return $.modal(data, {
-        overlayClose: true
+        overlayClose: true,
+        opacity: 75
       });
     });
   };

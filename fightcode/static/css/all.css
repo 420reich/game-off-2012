@@ -1370,9 +1370,9 @@ footer ul span {
 }
 
 .simplemodal-wrap {
-  -webkit-box-shadow: black 0 0 5px 1px;
-  -moz-box-shadow: black 0 0 5px 1px;
-  box-shadow: black 0 0 5px 1px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0 0 10px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.5) 0 0 10px;
+  box-shadow: rgba(0, 0, 0, 0.5) 0 0 10px;
 }
 
 .home {
