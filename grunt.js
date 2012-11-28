@@ -2,7 +2,9 @@ module.exports = function(grunt) {
 
     var cssFiles = {
         website: [
-            'fightcode/static/css/all.css'
+            'fightcode/static/css/all.css',
+            'fightcode/static/css/codemirror.css',
+            'fightcode/static/css/theme/ambiance.css'
         ]
     };
 

@@ -36,34 +36,36 @@
 </div>
 
 <% include scripts.ejs %>
+<script type="robot/script" id="default-code">
+//FightCode can only understand your robot
+//if its class is called Robot
+var Robot = function(robot){
+    
+};
+
+Robot.prototype.onIdle = function(ev) {
+    var robot = ev.robot;
+    robot.ahead(100);
+    robot.rotateCannon(360);
+    robot.back(100);
+    robot.rotateCannon(360);
+    
+};
+
+Robot.prototype.onScannedRobot = function(ev) {
+    var robot = ev.robot;
+    robot.fire();
+    
+};
+
+</script>
 <script>
     $(function() {
         var editor = $('.editor')[0];
         var board = $('.board'),
             submitButton = $('#submit-btn');
 
-        var defaultCode = [
-            "//FightCode can only understand your robot",
-            "//if its class is called Robot",
-            "var Robot = function(robot){",
-            "   ",
-            "};",
-            "",
-            "Robot.prototype.onIdle = function(ev) {",
-            "   var robot = ev.robot;",
-            "   robot.ahead(100);",
-            "   robot.rotateCannon(360);",
-            "   robot.back(100);",
-            "   robot.rotateCannon(360);",
-            "   ",
-            "};",
-            "",
-            "Robot.prototype.onScannedRobot = function(ev) {",
-            "   var robot = ev.robot;",
-            "   robot.fire();",
-            "   ",
-            "};"
-        ],
+        var defaultCode = $('#default-code').html();
         roboCodeText = decodeURI("<%= locals.roboCode || '' %>"),
         code = null,
         unescapeHtml = function (text) {
@@ -77,9 +79,10 @@
         if (roboCodeText != "") {
             code = unescapeHtml(roboCodeText);
         } else {
-            code = defaultCode.join('\n');
+            code = defaultCode;
         }
 
+        console.log(code);
         var codeMirror = CodeMirror(editor, {
             value: code,
             mode:  "javascript",
@@ -94,42 +97,6 @@
             $('.code').val(codeMirror.getValue());
             form.submit();
         });
-
-        board.bind('click', function(ev) {
-            board.empty();
-            var container = $('<div></div>');
-            board.append(container);
-
-            var robotCode = codeMirror.getValue();
-            var robotClass = new Function("window", "with(window){" + robotCode + "\nreturn robotClass;}")({});
-            robot = new robotClass('a');
-
-            var duckCode = [
-                'var duck = function() {};',
-                'duck.prototype.onIdle = function(ev) {',
-                '   var robot = ev.robot;',
-                //'   robot.turn(90);',
-                //'   robot.ahead(50);',
-                //'   robot.back(50);',
-                '};',
-                'return duck;'
-            ]
-            var duck = new Function("window", "with(window){" + duckCode.join('') + "\nreturn robotClass;}")({});
-
-            engine = new Engine(480, 480, 2000, robot, new duck());
-
-            engine.robotsStatus[0].rectangle.setPosition(100, 100);
-            engine.robotsStatus[1].rectangle.setPosition(250, 250);
-
-            result = engine.fight();
-
-            game = new Game(container, result, {
-                msPerRound: 12
-            });
-
-            game.initialize();
-        });
     });
 </script>
-<% include scripts.ejs %>
 <% include footer.ejs %>
