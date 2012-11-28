@@ -35,6 +35,7 @@ module.exports = function(grunt) {
             'fightcode/static/js/codemirror.js',
             'fightcode/static/js/coffeescript.js',
             'fightcode/static/js/javascript.js',
+            'fightcode/static/js/jquery.simplemodal-1.4.3.js',
             'fightcode/static/js/jquery.knobs.js'
         ],
 

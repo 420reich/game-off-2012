@@ -1,0 +1,15 @@
+.simplemodal-overlay {
+  background:#000;
+}
+
+.simplemodal-container a.modalCloseImg {
+  background:url(/img/close-modal.png) no-repeat;
+  width:25px;
+  height:29px;
+  display:inline;
+  z-index:3200;
+  position:absolute;
+  top:-15px;
+  right:-18px;
+  cursor:pointer;
+}
