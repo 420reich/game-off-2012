@@ -1,5 +1,7 @@
 @import "color";
 @import "compass";
+@import "helpers";
+
 
 footer {
     background-color: $red;
@@ -40,6 +42,7 @@ footer {
 
         img {
             @include transition(all 160ms ease-out);
+            @include improve-transition;
             float: left;
             width: 40px;
             height: 40px;
