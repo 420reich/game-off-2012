@@ -49,8 +49,8 @@ passport.serializeUser(function(user, done) {
             User.create({
                 token: token,
                 email: profile.email,
-                login: profile.login,
-                name: profile.name,
+                login: profile.username,
+                name: profile.displayName,
                 githubId: profile.id
             }).success(function(newUser){
                 done(null, newUser.id);
@@ -59,7 +59,7 @@ passport.serializeUser(function(user, done) {
         else {
             user.token = token;
             user.email = profile.email;
-            user.login = profile.login;
+            user.login = profile.username;
             user.save().success(function(){
                 done(null, user.id);
             });
