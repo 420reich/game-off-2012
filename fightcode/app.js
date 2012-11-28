@@ -33,6 +33,7 @@ var dbSession = require(path.join(configPath, 'session'));
 var checkCredentials = require(path.join(filtersPath, 'login'));
 
 require(path.join(helpersPath, 'rankingHelper'));
+require(path.join(helpersPath, 'dateHelper'));
 
 var sequelize = require(path.join(configPath, 'database')),
     User = sequelize.import(path.join(modelsPath, 'user'));
@@ -154,7 +155,7 @@ app.get('/auth/github',
 //   request.  If authentication fails, the user will be redirected back to the
 //   login page.  Otherwise, the primary route function function will be called,
 //   which, in this example, will redirect the user to the home page.
-app.get('/auth/github/callback', 
+app.get('/auth/github/callback',
     passport.authenticate('github', { failureRedirect: '/login' }),
     function(req, res) {
         res.redirect(req.session.redirectPath || '/');
