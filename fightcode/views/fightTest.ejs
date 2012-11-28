@@ -1,0 +1,152 @@
+<% include header.ejs %>
+<div class="fight-arena">
+
+    <div class="loading">
+        <div class="left-half">
+            <div class="my-robot">
+                <div class="robotData">
+                    <img src="/img/bender.png" class="robot-image"></img>
+                    <h2><span class="ranking">#20</span><span class="name">MANIAC</span></h2>
+                    <div class="victories"><span class="number">12</span><span class="stat-label">VICTORIES</span></div>
+                    <div class="defeats"><span class="number">8</span><span class="stat-label">DEFEATS</span></div>
+                    <div class="draws"><span class="number">2</span><span class="stat-label">DRAWS</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="vs">VS</div>
+        <div class="right-half">
+            <div class="opponent-robot">
+                <div class="robotData">
+                    <h2><span class="ranking">#39</span><span class="name">IRONMAIDEN</span></h2>
+                    <div class="victories"><span class="number">20</span><span class="stat-label">VICTORIES</span></div>
+                    <div class="defeats"><span class="number">18</span><span class="stat-label">DEFEATS</span></div>
+                    <div class="draws"><span class="number">5</span><span class="stat-label">DRAWS</span></div>
+                    <img src="/img/rosie.png" class="robot-image"></img>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="board">
+    </div>
+</div>
+
+<% include scripts.ejs %>
+
+<script type="robot/script" id="r1-code">
+var Robot = function(robot){
+    robot.turn(90 - (robot.angle % 90));
+    robot.rotateCannon(90);
+    this.offset = 1;
+    this.rotation = 30;
+};
+
+Robot.prototype.onIdle = function(ev) {
+  var robot = ev.robot;
+  robot.ahead(1);
+};
+
+Robot.prototype.onScannedRobot = function(ev) {
+  var robot = ev.robot, scannedRobot = ev.scannedRobot;
+  if (robot.id == scannedRobot.parentId || robot.parentId == scannedRobot.id) {
+      return;
+  }
+  robot.fire();
+};
+
+Robot.prototype.onWallCollision = function(ev) {
+    var robot = ev.robot;
+    robot.turn(90);
+    robot.clone();
+};
+</script>
+
+<script type="robot/script" id="r2-code">
+var printed = false;
+var Robot = function(robot){
+    robot.turnLeft(robot.angle % 90);
+    robot.turnGunRight(90);
+    robot.clone();
+};
+Robot.prototype.onIdle = function(ev) {
+    var robot = ev.robot;
+    robot.ahead(1);
+};
+Robot.prototype.onWallCollision = function(ev) {
+  var robot = ev.robot;
+  robot.turnRight(ev.bearing + 90);
+
+};
+Robot.prototype.onRobotCollision = function(ev) {
+  var robot = ev.robot;
+
+  // if (this.runningCollision) {
+  //   return;
+  // }
+  // this.runningCollision = true;
+
+  robot.stop();
+  if (robot.parentId == null && !printed) {
+    // printed = true;
+    console.log(ev.bearing);
+  }
+
+  if (ev.bearing > -90 && ev.bearing < 90) {
+    robot.back(100);
+  } else {
+    robot.ahead(100);
+  }
+  robot.turnGunLeft(ev.bearing - 90);
+  robot.turnGunRight(ev.bearing - 90);
+
+  // var self = this;
+  // robot.notify(function() {
+  //   self.runningCollision = false;
+  // });
+};
+Robot.prototype.onHitByBullet = function(ev) {
+};
+Robot.prototype.onScannedRobot = function(ev) {
+  var robot = ev.robot, scannedRobot = ev.scannedRobot;
+  if (robot.id == scannedRobot.parentId || robot.parentId == scannedRobot.id) {
+      return;
+  }
+  robot.fire();
+};
+</script>
+
+
+
+<script>
+    container = $(".fight-arena");
+
+    var robot1Code = $('#r1-code').html();
+    var robot2Code = $('#r2-code').html();
+
+    arena = new FightArena(container, [
+        {
+            name: "r1",
+            code: robot1Code,
+            rectangle: {
+                position: {
+                    x: 324,
+                    y: 31
+                },
+                angle: 355
+            }
+        },
+        {
+            name: "r2",
+            code: robot2Code,
+            rectangle: {
+                position: {
+                    x: 234,
+                    y: 387
+                },
+                angle: 69
+            }
+        }
+    ])
+</script>
+
+<% include footer.ejs %>

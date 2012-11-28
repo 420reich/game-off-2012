@@ -265,6 +265,12 @@ exports.createFight = function(req, res) {
   });
 };
 
+exports.fightTest = function(req, res) {
+  return res.render('fightTest', {
+    title: "Fight Test"
+  });
+};
+
 exports.replayFight = function(req, res) {
   var fightId;
   fightId = req.params.fight_id;

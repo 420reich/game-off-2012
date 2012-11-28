@@ -225,6 +225,9 @@ exports.createFight = (req, res) ->
             res.redirect("/robots/replay/#{ result.fight.id }")
     )
 
+exports.fightTest = (req, res) ->
+  res.render 'fightTest', title: "Fight Test"
+
 exports.replayFight = (req, res) ->
     fightId = req.params.fight_id
 

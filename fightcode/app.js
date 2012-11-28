@@ -115,6 +115,7 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
+app.get('/fight-test', fight.fightTest);
 app.get('/robots/replay/:fight_id', fight.replayFight);
 app.get('/robots/ranking', checkCredentials, ranking.index);
 app.get('/robots/create', checkCredentials, create.createView);
@@ -128,7 +129,6 @@ app.get('/robots/fight/:robot_id', checkCredentials, fight.prepareFight);
 app.get(/^\/profile\/(.+?)\/robots\/(.+?)\/fight\/(\d+)\/?$/, checkCredentials, fight.startFight);
 app.get(/^\/profile\/(\w+)\/?$/, checkCredentials, user.show);
 app.get('/my-profile', checkCredentials, user.myProfile);
-
 
 // GET /auth/github
 //   Use passport.authenticate() as route middleware to authenticate the

@@ -84,7 +84,7 @@ Fight = (function() {
     for (_i = 0, _len = robots.length; _i < _len; _i++) {
       robot = robots[_i];
       robotCode = "(function() {" + robot.code + "; global.Robot = Robot;}.bind(global)()); return global.Robot;";
-      robotConstructor = new this.originalFunctions.func("global", robotCode)({
+      robotConstructor = new this.originalFunctions.func("global", "console", robotCode)({}, {
         log: function() {
           var message;
           message = 1 <= arguments.length ? __slice.call(arguments, 0) : [];

@@ -156,6 +156,21 @@ RobotActions = (function() {
     });
   };
 
+  RobotActions.prototype.notify = function(callback) {
+    return this.queue.push({
+      action: "notify",
+      callback: callback
+    });
+  };
+
+  RobotActions.prototype.stop = function(callback) {
+    return this.queue = [
+      {
+        action: "stop"
+      }
+    ];
+  };
+
   RobotActions.prototype.clone = function() {
     return this.queue.push({
       action: "clone"
@@ -561,12 +576,18 @@ RobotStatus = (function(_super) {
         }
         this.availableClones--;
         return this.clone();
+      case 'notify':
+        item.callback && item.callback();
     }
     return null;
   };
 
   RobotStatus.prototype.updateQueue = function(actions) {
-    return this.queue = actions.queue.concat(this.queue);
+    if (actions.queue.length > 0 && actions.queue[0].action === 'stop') {
+      return this.queue = actions.queue.slice(1);
+    } else {
+      return this.queue = actions.queue.concat(this.queue);
+    }
   };
 
   return RobotStatus;
@@ -609,8 +630,6 @@ Engine = (function() {
       robotStatus = _ref[_i];
       givenRect = robotStatus.robot.rectangle;
       if (givenRect) {
-        this.log(givenRect.position.x);
-        this.log(givenRect.position.y);
         robotStatus.rectangle.setPosition(givenRect.position.x, givenRect.position.y);
         _results.push(robotStatus.rectangle.setAngle(givenRect.angle));
       } else {
@@ -620,7 +639,6 @@ Engine = (function() {
         robotStatus.rectangle.setAngle(angle);
         robotStatus.rectangle.setPosition(rx, ry);
         this.findEmptyPosition(robotStatus);
-        this.log('conditions', robotStatus.rectangle.position.x, robotStatus.rectangle.position.y, robotStatus.rectangle.angle);
         robotStatus.robot.rectangle = {};
         robotStatus.robot.rectangle.position = new Vector2(robotStatus.rectangle.position);
         _results.push(robotStatus.robot.rectangle.angle = robotStatus.rectangle.angle);
@@ -682,7 +700,7 @@ Engine = (function() {
   };
 
   Engine.prototype.checkCollision = function(robotStatus) {
-    var actions, bearing, clone, eventName, status, vec, wallCollisionAngle, _i, _j, _len, _len1, _ref, _ref1;
+    var actions, bearing, clone, eventName, otherActions, status, vec, wallCollisionAngle, _i, _j, _len, _len1, _ref, _ref1;
     actions = robotStatus instanceof RobotStatus ? new RobotActions(robotStatus) : null;
     wallCollisionAngle = robotStatus.rectangle.containingCollisionAngle(this.arena.rectangle);
     if (wallCollisionAngle) {
@@ -752,6 +770,19 @@ Engine = (function() {
           robot: actions,
           bearing: bearing
         });
+        if (status instanceof RobotStatus) {
+          vec = Vector2.subtract(robotStatus.rectangle.position, status.rectangle.position);
+          bearing = normalizeAngle((Math.atan2(vec.y, vec.x) * 180 / Math.PI) - status.rectangle.angle);
+          if (bearing > 180) {
+            bearing -= 360;
+          }
+          otherActions = new RobotActions(status);
+          this.safeCall(status.robot.instance, eventName, {
+            robot: otherActions,
+            bearing: bearing
+          });
+          status.updateQueue(otherActions);
+        }
       }
     }
     return actions;

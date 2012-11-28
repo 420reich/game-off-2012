@@ -112,6 +112,17 @@ class RobotActions
             action: "fire"
         )
 
+    notify: (callback) ->
+        @queue.push(
+            action: "notify",
+            callback: callback
+        )
+
+    stop: (callback) ->
+        @queue = [{
+            action: "stop"
+        }]
+
     clone: ->
         @queue.push(action: "clone")
 
@@ -422,10 +433,16 @@ class RobotStatus extends ElementStatus
                 @availableClones--
                 return @clone()
 
+            when 'notify'
+                item.callback and item.callback()
+
         null
 
     updateQueue: (actions) ->
-        @queue = actions.queue.concat(@queue)
+        if actions.queue.length > 0 and actions.queue[0].action == 'stop'
+            @queue = actions.queue.slice(1)
+        else
+            @queue = actions.queue.concat(@queue)
 
 
 class Engine
@@ -444,8 +461,6 @@ class Engine
         for robotStatus in @robotsStatus
             givenRect = robotStatus.robot.rectangle
             if givenRect
-                @log(givenRect.position.x)
-                @log(givenRect.position.y)
                 robotStatus.rectangle.setPosition(givenRect.position.x, givenRect.position.y)
                 robotStatus.rectangle.setAngle(givenRect.angle)
             else
@@ -455,7 +470,6 @@ class Engine
                 robotStatus.rectangle.setAngle(angle)
                 robotStatus.rectangle.setPosition(rx, ry)
                 @findEmptyPosition(robotStatus)
-                @log('conditions', robotStatus.rectangle.position.x, robotStatus.rectangle.position.y, robotStatus.rectangle.angle)
                 robotStatus.robot.rectangle = {}
                 robotStatus.robot.rectangle.position = new Vector2(robotStatus.rectangle.position)
                 robotStatus.robot.rectangle.angle = robotStatus.rectangle.angle
@@ -546,6 +560,14 @@ class Engine
 
                 bearing -= 360 if bearing > 180
                 @safeCall(robotStatus.robot.instance, eventName, {robot: actions, bearing: bearing})
+
+                if status instanceof RobotStatus
+                    vec = Vector2.subtract(robotStatus.rectangle.position, status.rectangle.position)
+                    bearing = normalizeAngle((Math.atan2(vec.y, vec.x) * 180 / Math.PI) - status.rectangle.angle)
+                    bearing -= 360 if bearing > 180
+                    otherActions = new RobotActions(status)
+                    @safeCall(status.robot.instance, eventName, {robot: otherActions, bearing: bearing})
+                    status.updateQueue(otherActions)
 
         actions
 

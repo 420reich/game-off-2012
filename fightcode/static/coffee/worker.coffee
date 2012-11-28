@@ -58,7 +58,7 @@ class Fight
 
         for robot in robots
             robotCode = "(function() {#{ robot.code }; global.Robot = Robot;}.bind(global)()); return global.Robot;"
-            robotConstructor = new @originalFunctions.func("global", robotCode)({
+            robotConstructor = new @originalFunctions.func("global", "console", robotCode)({}, {
                 log: (message...) =>
                     this.log(message...)
             })
