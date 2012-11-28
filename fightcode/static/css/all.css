@@ -1354,7 +1354,7 @@ footer ul span {
 }
 
 .simplemodal-overlay {
-  background: #000;
+  background: #fff;
 }
 
 .simplemodal-container a.modalCloseImg {
@@ -1367,6 +1367,12 @@ footer ul span {
   top: -15px;
   right: -18px;
   cursor: pointer;
+}
+
+.simplemodal-wrap {
+  -webkit-box-shadow: black 0 0 5px 1px;
+  -moz-box-shadow: black 0 0 5px 1px;
+  box-shadow: black 0 0 5px 1px;
 }
 
 .home {

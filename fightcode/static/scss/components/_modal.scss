@@ -1,5 +1,5 @@
 .simplemodal-overlay {
-  background:#000;
+  background:#fff;
 }
 
 .simplemodal-container a.modalCloseImg {
@@ -12,4 +12,8 @@
   top:-15px;
   right:-18px;
   cursor:pointer;
+}
+
+.simplemodal-wrap {
+  @include box-shadow(#000 0 0 5px 1px);
 }

@@ -1,7 +1,7 @@
 var gravatar = require('gravatar'),
     path = require('path'),
-    basePath = path.join(process.env.CWD, 'fightcode');
-
+    basePath = path.join(process.env.CWD, 'fightcode'),
+    Sequelize = require('sequelize');
 
 module.exports = function(sequelize, DataTypes) {
     Robot = sequelize.import(path.join(basePath, 'models', 'robot'));
@@ -24,6 +24,16 @@ module.exports = function(sequelize, DataTypes) {
                     return '';
                 }
                 return gravatar.url(this.email, {s: size || '185'});
+            },
+
+            myRobotsWithRank: function(callback) {
+                var sql = 'SELECT * FROM '+
+                            '(SELECT *, row_number() '+
+                            'OVER (ORDER BY score DESC) '+
+                            'FROM "Robots") AS ordered_robots '+
+                            'WHERE user_id =?';
+                var query = Sequelize.Utils.format([sql, this.id]);
+                sequelize.query(query, null, {raw: true, type: 'SELECT'}).success(callback);
             }
         },
         underscored: true
