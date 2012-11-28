@@ -175,28 +175,16 @@
   width: 57px;
   height: 57px;
 }
-<<<<<<< HEAD
-/* line 172, ../scss/ranking.scss */
-=======
-/* line 173, ../scss/ranking.scss */
->>>>>>> improving the animation quality (at least in chrome) by addin ga hack found here http://stackoverflow.com/questions/6332485/transformscale-causing-blinking-when-hovering. Also removing the use of some mixins since they dont vendor prefixes
+/* line 174, ../scss/ranking.scss */
 .ranking-area .rank .row:hover {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
   opacity: 1;
 }
-<<<<<<< HEAD
-/* line 174, ../scss/ranking.scss */
+/* line 176, ../scss/ranking.scss */
 .ranking-area .rank .row:hover .actions {
   display: block;
 }
-/* line 179, ../scss/ranking.scss */
-=======
-/* line 175, ../scss/ranking.scss */
-.ranking-area .rank .row:hover .actions {
-  display: block;
-}
-/* line 180, ../scss/ranking.scss */
->>>>>>> improving the animation quality (at least in chrome) by addin ga hack found here http://stackoverflow.com/questions/6332485/transformscale-causing-blinking-when-hovering. Also removing the use of some mixins since they dont vendor prefixes
+/* line 181, ../scss/ranking.scss */
 .ranking-area .rank .row:hover .user-photo img {
   -webkit-transform: scale(1.1);
   -moz-transform: scale(1.1);
@@ -204,61 +192,37 @@
   -o-transform: scale(1.1);
   transform: scale(1.1);
 }
-<<<<<<< HEAD
-/* line 187, ../scss/ranking.scss */
-=======
-/* line 188, ../scss/ranking.scss */
->>>>>>> improving the animation quality (at least in chrome) by addin ga hack found here http://stackoverflow.com/questions/6332485/transformscale-causing-blinking-when-hovering. Also removing the use of some mixins since they dont vendor prefixes
+/* line 189, ../scss/ranking.scss */
 .ranking-area .top10 {
   background-color: #f3f3f3;
   margin-top: 70px;
 }
-<<<<<<< HEAD
-/* line 191, ../scss/ranking.scss */
+/* line 193, ../scss/ranking.scss */
 .ranking-area .top10 .container {
   padding-bottom: 100px;
-}
-/* line 195, ../scss/ranking.scss */
-.ranking-area .top10 .header {
-  padding-top: 63px;
 }
 /* line 197, ../scss/ranking.scss */
-=======
-/* line 192, ../scss/ranking.scss */
-.ranking-area .top10 .container {
-  padding-bottom: 100px;
-}
-/* line 196, ../scss/ranking.scss */
 .ranking-area .top10 .header {
   padding-top: 63px;
 }
-/* line 198, ../scss/ranking.scss */
->>>>>>> improving the animation quality (at least in chrome) by addin ga hack found here http://stackoverflow.com/questions/6332485/transformscale-causing-blinking-when-hovering. Also removing the use of some mixins since they dont vendor prefixes
+/* line 199, ../scss/ranking.scss */
 .ranking-area .top10 .header .marker {
   width: 409px;
   background-color: #dfdfdf;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
   opacity: 1;
 }
-<<<<<<< HEAD
-/* line 202, ../scss/ranking.scss */
-=======
-/* line 203, ../scss/ranking.scss */
->>>>>>> improving the animation quality (at least in chrome) by addin ga hack found here http://stackoverflow.com/questions/6332485/transformscale-causing-blinking-when-hovering. Also removing the use of some mixins since they dont vendor prefixes
+/* line 204, ../scss/ranking.scss */
 .ranking-area .top10 .header h1 {
   color: #ed0027;
   padding: 0 19px 0 17px;
   text-shadow: #f3f3f3 -1px 1px 0, #5d000f -2px 2px 0;
 }
-<<<<<<< HEAD
-/* line 207, ../scss/ranking.scss */
+/* line 209, ../scss/ranking.scss */
 .ranking-area .top10 .header .performance {
   color: #999;
 }
-/* line 212, ../scss/ranking.scss */
-=======
-/* line 210, ../scss/ranking.scss */
->>>>>>> improving the animation quality (at least in chrome) by addin ga hack found here http://stackoverflow.com/questions/6332485/transformscale-causing-blinking-when-hovering. Also removing the use of some mixins since they dont vendor prefixes
+/* line 214, ../scss/ranking.scss */
 .ranking-area .top10 ul {
   -webkit-box-shadow: #e5e5e5 0 0 1px 1px;
   -moz-box-shadow: #e5e5e5 0 0 1px 1px;
@@ -269,11 +233,7 @@
   white-space: nowrap;
   overflow: hidden;
 }
-<<<<<<< HEAD
-/* line 220, ../scss/ranking.scss */
-=======
-/* line 218, ../scss/ranking.scss */
->>>>>>> improving the animation quality (at least in chrome) by addin ga hack found here http://stackoverflow.com/questions/6332485/transformscale-causing-blinking-when-hovering. Also removing the use of some mixins since they dont vendor prefixes
+/* line 222, ../scss/ranking.scss */
 .ranking-area .top10 ul li {
   -webkit-transition: width 500ms ease-out;
   -moz-transition: width 500ms ease-out;
@@ -285,39 +245,23 @@
   display: inline-block;
   width: 70px;
 }
-<<<<<<< HEAD
-/* line 227, ../scss/ranking.scss */
+/* line 229, ../scss/ranking.scss */
 .ranking-area .top10 ul li.open {
   width: 311px;
 }
-/* line 235, ../scss/ranking.scss */
-=======
-/* line 225, ../scss/ranking.scss */
-.ranking-area .top10 ul li.open {
-  width: 311px;
-}
-/* line 233, ../scss/ranking.scss */
->>>>>>> improving the animation quality (at least in chrome) by addin ga hack found here http://stackoverflow.com/questions/6332485/transformscale-causing-blinking-when-hovering. Also removing the use of some mixins since they dont vendor prefixes
+/* line 237, ../scss/ranking.scss */
 .ranking-area .top10 .sidebar,
 .ranking-area .top10 .info,
 .ranking-area .top10 .vertical-separator {
   display: inline-block;
   vertical-align: top;
 }
-<<<<<<< HEAD
-/* line 240, ../scss/ranking.scss */
-=======
-/* line 238, ../scss/ranking.scss */
->>>>>>> improving the animation quality (at least in chrome) by addin ga hack found here http://stackoverflow.com/questions/6332485/transformscale-causing-blinking-when-hovering. Also removing the use of some mixins since they dont vendor prefixes
+/* line 242, ../scss/ranking.scss */
 .ranking-area .top10 .sidebar {
   border-right: 1px solid #f7f7f7;
   width: 69px;
 }
-<<<<<<< HEAD
-/* line 243, ../scss/ranking.scss */
-=======
-/* line 241, ../scss/ranking.scss */
->>>>>>> improving the animation quality (at least in chrome) by addin ga hack found here http://stackoverflow.com/questions/6332485/transformscale-causing-blinking-when-hovering. Also removing the use of some mixins since they dont vendor prefixes
+/* line 245, ../scss/ranking.scss */
 .ranking-area .top10 .sidebar .robot {
   background-position: 0 -120px;
   height: 77px;
@@ -325,22 +269,14 @@
   background-color: red;
   display: block;
 }
-<<<<<<< HEAD
-/* line 250, ../scss/ranking.scss */
-=======
-/* line 248, ../scss/ranking.scss */
->>>>>>> improving the animation quality (at least in chrome) by addin ga hack found here http://stackoverflow.com/questions/6332485/transformscale-causing-blinking-when-hovering. Also removing the use of some mixins since they dont vendor prefixes
+/* line 252, ../scss/ranking.scss */
 .ranking-area .top10 .sidebar .user-photo {
   height: 80px;
   width: 69px;
   overflow: hidden;
   display: block;
 }
-<<<<<<< HEAD
-/* line 257, ../scss/ranking.scss */
-=======
-/* line 255, ../scss/ranking.scss */
->>>>>>> improving the animation quality (at least in chrome) by addin ga hack found here http://stackoverflow.com/questions/6332485/transformscale-causing-blinking-when-hovering. Also removing the use of some mixins since they dont vendor prefixes
+/* line 259, ../scss/ranking.scss */
 .ranking-area .top10 .sidebar .position {
   display: block;
   font-size: 20px;
@@ -351,21 +287,13 @@
   width: 48px;
   overflow: hidden;
 }
-<<<<<<< HEAD
-/* line 268, ../scss/ranking.scss */
-=======
-/* line 266, ../scss/ranking.scss */
->>>>>>> improving the animation quality (at least in chrome) by addin ga hack found here http://stackoverflow.com/questions/6332485/transformscale-causing-blinking-when-hovering. Also removing the use of some mixins since they dont vendor prefixes
+/* line 270, ../scss/ranking.scss */
 .ranking-area .top10 .info {
   background-color: #f7f7f7;
   width: 236px;
   height: 217px;
 }
-<<<<<<< HEAD
-/* line 273, ../scss/ranking.scss */
-=======
-/* line 271, ../scss/ranking.scss */
->>>>>>> improving the animation quality (at least in chrome) by addin ga hack found here http://stackoverflow.com/questions/6332485/transformscale-causing-blinking-when-hovering. Also removing the use of some mixins since they dont vendor prefixes
+/* line 275, ../scss/ranking.scss */
 .ranking-area .top10 .info .robot-name {
   font-family: "oswald-bold";
   font-size: 23px;
@@ -381,28 +309,16 @@
   height: 52px;
   overflow: hidden;
 }
-<<<<<<< HEAD
-/* line 289, ../scss/ranking.scss */
-=======
-/* line 285, ../scss/ranking.scss */
->>>>>>> improving the animation quality (at least in chrome) by addin ga hack found here http://stackoverflow.com/questions/6332485/transformscale-causing-blinking-when-hovering. Also removing the use of some mixins since they dont vendor prefixes
+/* line 291, ../scss/ranking.scss */
 .ranking-area .top10 .info .robot-data {
   padding-left: 17px;
   padding-top: 6px;
 }
-<<<<<<< HEAD
-/* line 294, ../scss/ranking.scss */
+/* line 296, ../scss/ranking.scss */
 .ranking-area .top10 .info .row {
   display: block;
 }
-/* line 297, ../scss/ranking.scss */
-=======
-/* line 290, ../scss/ranking.scss */
-.ranking-area .top10 .info .row {
-  display: block;
-}
-/* line 293, ../scss/ranking.scss */
->>>>>>> improving the animation quality (at least in chrome) by addin ga hack found here http://stackoverflow.com/questions/6332485/transformscale-causing-blinking-when-hovering. Also removing the use of some mixins since they dont vendor prefixes
+/* line 299, ../scss/ranking.scss */
 .ranking-area .top10 .info .row span,
 .ranking-area .top10 .info .row p {
   display: inline-block;
@@ -410,110 +326,62 @@
   font-size: 15px;
   font-family: "oswald";
 }
-<<<<<<< HEAD
-/* line 304, ../scss/ranking.scss */
-=======
-/* line 300, ../scss/ranking.scss */
->>>>>>> improving the animation quality (at least in chrome) by addin ga hack found here http://stackoverflow.com/questions/6332485/transformscale-causing-blinking-when-hovering. Also removing the use of some mixins since they dont vendor prefixes
+/* line 306, ../scss/ranking.scss */
 .ranking-area .top10 .info .row p {
   padding-top: 8px;
   padding-left: 4px;
   color: #4f4f4f;
 }
-<<<<<<< HEAD
-/* line 309, ../scss/ranking.scss */
-.ranking-area .top10 .info .row p.value {
-  color: #ed003d;
-}
-/* line 315, ../scss/ranking.scss */
-=======
-/* line 305, ../scss/ranking.scss */
-.ranking-area .top10 .info .row p.value {
-  color: #ed003d;
-}
 /* line 311, ../scss/ranking.scss */
->>>>>>> improving the animation quality (at least in chrome) by addin ga hack found here http://stackoverflow.com/questions/6332485/transformscale-causing-blinking-when-hovering. Also removing the use of some mixins since they dont vendor prefixes
+.ranking-area .top10 .info .row p.value {
+  color: #ed003d;
+}
+/* line 317, ../scss/ranking.scss */
 .ranking-area .top10 .info .row.kills .icon {
   background-position: 0 -308px;
   height: 13px;
   width: 33px;
 }
-<<<<<<< HEAD
-/* line 321, ../scss/ranking.scss */
-=======
-/* line 317, ../scss/ranking.scss */
->>>>>>> improving the animation quality (at least in chrome) by addin ga hack found here http://stackoverflow.com/questions/6332485/transformscale-causing-blinking-when-hovering. Also removing the use of some mixins since they dont vendor prefixes
+/* line 323, ../scss/ranking.scss */
 .ranking-area .top10 .info .row.shots {
   padding-top: 5px;
   padding-left: 4px;
 }
-<<<<<<< HEAD
-/* line 325, ../scss/ranking.scss */
-=======
-/* line 321, ../scss/ranking.scss */
->>>>>>> improving the animation quality (at least in chrome) by addin ga hack found here http://stackoverflow.com/questions/6332485/transformscale-causing-blinking-when-hovering. Also removing the use of some mixins since they dont vendor prefixes
+/* line 327, ../scss/ranking.scss */
 .ranking-area .top10 .info .row.shots p {
   padding-top: 15px;
   padding-left: 3px;
 }
-<<<<<<< HEAD
-/* line 328, ../scss/ranking.scss */
+/* line 330, ../scss/ranking.scss */
 .ranking-area .top10 .info .row.shots p.value {
   padding-left: 11px;
 }
-/* line 332, ../scss/ranking.scss */
-=======
-/* line 324, ../scss/ranking.scss */
-.ranking-area .top10 .info .row.shots p.value {
-  padding-left: 11px;
-}
-/* line 328, ../scss/ranking.scss */
->>>>>>> improving the animation quality (at least in chrome) by addin ga hack found here http://stackoverflow.com/questions/6332485/transformscale-causing-blinking-when-hovering. Also removing the use of some mixins since they dont vendor prefixes
+/* line 334, ../scss/ranking.scss */
 .ranking-area .top10 .info .row.shots .icon {
   background-position: 0 -266px;
   height: 22px;
   width: 23px;
 }
-<<<<<<< HEAD
-/* line 338, ../scss/ranking.scss */
-=======
-/* line 334, ../scss/ranking.scss */
->>>>>>> improving the animation quality (at least in chrome) by addin ga hack found here http://stackoverflow.com/questions/6332485/transformscale-causing-blinking-when-hovering. Also removing the use of some mixins since they dont vendor prefixes
+/* line 340, ../scss/ranking.scss */
 .ranking-area .top10 .info .row.aim {
   padding-left: 6px;
   padding-top: 5px;
 }
-<<<<<<< HEAD
-/* line 342, ../scss/ranking.scss */
+/* line 344, ../scss/ranking.scss */
 .ranking-area .top10 .info .row.aim p {
   padding-top: 13px;
 }
-/* line 345, ../scss/ranking.scss */
+/* line 347, ../scss/ranking.scss */
 .ranking-area .top10 .info .row.aim p.value {
   padding-left: 11px;
 }
-/* line 350, ../scss/ranking.scss */
-=======
-/* line 338, ../scss/ranking.scss */
-.ranking-area .top10 .info .row.aim p {
-  padding-top: 13px;
-}
-/* line 341, ../scss/ranking.scss */
-.ranking-area .top10 .info .row.aim p.value {
-  padding-left: 11px;
-}
-/* line 346, ../scss/ranking.scss */
->>>>>>> improving the animation quality (at least in chrome) by addin ga hack found here http://stackoverflow.com/questions/6332485/transformscale-causing-blinking-when-hovering. Also removing the use of some mixins since they dont vendor prefixes
+/* line 352, ../scss/ranking.scss */
 .ranking-area .top10 .info .row.aim .icon {
   background-position: 0 -288px;
   height: 20px;
   width: 20px;
 }
-<<<<<<< HEAD
-/* line 357, ../scss/ranking.scss */
-=======
-/* line 353, ../scss/ranking.scss */
->>>>>>> improving the animation quality (at least in chrome) by addin ga hack found here http://stackoverflow.com/questions/6332485/transformscale-causing-blinking-when-hovering. Also removing the use of some mixins since they dont vendor prefixes
+/* line 359, ../scss/ranking.scss */
 .ranking-area .top10 .info .actions {
   display: block;
   margin-top: 19px;
@@ -521,11 +389,7 @@
   width: 191px;
   position: static;
 }
-<<<<<<< HEAD
-/* line 366, ../scss/ranking.scss */
-=======
-/* line 361, ../scss/ranking.scss */
->>>>>>> improving the animation quality (at least in chrome) by addin ga hack found here http://stackoverflow.com/questions/6332485/transformscale-causing-blinking-when-hovering. Also removing the use of some mixins since they dont vendor prefixes
+/* line 368, ../scss/ranking.scss */
 .ranking-area .top10 .vertical-separator {
   -webkit-box-shadow: #c8c8c8 -1px 0 1px 0;
   -moz-box-shadow: #c8c8c8 -1px 0 1px 0;
