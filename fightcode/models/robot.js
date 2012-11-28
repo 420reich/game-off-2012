@@ -1,5 +1,6 @@
 var path = require('path'),
-    basePath = path.join(process.env.CWD, 'fightcode');
+    basePath = path.join(process.env.CWD, 'fightcode'),
+    Sequelize = require('sequelize');
 
 module.exports = function(sequelize, DataTypes) {
     Fighter = sequelize.import(path.join(basePath, 'models', 'fighter'));
@@ -39,30 +40,32 @@ module.exports = function(sequelize, DataTypes) {
             },
 
             rankNear: function(callback) {
-                var sql = ['WITH robot_position AS (',
-                                  'SELECT * FROM',
-                                    '(SELECT id,score,row_number()',
-                                      'OVER (ORDER BY score DESC)',
-                                      'FROM "Robots" ORDER BY score) AS rank',
-                                    'WHERE rank.id = \''+ this.id +'\'',
-                                    'ORDER BY rank.row_number)',
-                            'SELECT robots.*, u.email',
-                              'FROM (SELECT *, row_number()',
-                                'OVER (ORDER BY score DESC)',
-                                'FROM "Robots") AS robots ',
-                                'INNER JOIN "Users" u ON (robots.user_id = u.id)',
-                              'WHERE',
-                              'row_number',
-                              'BETWEEN',
-                                '(SELECT row_number FROM robot_position) - 3',
-                                'AND',
-                                '(SELECT row_number FROM robot_position)',
-                              'OR',
-                              'row_number BETWEEN',
-                                '(SELECT row_number FROM robot_position)',
-                                'AND',
-                                '(SELECT row_number FROM robot_position) + 3'].join('\n');
-                sequelize.query(sql, null, {raw: true, type: 'SELECT'}).success(callback);
+                var sql = 'WITH robot_position AS ( '+
+                                  'SELECT * FROM '+
+                                    '(SELECT id, score, row_number() '+
+                                      'OVER (ORDER BY score DESC) '+
+                                      'FROM "Robots" ORDER BY score) AS rank '+
+                                    'WHERE rank.id = ? '+
+                                    'ORDER BY rank.row_number) '+
+                            'SELECT robots.*, u.email '+
+                              'FROM (SELECT *, row_number() '+
+                                'OVER (ORDER BY score DESC) '+
+                                'FROM "Robots") AS robots '+
+                                'INNER JOIN "Users" u ON (robots.user_id = u.id) '+
+                              'WHERE '+
+                              'row_number '+
+                              'BETWEEN '+
+                                '(SELECT row_number FROM robot_position) - 3 '+
+                                'AND '+
+                                '(SELECT row_number FROM robot_position) '+
+                              'OR '+
+                              'row_number BETWEEN '+
+                                '(SELECT row_number FROM robot_position) '+
+                                'AND '+
+                                '(SELECT row_number FROM robot_position) + 3 '+
+                              'ORDER BY row_number ASC';
+                var query = Sequelize.Utils.format([sql, this.id]);
+                sequelize.query(query, null, {raw: true, type: 'SELECT'}).success(callback);
             }
         },
         classMethods: {

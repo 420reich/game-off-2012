@@ -20,7 +20,7 @@ class selectFighter
     link = $(ev.currentTarget).attr('href')
     $.ajax(link).done((data) ->
       console.log(data)
-      $.modal(data)
+      $.modal(data, {overlayClose: true})
     )
 
 

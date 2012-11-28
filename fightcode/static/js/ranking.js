@@ -36,7 +36,9 @@ selectFighter = (function() {
     link = $(ev.currentTarget).attr('href');
     return $.ajax(link).done(function(data) {
       console.log(data);
-      return $.modal(data);
+      return $.modal(data, {
+        overlayClose: true
+      });
     });
   };
 
