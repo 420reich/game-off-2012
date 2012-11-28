@@ -1,0 +1,24 @@
+<% include header.ejs %>
+<div class="break"></div>
+<div class="choose-area">
+
+    <div class="container">
+        <div class="header">
+            <div class="title">
+                <div class="marker"></div>
+                <h1>CHOOSE YOUR ROBOT</h1>
+                <div class="marker"></div>
+            </div>
+            <div class="performance"></div>
+        </div>
+
+        <% for (var i=0; i<myRobots.length; i++) { %>
+            <a class="btn" href="/robots/fight/<%= myRobots[i].gist %>/<%= opponent.gist %>">
+                <%= myRobots[i].title %>
+            </a>
+        <% } %>
+    </div>
+
+
+<% include footer.ejs %>
+<% include scripts.ejs %>

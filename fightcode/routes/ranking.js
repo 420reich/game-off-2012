@@ -1,4 +1,4 @@
-var Robot, basePath, path, reduceRank, sequelize;
+var Robot, basePath, path, sequelize;
 
 path = require('path');
 
@@ -7,18 +7,6 @@ basePath = path.join(process.env.CWD, 'fightcode');
 sequelize = require(path.join(basePath, 'config', 'database'));
 
 Robot = sequelize["import"](path.join(basePath, 'models', 'robot'));
-
-reduceRank = function(rank, robotId) {
-  var center, i, robot, _i, _len;
-  for (i = _i = 0, _len = rank.length; _i < _len; i = ++_i) {
-    robot = rank[i];
-    if (robot.id === robotId) {
-      center = i;
-      break;
-    }
-  }
-  return rank.slice(center - 3, center + 4);
-};
 
 exports.index = function(req, res) {
   return req.user.getRobots().success(function(robots) {
@@ -29,11 +17,9 @@ exports.index = function(req, res) {
         robotRank = [];
         _fn = function(robot) {
           return robot.rankNear(function(rank) {
-            var reducedRank;
-            reducedRank = reduceRank(rank, robot.id);
             robotRank.push({
               robot: robot,
-              rank: reducedRank
+              rank: rank
             });
             if (robotRank.length === size) {
               return res.render('ranking', {

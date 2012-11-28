@@ -27,8 +27,8 @@
                         <span class="robot-name"><%= robotRank[i].rank[x].title %></span>
                         <% if (robotRank[i].rank[x].user_id !== req.user.id) {%>
                         <span class="actions">
-                            <a href="#" class="fight">FIGHT</a>
-                            <a href="#" class="fork">FORK</a>
+                            <a href="/robots/fight/<%= robotRank[i].rank[x].id %>" class="fight">FIGHT</a>
+                            <a href="/fork/<%= robotRank[i].rank[x].id %>" class="fork">FORK</a>
                         </span>
                         <% } %>
                         <span class="user-photo">
@@ -84,8 +84,8 @@
                         </div>
                         <% if (top10[i].user_id !== req.user.id) {%>
                             <span class="actions">
-                                <a href="#" class="fight">FIGHT</a>
-                                <a href="#" class="fork">FORK</a>
+                                <a href="/robots/fight/<%= top10[i].id %>" class="fight">FIGHT</a>
+                                <a href="/fork/<%= top10[i].id %>" class="fork">FORK</a>
                             </span>
                         <%}%>
                     </div>
@@ -95,33 +95,6 @@
             </ul>
         </div>
     </div>
-
-    <!-- <div class="row-fluid">
-        <% for (var i=0; i<robotRank.length; i++) { %>
-            <div class="span3">
-                <h2><%= robotRank[i].robot.title || 'The nameless' %></h2>
-
-                <table class="fight-table table table-bordered table-hover">
-                    <tbody>
-                        <% for (var x=0; x<robotRank[i].rank.length; x++) {%>
-                            <% if (robotRank[i].robot.ownerLogin == req.user.login) {%>
-                                <tr class="my-robot">
-                            <%} else {%>
-                                <tr class="my-robot">
-                            <%}%>
-                                <td><span class="ranking">#<%= robotRank[i].rank[x].row_number %></span><span class="name"><%= robotRank[i].rank[x].title %></span></td>
-                                <td class="actions">
-                                    <% if (robotRank[i].robot.ownerLogin != req.user.login) {%>
-                                        <a href="#" data-robot-id="<%- i%>" class="fight">fight</a>
-                                    <%}%>
-                                </td>
-                            </tr>
-                        <% } %>
-                    </tbody>
-                </table>
-            </div>
-        <% } %>
-    </div> -->
 </div>
 
 <% include footer.ejs %>

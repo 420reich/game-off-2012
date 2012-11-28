@@ -301,3 +301,19 @@ exports.replayFight = function(req, res) {
     });
   });
 };
+
+exports.prepareFight = function(req, res) {
+  return Robot.find({
+    where: {
+      id: req.params.robot_id
+    }
+  }).success(function(opponent) {
+    return req.user.getRobots().success(function(myRobots) {
+      return res.render('prepareFight', {
+        title: "Fighting against: " + opponent.title,
+        opponent: opponent,
+        myRobots: myRobots
+      });
+    });
+  });
+};

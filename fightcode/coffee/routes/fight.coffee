@@ -250,3 +250,13 @@ exports.replayFight = (req, res) ->
                 res.render 'fightRobot', revisions: robotRevisionFights, title: "Fight Replay ##{ fightId }"
         )
     )
+
+exports.prepareFight = (req, res) ->
+    Robot.find(where: id: req.params.robot_id).success((opponent) ->
+        req.user.getRobots().success((myRobots) ->
+            res.render 'prepareFight',
+                title: "Fighting against: #{ opponent.title }",
+                opponent: opponent,
+                myRobots: myRobots
+        )
+    )

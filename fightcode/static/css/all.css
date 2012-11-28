@@ -1,4 +1,4 @@
-/* line 17, ../../../../../../.rvm/gems/ruby-1.9.3-p327@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 17, ../../../../../.rvm/gems/ruby-1.9.3-p286@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -20,45 +20,45 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 
-/* line 22, ../../../../../../.rvm/gems/ruby-1.9.3-p327@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 22, ../../../../../.rvm/gems/ruby-1.9.3-p286@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 html {
   line-height: 1;
 }
 
-/* line 24, ../../../../../../.rvm/gems/ruby-1.9.3-p327@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 24, ../../../../../.rvm/gems/ruby-1.9.3-p286@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 ol, ul {
   list-style: none;
 }
 
-/* line 26, ../../../../../../.rvm/gems/ruby-1.9.3-p327@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 26, ../../../../../.rvm/gems/ruby-1.9.3-p286@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-/* line 28, ../../../../../../.rvm/gems/ruby-1.9.3-p327@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 28, ../../../../../.rvm/gems/ruby-1.9.3-p286@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 caption, th, td {
   text-align: left;
   font-weight: normal;
   vertical-align: middle;
 }
 
-/* line 30, ../../../../../../.rvm/gems/ruby-1.9.3-p327@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 30, ../../../../../.rvm/gems/ruby-1.9.3-p286@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 q, blockquote {
   quotes: none;
 }
-/* line 103, ../../../../../../.rvm/gems/ruby-1.9.3-p327@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 103, ../../../../../.rvm/gems/ruby-1.9.3-p286@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 q:before, q:after, blockquote:before, blockquote:after {
   content: "";
   content: none;
 }
 
-/* line 32, ../../../../../../.rvm/gems/ruby-1.9.3-p327@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 32, ../../../../../.rvm/gems/ruby-1.9.3-p286@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 a img {
   border: none;
 }
 
-/* line 116, ../../../../../../.rvm/gems/ruby-1.9.3-p327@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 116, ../../../../../.rvm/gems/ruby-1.9.3-p286@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
   display: block;
 }
@@ -1357,7 +1357,7 @@ header {
   display: block;
   overflow: hidden;
 }
-/* line 44, ../../../../../../.rvm/gems/ruby-1.9.3-p327@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+/* line 44, ../../../../../.rvm/gems/ruby-1.9.3-p286@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
 .menu-container .ribbon:active, .menu-container .ribbon.ribbon_background-active {
   background-position: 0 0;
 }
@@ -1405,7 +1405,7 @@ footer {
 footer .container {
   *zoom: 1;
 }
-/* line 38, ../../../../../../.rvm/gems/ruby-1.9.3-p327@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+/* line 38, ../../../../../.rvm/gems/ruby-1.9.3-p286@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
 footer .container:after {
   content: "";
   display: table;
@@ -1500,8 +1500,9 @@ footer ul span {
   font-family: "oswald-bold";
   color: #ed0027;
   padding-top: 9px;
+  line-height: 15px;
 }
-/* line 18, ../scss/components/_header.scss */
+/* line 19, ../scss/components/_header.scss */
 .header .title h1 {
   display: inline-block;
   margin: 0 auto 16px auto;
@@ -1509,7 +1510,6 @@ footer ul span {
   text-shadow: #111111 -1px 1px 0, #5d000f -3px 3px 0;
   text-transform: uppercase;
   position: relative;
-  line-height: 15px;
 }
 /* line 27, ../scss/components/_header.scss */
 .header .title h1:before, .header .title h1:after {
@@ -2462,4 +2462,49 @@ code, pre {
   height: 217px;
   width: 4px;
   background-color: #ed0027;
+}
+
+/* line 3, ../scss/pages/_choose.scss */
+.choose-area {
+  background: url("../img/pattern.png");
+}
+/* line 6, ../scss/pages/_choose.scss */
+.choose-area .header {
+  padding-top: 65px;
+  position: relative;
+}
+/* line 10, ../scss/pages/_choose.scss */
+.choose-area .header .title {
+  font-size: 0;
+}
+/* line 13, ../scss/pages/_choose.scss */
+.choose-area .header .title .marker {
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 4px;
+  width: 299px;
+  height: 4px;
+  background-color: #fdfdfd;
+  opacity: 0.1;
+}
+/* line 23, ../scss/pages/_choose.scss */
+.choose-area .header .title h1 {
+  display: inline-block;
+  vertical-align: top;
+  margin-bottom: 16px;
+  padding: 0 32px 0 30px;
+  font-family: "oswald-bold";
+  font-size: 32px;
+  line-height: 15px;
+  color: #ed0027;
+  text-shadow: #111111 -1px 1px 0, #5d000f -3px 3px 0;
+}
+/* line 36, ../scss/pages/_choose.scss */
+.choose-area .header .performance {
+  margin-bottom: 42px;
+  font-family: "oswald";
+  font-size: 18px;
+  line-height: 15px;
+  text-align: center;
+  color: #ddd;
 }

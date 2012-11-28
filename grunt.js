@@ -2,14 +2,12 @@ module.exports = function(grunt) {
 
     var cssFiles = {
         website: [
-            'fightcode/static/css/prism.css',
-            'fightcode/static/css/codemirror.css',
             'fightcode/static/css/all.css'
         ]
     };
 
     var jsFiles = {
-        engine: [,
+        engine: [
             'fightcode/static/js/engine.js',
             'fightcode/static/js/robot.js',
             'fightcode/static/js/inline.js'
