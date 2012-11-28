@@ -1,10 +1,19 @@
+@import 'create-robot/*.png';
+
+
 .cm-s-ambiance {
     border-radius: 5px;
     height: 500px;
 }
 
 .create-robot {
-    padding: 60px 20px 0 20px;
+    .header-icon {
+        $width: create-robot-sprite-width('robo-header');
+
+        @include create-robot-sprite('robo-header', $dimensions: true);
+        margin-left: -($width/2);
+        top: -37px;
+    }
 
     .editor {
         height: 500px;

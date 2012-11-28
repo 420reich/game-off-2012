@@ -1,4 +1,4 @@
-/* line 17, ../../../../../.rvm/gems/ruby-1.9.3-p286@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 17, ../../../../../../.rvm/gems/ruby-1.9.3-p327@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -20,45 +20,45 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 
-/* line 22, ../../../../../.rvm/gems/ruby-1.9.3-p286@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 22, ../../../../../../.rvm/gems/ruby-1.9.3-p327@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 html {
   line-height: 1;
 }
 
-/* line 24, ../../../../../.rvm/gems/ruby-1.9.3-p286@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 24, ../../../../../../.rvm/gems/ruby-1.9.3-p327@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 ol, ul {
   list-style: none;
 }
 
-/* line 26, ../../../../../.rvm/gems/ruby-1.9.3-p286@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 26, ../../../../../../.rvm/gems/ruby-1.9.3-p327@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-/* line 28, ../../../../../.rvm/gems/ruby-1.9.3-p286@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 28, ../../../../../../.rvm/gems/ruby-1.9.3-p327@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 caption, th, td {
   text-align: left;
   font-weight: normal;
   vertical-align: middle;
 }
 
-/* line 30, ../../../../../.rvm/gems/ruby-1.9.3-p286@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 30, ../../../../../../.rvm/gems/ruby-1.9.3-p327@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 q, blockquote {
   quotes: none;
 }
-/* line 103, ../../../../../.rvm/gems/ruby-1.9.3-p286@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 103, ../../../../../../.rvm/gems/ruby-1.9.3-p327@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 q:before, q:after, blockquote:before, blockquote:after {
   content: "";
   content: none;
 }
 
-/* line 32, ../../../../../.rvm/gems/ruby-1.9.3-p286@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 32, ../../../../../../.rvm/gems/ruby-1.9.3-p327@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 a img {
   border: none;
 }
 
-/* line 116, ../../../../../.rvm/gems/ruby-1.9.3-p286@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 116, ../../../../../../.rvm/gems/ruby-1.9.3-p327@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
   display: block;
 }
@@ -1357,7 +1357,7 @@ header {
   display: block;
   overflow: hidden;
 }
-/* line 44, ../../../../../.rvm/gems/ruby-1.9.3-p286@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+/* line 44, ../../../../../../.rvm/gems/ruby-1.9.3-p327@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
 .menu-container .ribbon:active, .menu-container .ribbon.ribbon_background-active {
   background-position: 0 0;
 }
@@ -1405,7 +1405,7 @@ footer {
 footer .container {
   *zoom: 1;
 }
-/* line 38, ../../../../../.rvm/gems/ruby-1.9.3-p286@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+/* line 38, ../../../../../../.rvm/gems/ruby-1.9.3-p327@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
 footer .container:after {
   content: "";
   display: table;
@@ -1488,11 +1488,6 @@ footer ul span {
   position: relative;
 }
 /* line 5, ../scss/components/_header.scss */
-.header .prize {
-  position: absolute;
-  display: block;
-}
-/* line 10, ../scss/components/_header.scss */
 .header .title {
   overflow: hidden;
   text-align: center;
@@ -1502,7 +1497,7 @@ footer ul span {
   padding-top: 9px;
   line-height: 15px;
 }
-/* line 19, ../scss/components/_header.scss */
+/* line 14, ../scss/components/_header.scss */
 .header .title h1 {
   display: inline-block;
   margin: 0 auto 16px auto;
@@ -1511,7 +1506,7 @@ footer ul span {
   text-transform: uppercase;
   position: relative;
 }
-/* line 27, ../scss/components/_header.scss */
+/* line 22, ../scss/components/_header.scss */
 .header .title h1:before, .header .title h1:after {
   content: '';
   display: block;
@@ -1522,15 +1517,15 @@ footer ul span {
   top: 4px;
   opacity: 0.1;
 }
-/* line 38, ../scss/components/_header.scss */
+/* line 33, ../scss/components/_header.scss */
 .header .title h1:before {
   left: 100%;
 }
-/* line 42, ../scss/components/_header.scss */
+/* line 37, ../scss/components/_header.scss */
 .header .title h1:after {
   right: 100%;
 }
-/* line 48, ../scss/components/_header.scss */
+/* line 43, ../scss/components/_header.scss */
 .header .performance {
   margin-bottom: 42px;
   font-family: "oswald";
@@ -1538,6 +1533,13 @@ footer ul span {
   line-height: 15px;
   text-align: center;
   color: #ddd;
+}
+
+/* line 53, ../scss/components/_header.scss */
+.header-icon {
+  position: absolute;
+  display: block;
+  left: 50%;
 }
 
 /* line 1, ../scss/pages/_home.scss */
@@ -1577,21 +1579,30 @@ code, pre {
   font-size: 16px;
 }
 
-/* line 1, ../scss/pages/_create.scss */
+/* line 44, create-robot/*.png */
+.create-robot-sprite, .create-robot .header-icon {
+  background: url('../img/create-robot-s352b2b25bd.png') no-repeat;
+}
+
+/* line 4, ../scss/pages/_create.scss */
 .cm-s-ambiance {
   border-radius: 5px;
   height: 500px;
 }
 
-/* line 6, ../scss/pages/_create.scss */
-.create-robot {
-  padding: 60px 20px 0 20px;
+/* line 10, ../scss/pages/_create.scss */
+.create-robot .header-icon {
+  background-position: 0 0;
+  height: 68px;
+  width: 91px;
+  margin-left: -45.5px;
+  top: -37px;
 }
-/* line 9, ../scss/pages/_create.scss */
+/* line 18, ../scss/pages/_create.scss */
 .create-robot .editor {
   height: 500px;
 }
-/* line 13, ../scss/pages/_create.scss */
+/* line 22, ../scss/pages/_create.scss */
 .create-robot .board {
   width: 480px;
   height: 480px;
@@ -2105,7 +2116,7 @@ code, pre {
 }
 
 /* line 92, ranking/*.png */
-.ranking-sprite, .ranking-area .prize, .ranking-area .rank .row.mine .position, .ranking-area .rank .row .robot-face, .ranking-area .top10 .sidebar .robot, .ranking-area .top10 .info .row.kills .icon, .ranking-area .top10 .info .row.shots .icon, .ranking-area .top10 .info .row.aim .icon {
+.ranking-sprite, .ranking-area .header-icon, .ranking-area .rank .row.mine .position, .ranking-area .rank .row .robot-face, .ranking-area .top10 .sidebar .robot, .ranking-area .top10 .info .row.kills .icon, .ranking-area .top10 .info .row.shots .icon, .ranking-area .top10 .info .row.aim .icon {
   background: url('../img/ranking-sd82d64e89b.png') no-repeat;
 }
 
@@ -2120,14 +2131,14 @@ code, pre {
   background: url("../img/pattern.png");
 }
 /* line 14, ../scss/pages/_ranking.scss */
-.ranking-area .prize {
+.ranking-area .header-icon {
   background-position: 0 -197px;
   height: 69px;
   width: 65px;
   left: 438px;
   top: -33px;
 }
-/* line 21, ../scss/pages/_ranking.scss */
+/* line 20, ../scss/pages/_ranking.scss */
 .ranking-area .actions {
   display: none;
   position: absolute;
@@ -2136,7 +2147,7 @@ code, pre {
   right: 81px;
   top: 10px;
 }
-/* line 29, ../scss/pages/_ranking.scss */
+/* line 28, ../scss/pages/_ranking.scss */
 .ranking-area .actions a {
   display: inline-block;
   background-color: #ed0027;
@@ -2145,21 +2156,21 @@ code, pre {
   color: #fff;
   text-shadow: 1px 1px #000;
 }
-/* line 37, ../scss/pages/_ranking.scss */
+/* line 36, ../scss/pages/_ranking.scss */
 .ranking-area .actions a.fight {
   padding: 19px 20px 20px 31px;
   border-radius: 20px 0 0 20px;
 }
-/* line 42, ../scss/pages/_ranking.scss */
+/* line 41, ../scss/pages/_ranking.scss */
 .ranking-area .actions a.fork {
   padding: 19px 30px 20px 27px;
   border-radius: 0 20px 20px 0;
 }
-/* line 47, ../scss/pages/_ranking.scss */
+/* line 46, ../scss/pages/_ranking.scss */
 .ranking-area .actions a:hover {
   background-color: #ff3d3d;
 }
-/* line 53, ../scss/pages/_ranking.scss */
+/* line 52, ../scss/pages/_ranking.scss */
 .ranking-area .separator {
   height: 1px;
   background-color: #2f2f2f;
@@ -2167,11 +2178,11 @@ code, pre {
   margin-top: 41px;
   margin-bottom: 41px;
 }
-/* line 60, ../scss/pages/_ranking.scss */
+/* line 59, ../scss/pages/_ranking.scss */
 .ranking-area .separator:last-child {
   display: none;
 }
-/* line 67, ../scss/pages/_ranking.scss */
+/* line 66, ../scss/pages/_ranking.scss */
 .ranking-area .rank .row {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);
   opacity: 0.7;
@@ -2182,7 +2193,7 @@ code, pre {
   margin-bottom: 5px;
   position: relative;
 }
-/* line 78, ../scss/pages/_ranking.scss */
+/* line 77, ../scss/pages/_ranking.scss */
 .ranking-area .rank .row .position,
 .ranking-area .rank .row .robot-face,
 .ranking-area .rank .row .robot-name {
@@ -2192,7 +2203,7 @@ code, pre {
   line-height: 15px;
   font-family: "oswald";
 }
-/* line 86, ../scss/pages/_ranking.scss */
+/* line 85, ../scss/pages/_ranking.scss */
 .ranking-area .rank .row .position {
   background-color: #ed0027;
   color: #fff;
@@ -2200,19 +2211,19 @@ code, pre {
   width: 66px;
   overflow: hidden;
 }
-/* line 95, ../scss/pages/_ranking.scss */
+/* line 94, ../scss/pages/_ranking.scss */
 .ranking-area .rank .row.mine .position {
   background-position: 0 0;
   background-color: #525252;
 }
-/* line 101, ../scss/pages/_ranking.scss */
+/* line 100, ../scss/pages/_ranking.scss */
 .ranking-area .rank .row .robot-face {
   background-position: 0 -60px;
   height: 60px;
   width: 140px;
   background-color: red;
 }
-/* line 107, ../scss/pages/_ranking.scss */
+/* line 105, ../scss/pages/_ranking.scss */
 .ranking-area .rank .row .robot-name {
   text-shadow: #f7f7f7 -1px 1px 0, #999999 -2px 2px 0;
   border-radius: 0 28px 28px 0;
@@ -2224,7 +2235,7 @@ code, pre {
   padding: 25px 0 20px 22px;
   width: 700px;
 }
-/* line 120, ../scss/pages/_ranking.scss */
+/* line 118, ../scss/pages/_ranking.scss */
 .ranking-area .rank .row .user-photo img {
   -webkit-transition: all 200ms ease-out;
   -moz-transition: all 200ms ease-out;
@@ -2239,16 +2250,16 @@ code, pre {
   width: 57px;
   height: 57px;
 }
-/* line 133, ../scss/pages/_ranking.scss */
+/* line 131, ../scss/pages/_ranking.scss */
 .ranking-area .rank .row:hover {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
   opacity: 1;
 }
-/* line 135, ../scss/pages/_ranking.scss */
+/* line 133, ../scss/pages/_ranking.scss */
 .ranking-area .rank .row:hover .actions {
   display: block;
 }
-/* line 140, ../scss/pages/_ranking.scss */
+/* line 138, ../scss/pages/_ranking.scss */
 .ranking-area .rank .row:hover .user-photo img {
   -webkit-transform: scale(1.1);
   -moz-transform: scale(1.1);
@@ -2256,37 +2267,37 @@ code, pre {
   -o-transform: scale(1.1);
   transform: scale(1.1);
 }
-/* line 148, ../scss/pages/_ranking.scss */
+/* line 146, ../scss/pages/_ranking.scss */
 .ranking-area .top10 {
   background-color: #f3f3f3;
   margin-top: 70px;
 }
-/* line 152, ../scss/pages/_ranking.scss */
+/* line 150, ../scss/pages/_ranking.scss */
 .ranking-area .top10 .container {
   padding-bottom: 100px;
 }
-/* line 156, ../scss/pages/_ranking.scss */
+/* line 154, ../scss/pages/_ranking.scss */
 .ranking-area .top10 .header {
   padding-top: 63px;
 }
-/* line 158, ../scss/pages/_ranking.scss */
+/* line 156, ../scss/pages/_ranking.scss */
 .ranking-area .top10 .header .marker {
   width: 409px;
   background-color: #dfdfdf;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
   opacity: 1;
 }
-/* line 163, ../scss/pages/_ranking.scss */
+/* line 161, ../scss/pages/_ranking.scss */
 .ranking-area .top10 .header h1 {
   color: #ed0027;
   padding: 0 19px 0 17px;
   text-shadow: #f3f3f3 -1px 1px 0, #5d000f -2px 2px 0;
 }
-/* line 168, ../scss/pages/_ranking.scss */
+/* line 166, ../scss/pages/_ranking.scss */
 .ranking-area .top10 .header .performance {
   color: #999;
 }
-/* line 173, ../scss/pages/_ranking.scss */
+/* line 171, ../scss/pages/_ranking.scss */
 .ranking-area .top10 ul {
   -webkit-box-shadow: #e5e5e5 0 0 1px 1px;
   -moz-box-shadow: #e5e5e5 0 0 1px 1px;
@@ -2297,7 +2308,7 @@ code, pre {
   white-space: nowrap;
   overflow: hidden;
 }
-/* line 181, ../scss/pages/_ranking.scss */
+/* line 179, ../scss/pages/_ranking.scss */
 .ranking-area .top10 ul li {
   -webkit-transition: width 500ms ease-out;
   -moz-transition: width 500ms ease-out;
@@ -2309,23 +2320,23 @@ code, pre {
   display: inline-block;
   width: 70px;
 }
-/* line 188, ../scss/pages/_ranking.scss */
+/* line 186, ../scss/pages/_ranking.scss */
 .ranking-area .top10 ul li.open {
   width: 311px;
 }
-/* line 196, ../scss/pages/_ranking.scss */
+/* line 194, ../scss/pages/_ranking.scss */
 .ranking-area .top10 .sidebar,
 .ranking-area .top10 .info,
 .ranking-area .top10 .vertical-separator {
   display: inline-block;
   vertical-align: top;
 }
-/* line 201, ../scss/pages/_ranking.scss */
+/* line 199, ../scss/pages/_ranking.scss */
 .ranking-area .top10 .sidebar {
   border-right: 1px solid #f7f7f7;
   width: 69px;
 }
-/* line 204, ../scss/pages/_ranking.scss */
+/* line 202, ../scss/pages/_ranking.scss */
 .ranking-area .top10 .sidebar .robot {
   background-position: 0 -120px;
   height: 77px;
@@ -2333,14 +2344,14 @@ code, pre {
   background-color: red;
   display: block;
 }
-/* line 211, ../scss/pages/_ranking.scss */
+/* line 208, ../scss/pages/_ranking.scss */
 .ranking-area .top10 .sidebar .user-photo {
   height: 80px;
   width: 69px;
   overflow: hidden;
   display: block;
 }
-/* line 218, ../scss/pages/_ranking.scss */
+/* line 215, ../scss/pages/_ranking.scss */
 .ranking-area .top10 .sidebar .position {
   display: block;
   font-size: 20px;
@@ -2351,13 +2362,13 @@ code, pre {
   width: 48px;
   overflow: hidden;
 }
-/* line 229, ../scss/pages/_ranking.scss */
+/* line 226, ../scss/pages/_ranking.scss */
 .ranking-area .top10 .info {
   background-color: #f7f7f7;
   width: 236px;
   height: 217px;
 }
-/* line 234, ../scss/pages/_ranking.scss */
+/* line 231, ../scss/pages/_ranking.scss */
 .ranking-area .top10 .info .robot-name {
   font-family: "oswald-bold";
   font-size: 23px;
@@ -2373,16 +2384,16 @@ code, pre {
   height: 52px;
   overflow: hidden;
 }
-/* line 250, ../scss/pages/_ranking.scss */
+/* line 247, ../scss/pages/_ranking.scss */
 .ranking-area .top10 .info .robot-data {
   padding-left: 17px;
   padding-top: 6px;
 }
-/* line 255, ../scss/pages/_ranking.scss */
+/* line 252, ../scss/pages/_ranking.scss */
 .ranking-area .top10 .info .row {
   display: block;
 }
-/* line 258, ../scss/pages/_ranking.scss */
+/* line 255, ../scss/pages/_ranking.scss */
 .ranking-area .top10 .info .row span,
 .ranking-area .top10 .info .row p {
   display: inline-block;
@@ -2390,62 +2401,62 @@ code, pre {
   font-size: 15px;
   font-family: "oswald";
 }
-/* line 265, ../scss/pages/_ranking.scss */
+/* line 262, ../scss/pages/_ranking.scss */
 .ranking-area .top10 .info .row p {
   padding-top: 8px;
   padding-left: 4px;
   color: #4f4f4f;
 }
-/* line 270, ../scss/pages/_ranking.scss */
+/* line 267, ../scss/pages/_ranking.scss */
 .ranking-area .top10 .info .row p.value {
   color: #ed003d;
 }
-/* line 276, ../scss/pages/_ranking.scss */
+/* line 273, ../scss/pages/_ranking.scss */
 .ranking-area .top10 .info .row.kills .icon {
   background-position: 0 -308px;
   height: 13px;
   width: 33px;
 }
-/* line 282, ../scss/pages/_ranking.scss */
+/* line 278, ../scss/pages/_ranking.scss */
 .ranking-area .top10 .info .row.shots {
   padding-top: 5px;
   padding-left: 4px;
 }
-/* line 286, ../scss/pages/_ranking.scss */
+/* line 282, ../scss/pages/_ranking.scss */
 .ranking-area .top10 .info .row.shots p {
   padding-top: 15px;
   padding-left: 3px;
 }
-/* line 289, ../scss/pages/_ranking.scss */
+/* line 285, ../scss/pages/_ranking.scss */
 .ranking-area .top10 .info .row.shots p.value {
   padding-left: 11px;
 }
-/* line 293, ../scss/pages/_ranking.scss */
+/* line 289, ../scss/pages/_ranking.scss */
 .ranking-area .top10 .info .row.shots .icon {
   background-position: 0 -266px;
   height: 22px;
   width: 23px;
 }
-/* line 299, ../scss/pages/_ranking.scss */
+/* line 294, ../scss/pages/_ranking.scss */
 .ranking-area .top10 .info .row.aim {
   padding-left: 6px;
   padding-top: 5px;
 }
-/* line 303, ../scss/pages/_ranking.scss */
+/* line 298, ../scss/pages/_ranking.scss */
 .ranking-area .top10 .info .row.aim p {
   padding-top: 13px;
 }
-/* line 306, ../scss/pages/_ranking.scss */
+/* line 301, ../scss/pages/_ranking.scss */
 .ranking-area .top10 .info .row.aim p.value {
   padding-left: 11px;
 }
-/* line 311, ../scss/pages/_ranking.scss */
+/* line 306, ../scss/pages/_ranking.scss */
 .ranking-area .top10 .info .row.aim .icon {
   background-position: 0 -288px;
   height: 20px;
   width: 20px;
 }
-/* line 318, ../scss/pages/_ranking.scss */
+/* line 312, ../scss/pages/_ranking.scss */
 .ranking-area .top10 .info .actions {
   display: block;
   margin-top: 19px;
@@ -2453,7 +2464,7 @@ code, pre {
   width: 191px;
   position: static;
 }
-/* line 327, ../scss/pages/_ranking.scss */
+/* line 321, ../scss/pages/_ranking.scss */
 .ranking-area .top10 .vertical-separator {
   -webkit-box-shadow: #c8c8c8 -1px 0 1px 0;
   -moz-box-shadow: #c8c8c8 -1px 0 1px 0;

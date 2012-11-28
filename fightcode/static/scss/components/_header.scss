@@ -1,11 +1,6 @@
 .header {
     padding-top: 56px;
-    position:relative;
-
-    .prize {
-        position: absolute;
-        display: block;
-    }
+    position: relative;
 
     .title {
         overflow: hidden;
@@ -53,4 +48,10 @@
         text-align: center;
         color: #ddd;
     }
+}
+
+.header-icon {
+    position: absolute;
+    display: block;
+    left: 50%;
 }
