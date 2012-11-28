@@ -2,9 +2,10 @@
 
 .choose-area {
   background: url('../img/pattern.png');
+  padding:20px;
 
     .header {
-        padding-top: 65px;
+        padding-top: 20px;
         position:relative;
 
         .title {
@@ -34,13 +35,16 @@
         }
 
         .performance {
-            margin-bottom: 42px;
             font-family: "oswald";
             font-size: 18px;
             line-height: 15px;
             text-align: center;
             color: #ddd;
         }
+    }
+
+    .btn {
+        margin:20px;
     }
 
 }

@@ -629,6 +629,8 @@ class Engine
                 @roundLog.objects.push({
                     type: if status instanceof RobotStatus then 'tank' else 'bullet'
                     id: status.id
+                    name: if status instanceof RobotStatus then status.robot.name else 'bullet'
+                    isClone: if status instanceof RobotStatus then status.isClone() else false
                     position:
                         x: status.rectangle.position.x
                         y: status.rectangle.position.y

@@ -1,27 +1,23 @@
 <% include header.ejs %>
 <div class="fight-arena">
-
-    <div class="loading">
-        <div class="left-half">
-            <div class="my-robot">
-                <div class="robotData">
-                    <img src="/img/bender.png" class="robot-image"></img>
-                    <h2><span class="ranking">#20</span><span class="name">MANIAC</span></h2>
-                    <div class="victories"><span class="number">12</span><span class="stat-label">VICTORIES</span></div>
-                    <div class="defeats"><span class="number">8</span><span class="stat-label">DEFEATS</span></div>
-                    <div class="draws"><span class="number">2</span><span class="stat-label">DRAWS</span></div>
+    <div class="score">
+        <div class="container">
+            <div class="playerScore">
+                <div class="left">
+                    <div class="player"><img src="<%=req.user.photo(110) %>" /></div>
+                    <div class="robot"><div class="icon"></div></div>
+                    <div class="stats">
+                        <div class="name"><%=revisions[0].name%></div>
+                        <div class="life"><div class="filled" style="width: 100%"></div></div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="vs">VS</div>
-        <div class="right-half">
-            <div class="opponent-robot">
-                <div class="robotData">
-                    <h2><span class="ranking">#39</span><span class="name">IRONMAIDEN</span></h2>
-                    <div class="victories"><span class="number">20</span><span class="stat-label">VICTORIES</span></div>
-                    <div class="defeats"><span class="number">18</span><span class="stat-label">DEFEATS</span></div>
-                    <div class="draws"><span class="number">5</span><span class="stat-label">DRAWS</span></div>
-                    <img src="/img/rosie.png" class="robot-image"></img>
+                <div class="right">
+                    <div class="stats">
+                        <div class="name"><%=revisions[1].name%></div>
+                        <div class="life"><div class="filled" style="width: 100%"></div></div>
+                    </div>
+                    <div class="robot"><div class="icon"></div></div>
+                    <div class="player"><img src="<%=req.user.photo(110) %>" /></div>
                 </div>
             </div>
         </div>
@@ -34,16 +30,34 @@
 <% include scripts.ejs %>
 
 <% revisions.forEach(function(robot_revision_fight) { %>
-<script type="robot/script" id="<%= robot_revision_fight.name %>-code">
-    <%= robot_revision_fight.code %>
+<script type="robot/script" id="robot-<%= robot_revision_fight.id %>-code">
+    <%- robot_revision_fight.code %>
 </script>
 <% }); %>
 
 <script>
     container = $(".fight-arena");
 
-    var robot1Code = $('#<%= revisions[0].name %>-code').html();
-    var robot2Code = $('#<%= revisions[1].name %>-code').html();
+    var robot1Name = '<%=revisions[0].name%>';
+    var robot2Name = '<%=revisions[1].name%>';
+
+    var robot1Code = $('#robot-<%= revisions[0].id %>-code').html();
+    var robot2Code = $('#robot-<%= revisions[1].id %>-code').html();
+
+    var robot1Life = $('.left .life .filled');
+    var robot2Life = $('.right .life .filled');
+
+    var onRound = function(round) {
+        for (var i=0; i<round.objects.length; i++) {
+            var obj = round.objects[i];
+            if (obj.name == robot1Name && !obj.isClone) {
+                robot1Life.css('width', obj.life + "%");
+            }
+            if (obj.name == robot2Name && !obj.isClone) {
+                robot2Life.css('width', obj.life + "%");
+            }
+        }
+    };
 
     arena = new FightArena(container, [
         {
@@ -68,7 +82,7 @@
                 angle: <%= revisions[1].angle %>
             }
         }
-    ])
+    ], onRound)
 </script>
 
 <a href="/robots/fight/<%= revisions[0].gistId %>/<%=revisions[1].gistId %>">FIGHT AGAIN</a>

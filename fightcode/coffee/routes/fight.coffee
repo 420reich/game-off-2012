@@ -258,7 +258,7 @@ exports.prepareFight = (req, res) ->
     Robot.find(where: id: req.params.robot_id).success((opponent) ->
         req.user.getRobots().success((myRobots) ->
             res.render 'prepareFight',
-                title: "Fighting against: #{ opponent.title }",
+                layout: false,
                 opponent: opponent,
                 myRobots: myRobots
         )

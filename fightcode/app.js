@@ -40,6 +40,12 @@ var sequelize = require(path.join(configPath, 'database')),
 passport.serializeUser(function(user, done) {
     var profile = user.profile;
     var token = user.accessToken;
+    //console.log("PROFILE >>>>>>>> ", profile);
+
+    var email = profile.email;
+    if (!email && profile.emails && profile.emails.length > 0) {
+        email = profile.emails[0].value;
+    }
     User.find({
         where: { githubId: profile.id }
     })
@@ -47,9 +53,9 @@ passport.serializeUser(function(user, done) {
         if (user == null) {
             User.create({
                 token: token,
-                email: profile.email,
-                login: profile.login,
-                name: profile.name,
+                email: email,
+                login: profile.username,
+                name: profile.displayName,
                 githubId: profile.id
             }).success(function(newUser){
                 done(null, newUser.id);
@@ -57,8 +63,8 @@ passport.serializeUser(function(user, done) {
         }
         else {
             user.token = token;
-            user.email = profile.email;
-            user.login = profile.login;
+            user.email = email;
+            user.login = profile.username;
             user.save().success(function(){
                 done(null, user.id);
             });
@@ -75,7 +81,7 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new GitHubStrategy({
         clientID: process.env.GITHUB_ID || 'b02ea2e0c17338aee416',
         clientSecret: process.env.GITHUB_SECRET || 'dbd2f9c0c1bcd303aab1745d348cc8e008dd278e',
-        callbackURL: "http://local.fightcodegame.com:3000/auth/github/callback"
+        callbackURL: process.env.AUTH_REDIRECT_URL || "http://local.fightcodegame.com:3000/auth/github/callback"
     },
     function(accessToken, refreshToken, profile, done) {
         return done(null, {

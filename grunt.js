@@ -2,7 +2,9 @@ module.exports = function(grunt) {
 
     var cssFiles = {
         website: [
-            'fightcode/static/css/all.css'
+            'fightcode/static/css/all.css',
+            'fightcode/static/css/codemirror.css',
+            'fightcode/static/css/theme/ambiance.css'
         ]
     };
 
@@ -33,6 +35,7 @@ module.exports = function(grunt) {
             'fightcode/static/js/codemirror.js',
             'fightcode/static/js/coffeescript.js',
             'fightcode/static/js/javascript.js',
+            'fightcode/static/js/jquery.simplemodal-1.4.3.js',
             'fightcode/static/js/jquery.knobs.js'
         ],
 

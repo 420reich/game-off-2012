@@ -882,140 +882,104 @@ a {
 .fight-arena {
   padding: 60px 20px 0 20px;
 }
-.fight-arena .loading {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1500;
+.fight-arena .score {
   font-size: 0;
-  overflow-x: hidden;
+  margin-bottom: 50px;
 }
-.fight-arena .loading .left-half,
-.fight-arena .loading .right-half {
-  -webkit-transition: all 500ms cubic-bezier(0.82, 0.02, 0.36, 0.96) 150ms;
-  -moz-transition: all 500ms cubic-bezier(0.82, 0.02, 0.36, 0.96) 150ms;
-  -ms-transition: all 500ms cubic-bezier(0.82, 0.02, 0.36, 0.96) 150ms;
-  -o-transition: all 500ms cubic-bezier(0.82, 0.02, 0.36, 0.96) 150ms;
-  transition: all 500ms cubic-bezier(0.82, 0.02, 0.36, 0.96) 150ms;
-  position: absolute;
-  top: 0;
-  height: 100%;
+.fight-arena .score .playerScore {
+  margin: 0 55px;
+  height: 110px;
+  background-color: #dfdfdf;
+}
+.fight-arena .score .left, .fight-arena .score .right {
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
   width: 50%;
-  background: url("../img/subtle_carbon.png");
 }
-.fight-arena .loading .left-half {
-  left: 0;
-}
-.fight-arena .loading .right-half {
-  right: 0;
-}
-.fight-arena .loading.animate .left-half {
-  left: -50%;
-}
-.fight-arena .loading.animate .right-half {
-  right: -50%;
-}
-.fight-arena .loading.animate .vs {
-  opacity: 0;
-}
-.fight-arena .my-robot,
-.fight-arena .opponent-robot {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  height: 100%;
-  width: 70%;
+.fight-arena .score .player {
   position: absolute;
   top: 0;
-  display: table;
-  font-size: 72px;
-  text-align: center;
+  width: 110px;
 }
-.fight-arena .my-robot .robotData,
-.fight-arena .opponent-robot .robotData {
-  display: table-cell;
-  vertical-align: middle;
+.fight-arena .score .player img {
+  width: 110px;
+  height: 110px;
+  border-radius: 110px;
 }
-.fight-arena .my-robot img,
-.fight-arena .opponent-robot img {
-  height: 30%;
+.fight-arena .score .left .player {
+  left: 0;
+  margin-left: -55px;
 }
-.fight-arena .my-robot h2,
-.fight-arena .opponent-robot h2 {
-  font-family: 'fightcode';
-  font-size: 90px;
-  color: #e9e9e9;
+.fight-arena .score .left .robot .icon {
+  margin-left: 55px;
 }
-.fight-arena .my-robot h2 .name,
-.fight-arena .opponent-robot h2 .name {
-  color: #d92432;
+.fight-arena .score .left .name {
+  margin: 17px 0 13px 22px;
 }
-.fight-arena .my-robot .victories,
-.fight-arena .my-robot .defeats,
-.fight-arena .my-robot .draws,
-.fight-arena .opponent-robot .victories,
-.fight-arena .opponent-robot .defeats,
-.fight-arena .opponent-robot .draws {
-  font-family: 'fightcode';
-  font-size: 62px;
-  line-height: 65px;
-  color: #e9e9e9;
+.fight-arena .score .left .life {
+  margin-left: 22px;
 }
-.fight-arena .my-robot .victories .number,
-.fight-arena .opponent-robot .victories .number {
-  color: #95ff7c;
+.fight-arena .score .right .player {
+  right: 0;
+  margin-right: -55px;
 }
-.fight-arena .my-robot .defeats .number,
-.fight-arena .opponent-robot .defeats .number {
-  color: #d92432;
+.fight-arena .score .right .robot .icon {
+  margin-left: 13px;
 }
-.fight-arena .my-robot .draws .number,
-.fight-arena .opponent-robot .draws .number {
-  color: #fff665;
+.fight-arena .score .right .name {
+  margin: 18px 0 11px 59px;
 }
-.fight-arena .my-robot {
-  left: 50px;
+.fight-arena .score .right .life {
+  margin-left: 60px;
 }
-.fight-arena .my-robot h2 {
-  margin-top: 40px;
+.fight-arena .score .robot {
+  display: inline-block;
+  vertical-align: top;
+  width: 205px;
+  height: 110px;
 }
-.fight-arena .my-robot .victories {
-  margin-top: 40px;
+.fight-arena .score .robot .icon {
+  background: url("../img/robot-sprite-arena.png") 0 0 no-repeat;
+  background-color: #ff0000;
+  width: 137px;
+  height: 107px;
+  margin-top: 3px;
 }
-.fight-arena .opponent-robot {
-  right: 50px;
+.fight-arena .score .stats {
+  display: inline-block;
+  vertical-align: top;
+  width: 210px;
+  height: 109px;
+  margin-top: 1px;
+  background-color: #f3f3f3;
 }
-.fight-arena .opponent-robot img {
-  margin-top: 40px;
+.fight-arena .score .stats .name {
+  width: 135px;
+  font-family: "oswald-bold";
+  font-size: 24px;
+  line-height: 27px;
+  color: #4f4f4f;
+  text-shadow: #f7f7f7 -1px 1px 0, #999999 -2px 2px 0;
+  text-transform: uppercase;
 }
-.fight-arena .opponent-robot .victories {
-  margin-top: 40px;
+.fight-arena .score .stats .life {
+  width: 116px;
+  height: 9px;
+  background: url("../img/life-rectangle.png") 0 0 no-repeat;
+  position: relative;
 }
-.fight-arena .vs {
-  -webkit-transition: all 100ms linear;
-  -moz-transition: all 100ms linear;
-  -ms-transition: all 100ms linear;
-  -o-transition: all 100ms linear;
-  transition: all 100ms linear;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  height: 180px;
-  width: 100px;
+.fight-arena .score .stats .life .filled {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-top: -90px;
-  margin-left: -50px;
-  padding-top: 70px;
-  font-size: 200px;
-  font-family: 'fightcode';
-  text-align: center;
-  text-indent: -45px;
-  z-index: 9999;
-  opacity: 1;
+  top: 0;
+  left: 0;
+  height: 9px;
+  background-color: #ed0027;
+  -webkit-transition: all 200ms ease-in;
+  -moz-transition: all 200ms ease-in;
+  -ms-transition: all 200ms ease-in;
+  -o-transition: all 200ms ease-in;
+  transition: all 200ms ease-in;
 }
 .fight-arena .board {
   width: 800px;
@@ -1389,6 +1353,28 @@ footer ul span {
   color: #ddd;
 }
 
+.simplemodal-overlay {
+  background: #fff;
+}
+
+.simplemodal-container a.modalCloseImg {
+  background: url(/img/close-modal.png) no-repeat;
+  width: 25px;
+  height: 29px;
+  display: inline;
+  z-index: 3200;
+  position: absolute;
+  top: -15px;
+  right: -18px;
+  cursor: pointer;
+}
+
+.simplemodal-wrap {
+  -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0 0 10px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.5) 0 0 10px;
+  box-shadow: rgba(0, 0, 0, 0.5) 0 0 10px;
+}
+
 .home {
   padding: 60px 20px 0 20px;
 }
@@ -1436,7 +1422,7 @@ code, pre {
   top: -37px;
 }
 .create-robot .editor {
-  height: 500px;
+  height: 476px;
 }
 .create-robot .board {
   width: 480px;
@@ -2164,9 +2150,10 @@ code, pre {
 
 .choose-area {
   background: url("../img/pattern.png");
+  padding: 20px;
 }
 .choose-area .header {
-  padding-top: 65px;
+  padding-top: 20px;
   position: relative;
 }
 .choose-area .header .title {
@@ -2193,10 +2180,12 @@ code, pre {
   text-shadow: #111111 -1px 1px 0, #5d000f -3px 3px 0;
 }
 .choose-area .header .performance {
-  margin-bottom: 42px;
   font-family: "oswald";
   font-size: 18px;
   line-height: 15px;
   text-align: center;
   color: #ddd;
+}
+.choose-area .btn {
+  margin: 20px;
 }
