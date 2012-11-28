@@ -1,0 +1,2454 @@
+/* line 17, ../../../../../../.rvm/gems/ruby-1.9.3-p327@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+/* line 22, ../../../../../../.rvm/gems/ruby-1.9.3-p327@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html {
+  line-height: 1;
+}
+
+/* line 24, ../../../../../../.rvm/gems/ruby-1.9.3-p327@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 26, ../../../../../../.rvm/gems/ruby-1.9.3-p327@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 28, ../../../../../../.rvm/gems/ruby-1.9.3-p327@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 30, ../../../../../../.rvm/gems/ruby-1.9.3-p327@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 103, ../../../../../../.rvm/gems/ruby-1.9.3-p327@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 32, ../../../../../../.rvm/gems/ruby-1.9.3-p327@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 116, ../../../../../../.rvm/gems/ruby-1.9.3-p327@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+
+/* line 3, ../scss/_reset.scss */
+body {
+  font-size: 14px;
+  font-family: arial;
+  background: url(../img/bg-grill-dark.png) repeat;
+}
+
+/* line 9, ../scss/_reset.scss */
+a {
+  text-decoration: none;
+}
+
+@font-face {
+  font-family: "fightcode";
+  src: url('fonts/../../fonts/fightt3_-webfont.eot');
+  src: url('fonts/../../fonts/fightt3_-webfont.eot?#iefix') format('eot'), url('fonts/../../fonts/fightt3_-webfont.woff') format('woff'), url('fonts/../../fonts/fightt3_-webfont.otf') format('opentype'), url('fonts/../../fonts/fightt3_-webfont.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: "oswald-bold";
+  src: url('fonts/../../fonts/oswald-bold-webfont.eot');
+  src: url('fonts/../../fonts/oswald-bold-webfont.eot?#iefix') format('eot'), url('fonts/../../fonts/oswald-bold-webfont.woff') format('woff'), url('fonts/../../fonts/oswald-bold-webfont.otf') format('opentype'), url('fonts/../../fonts/oswald-bold-webfont.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: "oswald-light";
+  src: url('fonts/../../fonts/oswald-light-webfont.eot');
+  src: url('fonts/../../fonts/oswald-light-webfont.eot?#iefix') format('eot'), url('fonts/../../fonts/oswald-light-webfont.woff') format('woff'), url('fonts/../../fonts/oswald-light-webfont.otf') format('opentype'), url('fonts/../../fonts/oswald-light-webfont.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: "oswald";
+  src: url('fonts/../../fonts/oswald-regular-webfont.eot');
+  src: url('fonts/../../fonts/oswald-regular-webfont.eot?#iefix') format('eot'), url('fonts/../../fonts/oswald-regular-webfont.woff') format('woff'), url('fonts/../../fonts/oswald-regular-webfont.otf') format('opentype'), url('fonts/../../fonts/oswald-regular-webfont.ttf') format('truetype');
+}
+
+/* line 1, ../scss/_grid.scss */
+.container {
+  width: 940px;
+  margin: 0 auto;
+}
+
+/* line 3, ../scss/_fight.scss */
+.board {
+  background: url("../img/grass.png");
+  border: solid 10px #175307;
+  border-radius: 15px;
+  width: 480px;
+  height: 480px;
+  position: relative;
+  margin: 40px auto 0;
+}
+
+@-moz-keyframes movement {
+  /* line 15, ../scss/_fight.scss */
+  10% {
+    background-position: -2px -4px;
+  }
+
+  /* line 19, ../scss/_fight.scss */
+  15% {
+    background-position: -34px -4px;
+  }
+
+  /* line 23, ../scss/_fight.scss */
+  25% {
+    background-position: -66px -4px;
+  }
+
+  /* line 27, ../scss/_fight.scss */
+  37% {
+    background-position: -98px -4px;
+  }
+
+  /* line 31, ../scss/_fight.scss */
+  50% {
+    background-position: -130px -4px;
+  }
+
+  /* line 35, ../scss/_fight.scss */
+  62% {
+    background-position: -162px -4px;
+  }
+
+  /* line 39, ../scss/_fight.scss */
+  75% {
+    background-position: -194px -4px;
+  }
+
+  /* line 43, ../scss/_fight.scss */
+  87% {
+    background-position: -226px -4px;
+  }
+
+  /* line 47, ../scss/_fight.scss */
+  90% {
+    background-position: -2px -4px;
+  }
+}
+
+@-webkit-keyframes movement {
+  /* line 15, ../scss/_fight.scss */
+  10% {
+    background-position: -2px -4px;
+  }
+
+  /* line 19, ../scss/_fight.scss */
+  15% {
+    background-position: -34px -4px;
+  }
+
+  /* line 23, ../scss/_fight.scss */
+  25% {
+    background-position: -66px -4px;
+  }
+
+  /* line 27, ../scss/_fight.scss */
+  37% {
+    background-position: -98px -4px;
+  }
+
+  /* line 31, ../scss/_fight.scss */
+  50% {
+    background-position: -130px -4px;
+  }
+
+  /* line 35, ../scss/_fight.scss */
+  62% {
+    background-position: -162px -4px;
+  }
+
+  /* line 39, ../scss/_fight.scss */
+  75% {
+    background-position: -194px -4px;
+  }
+
+  /* line 43, ../scss/_fight.scss */
+  87% {
+    background-position: -226px -4px;
+  }
+
+  /* line 47, ../scss/_fight.scss */
+  90% {
+    background-position: -2px -4px;
+  }
+}
+
+@-o-keyframes movement {
+  /* line 15, ../scss/_fight.scss */
+  10% {
+    background-position: -2px -4px;
+  }
+
+  /* line 19, ../scss/_fight.scss */
+  15% {
+    background-position: -34px -4px;
+  }
+
+  /* line 23, ../scss/_fight.scss */
+  25% {
+    background-position: -66px -4px;
+  }
+
+  /* line 27, ../scss/_fight.scss */
+  37% {
+    background-position: -98px -4px;
+  }
+
+  /* line 31, ../scss/_fight.scss */
+  50% {
+    background-position: -130px -4px;
+  }
+
+  /* line 35, ../scss/_fight.scss */
+  62% {
+    background-position: -162px -4px;
+  }
+
+  /* line 39, ../scss/_fight.scss */
+  75% {
+    background-position: -194px -4px;
+  }
+
+  /* line 43, ../scss/_fight.scss */
+  87% {
+    background-position: -226px -4px;
+  }
+
+  /* line 47, ../scss/_fight.scss */
+  90% {
+    background-position: -2px -4px;
+  }
+}
+
+@-ms-keyframes movement {
+  /* line 15, ../scss/_fight.scss */
+  10% {
+    background-position: -2px -4px;
+  }
+
+  /* line 19, ../scss/_fight.scss */
+  15% {
+    background-position: -34px -4px;
+  }
+
+  /* line 23, ../scss/_fight.scss */
+  25% {
+    background-position: -66px -4px;
+  }
+
+  /* line 27, ../scss/_fight.scss */
+  37% {
+    background-position: -98px -4px;
+  }
+
+  /* line 31, ../scss/_fight.scss */
+  50% {
+    background-position: -130px -4px;
+  }
+
+  /* line 35, ../scss/_fight.scss */
+  62% {
+    background-position: -162px -4px;
+  }
+
+  /* line 39, ../scss/_fight.scss */
+  75% {
+    background-position: -194px -4px;
+  }
+
+  /* line 43, ../scss/_fight.scss */
+  87% {
+    background-position: -226px -4px;
+  }
+
+  /* line 47, ../scss/_fight.scss */
+  90% {
+    background-position: -2px -4px;
+  }
+}
+
+@keyframes movement {
+  /* line 15, ../scss/_fight.scss */
+  10% {
+    background-position: -2px -4px;
+  }
+
+  /* line 19, ../scss/_fight.scss */
+  15% {
+    background-position: -34px -4px;
+  }
+
+  /* line 23, ../scss/_fight.scss */
+  25% {
+    background-position: -66px -4px;
+  }
+
+  /* line 27, ../scss/_fight.scss */
+  37% {
+    background-position: -98px -4px;
+  }
+
+  /* line 31, ../scss/_fight.scss */
+  50% {
+    background-position: -130px -4px;
+  }
+
+  /* line 35, ../scss/_fight.scss */
+  62% {
+    background-position: -162px -4px;
+  }
+
+  /* line 39, ../scss/_fight.scss */
+  75% {
+    background-position: -194px -4px;
+  }
+
+  /* line 43, ../scss/_fight.scss */
+  87% {
+    background-position: -226px -4px;
+  }
+
+  /* line 47, ../scss/_fight.scss */
+  90% {
+    background-position: -2px -4px;
+  }
+}
+
+/* line 52, ../scss/_fight.scss */
+.tank {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+/* line 57, ../scss/_fight.scss */
+.tank .body {
+  background-image: url("../img/tanks.png");
+  background-position: -2px -4px;
+  background-repeat: no-repeat;
+  width: 27px;
+  height: 24px;
+  -webkit-transition: opacity 1s linear;
+  -moz-transition: opacity 1s linear;
+  -ms-transition: opacity 1s linear;
+  -o-transition: opacity 1s linear;
+  transition: opacity 1s linear;
+}
+/* line 68, ../scss/_fight.scss */
+.tank .cannon {
+  background: url("../img/cannon.png") 0 0 no-repeat;
+  width: 24px;
+  height: 14px;
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  -webkit-transform-origin: 7px 7px 0 50%;
+  -moz-transform-origin: 7px 7px 0 50%;
+  -ms-transform-origin: 7px 7px 0 50%;
+  -o-transform-origin: 7px 7px 0 50%;
+  transform-origin: 7px 7px 0 50%;
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+  -webkit-transition: opacity 1s linear;
+  -moz-transition: opacity 1s linear;
+  -ms-transition: opacity 1s linear;
+  -o-transition: opacity 1s linear;
+  transition: opacity 1s linear;
+}
+/* line 82, ../scss/_fight.scss */
+.tank .life {
+  background-color: #c70000;
+  border: solid 1px red;
+  border-radius: 1px;
+  width: 30px;
+  height: 6px;
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  margin-left: -17px;
+  -webkit-box-shadow: 2px 2px 0 0 rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 2px 2px 0 0 rgba(0, 0, 0, 0.25);
+  box-shadow: 2px 2px 0 0 rgba(0, 0, 0, 0.25);
+  -webkit-transition: opacity 1s linear;
+  -moz-transition: opacity 1s linear;
+  -ms-transition: opacity 1s linear;
+  -o-transition: opacity 1s linear;
+  transition: opacity 1s linear;
+}
+/* line 97, ../scss/_fight.scss */
+.tank .explosion {
+  background: url("../img/explosprite.png") 0 0 no-repeat;
+  display: none;
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: -1px;
+  left: 1px;
+}
+/* line 108, ../scss/_fight.scss */
+.tank.moving .body {
+  -webkit-animation-duration: 500ms;
+  -moz-animation-duration: 500ms;
+  -ms-animation-duration: 500ms;
+  -o-animation-duration: 500ms;
+  animation-duration: 500ms;
+  -webkit-animation-name: movement;
+  -moz-animation-name: movement;
+  -ms-animation-name: movement;
+  -o-animation-name: movement;
+  animation-name: movement;
+  -webkit-animation-iteration-count: infinite;
+  -moz-animation-iteration-count: infinite;
+  -ms-animation-iteration-count: infinite;
+  -o-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-timing-function: step-start;
+  -moz-animation-timing-function: step-start;
+  -ms-animation-timing-function: step-start;
+  -o-animation-timing-function: step-start;
+  animation-timing-function: step-start;
+  -webkit-animation-direction: reverse;
+  -moz-animation-direction: reverse;
+  -ms-animation-direction: reverse;
+  -o-animation-direction: reverse;
+  animation-direction: reverse;
+}
+/* line 118, ../scss/_fight.scss */
+.tank.backwards .body {
+  -webkit-animation-direction: normal;
+  -moz-animation-direction: normal;
+  -ms-animation-direction: normal;
+  -o-animation-direction: normal;
+  animation-direction: normal;
+}
+/* line 124, ../scss/_fight.scss */
+.tank.dead .body, .tank.dead .cannon, .tank.dead .life {
+  opacity: 0;
+}
+/* line 128, ../scss/_fight.scss */
+.tank.dead .explosion {
+  display: block;
+  -webkit-animation-duration: 1000ms;
+  -moz-animation-duration: 1000ms;
+  -ms-animation-duration: 1000ms;
+  -o-animation-duration: 1000ms;
+  animation-duration: 1000ms;
+  -webkit-animation-name: explosion;
+  -moz-animation-name: explosion;
+  -ms-animation-name: explosion;
+  -o-animation-name: explosion;
+  animation-name: explosion;
+  -webkit-animation-timing-function: step-start;
+  -moz-animation-timing-function: step-start;
+  -ms-animation-timing-function: step-start;
+  -o-animation-timing-function: step-start;
+  animation-timing-function: step-start;
+  -webkit-animation-fill-mode: forwards;
+  -moz-animation-fill-mode: forwards;
+  -ms-animation-fill-mode: forwards;
+  -o-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+
+@-moz-keyframes explosion {
+  /* line 139, ../scss/_fight.scss */
+  6% {
+    background-position: 0px 0px;
+  }
+
+  /* line 142, ../scss/_fight.scss */
+  12% {
+    background-position: -24px 0px;
+  }
+
+  /* line 145, ../scss/_fight.scss */
+  19% {
+    background-position: -48px 0px;
+  }
+
+  /* line 148, ../scss/_fight.scss */
+  25% {
+    background-position: -72px 0px;
+  }
+
+  /* line 151, ../scss/_fight.scss */
+  31% {
+    background-position: 0px -24px;
+  }
+
+  /* line 154, ../scss/_fight.scss */
+  38% {
+    background-position: -24px -24px;
+  }
+
+  /* line 157, ../scss/_fight.scss */
+  44% {
+    background-position: -48px -24px;
+  }
+
+  /* line 160, ../scss/_fight.scss */
+  50% {
+    background-position: -72px -24px;
+  }
+
+  /* line 163, ../scss/_fight.scss */
+  56% {
+    background-position: 0px -48px;
+  }
+
+  /* line 166, ../scss/_fight.scss */
+  62% {
+    background-position: -24px -48px;
+  }
+
+  /* line 169, ../scss/_fight.scss */
+  69% {
+    background-position: -48px -48px;
+  }
+
+  /* line 172, ../scss/_fight.scss */
+  75% {
+    background-position: -72px -48px;
+  }
+
+  /* line 175, ../scss/_fight.scss */
+  81% {
+    background-position: 0px -72px;
+  }
+
+  /* line 178, ../scss/_fight.scss */
+  88% {
+    background-position: -24px -72px;
+  }
+
+  /* line 181, ../scss/_fight.scss */
+  94% {
+    background-position: -48px -72px;
+  }
+
+  /* line 184, ../scss/_fight.scss */
+  100% {
+    background-position: -72px -72px;
+  }
+}
+
+@-webkit-keyframes explosion {
+  /* line 139, ../scss/_fight.scss */
+  6% {
+    background-position: 0px 0px;
+  }
+
+  /* line 142, ../scss/_fight.scss */
+  12% {
+    background-position: -24px 0px;
+  }
+
+  /* line 145, ../scss/_fight.scss */
+  19% {
+    background-position: -48px 0px;
+  }
+
+  /* line 148, ../scss/_fight.scss */
+  25% {
+    background-position: -72px 0px;
+  }
+
+  /* line 151, ../scss/_fight.scss */
+  31% {
+    background-position: 0px -24px;
+  }
+
+  /* line 154, ../scss/_fight.scss */
+  38% {
+    background-position: -24px -24px;
+  }
+
+  /* line 157, ../scss/_fight.scss */
+  44% {
+    background-position: -48px -24px;
+  }
+
+  /* line 160, ../scss/_fight.scss */
+  50% {
+    background-position: -72px -24px;
+  }
+
+  /* line 163, ../scss/_fight.scss */
+  56% {
+    background-position: 0px -48px;
+  }
+
+  /* line 166, ../scss/_fight.scss */
+  62% {
+    background-position: -24px -48px;
+  }
+
+  /* line 169, ../scss/_fight.scss */
+  69% {
+    background-position: -48px -48px;
+  }
+
+  /* line 172, ../scss/_fight.scss */
+  75% {
+    background-position: -72px -48px;
+  }
+
+  /* line 175, ../scss/_fight.scss */
+  81% {
+    background-position: 0px -72px;
+  }
+
+  /* line 178, ../scss/_fight.scss */
+  88% {
+    background-position: -24px -72px;
+  }
+
+  /* line 181, ../scss/_fight.scss */
+  94% {
+    background-position: -48px -72px;
+  }
+
+  /* line 184, ../scss/_fight.scss */
+  100% {
+    background-position: -72px -72px;
+  }
+}
+
+@-o-keyframes explosion {
+  /* line 139, ../scss/_fight.scss */
+  6% {
+    background-position: 0px 0px;
+  }
+
+  /* line 142, ../scss/_fight.scss */
+  12% {
+    background-position: -24px 0px;
+  }
+
+  /* line 145, ../scss/_fight.scss */
+  19% {
+    background-position: -48px 0px;
+  }
+
+  /* line 148, ../scss/_fight.scss */
+  25% {
+    background-position: -72px 0px;
+  }
+
+  /* line 151, ../scss/_fight.scss */
+  31% {
+    background-position: 0px -24px;
+  }
+
+  /* line 154, ../scss/_fight.scss */
+  38% {
+    background-position: -24px -24px;
+  }
+
+  /* line 157, ../scss/_fight.scss */
+  44% {
+    background-position: -48px -24px;
+  }
+
+  /* line 160, ../scss/_fight.scss */
+  50% {
+    background-position: -72px -24px;
+  }
+
+  /* line 163, ../scss/_fight.scss */
+  56% {
+    background-position: 0px -48px;
+  }
+
+  /* line 166, ../scss/_fight.scss */
+  62% {
+    background-position: -24px -48px;
+  }
+
+  /* line 169, ../scss/_fight.scss */
+  69% {
+    background-position: -48px -48px;
+  }
+
+  /* line 172, ../scss/_fight.scss */
+  75% {
+    background-position: -72px -48px;
+  }
+
+  /* line 175, ../scss/_fight.scss */
+  81% {
+    background-position: 0px -72px;
+  }
+
+  /* line 178, ../scss/_fight.scss */
+  88% {
+    background-position: -24px -72px;
+  }
+
+  /* line 181, ../scss/_fight.scss */
+  94% {
+    background-position: -48px -72px;
+  }
+
+  /* line 184, ../scss/_fight.scss */
+  100% {
+    background-position: -72px -72px;
+  }
+}
+
+@-ms-keyframes explosion {
+  /* line 139, ../scss/_fight.scss */
+  6% {
+    background-position: 0px 0px;
+  }
+
+  /* line 142, ../scss/_fight.scss */
+  12% {
+    background-position: -24px 0px;
+  }
+
+  /* line 145, ../scss/_fight.scss */
+  19% {
+    background-position: -48px 0px;
+  }
+
+  /* line 148, ../scss/_fight.scss */
+  25% {
+    background-position: -72px 0px;
+  }
+
+  /* line 151, ../scss/_fight.scss */
+  31% {
+    background-position: 0px -24px;
+  }
+
+  /* line 154, ../scss/_fight.scss */
+  38% {
+    background-position: -24px -24px;
+  }
+
+  /* line 157, ../scss/_fight.scss */
+  44% {
+    background-position: -48px -24px;
+  }
+
+  /* line 160, ../scss/_fight.scss */
+  50% {
+    background-position: -72px -24px;
+  }
+
+  /* line 163, ../scss/_fight.scss */
+  56% {
+    background-position: 0px -48px;
+  }
+
+  /* line 166, ../scss/_fight.scss */
+  62% {
+    background-position: -24px -48px;
+  }
+
+  /* line 169, ../scss/_fight.scss */
+  69% {
+    background-position: -48px -48px;
+  }
+
+  /* line 172, ../scss/_fight.scss */
+  75% {
+    background-position: -72px -48px;
+  }
+
+  /* line 175, ../scss/_fight.scss */
+  81% {
+    background-position: 0px -72px;
+  }
+
+  /* line 178, ../scss/_fight.scss */
+  88% {
+    background-position: -24px -72px;
+  }
+
+  /* line 181, ../scss/_fight.scss */
+  94% {
+    background-position: -48px -72px;
+  }
+
+  /* line 184, ../scss/_fight.scss */
+  100% {
+    background-position: -72px -72px;
+  }
+}
+
+@keyframes explosion {
+  /* line 139, ../scss/_fight.scss */
+  6% {
+    background-position: 0px 0px;
+  }
+
+  /* line 142, ../scss/_fight.scss */
+  12% {
+    background-position: -24px 0px;
+  }
+
+  /* line 145, ../scss/_fight.scss */
+  19% {
+    background-position: -48px 0px;
+  }
+
+  /* line 148, ../scss/_fight.scss */
+  25% {
+    background-position: -72px 0px;
+  }
+
+  /* line 151, ../scss/_fight.scss */
+  31% {
+    background-position: 0px -24px;
+  }
+
+  /* line 154, ../scss/_fight.scss */
+  38% {
+    background-position: -24px -24px;
+  }
+
+  /* line 157, ../scss/_fight.scss */
+  44% {
+    background-position: -48px -24px;
+  }
+
+  /* line 160, ../scss/_fight.scss */
+  50% {
+    background-position: -72px -24px;
+  }
+
+  /* line 163, ../scss/_fight.scss */
+  56% {
+    background-position: 0px -48px;
+  }
+
+  /* line 166, ../scss/_fight.scss */
+  62% {
+    background-position: -24px -48px;
+  }
+
+  /* line 169, ../scss/_fight.scss */
+  69% {
+    background-position: -48px -48px;
+  }
+
+  /* line 172, ../scss/_fight.scss */
+  75% {
+    background-position: -72px -48px;
+  }
+
+  /* line 175, ../scss/_fight.scss */
+  81% {
+    background-position: 0px -72px;
+  }
+
+  /* line 178, ../scss/_fight.scss */
+  88% {
+    background-position: -24px -72px;
+  }
+
+  /* line 181, ../scss/_fight.scss */
+  94% {
+    background-position: -48px -72px;
+  }
+
+  /* line 184, ../scss/_fight.scss */
+  100% {
+    background-position: -72px -72px;
+  }
+}
+
+/* line 189, ../scss/_fight.scss */
+.bullet {
+  background: url("../img/bullet.png") 0 0 no-repeat;
+  width: 13px;
+  height: 5px;
+  position: absolute;
+  top: 100px;
+  left: 100px;
+}
+/* line 198, ../scss/_fight.scss */
+.bullet .explosion {
+  background: url("../img/explosprite.png") 0 0 no-repeat;
+  display: none;
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: -10px;
+  left: -5px;
+}
+/* line 208, ../scss/_fight.scss */
+.bullet.exploding {
+  background: none;
+}
+/* line 211, ../scss/_fight.scss */
+.bullet.exploding .explosion {
+  display: block;
+  -webkit-animation-duration: 1000ms;
+  -moz-animation-duration: 1000ms;
+  -ms-animation-duration: 1000ms;
+  -o-animation-duration: 1000ms;
+  animation-duration: 1000ms;
+  -webkit-animation-name: explosion;
+  -moz-animation-name: explosion;
+  -ms-animation-name: explosion;
+  -o-animation-name: explosion;
+  animation-name: explosion;
+  -webkit-animation-timing-function: step-start;
+  -moz-animation-timing-function: step-start;
+  -ms-animation-timing-function: step-start;
+  -o-animation-timing-function: step-start;
+  animation-timing-function: step-start;
+  -webkit-animation-fill-mode: forwards;
+  -moz-animation-fill-mode: forwards;
+  -ms-animation-fill-mode: forwards;
+  -o-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+
+/* line 3, ../scss/_arena.scss */
+.fight-arena {
+  padding: 60px 20px 0 20px;
+}
+/* line 6, ../scss/_arena.scss */
+.fight-arena .loading {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1500;
+  font-size: 0;
+  overflow-x: hidden;
+}
+/* line 17, ../scss/_arena.scss */
+.fight-arena .loading .left-half,
+.fight-arena .loading .right-half {
+  -webkit-transition: all 500ms cubic-bezier(0.82, 0.02, 0.36, 0.96) 150ms;
+  -moz-transition: all 500ms cubic-bezier(0.82, 0.02, 0.36, 0.96) 150ms;
+  -ms-transition: all 500ms cubic-bezier(0.82, 0.02, 0.36, 0.96) 150ms;
+  -o-transition: all 500ms cubic-bezier(0.82, 0.02, 0.36, 0.96) 150ms;
+  transition: all 500ms cubic-bezier(0.82, 0.02, 0.36, 0.96) 150ms;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  background: url("../img/subtle_carbon.png");
+}
+/* line 27, ../scss/_arena.scss */
+.fight-arena .loading .left-half {
+  left: 0;
+}
+/* line 32, ../scss/_arena.scss */
+.fight-arena .loading .right-half {
+  right: 0;
+}
+/* line 37, ../scss/_arena.scss */
+.fight-arena .loading.animate .left-half {
+  left: -50%;
+}
+/* line 40, ../scss/_arena.scss */
+.fight-arena .loading.animate .right-half {
+  right: -50%;
+}
+/* line 43, ../scss/_arena.scss */
+.fight-arena .loading.animate .vs {
+  opacity: 0;
+}
+/* line 50, ../scss/_arena.scss */
+.fight-arena .my-robot,
+.fight-arena .opponent-robot {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  height: 100%;
+  width: 70%;
+  position: absolute;
+  top: 0;
+  display: table;
+  font-size: 72px;
+  text-align: center;
+}
+/* line 62, ../scss/_arena.scss */
+.fight-arena .my-robot .robotData,
+.fight-arena .opponent-robot .robotData {
+  display: table-cell;
+  vertical-align: middle;
+}
+/* line 67, ../scss/_arena.scss */
+.fight-arena .my-robot img,
+.fight-arena .opponent-robot img {
+  height: 30%;
+}
+/* line 71, ../scss/_arena.scss */
+.fight-arena .my-robot h2,
+.fight-arena .opponent-robot h2 {
+  font-family: 'fightcode';
+  font-size: 90px;
+  color: #e9e9e9;
+}
+/* line 76, ../scss/_arena.scss */
+.fight-arena .my-robot h2 .name,
+.fight-arena .opponent-robot h2 .name {
+  color: #d92432;
+}
+/* line 83, ../scss/_arena.scss */
+.fight-arena .my-robot .victories,
+.fight-arena .my-robot .defeats,
+.fight-arena .my-robot .draws,
+.fight-arena .opponent-robot .victories,
+.fight-arena .opponent-robot .defeats,
+.fight-arena .opponent-robot .draws {
+  font-family: 'fightcode';
+  font-size: 62px;
+  line-height: 65px;
+  color: #e9e9e9;
+}
+/* line 90, ../scss/_arena.scss */
+.fight-arena .my-robot .victories .number,
+.fight-arena .opponent-robot .victories .number {
+  color: #95ff7c;
+}
+/* line 93, ../scss/_arena.scss */
+.fight-arena .my-robot .defeats .number,
+.fight-arena .opponent-robot .defeats .number {
+  color: #d92432;
+}
+/* line 96, ../scss/_arena.scss */
+.fight-arena .my-robot .draws .number,
+.fight-arena .opponent-robot .draws .number {
+  color: #fff665;
+}
+/* line 101, ../scss/_arena.scss */
+.fight-arena .my-robot {
+  left: 50px;
+}
+/* line 104, ../scss/_arena.scss */
+.fight-arena .my-robot h2 {
+  margin-top: 40px;
+}
+/* line 108, ../scss/_arena.scss */
+.fight-arena .my-robot .victories {
+  margin-top: 40px;
+}
+/* line 113, ../scss/_arena.scss */
+.fight-arena .opponent-robot {
+  right: 50px;
+}
+/* line 116, ../scss/_arena.scss */
+.fight-arena .opponent-robot img {
+  margin-top: 40px;
+}
+/* line 120, ../scss/_arena.scss */
+.fight-arena .opponent-robot .victories {
+  margin-top: 40px;
+}
+/* line 125, ../scss/_arena.scss */
+.fight-arena .vs {
+  -webkit-transition: all 100ms linear;
+  -moz-transition: all 100ms linear;
+  -ms-transition: all 100ms linear;
+  -o-transition: all 100ms linear;
+  transition: all 100ms linear;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  height: 180px;
+  width: 100px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -90px;
+  margin-left: -50px;
+  padding-top: 70px;
+  font-size: 200px;
+  font-family: 'fightcode';
+  text-align: center;
+  text-indent: -45px;
+  z-index: 9999;
+  opacity: 1;
+}
+/* line 147, ../scss/_arena.scss */
+.fight-arena .board {
+  width: 800px;
+  height: 500px;
+}
+
+/* line 4, ../scss/components/_button.scss */
+.btn {
+  -webkit-transition: background-color 200ms ease-in-out;
+  -moz-transition: background-color 200ms ease-in-out;
+  -ms-transition: background-color 200ms ease-in-out;
+  -o-transition: background-color 200ms ease-in-out;
+  transition: background-color 200ms ease-in-out;
+  display: inline-block;
+  padding: 15px 30px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  font-size: 13px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #ed002d;
+  text-shadow: 1px 1px #000;
+}
+/* line 17, ../scss/components/_button.scss */
+.btn:hover {
+  background-color: #ff3d3d;
+}
+/* line 21, ../scss/components/_button.scss */
+.btn:active {
+  box-shadow: inset 1px 1px 5px 1px rgba(73, 34, 34, 0.5);
+}
+
+/* line 100, menu/*.png */
+.menu-sprite, .menu-container .fighter .icon, .menu-container .ranking .icon, .menu-container .robot .icon, .menu-container .logout .icon, .menu-container .ribbon, .menu-container .ribbon:hover, .menu-container .ribbon .logo, .menu-container .ribbon .tip {
+  background: url('../img/menu-sc4c723bac9.png') no-repeat;
+}
+
+/* line 4, ../scss/components/_menu.scss */
+header {
+  position: relative;
+}
+
+/* line 8, ../scss/components/_menu.scss */
+.context-bar {
+  background: url(../img/bg-grill-light.png) repeat;
+  border: 0;
+  border-bottom: 1px solid black;
+  font-size: 13px;
+  font-weight: bold;
+  text-transform: uppercase;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.75);
+}
+/* line 17, ../scss/components/_menu.scss */
+.context-bar .container {
+  height: 55px;
+}
+/* line 21, ../scss/components/_menu.scss */
+.context-bar ul {
+  float: left;
+  margin: 22px 0 0 0;
+}
+/* line 25, ../scss/components/_menu.scss */
+.context-bar ul li {
+  display: inline-block;
+  vertical-align: top;
+}
+/* line 29, ../scss/components/_menu.scss */
+.context-bar ul li a {
+  padding: 0 9px;
+  border-right: solid 1px #9a9a9a;
+}
+/* line 36, ../scss/components/_menu.scss */
+.context-bar ul li:first-child a {
+  padding-left: 0;
+}
+/* line 42, ../scss/components/_menu.scss */
+.context-bar ul li:last-child a {
+  border-right: none;
+}
+/* line 48, ../scss/components/_menu.scss */
+.context-bar .profile-container {
+  float: right;
+}
+/* line 51, ../scss/components/_menu.scss */
+.context-bar .profile-container .profile {
+  padding: 22px 0 7px;
+  display: block;
+}
+/* line 55, ../scss/components/_menu.scss */
+.context-bar .profile-container .profile img {
+  border-radius: 30px;
+  margin-right: 8px;
+  width: 30px;
+  height: 30px;
+}
+/* line 62, ../scss/components/_menu.scss */
+.context-bar .profile-container .profile .name {
+  margin-top: -24px;
+  display: block;
+  margin-left: 38px;
+}
+/* line 69, ../scss/components/_menu.scss */
+.context-bar .profile-container .profile-logged {
+  padding-top: 15px;
+}
+/* line 74, ../scss/components/_menu.scss */
+.context-bar a {
+  color: #fff;
+  text-decoration: none;
+  -webkit-transition: all 300ms linear;
+  -moz-transition: all 300ms linear;
+  -ms-transition: all 300ms linear;
+  -o-transition: all 300ms linear;
+  transition: all 300ms linear;
+  text-shadow: 0 1px 0 black;
+}
+/* line 81, ../scss/components/_menu.scss */
+.context-bar a:hover {
+  color: #FF3D3D;
+}
+
+/* line 94, ../scss/components/_menu.scss */
+.menu-container {
+  -webkit-transition: top 300ms;
+  -moz-transition: top 300ms;
+  -ms-transition: top 300ms;
+  -o-transition: top 300ms;
+  transition: top 300ms;
+  font-weight: bold;
+  position: absolute;
+  width: 100%;
+  z-index: 10;
+  top: -180px;
+}
+/* line 102, ../scss/components/_menu.scss */
+.menu-container.open {
+  top: 0;
+}
+/* line 106, ../scss/components/_menu.scss */
+.menu-container .menu {
+  -webkit-box-shadow: inset 0 3px 8px -5px black;
+  -moz-box-shadow: inset 0 3px 8px -5px black;
+  box-shadow: inset 0 3px 8px -5px black;
+  background: #f5f5f5;
+  padding: 36px 5%;
+  text-align: center;
+  position: relative;
+}
+/* line 113, ../scss/components/_menu.scss */
+.menu-container .menu > span {
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 2%;
+  width: 100px;
+}
+/* line 119, ../scss/components/_menu.scss */
+.menu-container .menu > span:first-child {
+  margin-left: 0;
+}
+/* line 124, ../scss/components/_menu.scss */
+.menu-container .menu a {
+  display: block;
+  color: #999;
+  -webkit-transition: color 200ms;
+  -moz-transition: color 200ms;
+  -ms-transition: color 200ms;
+  -o-transition: color 200ms;
+  transition: color 200ms;
+}
+/* line 129, ../scss/components/_menu.scss */
+.menu-container .menu a:hover {
+  color: #555;
+  text-decoration: none;
+}
+/* line 133, ../scss/components/_menu.scss */
+.menu-container .menu a:hover .icon {
+  background-color: #999;
+}
+/* line 138, ../scss/components/_menu.scss */
+.menu-container .menu a:active, .menu-container .menu a.checked {
+  color: #ed0027;
+}
+/* line 141, ../scss/components/_menu.scss */
+.menu-container .menu a:active .icon, .menu-container .menu a.checked .icon {
+  background-color: #ed0027;
+}
+/* line 147, ../scss/components/_menu.scss */
+.menu-container .menu .icon {
+  display: block;
+  margin: 0 auto 5px auto;
+  background-color: #c7c7c7;
+  -webkit-transition: background-color 300ms;
+  -moz-transition: background-color 300ms;
+  -ms-transition: background-color 300ms;
+  -o-transition: background-color 300ms;
+  transition: background-color 300ms;
+}
+/* line 88, ../scss/components/_menu.scss */
+.menu-container .fighter .icon {
+  background-position: 0 -295px;
+  height: 75px;
+  width: 78px;
+}
+/* line 88, ../scss/components/_menu.scss */
+.menu-container .ranking .icon {
+  background-position: 0 -445px;
+  height: 75px;
+  width: 73px;
+}
+/* line 88, ../scss/components/_menu.scss */
+.menu-container .robot .icon {
+  background-position: 0 -370px;
+  height: 75px;
+  width: 97px;
+}
+/* line 164, ../scss/components/_menu.scss */
+.menu-container .logout {
+  position: absolute;
+  top: 36px;
+  right: 5%;
+}
+/* line 88, ../scss/components/_menu.scss */
+.menu-container .logout .icon {
+  background-position: 0 -220px;
+  height: 75px;
+  width: 75px;
+}
+/* line 171, ../scss/components/_menu.scss */
+.menu-container .ribbon-container {
+  border-top: 5px solid #ed0027;
+  height: 0;
+  -webkit-box-shadow: 0 0 6px -1px black;
+  -moz-box-shadow: 0 0 6px -1px black;
+  box-shadow: 0 0 6px -1px black;
+}
+/* line 176, ../scss/components/_menu.scss */
+.menu-container .ribbon-container:hover {
+  border-color: #ff3d3d;
+}
+/* line 180, ../scss/components/_menu.scss */
+.menu-container .ribbon {
+  background-position: 0 -95px;
+  height: 95px;
+  width: 218px;
+  margin: 0 auto;
+  display: block;
+  overflow: hidden;
+}
+/* line 44, ../../../../../../.rvm/gems/ruby-1.9.3-p327@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.menu-container .ribbon:active, .menu-container .ribbon.ribbon_background-active {
+  background-position: 0 0;
+}
+/* line 187, ../scss/components/_menu.scss */
+.menu-container .ribbon:hover {
+  background-position: 0 0;
+}
+/* line 191, ../scss/components/_menu.scss */
+.menu-container .ribbon .logo {
+  display: block;
+  margin: 15px auto 0;
+  text-indent: -99999px;
+  background-position: 0 -190px;
+  height: 30px;
+  width: 157px;
+}
+/* line 199, ../scss/components/_menu.scss */
+.menu-container .ribbon .tip {
+  display: block;
+  margin: 20px auto 0;
+  background-position: 0 -520px;
+  height: 16px;
+  width: 27px;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+  opacity: 0.5;
+  -webkit-transition: opacity 200ms;
+  -moz-transition: opacity 200ms;
+  -ms-transition: opacity 200ms;
+  -o-transition: opacity 200ms;
+  transition: opacity 200ms;
+}
+/* line 209, ../scss/components/_menu.scss */
+.menu-container .ribbon:hover .tip {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  opacity: 1;
+}
+
+/* line 6, ../scss/components/_footer.scss */
+footer {
+  background-color: #ed002d;
+  font-size: 13px;
+  padding: 50px 0;
+}
+/* line 11, ../scss/components/_footer.scss */
+footer .container {
+  *zoom: 1;
+}
+/* line 38, ../../../../../../.rvm/gems/ruby-1.9.3-p327@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+footer .container:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+/* line 15, ../scss/components/_footer.scss */
+footer .footer-logo {
+  width: 109px;
+  height: 21px;
+  background-image: url(../img/fight-code-small.png);
+  margin: 0 auto 6px auto;
+}
+/* line 22, ../scss/components/_footer.scss */
+footer p {
+  font-style: italic;
+  text-align: center;
+  margin-bottom: 16px;
+}
+/* line 28, ../scss/components/_footer.scss */
+footer, footer a {
+  color: rgba(255, 255, 255, 0.6);
+}
+/* line 32, ../scss/components/_footer.scss */
+footer ul {
+  width: 100%;
+  border-top: 1px solid #ff002a;
+  padding-top: 20px;
+  box-shadow: inset 0 1px #d20023;
+}
+/* line 38, ../scss/components/_footer.scss */
+footer ul li {
+  width: 16.66667%;
+  float: left;
+}
+/* line 43, ../scss/components/_footer.scss */
+footer ul img {
+  -webkit-transition: all 160ms ease-out;
+  -moz-transition: all 160ms ease-out;
+  -ms-transition: all 160ms ease-out;
+  -o-transition: all 160ms ease-out;
+  transition: all 160ms ease-out;
+  -webkit-backface-visibility: hidden;
+  float: left;
+  width: 40px;
+  height: 40px;
+  border-radius: 50px;
+}
+/* line 52, ../scss/components/_footer.scss */
+footer ul a {
+  -webkit-transition: color 160ms ease-in-out;
+  -moz-transition: color 160ms ease-in-out;
+  -ms-transition: color 160ms ease-in-out;
+  -o-transition: color 160ms ease-in-out;
+  transition: color 160ms ease-in-out;
+  display: block;
+}
+/* line 56, ../scss/components/_footer.scss */
+footer ul a:hover {
+  color: #fff;
+}
+/* line 59, ../scss/components/_footer.scss */
+footer ul a:hover img {
+  -webkit-transform: scale(1.2);
+  -moz-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  -o-transform: scale(1.2);
+  transform: scale(1.2);
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.7);
+}
+/* line 66, ../scss/components/_footer.scss */
+footer ul span {
+  float: left;
+  line-height: 1.2;
+  padding: 6px 0 0 10px;
+}
+
+/* line 1, ../scss/components/_page-header.scss */
+.page-header {
+  padding-top: 65px;
+  position: relative;
+}
+/* line 5, ../scss/components/_page-header.scss */
+.page-header .prize {
+  position: absolute;
+  display: block;
+}
+/* line 10, ../scss/components/_page-header.scss */
+.page-header .title {
+  font-size: 0;
+}
+/* line 13, ../scss/components/_page-header.scss */
+.page-header .title .marker {
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 4px;
+  width: 380px;
+  height: 4px;
+  background-color: #fdfdfd;
+  opacity: 0.1;
+}
+/* line 23, ../scss/components/_page-header.scss */
+.page-header .title h1 {
+  display: inline-block;
+  vertical-align: top;
+  margin-bottom: 16px;
+  padding: 0 32px 0 30px;
+  font-family: "oswald-bold";
+  font-size: 32px;
+  line-height: 15px;
+  color: #ed0027;
+  text-shadow: #111111 -1px 1px 0, #5d000f -3px 3px 0;
+  text-transform: uppercase;
+}
+/* line 37, ../scss/components/_page-header.scss */
+.page-header .performance {
+  margin-bottom: 42px;
+  font-family: "oswald";
+  font-size: 18px;
+  line-height: 15px;
+  text-align: center;
+  color: #ddd;
+}
+
+/* line 1, ../scss/pages/_home.scss */
+.home {
+  padding: 60px 20px 0 20px;
+}
+/* line 4, ../scss/pages/_home.scss */
+.home .board {
+  width: 600px;
+  height: 450px;
+  margin: 15px auto 0;
+}
+/* line 10, ../scss/pages/_home.scss */
+.home .row-fluid {
+  width: 99%;
+  margin: 0 20px;
+  padding-top: 20px;
+}
+/* line 16, ../scss/pages/_home.scss */
+.home pre {
+  max-height: 400px;
+  max-width: 582px;
+  margin-left: 36px;
+}
+/* line 22, ../scss/pages/_home.scss */
+.home .documentation {
+  margin-top: 20px;
+}
+/* line 26, ../scss/pages/_home.scss */
+.home .btn-create-robot {
+  margin-top: 70px;
+}
+
+/* line 31, ../scss/pages/_home.scss */
+code, pre {
+  text-shadow: none !important;
+  font-size: 16px;
+}
+
+/* line 1, ../scss/pages/_create.scss */
+.cm-s-ambiance {
+  border-radius: 5px;
+  height: 500px;
+}
+
+/* line 6, ../scss/pages/_create.scss */
+.create-robot {
+  padding: 60px 20px 0 20px;
+}
+/* line 9, ../scss/pages/_create.scss */
+.create-robot .editor {
+  height: 500px;
+}
+/* line 13, ../scss/pages/_create.scss */
+.create-robot .board {
+  width: 480px;
+  height: 480px;
+  margin-top: 0;
+}
+
+/* line 3, ../scss/pages/_user.scss */
+.show-user {
+  width: 100%;
+  background: #f3f3f3;
+}
+/* line 7, ../scss/pages/_user.scss */
+.show-user .user-info {
+  height: 145px;
+  position: relative;
+}
+/* line 11, ../scss/pages/_user.scss */
+.show-user .user-info img {
+  position: absolute;
+  top: 24px;
+  left: 0;
+  width: 152px;
+  height: 152px;
+  border-radius: 152px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
+}
+/* line 21, ../scss/pages/_user.scss */
+.show-user .user-info .info {
+  margin-left: 175px;
+  padding-top: 63px;
+  float: left;
+}
+/* line 26, ../scss/pages/_user.scss */
+.show-user .user-info .info h2 {
+  font-weight: bold;
+  font-size: 25px;
+  color: #4f4f4f;
+  margin-bottom: 10px;
+}
+/* line 33, ../scss/pages/_user.scss */
+.show-user .user-info .info p {
+  display: inline-block;
+  font-size: 16px;
+  color: #4f4f4f;
+}
+/* line 38, ../scss/pages/_user.scss */
+.show-user .user-info .info p:before {
+  display: inline-block;
+  content: '';
+  background: url("../img/marker.png") 0 0 no-repeat;
+  width: 13px;
+  height: 15px;
+  margin-right: 7px;
+  margin-bottom: -2px;
+}
+/* line 50, ../scss/pages/_user.scss */
+.show-user .user-info .actions {
+  float: right;
+  margin-top: 65px;
+}
+/* line 56, ../scss/pages/_user.scss */
+.show-user .robots-area {
+  background: url("../img/pattern.png");
+  overflow: hidden;
+}
+/* line 60, ../scss/pages/_user.scss */
+.show-user .robots-area .header {
+  padding-top: 56px;
+  overflow: hidden;
+}
+/* line 64, ../scss/pages/_user.scss */
+.show-user .robots-area .header .title {
+  font-size: 0;
+}
+/* line 67, ../scss/pages/_user.scss */
+.show-user .robots-area .header .title .marker {
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 4px;
+  width: 380px;
+  height: 4px;
+  background-color: #fdfdfd;
+  opacity: 0.1;
+}
+/* line 77, ../scss/pages/_user.scss */
+.show-user .robots-area .header .title h1 {
+  display: inline-block;
+  vertical-align: top;
+  margin-bottom: 16px;
+  padding: 0 17px 0 13px;
+  font-family: "oswald-bold";
+  font-size: 32px;
+  line-height: 15px;
+  color: #ed0027;
+  text-shadow: #111111 -1px 1px 0, #5d000f -3px 3px 0;
+}
+/* line 92, ../scss/pages/_user.scss */
+.show-user .robots-area .header .performance {
+  margin-bottom: 46px;
+  font-family: "oswald";
+  font-size: 18px;
+  line-height: 15px;
+  text-align: center;
+  color: #ddd;
+}
+/* line 105, ../scss/pages/_user.scss */
+.show-user .robots-area .robots li {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin-bottom: 40px;
+  -webkit-box-shadow: 0 0 15px black;
+  -moz-box-shadow: 0 0 15px black;
+  box-shadow: 0 0 15px black;
+  font-size: 0;
+}
+/* line 111, ../scss/pages/_user.scss */
+.show-user .robots-area .robots li .left {
+  vertical-align: top;
+  display: inline-block;
+  position: relative;
+  width: 220px;
+  height: 230px;
+  background-color: #dfdfdf;
+}
+/* line 119, ../scss/pages/_user.scss */
+.show-user .robots-area .robots li .left .ranking {
+  position: absolute;
+  top: 20px;
+  left: -4px;
+  background: url("../img/ranking-bg.png") 0 0 no-repeat;
+  width: 121px;
+  height: 42px;
+  padding-top: 12px;
+  padding-left: 42px;
+  font-family: "oswald";
+  font-size: 18px;
+  color: #f3f3f3;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+/* line 136, ../scss/pages/_user.scss */
+.show-user .robots-area .robots li .left .robot {
+  background: url("../img/my-robot.png") 0 0 no-repeat;
+  background-color: #00a0dc;
+  width: 219px;
+  height: 230px;
+}
+/* line 144, ../scss/pages/_user.scss */
+.show-user .robots-area .robots li .right {
+  vertical-align: top;
+  display: inline-block;
+  width: 720px;
+  height: 230px;
+  background-color: #f7f7f7;
+}
+/* line 151, ../scss/pages/_user.scss */
+.show-user .robots-area .robots li .right .main-info {
+  margin-left: 26px;
+}
+/* line 154, ../scss/pages/_user.scss */
+.show-user .robots-area .robots li .right .main-info .summary {
+  margin-top: 24px;
+}
+/* line 157, ../scss/pages/_user.scss */
+.show-user .robots-area .robots li .right .main-info .summary .name {
+  font-family: "oswald-bold";
+  font-size: 32px;
+  color: #4f4f4f;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  text-shadow: #f7f7f7 -1px 1px 0, #999999 -2px 2px 0;
+}
+/* line 167, ../scss/pages/_user.scss */
+.show-user .robots-area .robots li .right .main-info .summary .data {
+  font-family: arial;
+  font-size: 12px;
+  color: #999;
+}
+/* line 172, ../scss/pages/_user.scss */
+.show-user .robots-area .robots li .right .main-info .summary .data .created {
+  padding-right: 12px;
+}
+/* line 176, ../scss/pages/_user.scss */
+.show-user .robots-area .robots li .right .main-info .summary .data .lines {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAEUlEQVQIW2PctGnTf0YGIAAAFsMDGOHG7Z0AAAAASUVORK5CYII=) 0 0 repeat-y;
+  padding-left: 12px;
+}
+/* line 184, ../scss/pages/_user.scss */
+.show-user .robots-area .robots li .right .stats {
+  font-size: 0;
+}
+/* line 187, ../scss/pages/_user.scss */
+.show-user .robots-area .robots li .right .stats .numbers {
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 25px;
+  margin-top: 44px;
+}
+/* line 195, ../scss/pages/_user.scss */
+.show-user .robots-area .robots li .right .stats .numbers .kills,
+.show-user .robots-area .robots li .right .stats .numbers .shots-fired,
+.show-user .robots-area .robots li .right .stats .numbers .shots-hit {
+  font-family: "oswald";
+  font-size: 0;
+  color: #ed003d;
+}
+/* line 200, ../scss/pages/_user.scss */
+.show-user .robots-area .robots li .right .stats .numbers .kills .icon,
+.show-user .robots-area .robots li .right .stats .numbers .shots-fired .icon,
+.show-user .robots-area .robots li .right .stats .numbers .shots-hit .icon {
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 6px;
+}
+/* line 206, ../scss/pages/_user.scss */
+.show-user .robots-area .robots li .right .stats .numbers .kills .text,
+.show-user .robots-area .robots li .right .stats .numbers .shots-fired .text,
+.show-user .robots-area .robots li .right .stats .numbers .shots-hit .text {
+  font-size: 15px;
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 2px;
+}
+/* line 213, ../scss/pages/_user.scss */
+.show-user .robots-area .robots li .right .stats .numbers .kills .label,
+.show-user .robots-area .robots li .right .stats .numbers .shots-fired .label,
+.show-user .robots-area .robots li .right .stats .numbers .shots-hit .label {
+  color: #4f4f4f;
+  font-size: 15px;
+  display: inline-block;
+  vertical-align: top;
+}
+/* line 222, ../scss/pages/_user.scss */
+.show-user .robots-area .robots li .right .stats .numbers .kills .icon {
+  background: url("../img/robot-icons-sprite.png") 0 0 no-repeat;
+  width: 33px;
+  height: 13px;
+}
+/* line 229, ../scss/pages/_user.scss */
+.show-user .robots-area .robots li .right .stats .numbers .shots-fired {
+  margin-top: 9px;
+}
+/* line 232, ../scss/pages/_user.scss */
+.show-user .robots-area .robots li .right .stats .numbers .shots-fired .icon {
+  background: url("../img/robot-icons-sprite.png") 0 -24px no-repeat;
+  width: 33px;
+  height: 22px;
+}
+/* line 238, ../scss/pages/_user.scss */
+.show-user .robots-area .robots li .right .stats .numbers .shots-fired .text, .show-user .robots-area .robots li .right .stats .numbers .shots-fired .label {
+  padding-top: 6px;
+}
+/* line 243, ../scss/pages/_user.scss */
+.show-user .robots-area .robots li .right .stats .numbers .shots-hit {
+  margin-top: 9px;
+}
+/* line 246, ../scss/pages/_user.scss */
+.show-user .robots-area .robots li .right .stats .numbers .shots-hit .icon {
+  background: url("../img/robot-icons-sprite.png") 0 -55px no-repeat;
+  width: 33px;
+  height: 20px;
+}
+/* line 252, ../scss/pages/_user.scss */
+.show-user .robots-area .robots li .right .stats .numbers .shots-hit .text, .show-user .robots-area .robots li .right .stats .numbers .shots-hit .label {
+  padding-top: 3px;
+}
+/* line 258, ../scss/pages/_user.scss */
+.show-user .robots-area .robots li .right .stats .chart {
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 35px;
+  margin-left: 76px;
+}
+/* line 265, ../scss/pages/_user.scss */
+.show-user .robots-area .robots li .right .stats .average {
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 62px;
+  margin-left: 14px;
+  padding-right: 14px;
+  border-right: solid 1px #fff;
+  font-family: "oswald";
+}
+/* line 275, ../scss/pages/_user.scss */
+.show-user .robots-area .robots li .right .stats .average .number {
+  margin-bottom: 10px;
+  font-size: 42px;
+  color: #ed003d;
+}
+/* line 281, ../scss/pages/_user.scss */
+.show-user .robots-area .robots li .right .stats .average .label {
+  font-size: 15px;
+  color: #4f4f4f;
+}
+/* line 287, ../scss/pages/_user.scss */
+.show-user .robots-area .robots li .right .stats .overtime {
+  display: inline-block;
+  vertical-align: top;
+  padding-left: 14px;
+  height: 152px;
+  border-left: solid 1px #ebebeb;
+}
+/* line 294, ../scss/pages/_user.scss */
+.show-user .robots-area .robots li .right .stats .overtime .label {
+  margin-top: 10px;
+  font-family: "oswald";
+  font-size: 15px;
+  color: #4f4f4f;
+}
+/* line 306, ../scss/pages/_user.scss */
+.show-user .robots-area .adsense-container {
+  margin-bottom: 40px;
+}
+/* line 309, ../scss/pages/_user.scss */
+.show-user .robots-area .adsense-container .container {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.75);
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.75);
+  background-color: #1c1c1c;
+  padding: 10px 0;
+}
+/* line 315, ../scss/pages/_user.scss */
+.show-user .robots-area .adsense-container .container .ad-body {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  position: relative;
+  border: solid 1px #0e0e0e;
+  width: 745px;
+  height: 92px;
+  margin: 0 auto;
+}
+/* line 323, ../scss/pages/_user.scss */
+.show-user .robots-area .adsense-container .container .ad-body .ad-text {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  position: absolute;
+  background: url("../img/ad.png") 0 0 no-repeat;
+  left: 0;
+  top: 0;
+  width: 17px;
+  height: 90px;
+  background-color: #202020;
+  border-right: solid 1px #0e0e0e;
+}
+/* line 337, ../scss/pages/_user.scss */
+.show-user .robots-area .adsense-container .container .ad-body .google-ad {
+  width: 728px;
+  height: 90px;
+  padding-left: 17px;
+}
+/* line 346, ../scss/pages/_user.scss */
+.show-user .robots-area .add-robot {
+  font-size: 0;
+  margin-bottom: 60px;
+  -webkit-box-shadow: 0 0 7px black;
+  -moz-box-shadow: 0 0 7px black;
+  box-shadow: 0 0 7px black;
+}
+/* line 351, ../scss/pages/_user.scss */
+.show-user .robots-area .add-robot .left {
+  vertical-align: top;
+  display: inline-block;
+  position: relative;
+  width: 220px;
+  height: 210px;
+  background-color: #333;
+  background: url("../img/my-dark-robot.png") 0 0 no-repeat;
+}
+/* line 361, ../scss/pages/_user.scss */
+.show-user .robots-area .add-robot .right {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  vertical-align: top;
+  display: inline-block;
+  width: 720px;
+  height: 210px;
+  background-color: #222;
+  text-align: center;
+  padding-top: 82px;
+}
+/* line 374, ../scss/pages/_user.scss */
+.show-user .latest-combats {
+  background-color: #f3f3f3;
+}
+/* line 377, ../scss/pages/_user.scss */
+.show-user .latest-combats .header {
+  padding-top: 56px;
+  overflow: hidden;
+}
+/* line 381, ../scss/pages/_user.scss */
+.show-user .latest-combats .header .title {
+  font-size: 0;
+}
+/* line 384, ../scss/pages/_user.scss */
+.show-user .latest-combats .header .title .marker {
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 4px;
+  width: 345px;
+  height: 4px;
+  background-color: #dfdfdf;
+}
+/* line 393, ../scss/pages/_user.scss */
+.show-user .latest-combats .header .title h1 {
+  display: inline-block;
+  vertical-align: top;
+  margin-bottom: 18px;
+  padding: 0 17px 0 13px;
+  font-family: "oswald-bold";
+  font-size: 32px;
+  line-height: 15px;
+  color: #ed0027;
+  text-shadow: #f4f4f4 -1px 1px 0, #5d000f -3px 3px 0;
+}
+/* line 408, ../scss/pages/_user.scss */
+.show-user .latest-combats .header .performance {
+  margin-bottom: 46px;
+  font-family: "oswald";
+  font-size: 18px;
+  line-height: 15px;
+  text-align: center;
+  color: #999;
+}
+/* line 419, ../scss/pages/_user.scss */
+.show-user .latest-combats .combats {
+  font-size: 0;
+  padding-bottom: 105px;
+}
+/* line 423, ../scss/pages/_user.scss */
+.show-user .latest-combats .combats li {
+  display: inline-block;
+  position: relative;
+  vertical-align: top;
+  margin-left: 68px;
+}
+/* line 429, ../scss/pages/_user.scss */
+.show-user .latest-combats .combats li:first-child {
+  margin-left: 0;
+}
+/* line 433, ../scss/pages/_user.scss */
+.show-user .latest-combats .combats li .left, .show-user .latest-combats .combats li .right {
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+}
+/* line 439, ../scss/pages/_user.scss */
+.show-user .latest-combats .combats li .divider {
+  position: absolute;
+  width: 40px;
+  height: 120px;
+  top: 0;
+  left: 116px;
+  background: url("../img/triangle.png") 0 0 no-repeat;
+  z-index: 9999;
+}
+/* line 449, ../scss/pages/_user.scss */
+.show-user .latest-combats .combats li .combat {
+  margin: 0 auto;
+  width: 268px;
+}
+/* line 453, ../scss/pages/_user.scss */
+.show-user .latest-combats .combats li .combat .player {
+  width: 134px;
+  height: 120px;
+  overflow: hidden;
+  position: relative;
+}
+/* line 459, ../scss/pages/_user.scss */
+.show-user .latest-combats .combats li .combat .player img {
+  margin-top: -7px;
+}
+/* line 463, ../scss/pages/_user.scss */
+.show-user .latest-combats .combats li .combat .player .robot-circle {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  margin-left: -26px;
+  width: 52px;
+  height: 27px;
+  background: url("../img/semi-circle.png") 0 0 no-repeat;
+}
+/* line 474, ../scss/pages/_user.scss */
+.show-user .latest-combats .combats li .combat .robot {
+  background: url("../img/latest-combats-robot.png") 0 0 no-repeat;
+  width: 38px;
+  height: 28px;
+  position: absolute;
+  top: 104px;
+  left: 50%;
+  margin-left: -19px;
+}
+/* line 485, ../scss/pages/_user.scss */
+.show-user .latest-combats .combats li .info {
+  margin-top: 25px;
+  text-align: center;
+  font-family: "oswald";
+  font-size: 14px;
+  color: #4f4f4f;
+}
+/* line 492, ../scss/pages/_user.scss */
+.show-user .latest-combats .combats li .info .ranking {
+  margin-top: 5px;
+}
+
+/* line 92, ranking/*.png */
+.ranking-sprite, .ranking-area .prize, .ranking-area .rank .row.mine .position, .ranking-area .rank .row .robot-face, .ranking-area .top10 .sidebar .robot, .ranking-area .top10 .info .row.kills .icon, .ranking-area .top10 .info .row.shots .icon, .ranking-area .top10 .info .row.aim .icon {
+  background: url('../img/ranking-sd82d64e89b.png') no-repeat;
+}
+
+/* line 6, ../scss/pages/_ranking.scss */
+.break {
+  background-color: #f3f3f3;
+  height: 100px;
+}
+
+/* line 11, ../scss/pages/_ranking.scss */
+.ranking-area {
+  background: url("../img/pattern.png");
+}
+/* line 14, ../scss/pages/_ranking.scss */
+.ranking-area .prize {
+  background-position: 0 -197px;
+  height: 69px;
+  width: 65px;
+  left: 438px;
+  top: -33px;
+}
+/* line 21, ../scss/pages/_ranking.scss */
+.ranking-area .actions {
+  display: none;
+  position: absolute;
+  width: 189px;
+  height: 39px;
+  right: 81px;
+  top: 10px;
+}
+/* line 29, ../scss/pages/_ranking.scss */
+.ranking-area .actions a {
+  display: inline-block;
+  background-color: #ed0027;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 1px 1px #000;
+}
+/* line 37, ../scss/pages/_ranking.scss */
+.ranking-area .actions a.fight {
+  padding: 19px 20px 20px 31px;
+  border-radius: 20px 0 0 20px;
+}
+/* line 42, ../scss/pages/_ranking.scss */
+.ranking-area .actions a.fork {
+  padding: 19px 30px 20px 27px;
+  border-radius: 0 20px 20px 0;
+}
+/* line 47, ../scss/pages/_ranking.scss */
+.ranking-area .actions a:hover {
+  background-color: #ff3d3d;
+}
+/* line 53, ../scss/pages/_ranking.scss */
+.ranking-area .separator {
+  height: 1px;
+  background-color: #2f2f2f;
+  border-bottom: 1px solid #000;
+  margin-top: 41px;
+  margin-bottom: 41px;
+}
+/* line 60, ../scss/pages/_ranking.scss */
+.ranking-area .separator:last-child {
+  display: none;
+}
+/* line 67, ../scss/pages/_ranking.scss */
+.ranking-area .rank .row {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);
+  opacity: 0.7;
+  height: 60px;
+  font-size: 0;
+  line-height: 0;
+  white-space: nowrap;
+  margin-bottom: 5px;
+  position: relative;
+}
+/* line 78, ../scss/pages/_ranking.scss */
+.ranking-area .rank .row .position,
+.ranking-area .rank .row .robot-face,
+.ranking-area .rank .row .robot-name {
+  vertical-align: top;
+  display: inline-block;
+  font-size: 20px;
+  line-height: 15px;
+  font-family: "oswald";
+}
+/* line 86, ../scss/pages/_ranking.scss */
+.ranking-area .rank .row .position {
+  background-color: #ed0027;
+  color: #fff;
+  padding: 22px 0 23px 12px;
+  width: 66px;
+  overflow: hidden;
+}
+/* line 95, ../scss/pages/_ranking.scss */
+.ranking-area .rank .row.mine .position {
+  background-position: 0 0;
+  background-color: #525252;
+}
+/* line 101, ../scss/pages/_ranking.scss */
+.ranking-area .rank .row .robot-face {
+  background-position: 0 -60px;
+  height: 60px;
+  width: 140px;
+  background-color: red;
+}
+/* line 107, ../scss/pages/_ranking.scss */
+.ranking-area .rank .row .robot-name {
+  text-shadow: #f7f7f7 -1px 1px 0, #999999 -2px 2px 0;
+  border-radius: 0 28px 28px 0;
+  background: #f7f7f7;
+  font-family: "oswald-bold";
+  font-size: 28px;
+  color: #4f4f4f;
+  text-transform: uppercase;
+  padding: 25px 0 20px 22px;
+  width: 700px;
+}
+/* line 120, ../scss/pages/_ranking.scss */
+.ranking-area .rank .row .user-photo img {
+  -webkit-transition: all 200ms ease-out;
+  -moz-transition: all 200ms ease-out;
+  -ms-transition: all 200ms ease-out;
+  -o-transition: all 200ms ease-out;
+  transition: all 200ms ease-out;
+  -webkit-backface-visibility: hidden;
+  border-radius: 50px;
+  position: absolute;
+  right: 1px;
+  top: 2px;
+  width: 57px;
+  height: 57px;
+}
+/* line 133, ../scss/pages/_ranking.scss */
+.ranking-area .rank .row:hover {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  opacity: 1;
+}
+/* line 135, ../scss/pages/_ranking.scss */
+.ranking-area .rank .row:hover .actions {
+  display: block;
+}
+/* line 140, ../scss/pages/_ranking.scss */
+.ranking-area .rank .row:hover .user-photo img {
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  -o-transform: scale(1.1);
+  transform: scale(1.1);
+}
+/* line 148, ../scss/pages/_ranking.scss */
+.ranking-area .top10 {
+  background-color: #f3f3f3;
+  margin-top: 70px;
+}
+/* line 152, ../scss/pages/_ranking.scss */
+.ranking-area .top10 .container {
+  padding-bottom: 100px;
+}
+/* line 156, ../scss/pages/_ranking.scss */
+.ranking-area .top10 .header {
+  padding-top: 63px;
+}
+/* line 158, ../scss/pages/_ranking.scss */
+.ranking-area .top10 .header .marker {
+  width: 409px;
+  background-color: #dfdfdf;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  opacity: 1;
+}
+/* line 163, ../scss/pages/_ranking.scss */
+.ranking-area .top10 .header h1 {
+  color: #ed0027;
+  padding: 0 19px 0 17px;
+  text-shadow: #f3f3f3 -1px 1px 0, #5d000f -2px 2px 0;
+}
+/* line 168, ../scss/pages/_ranking.scss */
+.ranking-area .top10 .header .performance {
+  color: #999;
+}
+/* line 173, ../scss/pages/_ranking.scss */
+.ranking-area .top10 ul {
+  -webkit-box-shadow: #e5e5e5 0 0 1px 1px;
+  -moz-box-shadow: #e5e5e5 0 0 1px 1px;
+  box-shadow: #e5e5e5 0 0 1px 1px;
+  border: 1px solid #dadada;
+  font-size: 0;
+  line-height: 0;
+  white-space: nowrap;
+  overflow: hidden;
+}
+/* line 181, ../scss/pages/_ranking.scss */
+.ranking-area .top10 ul li {
+  -webkit-transition: width 500ms ease-out;
+  -moz-transition: width 500ms ease-out;
+  -ms-transition: width 500ms ease-out;
+  -o-transition: width 500ms ease-out;
+  transition: width 500ms ease-out;
+  font-size: 0;
+  line-height: 0;
+  display: inline-block;
+  width: 70px;
+}
+/* line 188, ../scss/pages/_ranking.scss */
+.ranking-area .top10 ul li.open {
+  width: 311px;
+}
+/* line 196, ../scss/pages/_ranking.scss */
+.ranking-area .top10 .sidebar,
+.ranking-area .top10 .info,
+.ranking-area .top10 .vertical-separator {
+  display: inline-block;
+  vertical-align: top;
+}
+/* line 201, ../scss/pages/_ranking.scss */
+.ranking-area .top10 .sidebar {
+  border-right: 1px solid #f7f7f7;
+  width: 69px;
+}
+/* line 204, ../scss/pages/_ranking.scss */
+.ranking-area .top10 .sidebar .robot {
+  background-position: 0 -120px;
+  height: 77px;
+  width: 69px;
+  background-color: red;
+  display: block;
+}
+/* line 211, ../scss/pages/_ranking.scss */
+.ranking-area .top10 .sidebar .user-photo {
+  height: 80px;
+  width: 69px;
+  overflow: hidden;
+  display: block;
+}
+/* line 218, ../scss/pages/_ranking.scss */
+.ranking-area .top10 .sidebar .position {
+  display: block;
+  font-size: 20px;
+  font-family: "oswald";
+  background-color: #ed0027;
+  color: #fff;
+  padding: 30px 0 30px 21px;
+  width: 48px;
+  overflow: hidden;
+}
+/* line 229, ../scss/pages/_ranking.scss */
+.ranking-area .top10 .info {
+  background-color: #f7f7f7;
+  width: 236px;
+  height: 217px;
+}
+/* line 234, ../scss/pages/_ranking.scss */
+.ranking-area .top10 .info .robot-name {
+  font-family: "oswald-bold";
+  font-size: 23px;
+  color: #4f4f4f;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  text-shadow: #f7f7f7 -1px 1px 0, #999999 -2px 2px 0;
+  line-height: 26px;
+  padding-left: 21px;
+  width: 195px;
+  padding-top: 13px;
+  white-space: normal;
+  height: 52px;
+  overflow: hidden;
+}
+/* line 250, ../scss/pages/_ranking.scss */
+.ranking-area .top10 .info .robot-data {
+  padding-left: 17px;
+  padding-top: 6px;
+}
+/* line 255, ../scss/pages/_ranking.scss */
+.ranking-area .top10 .info .row {
+  display: block;
+}
+/* line 258, ../scss/pages/_ranking.scss */
+.ranking-area .top10 .info .row span,
+.ranking-area .top10 .info .row p {
+  display: inline-block;
+  vertical-align: top;
+  font-size: 15px;
+  font-family: "oswald";
+}
+/* line 265, ../scss/pages/_ranking.scss */
+.ranking-area .top10 .info .row p {
+  padding-top: 8px;
+  padding-left: 4px;
+  color: #4f4f4f;
+}
+/* line 270, ../scss/pages/_ranking.scss */
+.ranking-area .top10 .info .row p.value {
+  color: #ed003d;
+}
+/* line 276, ../scss/pages/_ranking.scss */
+.ranking-area .top10 .info .row.kills .icon {
+  background-position: 0 -308px;
+  height: 13px;
+  width: 33px;
+}
+/* line 282, ../scss/pages/_ranking.scss */
+.ranking-area .top10 .info .row.shots {
+  padding-top: 5px;
+  padding-left: 4px;
+}
+/* line 286, ../scss/pages/_ranking.scss */
+.ranking-area .top10 .info .row.shots p {
+  padding-top: 15px;
+  padding-left: 3px;
+}
+/* line 289, ../scss/pages/_ranking.scss */
+.ranking-area .top10 .info .row.shots p.value {
+  padding-left: 11px;
+}
+/* line 293, ../scss/pages/_ranking.scss */
+.ranking-area .top10 .info .row.shots .icon {
+  background-position: 0 -266px;
+  height: 22px;
+  width: 23px;
+}
+/* line 299, ../scss/pages/_ranking.scss */
+.ranking-area .top10 .info .row.aim {
+  padding-left: 6px;
+  padding-top: 5px;
+}
+/* line 303, ../scss/pages/_ranking.scss */
+.ranking-area .top10 .info .row.aim p {
+  padding-top: 13px;
+}
+/* line 306, ../scss/pages/_ranking.scss */
+.ranking-area .top10 .info .row.aim p.value {
+  padding-left: 11px;
+}
+/* line 311, ../scss/pages/_ranking.scss */
+.ranking-area .top10 .info .row.aim .icon {
+  background-position: 0 -288px;
+  height: 20px;
+  width: 20px;
+}
+/* line 318, ../scss/pages/_ranking.scss */
+.ranking-area .top10 .info .actions {
+  display: block;
+  margin-top: 19px;
+  margin-left: 20px;
+  width: 191px;
+  position: static;
+}
+/* line 327, ../scss/pages/_ranking.scss */
+.ranking-area .top10 .vertical-separator {
+  -webkit-box-shadow: #c8c8c8 -1px 0 1px 0;
+  -moz-box-shadow: #c8c8c8 -1px 0 1px 0;
+  box-shadow: #c8c8c8 -1px 0 1px 0;
+  border-right: 1px solid #f7f7f7;
+  height: 217px;
+  width: 4px;
+  background-color: #ed0027;
+}
