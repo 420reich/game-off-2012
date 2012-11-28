@@ -46,13 +46,12 @@ module.exports = function(sequelize, DataTypes) {
                                       'FROM "Robots" ORDER BY score) AS rank',
                                     'WHERE rank.id = \''+ this.id +'\'',
                                     'ORDER BY rank.row_number)',
-                            'SELECT DISTINCT ON (Robots."id") robots.*, u.email',
+                            'SELECT robots.*, u.email',
                               'FROM (SELECT *, row_number()',
                                 'OVER (ORDER BY score DESC)',
-                                'FROM "Robots") AS robots,',
-                                '"Users" u',
-                              'WHERE robots.user_id = u.id',
-                              'AND',
+                                'FROM "Robots") AS robots ',
+                                'INNER JOIN "Users" u ON (robots.user_id = u.id)',
+                              'WHERE',
                               'row_number',
                               'BETWEEN',
                                 '(SELECT row_number FROM robot_position) - 3',
@@ -62,7 +61,7 @@ module.exports = function(sequelize, DataTypes) {
                               'row_number BETWEEN',
                                 '(SELECT row_number FROM robot_position)',
                                 'AND',
-                                '(SELECT row_number FROM robot_position) + 3'].join(' ');
+                                '(SELECT row_number FROM robot_position) + 3'].join('\n');
                 sequelize.query(sql, null, {raw: true, type: 'SELECT'}).success(callback);
             }
         },
