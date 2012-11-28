@@ -133,7 +133,7 @@ module.exports = function(grunt) {
                 src: 'fightcode/static/scss',
                 dest: 'fightcode/static/css',
                 images: 'fightcode/static/img',
-                linecomments: true,
+                linecomments: false,
                 forcecompile: false,
                 relativeassets: true,
                 bundleExec: true
