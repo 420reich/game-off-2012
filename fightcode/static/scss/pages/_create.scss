@@ -1,0 +1,28 @@
+@import 'create-robot/*.png';
+
+
+.cm-s-ambiance {
+    border-radius: 5px;
+    height: 500px;
+}
+
+.create-robot {
+    .header-icon {
+        $width: create-robot-sprite-width('robo-header');
+
+        @include create-robot-sprite('robo-header', $dimensions: true);
+        margin-left: -($width/2);
+        top: -37px;
+    }
+
+    .editor {
+        height: 500px;
+    }
+
+    .board {
+        width: 480px;
+        height: 480px;
+        margin-top: 0;
+    }
+}
+

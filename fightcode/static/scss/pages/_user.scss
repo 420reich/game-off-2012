@@ -57,50 +57,6 @@
         background: url('../img/pattern.png');
         overflow: hidden;
 
-        .header {
-            padding-top: 56px;
-            overflow: hidden;
-
-            .title {
-                font-size: 0;
-
-                .marker {
-                    display: inline-block;
-                    vertical-align: top;
-                    margin-top: 4px;
-                    width: 380px;
-                    height: 4px;
-                    background-color: #fdfdfd;
-                    opacity: 0.1;
-                }
-
-                h1 {
-                    display: inline-block;
-                    vertical-align: top;
-                    margin-bottom: 16px;
-                    padding: 0 17px 0 13px;
-
-                    font-family: "oswald-bold";
-                    font-size: 32px;
-                    line-height: 15px;
-                    color: #ed0027;
-
-                    @include text-shadow(#111 -1px 1px 0,#5D000F -3px 3px 0);
-                }
-            }
-
-            .performance {
-                margin-bottom: 46px;
-
-                font-family: "oswald";
-                font-size: 18px;
-                line-height: 15px;
-                text-align: center;
-                color: #ddd;
-            }
-        }
-
-
         .robots {
             li {
                 @include box-sizing(border-box);
@@ -308,9 +264,9 @@
 
             .container {
                 @include box-sizing(border-box);
+                @include box-shadow(inset 0 0 5px rgba(0, 0, 0, .75));
                 background-color: #1c1c1c;
                 padding: 10px 0;
-                @include box-shadow(inset 0 0 5px rgba(0, 0, 0, .75));
 
                 .ad-body {
                     @include box-sizing(border-box);
@@ -347,7 +303,7 @@
             font-size: 0;
             margin-bottom: 60px;
             @include box-shadow(0 0 7px black);
- 
+
             .left {
                 vertical-align: top;
                 display: inline-block;

@@ -7,7 +7,7 @@ module.exports = {
         type: DataTypes.INTEGER,
         autoIncrement: true
       },
-      robot_id: {
+      robot_revision_id: {
         type: DataTypes.INTEGER,
         allowNull: false
       },

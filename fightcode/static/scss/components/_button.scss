@@ -4,6 +4,8 @@
 .btn {
     @include transition(background-color 200ms ease-in-out);
 
+    cursor: pointer;
+    border: 0;
     display: inline-block;
     padding: 15px 30px;
     border-radius: 20px;

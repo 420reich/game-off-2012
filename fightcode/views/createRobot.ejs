@@ -1,46 +1,37 @@
 <% include header.ejs %>
-<div class="create-robot">
+<div class="break"></div>
 
-    <div class="row-fluid">
-        <div class="span12">
-            <h1>Let's create a new Robot?</h1>
-            <p>Just type and watch the live preview to the right.</p>
+<div class="create-robot container">
+    <div class="header">
+        <span class="header-icon"></span>
+        <div class="header-title">
+            <h1>let’s code a robot?</h1>
         </div>
-    </div>
-
-    <div class="row-fluid">
-        <div class="span7">
-            <div class="editor"></div>
-        </div>
-        <div class="span5">
-            <div class="board">
-            </div>
-        </div>
+        <div class="header-subtitle">just type and watch the preview to the right</div>
     </div>
 
     <form id="robo-code-form" method="POST" action="">
-        <input type="hidden" class="code" name="code" value="">
-        <% if (locals.update) {%>
-            <input type="hidden" name="_method" value="put">
-        <%} %>
-        <div class="row-fluid">
-            <div class="span5">
-                <label for="title">How to call this awesomeness?</label>
-            </div>
+        <div class="row">
             <div class="span7">
-                <p><input name="title" id="title" type="text" require="required" placeholder="The name of your Robot!" <% if(locals.robotTitle){ %> value="<%= robotTitle %>" <% } %>>
-                </p>
-            </div>
-        </div>
-        <div class="row-fluid">
-            <div class="span5">
-                <label for="public">public ?</label>
-            </div>
-            <div class="span7">
+
+                <input type="hidden" class="code" name="code">
+                <% if (locals.update) {%>
+                    <input type="hidden" name="_method" value="put">
+                <%} %>
+                <input name="title" id="title" type="text" require="required" placeholder="The name of your Robot!" <% if(locals.robotTitle){ %> value="<%= robotTitle %>" <% } %>>
+
+                <label for="public">public</label>
                 <input name="public" id="public" type="checkbox" <% if(public){ %> checked="checked" <% } %> <% if(locals.update) {%> disabled="disabled" <% } %>>
+
+                <div class="editor"></div>
+            </div>
+
+            <div class="span5">
+                <div class="board"></div>
             </div>
         </div>
-        <button id="submit-btn">Save</button>
+
+        <button class="btn" id="submit-btn">SAVE ROBOT</button>
     </form>
 </div>
 
@@ -53,12 +44,12 @@
 
         var defaultCode = [
             "//FightCode can only understand your robot",
-            "//if its class is called robotClass",
-            "var robotClass = function(){",
+            "//if its class is called Robot",
+            "var Robot = function(robot){",
             "   ",
             "};",
             "",
-            "robotClass.prototype.onIdle = function(ev) {",
+            "Robot.prototype.onIdle = function(ev) {",
             "   var robot = ev.robot;",
             "   robot.ahead(100);",
             "   robot.rotateCannon(360);",
@@ -67,7 +58,7 @@
             "   ",
             "};",
             "",
-            "robotClass.prototype.onScannedRobot = function(ev) {",
+            "Robot.prototype.onScannedRobot = function(ev) {",
             "   var robot = ev.robot;",
             "   robot.fire();",
             "   ",

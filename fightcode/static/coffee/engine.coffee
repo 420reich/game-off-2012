@@ -440,6 +440,8 @@ class Engine
         for robotStatus in @robotsStatus
             givenRect = robotStatus.robot.rectangle
             if givenRect
+                @log(givenRect.position.x)
+                @log(givenRect.position.y)
                 robotStatus.rectangle.setPosition(givenRect.position.x, givenRect.position.y)
                 robotStatus.rectangle.setAngle(givenRect.angle)
             else

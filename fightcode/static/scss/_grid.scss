@@ -1,0 +1,114 @@
+
+$grid-columns: 12 !default;
+$grid-gutter: 20px !default;
+$grid-width: 60px !default;
+
+// returns the index of $value inside $list
+@function index-of($list, $value) {
+    @for $i from 1 through length($list) {
+        @if $value == nth($list, $i) {
+            @return $i;
+        }
+    }
+    @return -1;
+}
+
+// returns is the number is a float value
+@function is-float($number) {
+    @return $number != floor($number);
+}
+
+// returns the number in pixels
+@function to-px($number) {
+    @if unitless($number) {
+        $number: #{$number}px;
+    }
+    @return $number;
+}
+
+
+// returns the width in pixels that a column with
+// $n_columns should have on a grid with $column-width
+// and $gutter
+@function grid-column-width($column-width, $gutter, $n-columns) {
+    @return ($column-width * $n-columns) + ($gutter * ($n-columns - 1));
+}
+
+// private mixin created only
+// to avoid repetition
+@mixin _grid-span-row($gutter) {
+    $gutter: to-px($gutter);
+
+    [class*="span"] {
+        margin-left: $gutter;
+    }
+    .v-margin, .row {
+        margin-top: $gutter/2;
+        margin-bottom: $gutter;
+    }
+    .row {
+        margin-left: -$gutter;
+    }
+}
+
+@mixin define-grid($breakpoint-name: '', $width: '', $gutter: '', $columns: $grid-columns) {
+
+    @if $breakpoint-name != '' {
+        @if $width == '' and $gutter == '' {
+            @warn "Inform at least a width or a gutter";
+        }
+
+        $total-width: nth($grid-resolutions, index-of($grid-breakpoint-names, $breakpoint-name) - 1);
+
+        @if $width == '' {
+            $width: ($total-width - ($gutter * ($columns + 1)))/$columns;
+        }
+
+        @if $gutter == '' {
+            $gutter: ($total-width - ($width * $columns))/($columns + 1);
+        }
+    }
+
+    @if is-float($width) {
+        @warn "The width for #{$breakpoint-name} is a float number.";
+    }
+
+    @if is-float($gutter) {
+        @warn "The gutter for #{$breakpoint-name} is a float number.";
+    }
+
+    $width: to-px(floor($width));
+    $gutter: to-px(floor($gutter));
+
+    @for $i from 1 through $columns {
+        .span#{$i} {
+            width: grid-column-width($width, $gutter, $i);
+        }
+    }
+    @include _grid-span-row($gutter);
+}
+
+@include define-grid($width: $grid-width, $gutter: $grid-gutter);
+
+.clearfix {
+    @include pie-clearfix;
+}
+.container {
+    @extend .span#{$grid-columns};
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.pull-left, [class*="span"] {
+    float: left;
+}
+.pull-right {
+    float: right;
+}
+.row, .container {
+    @extend .clearfix;
+}
+.row .row {
+    margin-left: 0;
+}
+

@@ -1,5 +1,6 @@
 <% include header.ejs %>
 <div class="show-user">
+
     <div class="container">
         <div class="user-info">
             <img alt="<%= user.name %>" src="<%= user.photo(152) %>" />
@@ -16,12 +17,10 @@
     <div class="robots-area">
         <div class="container">
             <div class="header">
-                <div class="title">
-                    <div class="marker"></div>
+                <div class="header-title">
                     <h1>MY ROBOTS</h1>
-                    <div class="marker"></div>
                 </div>
-                <div class="performance">ABSOLUTELY EVERYTHING ABOUT YOUR ARMY OF ROBOTS</div>
+                <div class="header-subtitle">ABSOLUTELY EVERYTHING ABOUT YOUR ARMY OF ROBOTS</div>
             </div>
 
             <ul class="robots">

@@ -1,66 +1,24 @@
 @import "compass/css3";
+@import "helpers";
 @import "ranking/*.png";
+
+
 .break {
     background-color:#f3f3f3;
     height:100px;
 }
- .ranking-area {
+
+.ranking-area {
     background: url('../img/pattern.png');
 
-    .header {
-        padding-top: 65px;
-        position:relative;
-
-        .prize {
-            @include ranking-sprite('prize');
-            @include ranking-sprite-dimensions('prize');
-            position:absolute;
-            display:block;
-            left:438px;
-            top:-33px;
-        }
-
-        .title {
-            font-size: 0;
-
-            .marker {
-                display: inline-block;
-                vertical-align: top;
-                margin-top: 4px;
-                width: 380px;
-                height: 4px;
-                background-color: #fdfdfd;
-                opacity: 0.1;
-            }
-
-            h1 {
-                display: inline-block;
-                vertical-align: top;
-                margin-bottom: 16px;
-                padding: 0 32px 0 30px;
-
-                font-family: "oswald-bold";
-                font-size: 32px;
-                line-height: 15px;
-                color: #ed0027;
-
-                @include text-shadow(#111 -1px 1px 0,#5D000F -3px 3px 0);
-            }
-        }
-
-        .performance {
-            margin-bottom: 42px;
-
-            font-family: "oswald";
-            font-size: 18px;
-            line-height: 15px;
-            text-align: center;
-            color: #ddd;
-        }
+    .header-icon {
+        @include ranking-sprite('prize', $dimensions: true);
+        left: 438px;
+        top: -33px;
     }
 
     .actions {
-        display:block;
+        display:none;
         position:absolute;
         width:189px;
         height:39px;
@@ -73,16 +31,16 @@
             font-size:14px;
             font-weight:bold;
             color:#fff;
-            @include text-shadow(1px 1px #000);
+            text-shadow: 1px 1px #000;
 
             &.fight {
                 padding:19px 20px 20px 31px;
-                @include border-radius(20px 0 0 20px);
+                border-radius: 20px 0 0 20px;
             }
 
             &.fork {
                 padding:19px 30px 20px 27px;
-                @include border-radius(0 20px 20px 0);
+                border-radius: 0 20px 20px 0;
             }
 
             &:hover {
@@ -91,27 +49,28 @@
         }
     }
 
-    .rank {
-        .separator {
-            height:1px;
-            background-color:#2f2f2f;
-            border-bottom:1px solid #000;
-            margin-top:41px;
-            margin-bottom:41px;
+    .separator {
+        height:1px;
+        background-color:#2f2f2f;
+        border-bottom:1px solid #000;
+        margin-top:41px;
+        margin-bottom:41px;
 
-            &:last-child {
-                display:none;
-            }
+        &:last-child {
+            display:none;
         }
+    }
+
+    .rank {
 
         .row {
+            @include opacity(.7);
             height:60px;
             font-size:0;
             line-height:0;
             white-space:nowrap;
             margin-bottom:5px;
             position:relative;
-            @include opacity(.7);
 
             .position,
             .robot-face,
@@ -139,32 +98,33 @@
             }
 
             .robot-face {
-                @include ranking-sprite('robot');
-                @include ranking-sprite-dimensions('robot');
+                @include ranking-sprite('robot', $dimensions: true);
                 background-color:red;
             }
 
             .robot-name {
+                text-shadow: #f7f7f7 -1px 1px 0, #999 -2px 2px 0;
+                border-radius: 0 28px 28px 0;
                 background:#f7f7f7;
                 font-family: "oswald-bold";
                 font-size: 28px;
                 color: #4f4f4f;
                 text-transform: uppercase;
-                padding:25px 0 20px 22px;;
+                padding:25px 0 20px 22px;
                 width:700px;
-                @include text-shadow(#f7f7f7 -1px 1px 0, #999 -2px 2px 0);
-                @include border-radius(0 28px 28px 0);
             }
 
             .user-photo {
                 img {
-                    position:absolute;
+                    @include transition(all 200ms ease-out);
+                    @include improve-transition;
+
+                    border-radius: 50px;
+                    position: absolute;
                     right: 1px;
                     top: 2px;
-                    @include transition(all 200ms linear);
-                    width:57px;
-                    height:57px;
-                    @include border-radius(50px);
+                    width: 57px;
+                    height: 57px;
                 }
             }
 
@@ -201,24 +161,27 @@
             h1 {
                 color:#ed0027;
                 padding:0 19px 0 17px;
-                @include text-shadow(#f3f3f3 -1px 1px 0, #5D000F -2px 2px 0);
+                text-shadow: #f3f3f3 -1px 1px 0, #5D000F -2px 2px 0;
+            }
+            .performance {
+                color: #999;
             }
         }
 
         ul {
+            @include box-shadow(#e5e5e5 0 0 1px 1px);
             border: 1px solid #dadada;
             font-size: 0;
             line-height: 0;
             white-space: nowrap;
             overflow: hidden;
-            @include box-shadow(#e5e5e5 0 0 1px 1px);
 
             li {
+                @include transition(width 500ms ease-out);
                 font-size:0;
                 line-height:0;
                 display: inline-block;
                 width:70px;
-                @include transition(width 500ms ease-out);
 
                 &.open {
                     width:311px;
@@ -237,8 +200,7 @@
             border-right:1px solid #f7f7f7;
             width:69px;
             .robot {
-                @include ranking-sprite('robot-small');
-                @include ranking-sprite-dimensions('robot-small');
+                @include ranking-sprite('robot-small', $dimensions: true);
                 background-color:red;
                 display:block;
             }
@@ -272,12 +234,14 @@
                 color: #4f4f4f;
                 text-transform: uppercase;
                 margin-bottom: 10px;
-                @include text-shadow(#f7f7f7 -1px 1px 0, #999 -2px 2px 0);
+                text-shadow: #f7f7f7 -1px 1px 0, #999 -2px 2px 0;
                 line-height: 26px;
                 padding-left: 21px;
                 width: 195px;
                 padding-top: 13px;
                 white-space: normal;
+                height:52px;
+                overflow:hidden;
             }
 
             .robot-data {
@@ -307,8 +271,7 @@
 
                 &.kills {
                     .icon {
-                        @include ranking-sprite('killed');
-                        @include ranking-sprite-dimensions('killed');
+                        @include ranking-sprite('killed', $dimensions: true);
                     }
                 }
 
@@ -324,8 +287,7 @@
                         }
                     }
                     .icon {
-                        @include ranking-sprite('explosion');
-                        @include ranking-sprite-dimensions('explosion');
+                        @include ranking-sprite('explosion', $dimensions: true);
                     }
                 }
 
@@ -342,13 +304,13 @@
                     }
 
                     .icon {
-                        @include ranking-sprite('crosshair');
-                        @include ranking-sprite-dimensions('crosshair');
+                        @include ranking-sprite('crosshair', $dimensions: true);
                     }
                 }
             }
 
             .actions {
+                display:block;
                 margin-top: 19px;
                 margin-left: 20px;
                 width: 191px;

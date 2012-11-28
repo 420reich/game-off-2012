@@ -5,6 +5,8 @@ module.exports = function(sequelize, DataTypes) {
     RobotRevision = sequelize.import(path.join(basePath, 'models', 'robotRevision'));
     Fight = sequelize.import(path.join(basePath, 'models', 'fight'));
     RobotRevisionFight = sequelize.define('RobotRevisionFight', {
+        robot_revision_id: { type: DataTypes.INTEGER, allowNull: false},
+        fight_id: { type: DataTypes.INTEGER, allowNull: false},
         position: { type: DataTypes.INTEGER, allowNull: false},
         shots_fired: { type: DataTypes.INTEGER, allowNull: false},
         shots_hit: { type: DataTypes.INTEGER, allowNull: false},
@@ -18,7 +20,5 @@ module.exports = function(sequelize, DataTypes) {
         underscored: true
       }
     );
-    RobotRevisionFight.belongsTo(RobotRevision);
-    RobotRevisionFight.belongsTo(Fight);
-    return RobotRevision;
+    return RobotRevisionFight;
 };

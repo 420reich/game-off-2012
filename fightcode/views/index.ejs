@@ -1,6 +1,6 @@
 <% include header.ejs %>
-<div class="home">
-    <div class="row-fluid">
+<div class="home container">
+    <div class="row">
         <div class="span5">
             <h1>How about coding while killing some robots?</h1>
 
@@ -12,18 +12,17 @@
             <p><a href="/robots/create" class="btn-create-robot btn btn-primary btn-large btn-block">Create a Robot</a></p>
         </div>
         <div class="span7">
-            <div class="board">
-            </div>
+            <div class="board"></div>
         </div>
     </div>
 
-    <div class="row-fluid">
+    <div class="row">
         <div class="span12">
             <h1>Ok, I want my robot!</h1>
         </div>
     </div>
 
-    <div class="row-fluid">
+    <div class="row">
         <div class="span5">
             <p>FightCode is free and you can create as many robots as you'd like.</p>
             <p>This is the work of <a href="http://github.com/heynemann">Bernardo Heynemann</a>, <a href="http://github.com/cezarsa">Cezar Sá</a>, <a href="http://github.com/guilhermef">Guilherme Souza</a>, <a href="http://github.com/rafaelcaricio">Rafael Carício</a>,  <a href="http://github.com/fabiomcosta">Fabio Costa</a> and Marcela. It started as an entry for the <a href="https://github.com/github/game-off-2012">Github Game-Off contest 2012</a>.</p>
@@ -70,7 +69,7 @@
         </div>
     </div>
 
-    <div class="row-fluid">
+    <div class="row">
         <div class="span12">
             <h1>Documentation</h1>
             <p class="lead">Robot Actions</p>
@@ -81,7 +80,7 @@
         </div>
     </div>
 
-    <div class="row-fluid">
+    <div class="row">
         <div class="span5">
             <p class="lead">Basic structure</p>
             <p>The robot basic structure is just a regular javascript constructor function.</p>
@@ -94,7 +93,7 @@
         </div>
     </div>
 
-    <div class="row-fluid">
+    <div class="row">
         <div class="span5">
             <p class="lead">onIdle</p>
             <p>This method will be called any time your robot does not have any actions in the action queue.</p>
@@ -124,7 +123,7 @@
         </div>
     </div>
 
-    <div class="row-fluid">
+    <div class="row">
         <div class="span5">
             <p class="lead">onRobotCollision</p>
             <p>This method will be called any time your robot collides with another robot.</p>
@@ -152,7 +151,7 @@
         </div>
     </div>
 
-    <div class="row-fluid">
+    <div class="row">
         <div class="span5">
             <p class="lead">onWallCollision</p>
             <p>This method will be called any time your robot collides with a wall.</p>
@@ -180,7 +179,7 @@
         </div>
     </div>
 
-    <div class="row-fluid">
+    <div class="row">
         <div class="span5">
             <p class="lead">onScannedRobot</p>
             <p>This method will be called any time your robot sees another robot in front of its cannon.</p>
@@ -212,7 +211,7 @@
         </div>
     </div>
 
-    <div class="row-fluid">
+    <div class="row">
         <div class="span5">
             <p class="lead">onHitByBullet</p>
             <p>This method will be called any time your robot is hit by an enemy bullet.</p>

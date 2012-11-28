@@ -2,22 +2,7 @@ module.exports = function(grunt) {
 
     var cssFiles = {
         website: [
-            'fightcode/static/css/reset.css',
-            'fightcode/static/css/color.css',
-            'fightcode/static/css/grid.css',
-            'fightcode/static/css/button.css',
-            'fightcode/static/css/fonts.css',
-            'fightcode/static/css/prism.css',
-            'fightcode/static/css/header.css',
-            'fightcode/static/css/codemirror.css',
-            'fightcode/static/css/home.css',
-            'fightcode/static/css/create.css',
-            'fightcode/static/css/fight.css',
-            'fightcode/static/css/arena.css',
-            'fightcode/static/css/ranking.css',
-            'fightcode/static/css/menu.css',
-            'fightcode/static/css/user.css',
-            'fightcode/static/css/footer.css'
+            'fightcode/static/css/all.css'
         ]
     };
 
@@ -174,10 +159,10 @@ module.exports = function(grunt) {
 
         watch: {
             files: [
-                './fightcode/static/coffee/*.coffee',
-                './fightcode/coffee/routes/*.coffee',
+                './fightcode/static/coffee/**/*.coffee',
+                './fightcode/coffee/routes/**/*.coffee',
                 './fightcode/*.html',
-                './fightcode/static/scss/*.scss'
+                './fightcode/static/scss/**/*.scss'
             ],
             tasks: 'dev'
         }
