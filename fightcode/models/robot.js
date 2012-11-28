@@ -55,14 +55,14 @@ module.exports = function(sequelize, DataTypes) {
                               'AND',
                               'row_number',
                               'BETWEEN',
-                                '(SELECT row_number FROM robot_position) - 6',
+                                '(SELECT row_number FROM robot_position) - 3',
                                 'AND',
                                 '(SELECT row_number FROM robot_position)',
                               'OR',
                               'row_number BETWEEN',
                                 '(SELECT row_number FROM robot_position)',
                                 'AND',
-                                '(SELECT row_number FROM robot_position)+6'].join(' ');
+                                '(SELECT row_number FROM robot_position) + 3'].join(' ');
                 sequelize.query(sql, null, {raw: true, type: 'SELECT'}).success(callback);
             }
         },
