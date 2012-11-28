@@ -69,7 +69,7 @@ app.get('/robots/fight/:robot_id/:opponent_id', checkCredentials, fight.createFi
 app.get('/', index.index);
 app.get('/robots/fight/:robot_id', checkCredentials, fight.prepareFight);
 app.get(/^\/profile\/(.+?)\/robots\/(.+?)\/fight\/(\d+)\/?$/, checkCredentials, fight.startFight);
-app.get(/^\/profile\/(\w+)\/?$/, user.show);
+app.get(/^\/profile\/(\w+)\/?$/, checkCredentials, user.show);
 app.get('/my-profile', checkCredentials, user.myProfile);
 
 module.exports = app;
