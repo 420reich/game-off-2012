@@ -63,7 +63,7 @@
 
     .rank {
 
-        .row {
+        .line {
             @include opacity(.7);
             height:60px;
             font-size:0;
@@ -249,7 +249,7 @@
                 padding-top: 6px;
             }
 
-            .row {
+            .line {
                 display:block;
                 span,
                 p {

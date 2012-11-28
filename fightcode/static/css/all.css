@@ -1845,7 +1845,7 @@ code, pre {
   margin-top: 5px;
 }
 
-.ranking-sprite, .ranking-area .header-icon, .ranking-area .rank .row.mine .position, .ranking-area .rank .row .robot-face, .ranking-area .top10 .sidebar .robot, .ranking-area .top10 .info .row.kills .icon, .ranking-area .top10 .info .row.shots .icon, .ranking-area .top10 .info .row.aim .icon {
+.ranking-sprite, .ranking-area .header-icon, .ranking-area .rank .line.mine .position, .ranking-area .rank .line .robot-face, .ranking-area .top10 .sidebar .robot, .ranking-area .top10 .info .line.kills .icon, .ranking-area .top10 .info .line.shots .icon, .ranking-area .top10 .info .line.aim .icon {
   background: url('../img/ranking-sd82d64e89b.png') no-repeat;
 }
 
@@ -1901,7 +1901,7 @@ code, pre {
 .ranking-area .separator:last-child {
   display: none;
 }
-.ranking-area .rank .row {
+.ranking-area .rank .line {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);
   opacity: 0.7;
   height: 60px;
@@ -1911,33 +1911,33 @@ code, pre {
   margin-bottom: 5px;
   position: relative;
 }
-.ranking-area .rank .row .position,
-.ranking-area .rank .row .robot-face,
-.ranking-area .rank .row .robot-name {
+.ranking-area .rank .line .position,
+.ranking-area .rank .line .robot-face,
+.ranking-area .rank .line .robot-name {
   vertical-align: top;
   display: inline-block;
   font-size: 20px;
   line-height: 15px;
   font-family: "oswald";
 }
-.ranking-area .rank .row .position {
+.ranking-area .rank .line .position {
   background-color: #ed0027;
   color: #fff;
   padding: 22px 0 23px 12px;
   width: 66px;
   overflow: hidden;
 }
-.ranking-area .rank .row.mine .position {
+.ranking-area .rank .line.mine .position {
   background-position: 0 0;
   background-color: #525252;
 }
-.ranking-area .rank .row .robot-face {
+.ranking-area .rank .line .robot-face {
   background-position: 0 -60px;
   height: 60px;
   width: 140px;
   background-color: red;
 }
-.ranking-area .rank .row .robot-name {
+.ranking-area .rank .line .robot-name {
   text-shadow: #f7f7f7 -1px 1px 0, #999999 -2px 2px 0;
   border-radius: 0 28px 28px 0;
   background: #f7f7f7;
@@ -1948,7 +1948,7 @@ code, pre {
   padding: 25px 0 20px 22px;
   width: 700px;
 }
-.ranking-area .rank .row .user-photo img {
+.ranking-area .rank .line .user-photo img {
   -webkit-transition: all 200ms ease-out;
   -moz-transition: all 200ms ease-out;
   -ms-transition: all 200ms ease-out;
@@ -1962,14 +1962,14 @@ code, pre {
   width: 57px;
   height: 57px;
 }
-.ranking-area .rank .row:hover {
+.ranking-area .rank .line:hover {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
   opacity: 1;
 }
-.ranking-area .rank .row:hover .actions {
+.ranking-area .rank .line:hover .actions {
   display: block;
 }
-.ranking-area .rank .row:hover .user-photo img {
+.ranking-area .rank .line:hover .user-photo img {
   -webkit-transform: scale(1.1);
   -moz-transform: scale(1.1);
   -ms-transform: scale(1.1);
@@ -2081,56 +2081,56 @@ code, pre {
   padding-left: 17px;
   padding-top: 6px;
 }
-.ranking-area .top10 .info .row {
+.ranking-area .top10 .info .line {
   display: block;
 }
-.ranking-area .top10 .info .row span,
-.ranking-area .top10 .info .row p {
+.ranking-area .top10 .info .line span,
+.ranking-area .top10 .info .line p {
   display: inline-block;
   vertical-align: top;
   font-size: 15px;
   font-family: "oswald";
 }
-.ranking-area .top10 .info .row p {
+.ranking-area .top10 .info .line p {
   padding-top: 8px;
   padding-left: 4px;
   color: #4f4f4f;
 }
-.ranking-area .top10 .info .row p.value {
+.ranking-area .top10 .info .line p.value {
   color: #ed003d;
 }
-.ranking-area .top10 .info .row.kills .icon {
+.ranking-area .top10 .info .line.kills .icon {
   background-position: 0 -308px;
   height: 13px;
   width: 33px;
 }
-.ranking-area .top10 .info .row.shots {
+.ranking-area .top10 .info .line.shots {
   padding-top: 5px;
   padding-left: 4px;
 }
-.ranking-area .top10 .info .row.shots p {
+.ranking-area .top10 .info .line.shots p {
   padding-top: 15px;
   padding-left: 3px;
 }
-.ranking-area .top10 .info .row.shots p.value {
+.ranking-area .top10 .info .line.shots p.value {
   padding-left: 11px;
 }
-.ranking-area .top10 .info .row.shots .icon {
+.ranking-area .top10 .info .line.shots .icon {
   background-position: 0 -266px;
   height: 22px;
   width: 23px;
 }
-.ranking-area .top10 .info .row.aim {
+.ranking-area .top10 .info .line.aim {
   padding-left: 6px;
   padding-top: 5px;
 }
-.ranking-area .top10 .info .row.aim p {
+.ranking-area .top10 .info .line.aim p {
   padding-top: 13px;
 }
-.ranking-area .top10 .info .row.aim p.value {
+.ranking-area .top10 .info .line.aim p.value {
   padding-left: 11px;
 }
-.ranking-area .top10 .info .row.aim .icon {
+.ranking-area .top10 .info .line.aim .icon {
   background-position: 0 -288px;
   height: 20px;
   width: 20px;

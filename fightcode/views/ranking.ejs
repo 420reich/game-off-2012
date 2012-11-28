@@ -18,9 +18,9 @@
             <div class="rank">
                 <% for (var x=0; x < robotRank[i].rank.length; x++) {%>
                     <% if (robotRank[i].rank[x].user_id === req.user.id) {%>
-                    <div class="row mine">
+                    <div class="line mine">
                     <% } else { %>
-                    <div class="row">
+                    <div class="line">
                     <% } %>
                         <span class="position">#<%= robotRank[i].rank[x].row_number %></span>
                         <span class="robot-face"></span>
@@ -64,17 +64,17 @@
                     <div class="info">
                         <p class="robot-name"><%= top10[i].title %></p>
                         <div class="robot-data">
-                            <span class="row kills">
+                            <span class="line kills">
                                 <span class="icon"></span>
                                 <p class="value">400</p>
                                 <p>KILLS</p>
                             </span>
-                            <span class="row shots">
+                            <span class="line shots">
                                 <span class="icon"></span>
                                 <p class="value">3.123</p>
                                 <p>SHOTS</p>
                             </span>
-                            <span class="row aim">
+                            <span class="line aim">
                                 <span class="icon"></span>
                                 <p class="value">45%</p>
                                 <p>PRECISION</p>
