@@ -99,10 +99,113 @@ a {
   src: url('fonts/../../fonts/oswald-regular-webfont.eot?#iefix') format('eot'), url('fonts/../../fonts/oswald-regular-webfont.woff') format('woff'), url('fonts/../../fonts/oswald-regular-webfont.otf') format('opentype'), url('fonts/../../fonts/oswald-regular-webfont.ttf') format('truetype');
 }
 
-/* line 1, ../scss/_grid.scss */
-.container {
+/* line 84, ../scss/_grid.scss */
+.span1 {
+  width: 60px;
+}
+
+/* line 84, ../scss/_grid.scss */
+.span2 {
+  width: 140px;
+}
+
+/* line 84, ../scss/_grid.scss */
+.span3 {
+  width: 220px;
+}
+
+/* line 84, ../scss/_grid.scss */
+.span4 {
+  width: 300px;
+}
+
+/* line 84, ../scss/_grid.scss */
+.span5 {
+  width: 380px;
+}
+
+/* line 84, ../scss/_grid.scss */
+.span6 {
+  width: 460px;
+}
+
+/* line 84, ../scss/_grid.scss */
+.span7 {
+  width: 540px;
+}
+
+/* line 84, ../scss/_grid.scss */
+.span8 {
+  width: 620px;
+}
+
+/* line 84, ../scss/_grid.scss */
+.span9 {
+  width: 700px;
+}
+
+/* line 84, ../scss/_grid.scss */
+.span10 {
+  width: 780px;
+}
+
+/* line 84, ../scss/_grid.scss */
+.span11 {
+  width: 860px;
+}
+
+/* line 84, ../scss/_grid.scss */
+.span12, .container {
   width: 940px;
-  margin: 0 auto;
+}
+
+/* line 42, ../scss/_grid.scss */
+[class*="span"] {
+  margin-left: 20px;
+}
+
+/* line 45, ../scss/_grid.scss */
+.v-margin, .row {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+/* line 49, ../scss/_grid.scss */
+.row {
+  margin-left: -20px;
+}
+
+/* line 93, ../scss/_grid.scss */
+.clearfix, .row, .container {
+  *zoom: 1;
+}
+/* line 38, ../../../../../../.rvm/gems/ruby-1.9.3-p327@fightcode/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+.clearfix:after, .row:after, .container:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* line 96, ../scss/_grid.scss */
+.container {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* line 102, ../scss/_grid.scss */
+.pull-left, [class*="span"] {
+  float: left;
+}
+
+/* line 105, ../scss/_grid.scss */
+.pull-right {
+  float: right;
+}
+
+/* line 111, ../scss/_grid.scss */
+.row .row {
+  margin-left: 0;
 }
 
 /* line 3, ../scss/_fight.scss */
@@ -1122,6 +1225,8 @@ a {
   -ms-transition: background-color 200ms ease-in-out;
   -o-transition: background-color 200ms ease-in-out;
   transition: background-color 200ms ease-in-out;
+  cursor: pointer;
+  border: 0;
   display: inline-block;
   padding: 15px 30px;
   border-radius: 20px;
@@ -1132,11 +1237,11 @@ a {
   background-color: #ed002d;
   text-shadow: 1px 1px #000;
 }
-/* line 17, ../scss/components/_button.scss */
+/* line 19, ../scss/components/_button.scss */
 .btn:hover {
   background-color: #ff3d3d;
 }
-/* line 21, ../scss/components/_button.scss */
+/* line 23, ../scss/components/_button.scss */
 .btn:active {
   box-shadow: inset 1px 1px 5px 1px rgba(73, 34, 34, 0.5);
 }
