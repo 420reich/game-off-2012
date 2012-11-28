@@ -34,16 +34,16 @@
 <% include scripts.ejs %>
 
 <% revisions.forEach(function(robot_revision_fight) { %>
-<script type="robot/script" id="<%= robot_revision_fight.name %>-code">
-    <%= robot_revision_fight.code %>
+<script type="robot/script" id="robot-<%= robot_revision_fight.id %>-code">
+    <%- robot_revision_fight.code %>
 </script>
 <% }); %>
 
 <script>
     container = $(".fight-arena");
 
-    var robot1Code = $('#<%= revisions[0].name %>-code').html();
-    var robot2Code = $('#<%= revisions[1].name %>-code').html();
+    var robot1Code = $('#robot-<%= revisions[0].id %>-code').html();
+    var robot2Code = $('#robot-<%= revisions[1].id %>-code').html();
 
     arena = new FightArena(container, [
         {
