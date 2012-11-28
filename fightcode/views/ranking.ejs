@@ -15,40 +15,33 @@
     </div>
 
     <div class="container">
-        <div class="rank">
-            <div class="row">
-                <span class="position">#52</span>
-                <span class="robot-face"></span>
-                <span class="robot-name">SPOKE ROBOT</span>
-                <span class="actions">
-                    <a href="#" class="fight">FIGHT</a>
-                    <a href="#" class="fork">FORK</a>
-                </span>
-                <span class="user-photo">
-                    <img src="http://www.gravatar.com/avatar/cd7e457f40593b01asdasbe23dfc1441392ae?s=62">
-                </span>
-            </div>
+        <% for (var i=0; i<robotRank.length; i++) { %>
+            <div class="rank">
+                <% for (var x=0; x < robotRank[i].rank.length; x++) {%>
+                    <% if (robotRank[i].rank[x].user_id === req.user.id) {%>
+                    <div class="row mine">
+                    <% } else { %>
+                    <div class="row">
+                    <% } %>
+                        <span class="position">#<%= robotRank[i].rank[x].row_number %></span>
+                        <span class="robot-face"></span>
+                        <span class="robot-name"><%= robotRank[i].rank[x].title %></span>
+                        <% if (robotRank[i].rank[x].user_id !== req.user.id) {%>
+                        <span class="actions">
+                            <a href="#" class="fight">FIGHT</a>
+                            <a href="#" class="fork">FORK</a>
+                        </span>
+                        <% } %>
+                        <span class="user-photo">
+                            <img src="<%=: robotRank[i].rank[x].email | gravatar_url:62 %>">
+                        </span>
+                    </div>
 
-            <div class="row mine">
-                <span class="position">#52</span>
-                <span class="robot-face"></span>
-                <span class="robot-name">SPOKE ROBOT</span>
-                <span class="user-photo">
-                    <img src="http://www.gravatar.com/avatar/cd7e457f40593b01be23dfc1441392ae?s=62">
-                </span>
-            </div>
-            <div class="row">
-                <span class="position">#52</span>
-                <span class="robot-face"></span>
-                <span class="robot-name">SPOKE ROBOT</span>
-                <span class="user-photo">
-                    <img src="http://www.gravatar.com/avatar/cd7e457f40593b01be23dfc1441392ae?s=62">
-                </span>
-            </div>
+                <% } %>
 
+            </div>
             <div class="separator"></div>
-
-        </div>
+        <% } %>
     </div>
 
     <div class="top10">
@@ -62,17 +55,17 @@
                 <div class="performance">THE BEST JS ROBOT CODERS!</div>
             </div>
             <ul>
-                <% for (var i=0; i< 10; i++) {%>
+                <% for (var i=0; i < top10.length; i++) {%>
                 <li class="<% if (i===0) {%><%='open'%><%}%>">
                     <div class="sidebar">
                         <span class="robot"></span>
                         <span class="user-photo">
-                            <img src="http://www.gravatar.com/avatar/cd7e457f40593b01be23dfc1441392ae?s=80">
+                            <img src="<%=: top10[i].email | gravatar_url:80 %>">
                         </span>
-                        <span class="position"># 1</span>
+                        <span class="position"># <%= top10[i].row_number %></span>
                     </div>
                     <div class="info">
-                        <p class="robot-name">THE CRAZY DESTROYER</p>
+                        <p class="robot-name"><%= top10[i].title %></p>
                         <div class="robot-data">
                             <span class="row kills">
                                 <span class="icon"></span>
@@ -90,10 +83,12 @@
                                 <p>PRECISION</p>
                             </span>
                         </div>
-                        <span class="actions">
-                            <a href="#" class="fight">FIGHT</a>
-                            <a href="#" class="fork">FORK</a>
-                        </span>
+                        <% if (top10[i].user_id !== req.user.id) {%>
+                            <span class="actions">
+                                <a href="#" class="fight">FIGHT</a>
+                                <a href="#" class="fork">FORK</a>
+                            </span>
+                        <%}%>
                     </div>
                     <div class="vertical-separator"></div>
                 </li>

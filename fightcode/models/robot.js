@@ -46,20 +46,32 @@ module.exports = function(sequelize, DataTypes) {
                                       'FROM "Robots" ORDER BY score) AS rank',
                                     'WHERE rank.id = \''+ this.id +'\'',
                                     'ORDER BY rank.row_number)',
-                            'SELECT *',
+                            'SELECT DISTINCT ON (Robots."id") robots.*, u.email',
                               'FROM (SELECT *, row_number()',
                                 'OVER (ORDER BY score DESC)',
-                                'FROM "Robots") AS robots',
-                              'WHERE row_number',
+                                'FROM "Robots") AS robots,',
+                                '"Users" u',
+                              'WHERE robots.user_id = u.id',
+                              'AND',
+                              'row_number',
                               'BETWEEN',
-                                '(SELECT row_number FROM robot_position) - 10',
+                                '(SELECT row_number FROM robot_position) - 6',
                                 'AND',
                                 '(SELECT row_number FROM robot_position)',
                               'OR',
                               'row_number BETWEEN',
                                 '(SELECT row_number FROM robot_position)',
                                 'AND',
-                                '(SELECT row_number FROM robot_position)+10'].join(' ');
+                                '(SELECT row_number FROM robot_position)+6'].join(' ');
+                sequelize.query(sql, null, {raw: true, type: 'SELECT'}).success(callback);
+            },
+
+            top10: function(callback) {
+                var sql = ['SELECT row_number() OVER (ORDER BY score DESC),',
+                           '"Robots".*, u.email',
+                           'FROM "Robots", "Users" u',
+                           'WHERE user_id = u.id',
+                           'ORDER BY score DESC LIMIT 10'].join(' ');
                 sequelize.query(sql, null, {raw: true, type: 'SELECT'}).success(callback);
             }
         },

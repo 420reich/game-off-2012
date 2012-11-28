@@ -60,7 +60,7 @@
     }
 
     .actions {
-        display:block;
+        display:none;
         position:absolute;
         width:189px;
         height:39px;
@@ -91,18 +91,19 @@
         }
     }
 
-    .rank {
-        .separator {
-            height:1px;
-            background-color:#2f2f2f;
-            border-bottom:1px solid #000;
-            margin-top:41px;
-            margin-bottom:41px;
+    .separator {
+        height:1px;
+        background-color:#2f2f2f;
+        border-bottom:1px solid #000;
+        margin-top:41px;
+        margin-bottom:41px;
 
-            &:last-child {
-                display:none;
-            }
+        &:last-child {
+            display:none;
         }
+    }
+
+    .rank {
 
         .row {
             height:60px;
@@ -203,6 +204,9 @@
                 padding:0 19px 0 17px;
                 @include text-shadow(#f3f3f3 -1px 1px 0, #5D000F -2px 2px 0);
             }
+            .performance {
+                color: #999;
+            }
         }
 
         ul {
@@ -278,6 +282,8 @@
                 width: 195px;
                 padding-top: 13px;
                 white-space: normal;
+                height:52px;
+                overflow:hidden;
             }
 
             .robot-data {
@@ -349,6 +355,7 @@
             }
 
             .actions {
+                display:block;
                 margin-top: 19px;
                 margin-left: 20px;
                 width: 191px;
