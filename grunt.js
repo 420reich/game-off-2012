@@ -9,7 +9,7 @@ module.exports = function(grunt) {
     };
 
     var jsFiles = {
-        engine: [
+        engine: [,
             'fightcode/static/js/engine.js',
             'fightcode/static/js/robot.js',
             'fightcode/static/js/inline.js'
@@ -161,10 +161,10 @@ module.exports = function(grunt) {
 
         watch: {
             files: [
-                './fightcode/static/coffee/*.coffee',
-                './fightcode/coffee/routes/*.coffee',
+                './fightcode/static/coffee/**/*.coffee',
+                './fightcode/coffee/routes/**/*.coffee',
                 './fightcode/*.html',
-                './fightcode/static/scss/*.scss'
+                './fightcode/static/scss/**/*.scss'
             ],
             tasks: 'dev'
         }

@@ -1482,45 +1482,56 @@ footer ul span {
   padding: 6px 0 0 10px;
 }
 
-/* line 1, ../scss/components/_page-header.scss */
-.page-header {
-  padding-top: 65px;
+/* line 1, ../scss/components/_header.scss */
+.header {
+  padding-top: 56px;
   position: relative;
 }
-/* line 5, ../scss/components/_page-header.scss */
-.page-header .prize {
+/* line 5, ../scss/components/_header.scss */
+.header .prize {
   position: absolute;
   display: block;
 }
-/* line 10, ../scss/components/_page-header.scss */
-.page-header .title {
-  font-size: 0;
-}
-/* line 13, ../scss/components/_page-header.scss */
-.page-header .title .marker {
-  display: inline-block;
-  vertical-align: top;
-  margin-top: 4px;
-  width: 380px;
-  height: 4px;
-  background-color: #fdfdfd;
-  opacity: 0.1;
-}
-/* line 23, ../scss/components/_page-header.scss */
-.page-header .title h1 {
-  display: inline-block;
-  vertical-align: top;
-  margin-bottom: 16px;
-  padding: 0 32px 0 30px;
-  font-family: "oswald-bold";
+/* line 10, ../scss/components/_header.scss */
+.header .title {
+  overflow: hidden;
+  text-align: center;
   font-size: 32px;
-  line-height: 15px;
+  font-family: "oswald-bold";
   color: #ed0027;
+  padding-top: 9px;
+}
+/* line 18, ../scss/components/_header.scss */
+.header .title h1 {
+  display: inline-block;
+  margin: 0 auto 16px auto;
+  padding: 0 32px 0 30px;
   text-shadow: #111111 -1px 1px 0, #5d000f -3px 3px 0;
   text-transform: uppercase;
+  position: relative;
+  line-height: 15px;
 }
-/* line 37, ../scss/components/_page-header.scss */
-.page-header .performance {
+/* line 27, ../scss/components/_header.scss */
+.header .title h1:before, .header .title h1:after {
+  content: '';
+  display: block;
+  height: 4px;
+  width: 10000px;
+  position: absolute;
+  background-color: #fdfdfd;
+  top: 4px;
+  opacity: 0.1;
+}
+/* line 38, ../scss/components/_header.scss */
+.header .title h1:before {
+  left: 100%;
+}
+/* line 42, ../scss/components/_header.scss */
+.header .title h1:after {
+  right: 100%;
+}
+/* line 48, ../scss/components/_header.scss */
+.header .performance {
   margin-bottom: 42px;
   font-family: "oswald";
   font-size: 18px;
