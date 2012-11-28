@@ -64,9 +64,10 @@ module.exports = function(sequelize, DataTypes) {
                                 'AND',
                                 '(SELECT row_number FROM robot_position)+6'].join(' ');
                 sequelize.query(sql, null, {raw: true, type: 'SELECT'}).success(callback);
-            },
-
-            top10: function(callback) {
+            }
+        },
+        classMethods: {
+          top10: function(callback) {
                 var sql = ['SELECT row_number() OVER (ORDER BY score DESC),',
                            '"Robots".*, u.email',
                            'FROM "Robots", "Users" u',
