@@ -40,7 +40,7 @@ var sequelize = require(path.join(configPath, 'database')),
 passport.serializeUser(function(user, done) {
     var profile = user.profile;
     var token = user.accessToken;
-    console.log("PROFILE >>>>>>>> ", profile);
+    //console.log("PROFILE >>>>>>>> ", profile);
 
     var email = profile.email;
     if (!email && profile.emails && profile.emails.length > 0) {
