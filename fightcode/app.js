@@ -41,6 +41,11 @@ passport.serializeUser(function(user, done) {
     var profile = user.profile;
     var token = user.accessToken;
     console.log("PROFILE >>>>>>>> ", profile);
+
+    var email = profile.email;
+    if (!email && profile.emails && profile.emails.length > 0) {
+        email = profile.emails[0].value;
+    }
     User.find({
         where: { githubId: profile.id }
     })
@@ -48,7 +53,7 @@ passport.serializeUser(function(user, done) {
         if (user == null) {
             User.create({
                 token: token,
-                email: profile.email,
+                email: email,
                 login: profile.username,
                 name: profile.displayName,
                 githubId: profile.id
@@ -58,7 +63,7 @@ passport.serializeUser(function(user, done) {
         }
         else {
             user.token = token;
-            user.email = profile.email;
+            user.email = email;
             user.login = profile.username;
             user.save().success(function(){
                 done(null, user.id);

@@ -14,9 +14,15 @@ module.exports = function(sequelize, DataTypes) {
     }, {
         instanceMethods: {
             thumb: function() {
+                if (this.email == null) {
+                    return '';
+                }
                 return gravatar.url(this.email, {s:'30'});
             },
             photo: function(size) {
+                if (this.email == null) {
+                    return '';
+                }
                 return gravatar.url(this.email, {s: size || '185'});
             }
         },
