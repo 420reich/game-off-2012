@@ -40,6 +40,7 @@ var sequelize = require(path.join(configPath, 'database')),
 passport.serializeUser(function(user, done) {
     var profile = user.profile;
     var token = user.accessToken;
+    console.log("PROFILE >>>>>>>> ", profile);
     User.find({
         where: { githubId: profile.id }
     })
