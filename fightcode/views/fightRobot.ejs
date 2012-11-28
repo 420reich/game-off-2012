@@ -32,4 +32,42 @@
 </div>
 
 <% include scripts.ejs %>
+
+<% revisions.forEach(function(robot_revision_fight) { %>
+<script type="robot/script" id="<%= robot_revision_fight.name %>-code">
+    <%= robot_revision_fight.code %>
+</script>
+<% }); %>
+
+<script>
+    container = $(".fight-arena");
+
+    var robot1Code = $('#<%= revisions[0].name %>-code').html();
+    var robot2Code = $('#<%= revisions[1].name %>-code').html();
+
+    arena = new FightArena(container, [
+        {
+            name: "<%= revisions[0].name %>",
+            code: robot1Code,
+            rectangle: {
+                position: {
+                    x: <%= revisions[0].position_x %>,
+                    y: <%= revisions[0].position_y %>
+                },
+                angle: <%= revisions[0].angle %>
+            }
+        },
+        {
+            name: "<%= revisions[1].name %>",
+            code: robot2Code,
+            rectangle: {
+                position: {
+                    x: <%= revisions[1].position_x %>,
+                    y: <%= revisions[1].position_y %>
+                },
+                angle: <%= revisions[1].angle %>
+            }
+        }
+    ])
+</script>
 <% include footer.ejs %>

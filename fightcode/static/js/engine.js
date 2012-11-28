@@ -577,6 +577,8 @@ Engine = (function() {
       robotStatus = _ref[_i];
       givenRect = robotStatus.robot.rectangle;
       if (givenRect) {
+        this.log(givenRect.position.x);
+        this.log(givenRect.position.y);
         robotStatus.rectangle.setPosition(givenRect.position.x, givenRect.position.y);
         _results.push(robotStatus.rectangle.setAngle(givenRect.angle));
       } else {

@@ -4,6 +4,7 @@ var path = require('path'),
 module.exports = function(sequelize, DataTypes) {
     Robot = sequelize.import(path.join(basePath, 'models', 'robot'));
     RobotRevision = sequelize.define('RobotRevision', {
+        robot_id: { type: DataTypes.INTEGER, allowNull: false},
         gist_hash: { type: DataTypes.STRING, allowNull: false},
         code: { type: DataTypes.STRING, allowNull: false}
     },{
@@ -12,6 +13,6 @@ module.exports = function(sequelize, DataTypes) {
         underscored: true
       }
     );
-    RobotRevision.belongsTo(Robot);
+    RobotRevision.belongsTo(Robot)
     return RobotRevision;
 };

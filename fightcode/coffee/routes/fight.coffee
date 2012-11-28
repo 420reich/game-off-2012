@@ -60,8 +60,8 @@ class FightRepository
 
     createRobotRevisionFight: (fight, robotRevision, engineRobot, robotPosition, callback) ->
         robotRevisionFight = RobotRevisionFight.build(
-            robot_revision_id: robotRevision.id
             fight_id: fight.id
+            robot_revision_id: robotRevision.id
             position: robotPosition
             shots_fired: engineRobot.stats.bulletsFired
             shots_hit: engineRobot.stats.bulletsHit
@@ -71,7 +71,7 @@ class FightRepository
             angle: engineRobot.robot.rectangle.angle
         )
 
-        robotRevision.save().success(->
+        robotRevisionFight.save().success(->
             callback(null, robotRevisionFight)
         )
 
@@ -84,11 +84,11 @@ class FightRepository
                     height: 500
                 };
 
-                playerRobotInstance = new player.Robot();
-                opponentRobotInstance = new opponent.Robot();
+                playerRobotInstance = player.Robot;
+                opponentRobotInstance = opponent.Robot;
 
-                player.instance = playerRobotInstance;
-                opponent.instance = opponentRobotInstance;
+                player.constructor = playerRobotInstance;
+                opponent.constructor = opponentRobotInstance;
 
                 engineInstance = new engine.Engine(boardSize.width, boardSize.height, maxRounds, Math.random, console.log, player, opponent);
                 result = engineInstance.fight();
@@ -228,7 +228,24 @@ exports.createFight = (req, res) ->
 exports.replayFight = (req, res) ->
     fightId = req.params.fight_id
 
-    RobotRevisionFight.findAll({where: {fight_id: fightId}}).success((robotRevisions) ->
-        res.render 'replay', revisions: robotRevisions
-        
+    RobotRevisionFight.findAll({where: {fight_id: fightId}}).success((robotRevisionFights) ->
+        revisionFunctions = []
+        for robotRevisionFight in robotRevisionFights
+            do (robotRevisionFight) ->
+                revisionFunctions.push((callback) ->
+                    RobotRevision.find(robotRevisionFight.robot_revision_id).success((revision) ->
+                        do (revision) ->
+                            robotRevisionFight.code = revision.code
+
+                            Robot.find(revision.robot_id).success((robot) ->
+                                robotRevisionFight.name = robot.title
+                                callback(null, revision, robot)
+                            )
+                    )
+                )
+
+        async.parallel(revisionFunctions,
+            (results) ->
+                res.render 'fightRobot', revisions: robotRevisionFights, title: "Fight Replay ##{ fightId }"
+        )
     )

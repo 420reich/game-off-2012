@@ -1,7 +1,5 @@
-container = $(".fight-arena")
-
 class FightArena
-    constructor: (@container) ->
+    constructor: (@container, @robots) ->
         @defaultCode = """
             var Robot = function(){
             };
@@ -78,16 +76,8 @@ class FightArena
 
         eventData =
             robots: 2
-            robot1:
-                name: "robot1"
-                code: @rotateCode
-            robot2:
-                name: "robot2"
-                code: @wallCode
-            # robot3:
-            #     name: "robot3"
-            #     code: @defaultCode
-            # robot4: @wallCode
+            robot1: @robots[0]
+            robot2: @robots[1]
 
         worker.postMessage(eventData)
 
@@ -111,13 +101,11 @@ class FightArena
                     loading.detach()
 
                     game = new Game(boardContainer, evData, {
-                        msPerRound: 5
+                        msPerRound: 1
                         onEndGame: (result) ->
-                            console.log(result.winner.robot.name)
+                            console.log(result)
                     })
 
                     game.initialize()
                 , 700)
 
-if container.length > 0
-    arena = new FightArena(container)

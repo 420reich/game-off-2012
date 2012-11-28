@@ -55,6 +55,7 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
+app.get('/robots/replay/:fight_id', fight.replayFight);
 app.get('/robots/ranking', checkCredentials, ranking.index);
 app.get('/robots/create', checkCredentials, create.createView);
 app.post('/robots/create', checkCredentials, create.create);

@@ -97,8 +97,8 @@ FightRepository = (function() {
   FightRepository.prototype.createRobotRevisionFight = function(fight, robotRevision, engineRobot, robotPosition, callback) {
     var robotRevisionFight;
     robotRevisionFight = RobotRevisionFight.build({
-      robot_revision_id: robotRevision.id,
       fight_id: fight.id,
+      robot_revision_id: robotRevision.id,
       position: robotPosition,
       shots_fired: engineRobot.stats.bulletsFired,
       shots_hit: engineRobot.stats.bulletsHit,
@@ -107,7 +107,7 @@ FightRepository = (function() {
       position_y: engineRobot.robot.rectangle.position.y,
       angle: engineRobot.robot.rectangle.angle
     });
-    return robotRevision.save().success(function() {
+    return robotRevisionFight.save().success(function() {
       return callback(null, robotRevisionFight);
     });
   };
@@ -115,7 +115,7 @@ FightRepository = (function() {
   FightRepository.prototype.runFight = function(player, opponent, callback) {
     return fs.readFile(enginePath, 'utf8', function(err, data) {
       var engineContext, init, initContext, opponentContext, opponentRobot, playerContext, playerRobot;
-      init = "                maxRounds = 10000;                boardSize = {                    width: 800,                    height: 500                };                playerRobotInstance = new player.Robot();                opponentRobotInstance = new opponent.Robot();                player.instance = playerRobotInstance;                opponent.instance = opponentRobotInstance;                engineInstance = new engine.Engine(boardSize.width, boardSize.height, maxRounds, Math.random, console.log, player, opponent);                result = engineInstance.fight();            ";
+      init = "                maxRounds = 10000;                boardSize = {                    width: 800,                    height: 500                };                playerRobotInstance = player.Robot;                opponentRobotInstance = opponent.Robot;                player.constructor = playerRobotInstance;                opponent.constructor = opponentRobotInstance;                engineInstance = new engine.Engine(boardSize.width, boardSize.height, maxRounds, Math.random, console.log, player, opponent);                result = engineInstance.fight();            ";
       playerContext = {};
       vm.runInNewContext(player.code.replace("var Robot", "Robot"), playerContext);
       playerRobot = playerContext.Robot;
@@ -272,9 +272,31 @@ exports.replayFight = function(req, res) {
     where: {
       fight_id: fightId
     }
-  }).success(function(robotRevisions) {
-    return res.render('replay', {
-      revisions: robotRevisions
+  }).success(function(robotRevisionFights) {
+    var revisionFunctions, robotRevisionFight, _fn, _i, _len;
+    revisionFunctions = [];
+    _fn = function(robotRevisionFight) {
+      return revisionFunctions.push(function(callback) {
+        return RobotRevision.find(robotRevisionFight.robot_revision_id).success(function(revision) {
+          return (function(revision) {
+            robotRevisionFight.code = revision.code;
+            return Robot.find(revision.robot_id).success(function(robot) {
+              robotRevisionFight.name = robot.title;
+              return callback(null, revision, robot);
+            });
+          })(revision);
+        });
+      });
+    };
+    for (_i = 0, _len = robotRevisionFights.length; _i < _len; _i++) {
+      robotRevisionFight = robotRevisionFights[_i];
+      _fn(robotRevisionFight);
+    }
+    return async.parallel(revisionFunctions, function(results) {
+      return res.render('fightRobot', {
+        revisions: robotRevisionFights,
+        title: "Fight Replay #" + fightId
+      });
     });
   });
 };
