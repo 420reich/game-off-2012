@@ -1,0 +1,46 @@
+/* line 1, ../../scss/components/page-header.scss */
+.page-header {
+  padding-top: 65px;
+  position: relative;
+}
+/* line 5, ../../scss/components/page-header.scss */
+.page-header .prize {
+  position: absolute;
+  display: block;
+}
+/* line 10, ../../scss/components/page-header.scss */
+.page-header .title {
+  font-size: 0;
+}
+/* line 13, ../../scss/components/page-header.scss */
+.page-header .title .marker {
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 4px;
+  width: 380px;
+  height: 4px;
+  background-color: #fdfdfd;
+  opacity: 0.1;
+}
+/* line 23, ../../scss/components/page-header.scss */
+.page-header .title h1 {
+  display: inline-block;
+  vertical-align: top;
+  margin-bottom: 16px;
+  padding: 0 32px 0 30px;
+  font-family: "oswald-bold";
+  font-size: 32px;
+  line-height: 15px;
+  color: #ed0027;
+  text-shadow: #111111 -1px 1px 0, #5d000f -3px 3px 0;
+  text-transform: uppercase;
+}
+/* line 37, ../../scss/components/page-header.scss */
+.page-header .performance {
+  margin-bottom: 42px;
+  font-family: "oswald";
+  font-size: 18px;
+  line-height: 15px;
+  text-align: center;
+  color: #ddd;
+}

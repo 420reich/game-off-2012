@@ -17,6 +17,7 @@ module.exports = function(grunt) {
             'fightcode/static/css/ranking.css',
             'fightcode/static/css/menu.css',
             'fightcode/static/css/user.css',
+            'fightcode/static/css/components/page-header.css',
             'fightcode/static/css/footer.css'
         ]
     };
