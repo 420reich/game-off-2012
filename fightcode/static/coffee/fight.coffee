@@ -120,7 +120,7 @@ class FightArena
                     loading.detach()
 
                     game = new Game(boardContainer, evData, {
-                        msPerRound: 1
+                        msPerRound: 5
                         onEndGame: (result) ->
                             console.log(result)
                     })

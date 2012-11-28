@@ -40,7 +40,7 @@ FightArena = (function() {
         var game;
         loading.detach();
         game = new Game(boardContainer, evData, {
-          msPerRound: 1,
+          msPerRound: 5,
           onEndGame: function(result) {
             return console.log(result);
           }
