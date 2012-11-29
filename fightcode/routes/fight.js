@@ -298,6 +298,7 @@ exports.replayFight = function(req, res) {
             return Robot.find(revision.robot_id).success(function(robot) {
               return (function(robot) {
                 robotRevisionFight.gistId = robot.gist;
+                console.log("ROBOT-TITLE", robot.title);
                 robotRevisionFight.name = robot.title;
                 return User.find({
                   where: {
