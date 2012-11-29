@@ -986,6 +986,9 @@ a {
   width: 800px;
   height: 500px;
 }
+.fight-arena .comments {
+  margin-top: 40px;
+}
 
 .btn {
   -webkit-transition: background-color 200ms ease-in-out;
