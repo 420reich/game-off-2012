@@ -33,11 +33,32 @@ class Game
         tankObject = {
             id: object.id
             name: object.name
+            color: object.color
             tank: tank
             body: tank.find('.body')
             cannon: tank.find('.cannon')
             life: tank.find('.life')
         }
+
+        referenceTankColor =
+            r: 76
+            g: 168
+            b: 27
+
+        referenceCannonColor =
+            r: 108
+            g: 211
+            b: 42
+
+        color = tankObject.color or '#ff0000'
+
+        IconPainter.paintIcon('/img/tanks.png', color, referenceTankColor, 27, (dataUrl) ->
+            tankObject.body.css('background-image', 'url(' + dataUrl + ')');
+        )
+
+        IconPainter.paintIcon('/img/cannon.png', color, referenceCannonColor, 60, (dataUrl) ->
+            tankObject.cannon.css('background-image', 'url(' + dataUrl + ')');
+        )
 
         @board.append(tank)
         @objects[object.id] = tankObject

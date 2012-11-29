@@ -16,8 +16,8 @@ module.exports = function(grunt) {
         ],
 
         animation: [
-            'fightcode/static/js/animation.js',
-            'fightcode/static/js/animationInline.js'
+            'fightcode/static/js/iconPainter.js',
+            'fightcode/static/js/animation.js'
         ],
 
         webApp: [
