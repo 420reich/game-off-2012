@@ -61,11 +61,16 @@ exports.updateView = function(req, res) {
     type: 'oauth',
     token: req.user.token
   });
-  return Robot.find({
+  return req.user.getRobots({
     where: {
       gist: gistId
     }
-  }).success(function(robot) {
+  }).success(function(robots) {
+    var robot;
+    if (!(robots.length > 0)) {
+      return res.redirect('/');
+    }
+    robot = robots[0];
     return github.gists.get({
       id: gistId
     }, function(err, githubResponse) {
@@ -105,11 +110,15 @@ exports.update = function(req, res) {
       }
     }
   };
-  return Robot.find({
+  return req.user.getRobots({
     where: {
       gist: gistId
     }
   }).success(function(robot) {
+    if (!(robots.length > 0)) {
+      return res.redirect('/');
+    }
+    robot = robots[0];
     robot.title = title;
     robot.color = color;
     robot.linesOfCode = code.split('\n').length;
