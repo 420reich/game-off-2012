@@ -85,17 +85,21 @@ Robot.prototype.onIdle = function(ev) {
 };
 </script>
 <script>
-
     var duckCode = $('#duck-code').html();
     var container = $('.board-container');
     var startFight = function(code) {
+        var color = $('.js-color-picker').spectrum('get').toHex();
+        console.log(color);
+
         var player = {
             name: "player",
-            code: code
+            code: code,
+            color: color
         };
         var duck = {
             name: "duck",
-            code: duckCode
+            code: duckCode,
+            color: "#0098ff"
         };
 
         var options = {
