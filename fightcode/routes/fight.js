@@ -299,13 +299,12 @@ exports.replayFight = function(req, res) {
               return (function(robot) {
                 robotRevisionFight.gistId = robot.gist;
                 robotRevisionFight.name = robot.title;
-                console.log(robot.user_id);
                 return User.find({
                   where: {
                     id: robot.user_id
                   }
                 }).success(function(user) {
-                  robotRevisionFight.user = user;
+                  robotRevisionFight.user = user.photo(110);
                   return callback(null, revision, robot);
                 });
               })(robot);

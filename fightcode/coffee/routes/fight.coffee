@@ -250,9 +250,8 @@ exports.replayFight = (req, res) ->
                                     robotRevisionFight.gistId = robot.gist
                                     robotRevisionFight.name = robot.title
 
-                                    console.log(robot.user_id)
                                     User.find(where: id: robot.user_id).success((user) ->
-                                        robotRevisionFight.user = user
+                                        robotRevisionFight.user = user.photo(110)
                                         callback(null, revision, robot)
                                     )
                             )
