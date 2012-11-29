@@ -329,6 +329,7 @@ class RobotStatus extends ElementStatus
         @enemiesKilled = 0
         @friendsKilled = 0
         @ignoredEvents = {}
+        @accidentalCollisions = {}
 
     instantiateRobot: ->
         actions = new RobotActions(this)
@@ -363,6 +364,14 @@ class RobotStatus extends ElementStatus
                 a + b.friendsKilled
             , @friendsKilled
         }
+
+    getAccidentalCollisions: ->
+        ac = @accidentalCollisions
+        @accidentalCollisions = {}
+        return ac
+
+    addAccidentalCollision: (status) ->
+        @accidentalCollisions[status.id] = true
 
     isClone: ->
         !!@parentStatus
@@ -401,7 +410,7 @@ class RobotStatus extends ElementStatus
         @scanWaitTime = @baseScanWaitTime
 
     abortCurrentMovement: ->
-        @queue.shift() if @queue.length > 0 and @queue[0].started and @queue[0].action in ['move', 'turn']
+        @queue.shift() if @queue.length > 0 and @queue[0].started
 
     runItem: ->
         @gunCoolDownTime-- if @gunCoolDownTime > 0
@@ -561,8 +570,12 @@ class Engine
 
         return actions if robotStatus instanceof BulletStatus
 
+        accidentalCollisions = robotStatus.getAccidentalCollisions()
+
         for status in @robotsStatus
             continue if status == robotStatus or !status.isAlive()
+
+            isEnemyRobot = status instanceof RobotStatus
 
             if robotStatus.rectangle.intersects(status.rectangle)
                 eventName = 'onRobotCollision'
@@ -594,22 +607,25 @@ class Engine
                 bearing -= 360 if bearing > 180
                 unless robotStatus.ignoredEvents[eventName]
                     @safeCall(robotStatus.robot.instance, eventName, {
-                        robot: actions,
+                        robot: actions
                         bearing: bearing
-                        collidedRobot: if status instanceof RobotStatus then @basicEnemyInfo(status) else null
+                        collidedRobot: if isEnemyRobot then @basicEnemyInfo(status) else null
+                        myFault: !!isEnemyRobot
                     })
+                status.addAccidentalCollision(robotStatus) if isEnemyRobot
 
-                if status instanceof RobotStatus and not status.ignoredEvents[eventName]
-                    vec = Vector2.subtract(robotStatus.rectangle.position, status.rectangle.position)
-                    bearing = normalizeAngle((Math.atan2(vec.y, vec.x) * 180 / Math.PI) - status.rectangle.angle)
+            else if isEnemyRobot and accidentalCollisions[status.id]
+                unless robotStatus.ignoredEvents[eventName]
+                    vec = Vector2.subtract(status.rectangle.position, robotStatus.rectangle.position)
+                    bearing = normalizeAngle((Math.atan2(vec.y, vec.x) * 180 / Math.PI) - robotStatus.rectangle.angle)
                     bearing -= 360 if bearing > 180
-                    otherActions = new RobotActions(status)
-                    @safeCall(status.robot.instance, eventName, {
-                        robot: otherActions
+
+                    @safeCall(robotStatus.robot.instance, eventName, {
+                        robot: actions
                         bearing: bearing
-                        collidedRobot: @basicEnemyInfo(robotStatus)
+                        collidedRobot: @basicEnemyInfo(status)
+                        myFault: false
                     })
-                    status.updateQueue(otherActions)
 
         actions
 
@@ -718,9 +734,6 @@ class Engine
                             id: status.id
                             cloneId: newStatus.id
                         })
-
-            for status in @robotsStatus
-                continue unless status.isAlive()
 
                 actions = @checkCollision(status)
                 if actions
