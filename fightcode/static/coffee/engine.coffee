@@ -400,6 +400,9 @@ class RobotStatus extends ElementStatus
     preventScan: ->
         @scanWaitTime = @baseScanWaitTime
 
+    abortCurrentMovement: ->
+        @queue.shift() if @queue.length > 0 and @queue[0].started and @queue[0].action in ['move', 'turn']
+
     runItem: ->
         @gunCoolDownTime-- if @gunCoolDownTime > 0
 
@@ -415,6 +418,7 @@ class RobotStatus extends ElementStatus
         return unless item
 
         if 'count' of item
+            item.started = true
             item.count--
             @queue.unshift(item) if item.count > 0
 
@@ -551,6 +555,7 @@ class Engine
             else
                 bearing = normalizeAngle(wallCollisionAngle - robotStatus.rectangle.angle - 90)
                 bearing -= 360 if bearing > 180
+                robotStatus.abortCurrentMovement()
                 unless robotStatus.ignoredEvents['onWallCollision']
                     @safeCall(robotStatus.robot.instance, 'onWallCollision', {robot: actions, bearing: bearing})
 
@@ -584,6 +589,7 @@ class Engine
                     vec = Vector2.subtract(status.rectangle.position, robotStatus.rectangle.position)
                     bearing = normalizeAngle((Math.atan2(vec.y, vec.x) * 180 / Math.PI) - robotStatus.rectangle.angle)
                     robotStatus.rollbackAfterCollision()
+                    robotStatus.abortCurrentMovement()
 
                 bearing -= 360 if bearing > 180
                 unless robotStatus.ignoredEvents[eventName]

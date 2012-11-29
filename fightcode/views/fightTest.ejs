@@ -36,7 +36,7 @@
 <script type="robot/script" id="r1-code">
 var Robot = function(robot){
     robot.turn(90 - (robot.angle % 90));
-    robot.rotateCannon(90);
+    robot.rotateCannon(-90);
     this.offset = 1;
     this.rotation = 30;
 };
@@ -56,7 +56,7 @@ Robot.prototype.onScannedRobot = function(ev) {
 
 Robot.prototype.onWallCollision = function(ev) {
     var robot = ev.robot;
-    robot.turn(90);
+    robot.turn(ev.bearing - 90);
     robot.clone();
 };
 </script>
@@ -65,7 +65,6 @@ Robot.prototype.onWallCollision = function(ev) {
 var Robot = function(robot){
     robot.turnLeft(robot.angle % 90);
     robot.turnGunRight(90);
-    robot.clone();
 };
 Robot.prototype.onIdle = function(ev) {
     var robot = ev.robot;
@@ -74,12 +73,12 @@ Robot.prototype.onIdle = function(ev) {
 Robot.prototype.onWallCollision = function(ev) {
   var robot = ev.robot;
   robot.turnRight(ev.bearing + 90);
-
+  robot.clone();
 };
 Robot.prototype.onRobotCollision = function(ev) {
   var robot = ev.robot, collidedRobot = ev.collidedRobot;
 
-  robot.ignore('onRobotCollision')
+  robot.ignore('onRobotCollision');
   if (ev.bearing > -90 && ev.bearing < 90) {
     robot.back(100);
   } else {
@@ -90,10 +89,11 @@ Robot.prototype.onRobotCollision = function(ev) {
       robot.turnGunRight(ev.bearing - robot.cannonRelativeAngle);
       robot.turnGunLeft(ev.bearing - robot.cannonRelativeAngle);
   }
-  robot.listen('onRobotCollision')
+  robot.listen('onRobotCollision');
 };
 Robot.prototype.onHitByBullet = function(ev) {
-
+    var robot = ev.robot;
+    
 };
 Robot.prototype.onScannedRobot = function(ev) {
   var robot = ev.robot, scannedRobot = ev.scannedRobot;
@@ -118,10 +118,10 @@ Robot.prototype.onScannedRobot = function(ev) {
             code: robot1Code,
             rectangle: {
                 position: {
-                    x: 318,
-                    y: 444
+                    x: 246,
+                    y: 293
                 },
-                angle: 347
+                angle: 53
             }
         },
         {
@@ -129,10 +129,10 @@ Robot.prototype.onScannedRobot = function(ev) {
             code: robot2Code,
             rectangle: {
                 position: {
-                    x: 354,
-                    y: 131
+                    x: 747,
+                    y: 393
                 },
-                angle: 147
+                angle: 332
             }
         }
     ])
