@@ -132,7 +132,7 @@ module.exports = function(sequelize, DataTypes) {
                   '   INNER JOIN "RobotRevisions" rev ON (rrf.robot_revision_id = rev.id) ' +
                   '   INNER JOIN "Robots" r ON (rev.robot_id = r.id) ' +
                   '   INNER JOIN "Users" u ON (r.user_id = u.id) ' +
-                  'ORDER BY f.created_at DESC LIMIT 40 ';
+                  'ORDER BY f.created_at DESC LIMIT 100';
 
         sequelize.query(sql, null, {raw: true, type: 'SELECT'}).success(function(data){
             var fightList = [], i;
