@@ -122,9 +122,9 @@ FightRepository = (function() {
       };
     };
     return fs.readFile(enginePath, 'utf8', function(err, data) {
-      var basicContext, engineContext, init, initContext, opponentContext, opponentRobot, playerRobot;
+      var basicContext, engineContext, init, initContext, opponentContext, opponentRobot, playerContext, playerRobot;
       init = "maxRounds = 10000;\nboardSize = {\n    width: 800,\n    height: 500\n};\n\nplayerRobotInstance = player.Robot;\nopponentRobotInstance = opponent.Robot;\n\nplayer.constructor = playerRobotInstance;\nopponent.constructor = opponentRobotInstance;\n\nengineInstance = new engine.Engine(boardSize.width, boardSize.height, maxRounds, Math.random, player, opponent);\nresult = engineInstance.fight();";
-      basicContext = createContext();
+      playerContext = createContext();
       vm.runInNewContext(player.code.replace("var Robot", "Robot"), playerContext);
       playerRobot = playerContext.Robot;
       opponentContext = createContext();

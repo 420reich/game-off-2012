@@ -98,7 +98,7 @@ class FightRepository
                 result = engineInstance.fight();
             """
 
-            basicContext = createContext()
+            playerContext = createContext()
             vm.runInNewContext(player.code.replace("var Robot", "Robot"), playerContext)
             playerRobot = playerContext.Robot
 
