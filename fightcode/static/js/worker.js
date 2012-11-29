@@ -60,7 +60,7 @@ Fight = (function() {
   Fight.prototype.bindEvents = function() {
     var _this = this;
     return worker.onmessage = function(event) {
-      var code, evData, i, robots, _i, _ref;
+      var boardSize, code, evData, i, maxRounds, robots, _i, _ref;
       evData = event.data;
       robots = [];
       for (i = _i = 1, _ref = evData.robots; 1 <= _ref ? _i <= _ref : _i >= _ref; i = 1 <= _ref ? ++_i : --_i) {
@@ -68,19 +68,28 @@ Fight = (function() {
         code.code = code.code.replace(/\/\/.*?\n/g, '').replace(/#.*?\n/g, '');
         robots.push(code);
       }
-      return _this.processFight(robots);
+      boardSize = {
+        width: 800,
+        height: 500
+      };
+      maxRounds = 10000;
+      if (evData.boardSize) {
+        boardSize = {
+          width: evData.boardSize.width,
+          height: evData.boardSize.height
+        };
+      }
+      if (evData.maxRounds) {
+        maxRounds = evData.maxRounds;
+      }
+      return _this.processFight(robots, maxRounds, boardSize);
     };
   };
 
-  Fight.prototype.processFight = function(robots) {
-    var boardSize, engine, eventData, maxRounds, result, robot, robotCode, robotConstructor, _i, _len,
+  Fight.prototype.processFight = function(robots, maxRounds, boardSize) {
+    var engine, eventData, result, robot, robotCode, robotConstructor, _i, _len,
       _this = this;
     this.overrideFunctions();
-    maxRounds = 10000;
-    boardSize = {
-      width: 800,
-      height: 500
-    };
     for (_i = 0, _len = robots.length; _i < _len; _i++) {
       robot = robots[_i];
       robotCode = "(function() {" + robot.code + "; global.Robot = Robot;}.bind(global)()); return global.Robot;";
@@ -102,8 +111,7 @@ Fight = (function() {
     this.restoreFunctions();
     eventData = {
       type: "results",
-      result: result.result,
-      winner: result.winner
+      result: result.result
     };
     return worker.postMessage(eventData);
   };

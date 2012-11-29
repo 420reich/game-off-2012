@@ -46,15 +46,25 @@ class Fight
                 code = evData['robot' + i]
                 code.code = code.code.replace(/\/\/.*?\n/g, '').replace(/#.*?\n/g, '');
                 robots.push(code)
-            @processFight(robots)
 
-    processFight: (robots) ->
+            boardSize =
+                width: 800
+                height: 500
+
+            maxRounds = 10000
+
+            if evData.boardSize
+                boardSize =
+                    width: evData.boardSize.width
+                    height: evData.boardSize.height
+
+            if evData.maxRounds
+                maxRounds = evData.maxRounds
+
+            @processFight(robots, maxRounds, boardSize)
+
+    processFight: (robots, maxRounds, boardSize) ->
         @overrideFunctions()
-
-        maxRounds = 10000
-        boardSize =
-            width: 800
-            height: 500
 
         for robot in robots
             robotCode = "(function() {#{ robot.code }; global.Robot = Robot;}.bind(global)()); return global.Robot;"
@@ -73,7 +83,6 @@ class Fight
         eventData =
             type: "results"
             result: result.result
-            winner: result.winner
 
         worker.postMessage(eventData)
 

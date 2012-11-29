@@ -684,7 +684,7 @@ class Engine
 
         for r in sortedRobots
             stats = r.stats = r.stats()
-            @log(r.robot.name, r.deathIdx, r.life, stats.bulletsFired, stats.bulletsHit, stats.friendsKilled, stats.enemiesKilled)
+            #@log(r.robot.name, r.deathIdx, r.life, stats.bulletsFired, stats.bulletsHit, stats.friendsKilled, stats.enemiesKilled)
 
         return {
             isDraw: @isDraw()

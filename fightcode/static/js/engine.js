@@ -913,7 +913,6 @@ Engine = (function() {
     for (_k = 0, _len2 = sortedRobots.length; _k < _len2; _k++) {
       r = sortedRobots[_k];
       stats = r.stats = r.stats();
-      this.log(r.robot.name, r.deathIdx, r.life, stats.bulletsFired, stats.bulletsHit, stats.friendsKilled, stats.enemiesKilled);
     }
     return {
       isDraw: this.isDraw(),
