@@ -48,6 +48,224 @@
     </form>
 </div>
 
+<div class="row">
+        <div class="span5">
+            <p>FightCode is free and you can create as many robots as you'd like.</p>
+            <p>This is the work of <a href="http://github.com/heynemann">Bernardo Heynemann</a>, <a href="http://github.com/cezarsa">Cezar Sá</a>, <a href="http://github.com/guilhermef">Guilherme Souza</a>, <a href="http://github.com/rafaelcaricio">Rafael Carício</a>,  <a href="http://github.com/fabiomcosta">Fabio Costa</a> and Marcela. It started as an entry for the <a href="https://github.com/github/game-off-2012">Github Game-Off contest 2012</a>.</p>
+            <p>Coding robots is pretty easy and should be natural if you've ever done any javascript.</p>
+            <p>The robot described here is not exactly a champion, but it should be enough to showcase some of the stuff available to players.</p>
+        </div>
+        <div class="span7">
+            <pre><code class="language-javascript">
+    function SampleRobot() {}
+
+    // well, we need to do something...
+    // whenever our robot is idle, this method gets called.
+    SampleRobot.prototype.onIdle = function(ev) {
+    var robot;
+    robot = ev.robot;
+    robot.ahead(150);
+    robot.rotateCannon(360);
+    robot.back(100);
+    robot.rotateCannon(360);
+    robot.turn(20);
+    };
+
+    // this method gets called whenever we hit another robot...
+    SampleRobot.prototype.onRobotCollision = function(ev) {};
+
+    // this method gets called whenever we hit a wall...
+    SampleRobot.prototype.onWallCollision = function(ev) {};
+
+    // yay we see another robot! time to wreak some havoc...
+    SampleRobot.prototype.onScannedRobot = function(ev) {
+    var robot;
+    robot = ev.robot;
+    robot.fire(1);
+    };
+
+    // ohhh... we were hit by another robot...
+    SampleRobot.prototype.onHitByBullet = function(ev) {
+    var robot;
+    console.log('onHitByBullet', ev);
+    robot = ev.robot;
+    robot.turn(90 - ev.bulletBearing);
+    };
+            </code></pre>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="span12">
+            <h1>Documentation</h1>
+            <p class="lead">Robot Actions</p>
+            <p>It is important to understand how robots interact with the game, FightCode provides you with an action queue that you can put items in.</p>
+            <p>Whenever you call one of the actions available to your robot, one or more items get put in the queue.</p>
+            <p>FightCode uses this queue to synchronize your robot's actions with the other events in the game.</p>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="span5">
+            <p class="lead">Basic structure</p>
+            <p>The robot basic structure is just a regular javascript constructor function.</p>
+        </div>
+        <div class="span7">
+            <pre><code class="language-javascript">
+    // pretty simple, huh?
+    function MyRobot() {}
+            </code></pre>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="span5">
+            <p class="lead">onIdle</p>
+            <p>This method will be called any time your robot does not have any actions in the action queue.</p>
+            <p>This method takes an event object that is featured in the code to the right.</p>
+        </div>
+        <div class="span7">
+            <pre><code class="language-javascript">
+    // well, we need to do something...
+    // whenever our robot is idle, this method gets called.
+    MyRobot.prototype.onIdle = function(ev) {
+    var robot;
+    robot = ev.robot;
+    robot.ahead(150);
+    robot.rotateCannon(360);
+    robot.back(100);
+    robot.rotateCannon(360);
+    robot.turn(20);
+    };
+
+    // the ev argument has the following structure
+    ev = {
+    robot: object,        // used to call actions
+                          // for my robot or to get
+                          // informations about it
+    };
+            </code></pre>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="span5">
+            <p class="lead">onRobotCollision</p>
+            <p>This method will be called any time your robot collides with another robot.</p>
+            <p>This method takes an event object that is featured in the code to the right.</p>
+        </div>
+        <div class="span7">
+            <pre><code class="language-javascript">
+    // this method gets called whenever we hit another robot...
+    MyRobot.prototype.onRobotCollision = function(ev) {
+    var robot;
+    robot = ev.robot;
+    robot.rotateCannon(ev.robotBearing);
+    };
+
+    // the ev argument has the following structure
+    ev = {
+    robot: object,        // used to call actions
+                          // for my robot or to get
+                          // informations about it
+
+    robotBearing: angle   // angle of the other robot in
+                          // relation to your robot
+    };
+            </code></pre>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="span5">
+            <p class="lead">onWallCollision</p>
+            <p>This method will be called any time your robot collides with a wall.</p>
+            <p>This method takes an event object that is featured in the code to the right.</p>
+        </div>
+        <div class="span7">
+            <pre><code class="language-javascript">
+    // this method gets called whenever we hit a wall...
+    MyRobot.prototype.onWallCollision = function(ev) {
+    var robot;
+    robot = ev.robot;
+    robot.turn(ev.wallBearing);
+    };
+
+    // the ev argument has the following structure
+    ev = {
+    robot: object,        // used to call actions
+                          // for my robot or to get
+                          // informations about it
+
+    wallBearing: angle    // angle of the wall in relation
+                          // to your robot
+    };
+            </code></pre>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="span5">
+            <p class="lead">onScannedRobot</p>
+            <p>This method will be called any time your robot sees another robot in front of its cannon.</p>
+            <p>This can happen due to a number of things:</p>
+            <ul>
+                <li>A robot passed in front of your cannon;</li>
+                <li>You turned your cannon and it found a robot;</li>
+                <li>You turned your robot (and the cannon with it) and it found a robot;</li>
+                <li>You moved and your cannon found a robot.</li>
+            </ul>
+            <p>This method takes an event object that is featured in the code to the right.</p>
+        </div>
+        <div class="span7">
+            <pre><code class="language-javascript">
+    // yay we see another robot! time to wreak some havoc...
+    MyRobot.prototype.onScannedRobot = function(ev) {
+    var robot;
+    robot = ev.robot;
+    robot.fire(1);
+    };
+
+    // the ev argument has the following structure
+    ev = {
+    robot: object         // used to call actions
+                          // for my robot or to get
+                          // informations about it
+    };
+            </code></pre>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="span5">
+            <p class="lead">onHitByBullet</p>
+            <p>This method will be called any time your robot is hit by an enemy bullet.</p>
+            <p>This method takes an event object that is featured in the code to the right.</p>
+        </div>
+        <div class="span7">
+            <pre><code class="language-javascript">
+    // ohhh... we were hit by another robot...
+    MyRobot.prototype.onHitByBullet = function(ev) {
+    var robot;
+    robot = ev.robot;
+    robot.turn(90 - ev.bulletBearing);
+    };
+
+    // the ev argument has the following structure
+    ev = {
+    robot: object,        // used to call actions
+                          // for my robot or to get
+                          // informations about it
+
+     bulletBearing: angle // angle of the bullet in
+                          // relation to my robot
+    };
+            </code></pre>
+        </div>
+    </div>
+
+
 <% include scripts.ejs %>
 <script type="robot/script" id="default-code">
 //FightCode can only understand your robot

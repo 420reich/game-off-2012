@@ -1,7 +1,8 @@
 var path = require('path'),
     basePath = path.join(process.env.CWD, 'fightcode'),
     Sequelize = require('sequelize'),
-    Util = require(path.join(basePath, 'helpers', 'util'));
+    Util = require(path.join(basePath, 'helpers', 'util')),
+    dateFormat = require('dateformat');
 
 module.exports = function(sequelize, DataTypes) {
     Robot = sequelize.define('Robot', {
@@ -122,5 +123,26 @@ module.exports = function(sequelize, DataTypes) {
         underscored: true
       }
     );
+
+    Robot.timelineFights = function(callback) {
+        var sql = 'SELECT f.id fight_id, f.created_at created_at, r.title robot_name, r.gist, r.color, u.id user_id, u.email, u.name ' + 
+                  'FROM "RobotRevisionFights" rrf ' +
+                  '   INNER JOIN "Fights" f ON (rrf.fight_id = f.id) ' +
+                  '   INNER JOIN "RobotRevisions" rev ON (rrf.robot_revision_id = rev.id) ' +
+                  '   INNER JOIN "Robots" r ON (rev.robot_id = r.id) ' +
+                  '   INNER JOIN "Users" u ON (r.user_id = u.id) ' +
+                  'ORDER BY f.created_at DESC LIMIT 40 ';
+
+        sequelize.query(sql, null, {raw: true, type: 'SELECT'}).success(function(data){
+            var fightList = [], i;
+            for (i=0; i < data.length; i += 2) {
+                data[i].created_at = dateFormat(data[i].created_at, "dddd, mmmm dS, yyyy");
+                data[i + 1].created_at = dateFormat(data[i + 1].created_at, "dddd, mmmm dS , yyyy");
+                fightList.push([data[i], data[i+1]]);
+            }
+            callback(fightList);
+        });
+    };
+
     return Robot;
 };

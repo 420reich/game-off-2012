@@ -1,10 +1,14 @@
+var path = require('path'),
+    basePath = path.join(process.env.CWD, 'fightcode');
 
-/*
- * GET home page.
- */
+var sequelize = require(path.join(basePath, 'config', 'database'));
+var Robot = sequelize.import(path.join(basePath, 'models', 'robot'));
 
 exports.index = function(req, res){
-    res.render('index', {
-        title: 'Killing Robots for Fun'
+    Robot.timelineFights(function(fights) {
+        res.render('index', {
+            title: 'Killing Robots for Fun',
+            fights: fights
+        });
     });
 };

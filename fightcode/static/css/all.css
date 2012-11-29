@@ -1377,7 +1377,7 @@ footer ul span {
 }
 
 .home {
-  padding: 60px 20px 0 20px;
+  padding: 20px 20px 0 20px;
 }
 .home .board {
   width: 600px;
@@ -1399,6 +1399,110 @@ footer ul span {
 }
 .home .btn-create-robot {
   margin-top: 70px;
+}
+.home .header {
+  margin-bottom: 30px;
+}
+.home .score {
+  font-size: 0;
+  margin-bottom: 30px;
+}
+.home .score .playerScore {
+  display: block;
+  margin: 0 55px;
+  height: 110px;
+  background-color: #dfdfdf;
+}
+.home .score .left, .home .score .right {
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+  width: 50%;
+}
+.home .score .player {
+  position: absolute;
+  top: 0;
+  width: 110px;
+}
+.home .score .player img {
+  width: 110px;
+  height: 110px;
+  border-radius: 110px;
+}
+.home .score .left .player {
+  left: 0;
+  margin-left: -55px;
+}
+.home .score .left .robot .icon {
+  margin-left: 55px;
+}
+.home .score .left .name {
+  margin: 17px 0 13px 22px;
+}
+.home .score .left .life {
+  margin-left: 22px;
+}
+.home .score .right .player {
+  right: 0;
+  margin-right: -55px;
+}
+.home .score .right .robot .icon {
+  margin-left: 13px;
+}
+.home .score .right .name {
+  margin: 18px 0 11px 59px;
+}
+.home .score .right .life {
+  margin-left: 60px;
+}
+.home .score .robot {
+  display: inline-block;
+  vertical-align: top;
+  width: 205px;
+  height: 110px;
+}
+.home .score .robot .icon {
+  background: url("../img/robot-sprite-arena.png") 0 0 no-repeat;
+  background-color: #ff0000;
+  width: 137px;
+  height: 107px;
+  margin-top: 3px;
+}
+.home .score .stats {
+  display: inline-block;
+  vertical-align: top;
+  width: 210px;
+  height: 109px;
+  margin-top: 1px;
+  background-color: #f3f3f3;
+}
+.home .score .stats .name {
+  width: 135px;
+  min-height: 54px;
+  font-family: "oswald-bold";
+  font-size: 24px;
+  line-height: 27px;
+  color: #4f4f4f;
+  text-shadow: #f7f7f7 -1px 1px 0, #999999 -2px 2px 0;
+  text-transform: uppercase;
+}
+.home .score .stats .life {
+  width: 116px;
+  height: 9px;
+  background: url("../img/life-rectangle.png") 0 0 no-repeat;
+  position: relative;
+}
+.home .score .stats .life .filled {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 9px;
+  background-color: #ed0027;
+  -webkit-transition: all 200ms ease-in;
+  -moz-transition: all 200ms ease-in;
+  -ms-transition: all 200ms ease-in;
+  -o-transition: all 200ms ease-in;
+  transition: all 200ms ease-in;
 }
 
 code, pre {

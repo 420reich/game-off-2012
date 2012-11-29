@@ -8,7 +8,7 @@ enginePath = path.join(basePath, 'static', 'output', 'fightcode.engine.min.js')
 
 sequelize = require path.join(basePath, 'config', 'database')
 
-Fight = sequelize.import(path.join(basePath, 'models', 'user'))
+User = sequelize.import(path.join(basePath, 'models', 'user'))
 Fight = sequelize.import(path.join(basePath, 'models', 'fight'))
 Robot = sequelize.import(path.join(basePath, 'models', 'robot'))
 RobotRevision = sequelize.import(path.join(basePath, 'models', 'robotRevision'))

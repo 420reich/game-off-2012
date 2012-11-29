@@ -1,4 +1,4 @@
-var Fight, FightRepository, GithubApi, Robot, RobotRevision, RobotRevisionFight, async, basePath, enginePath, fs, path, sequelize, vm;
+var Fight, FightRepository, GithubApi, Robot, RobotRevision, RobotRevisionFight, User, async, basePath, enginePath, fs, path, sequelize, vm;
 
 path = require('path');
 
@@ -14,7 +14,7 @@ enginePath = path.join(basePath, 'static', 'output', 'fightcode.engine.min.js');
 
 sequelize = require(path.join(basePath, 'config', 'database'));
 
-Fight = sequelize["import"](path.join(basePath, 'models', 'user'));
+User = sequelize["import"](path.join(basePath, 'models', 'user'));
 
 Fight = sequelize["import"](path.join(basePath, 'models', 'fight'));
 
