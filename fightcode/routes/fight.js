@@ -115,7 +115,7 @@ FightRepository = (function() {
   FightRepository.prototype.runFight = function(player, opponent, callback) {
     return fs.readFile(enginePath, 'utf8', function(err, data) {
       var engineContext, init, initContext, opponentContext, opponentRobot, playerContext, playerRobot;
-      init = "                maxRounds = 10000;                boardSize = {                    width: 800,                    height: 500                };                playerRobotInstance = player.Robot;                opponentRobotInstance = opponent.Robot;                player.constructor = playerRobotInstance;                opponent.constructor = opponentRobotInstance;                engineInstance = new engine.Engine(boardSize.width, boardSize.height, maxRounds, Math.random, console.log, player, opponent);                result = engineInstance.fight();            ";
+      init = "                maxRounds = 10000;                boardSize = {                    width: 800,                    height: 500                };                playerRobotInstance = player.Robot;                opponentRobotInstance = opponent.Robot;                player.constructor = playerRobotInstance;                opponent.constructor = opponentRobotInstance;                engineInstance = new engine.Engine(boardSize.width, boardSize.height, maxRounds, Math.random, player, opponent);                result = engineInstance.fight();            ";
       playerContext = {};
       vm.runInNewContext(player.code.replace("var Robot", "Robot"), playerContext);
       playerRobot = playerContext.Robot;

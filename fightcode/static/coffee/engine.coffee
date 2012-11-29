@@ -126,6 +126,12 @@ class RobotActions
     clone: ->
         @queue.push(action: "clone")
 
+    log: (messages...) ->
+        @queue.push(
+            action: "log"
+            messages: messages
+        )
+
 class Arena
     constructor: (@width, @height) ->
         @rectangle = new Rectangle(@width / 2, @height / 2, @width, @height)
@@ -368,9 +374,9 @@ class RobotStatus extends ElementStatus
         unless @isAlive()
             @deathIdx = RobotStatus.deathOrder++
             if bulletStatus.robotStatus.parentStatus == this or bulletStatus.robotStatus in @clones
-                @friendsKilled += 1
+                bulletStatus.robotStatus.friendsKilled += 1
             else
-                @enemiesKilled += 1
+                bulletStatus.robotStatus.enemiesKilled += 1
 
     rollbackAfterCollision: ->
         @rectangle.setPosition(@previousPosition.x, @previousPosition.y) if @previousPosition
@@ -392,6 +398,14 @@ class RobotStatus extends ElementStatus
         @gunCoolDownTime-- if @gunCoolDownTime > 0
 
         item = @queue.shift()
+        while item and item.action == 'log'
+            @roundLog.events.push({
+                type: 'log',
+                messages: item.messages,
+                id: @id
+            })
+            item = @queue.shift()
+
         return unless item
 
         if 'count' of item
@@ -446,7 +460,7 @@ class RobotStatus extends ElementStatus
 
 
 class Engine
-    constructor: (width, height, @maxTurns, @randomFunc, @log, robotsData...) ->
+    constructor: (width, height, @maxTurns, @randomFunc, robotsData...) ->
         @round = 0
 
         @arena = new Arena(width, height)
@@ -574,6 +588,10 @@ class Engine
     checkSight: (robotStatus) ->
         actions = new RobotActions(robotStatus)
 
+        robotStatus.tickScan()
+
+        return actions unless robotStatus.canScan()
+
         virtualWidth = 2000
         virtualHeight = 1
         dirVec = new Vector2(robotStatus.rectangle.position.x + virtualWidth / 2, robotStatus.rectangle.position.y - virtualHeight / 2);
@@ -584,27 +602,34 @@ class Engine
             dirVec.y,
             virtualWidth, virtualHeight, robotStatus.cannonTotalAngle())
 
-        robotStatus.tickScan()
+        robotInSight = null
+        minDistance = Infinity
         for status in @robotsStatus
             continue if status == robotStatus or !status.isAlive()
             continue unless status instanceof RobotStatus
 
-            if robotStatus.canScan() and virtualRect.intersects(status.rectangle)
-                robotStatus.preventScan()
-                @safeCall(robotStatus.robot.instance, 'onScannedRobot', {
-                    robot: actions
-                    scannedRobot:
-                        id: status.id
-                        position: new Vector2(status.rectangle.position)
-                        angle: status.rectangle.angle
-                        cannonAngle: status.cannonAngle
-                        life: status.life
-                        parentId: if status.parentStatus then status.parentStatus.id else null
-                })
-                @roundLog.events.push({
-                    type: 'onScannedRobot',
-                    id: robotStatus.id
-                })
+            if virtualRect.intersects(status.rectangle)
+                dist = Vector2.subtract(status.rectangle.position, robotStatus.rectangle.position).module()
+                if dist < minDistance
+                    robotInSight = status
+                    minDistance = dist
+
+        if robotInSight
+            robotStatus.preventScan()
+            @safeCall(robotStatus.robot.instance, 'onScannedRobot', {
+                robot: actions
+                scannedRobot:
+                    id: robotInSight.id
+                    position: new Vector2(robotInSight.rectangle.position)
+                    angle: robotInSight.rectangle.angle
+                    cannonAngle: robotInSight.cannonAngle
+                    life: robotInSight.life
+                    parentId: if robotInSight.parentStatus then robotInSight.parentStatus.id else null
+            })
+            @roundLog.events.push({
+                type: 'onScannedRobot',
+                id: robotStatus.id
+            })
 
         actions
 
@@ -626,6 +651,7 @@ class Engine
             for status in @robotsStatus
                 continue unless status.isAlive()
 
+                status.roundLog = @roundLog
                 @roundLog.objects.push({
                     type: if status instanceof RobotStatus then 'tank' else 'bullet'
                     id: status.id
@@ -662,6 +688,9 @@ class Engine
                             cloneId: newStatus.id
                         })
 
+            for status in @robotsStatus
+                continue unless status.isAlive()
+
                 actions = @checkCollision(status)
                 if actions
                     status.updateQueue(actions)
@@ -684,7 +713,7 @@ class Engine
 
         for r in sortedRobots
             stats = r.stats = r.stats()
-            @log(r.robot.name, r.deathIdx, r.life, stats.bulletsFired, stats.bulletsHit, stats.friendsKilled, stats.enemiesKilled)
+            console.log(r.robot.name, r.deathIdx, r.life, stats.bulletsFired, stats.bulletsHit, stats.friendsKilled, stats.enemiesKilled)
 
         return {
             isDraw: @isDraw()

@@ -90,7 +90,7 @@ class FightRepository
                 player.constructor = playerRobotInstance;
                 opponent.constructor = opponentRobotInstance;
 
-                engineInstance = new engine.Engine(boardSize.width, boardSize.height, maxRounds, Math.random, console.log, player, opponent);
+                engineInstance = new engine.Engine(boardSize.width, boardSize.height, maxRounds, Math.random, player, opponent);
                 result = engineInstance.fight();
             "
 

@@ -52,6 +52,7 @@ Game = (function() {
     tank = $('<div class="tank"><div class="body"></div><div class="cannon"></div><div class="life"></div><div class="explosion"></div></div>');
     tankObject = {
       id: object.id,
+      name: object.name,
       tank: tank,
       body: tank.find('.body'),
       cannon: tank.find('.cannon'),
@@ -157,6 +158,9 @@ Game = (function() {
             break;
           case 'dead':
             object.tank[0].className = 'tank dead';
+            break;
+          case 'log':
+            console.log.apply(console, ['ROBOT ' + object.name + ':'].concat(roundEvent.messages));
         }
       }
     }

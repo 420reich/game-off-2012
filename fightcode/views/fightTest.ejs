@@ -86,10 +86,10 @@ Robot.prototype.onRobotCollision = function(ev) {
   // this.runningCollision = true;
 
   robot.stop();
-  if (robot.parentId == null && !printed) {
+  // if (robot.parentId == null && !printed) {
     // printed = true;
-    console.log(ev.bearing);
-  }
+    // console.log(ev.bearing);
+  // }
 
   if (ev.bearing > -90 && ev.bearing < 90) {
     robot.back(100);

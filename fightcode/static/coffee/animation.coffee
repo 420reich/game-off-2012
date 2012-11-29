@@ -32,6 +32,7 @@ class Game
 
         tankObject = {
             id: object.id
+            name: object.name
             tank: tank
             body: tank.find('.body')
             cannon: tank.find('.cannon')
@@ -118,6 +119,8 @@ class Game
                         setTimeout(@removeBullet.bind(this, object), 1000);
                     when 'dead'
                         object.tank[0].className = 'tank dead'
+                    when 'log'
+                        console.log.apply(console, ['ROBOT ' + object.name + ':'].concat(roundEvent.messages))
 
         hasFinished = rounds + @currentRound >= @events.length
         @options.onEndGame(@result) if hasFinished and @options.onEndGame
