@@ -11,15 +11,15 @@ function mapStatistcs(list) {
     var statistcs = {};
 
     for (var i=0; i < list.length; i++){
-        var id = list['id'];
-        delete list['id'];
+        var id = list[i]['id'];
+        delete list[i]['id'];
 
-        if (!!list['shots_hit']) {
-            list.hitsPercentage = (list['shots_fired'] * 100) / list['shots_hit'];
+        if (!!list[i]['shots_hit']) {
+            list[i].hitsPercentage = (list[i]['shots_fired'] * 100) / list[i]['shots_hit'];
         } else {
-            list.hitsPercentage = 0;
+            list[i].hitsPercentage = 0;
         }
-        statistcs[id] = list;
+        statistcs[id] = list[i];
     }
     return statistcs;
 }
@@ -31,7 +31,6 @@ function renderProfile(res, userLogin) {
             user.rankedRobots(function(robots){
                 user.robotsStatistics(function(statistcs){
                     var parsedStatistcs = mapStatistcs(statistcs);
-                    console.log(parsedStatistcs);
                     return res.render('user', {
                         title: user.name,
                         user: user,
