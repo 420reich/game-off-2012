@@ -248,6 +248,7 @@ exports.replayFight = (req, res) ->
                             Robot.find(revision.robot_id).success((robot) ->
                                 do (robot) ->
                                     robotRevisionFight.gistId = robot.gist
+                                    console.log("ROBOT-TITLE", robot.title)
                                     robotRevisionFight.name = robot.title
 
                                     User.find(where: id: robot.user_id).success((user) ->
