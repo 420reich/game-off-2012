@@ -902,6 +902,9 @@ a {
   top: 0;
   width: 110px;
 }
+.fight-arena .score .player a {
+  display: block;
+}
 .fight-arena .score .player img {
   width: 110px;
   height: 110px;

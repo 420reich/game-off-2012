@@ -4,7 +4,11 @@
         <div class="container">
             <div class="playerScore">
                 <div class="left">
-                    <div class="player"><img src="<%=revisions[0].user.photo(110) %>" /></div>
+                    <div class="player">
+                        <a href="/profile/<%=revisions[0].user.login %>">
+                            <img src="<%=revisions[0].user.photo(110) %>" />
+                        </a>
+                    </div>
                     <div class="robot"><div class="icon" style="background-color: <%=revisions[0].color %>"></div></div>
                     <div class="stats">
                         <div class="name"><%=revisions[0].name%></div>
@@ -17,7 +21,11 @@
                         <div class="life"><div class="filled" style="width: 100%"></div></div>
                     </div>
                     <div class="robot"><div class="icon" style="background-color: <%=revisions[1].color %>"></div></div>
-                    <div class="player"><img src="<%=revisions[1].user.photo(110) %>" /></div>
+                    <div class="player">
+                        <a href="/profile/<%=revisions[1].user.login %>">
+                            <img src="<%=revisions[1].user.photo(110) %>" />
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
