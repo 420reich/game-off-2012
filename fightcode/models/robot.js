@@ -17,28 +17,30 @@ module.exports = function(sequelize, DataTypes) {
         isPublic: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: true}
     },{
         instanceMethods:{
-            updateScore: function(){
+            updateScore: function(callback){
                 var WonPoints = this.victories * 3,
                     LostPoints = this.defeats * -1,
                     DrawPoints = this.draws;
 
                 this.score = this.score + WonPoints + LostPoints + DrawPoints;
-                this.save();
+                this.save().success(function() {
+                    callback(this);
+                });
             },
 
-            addVictory: function() {
+            addVictory: function(callback) {
                 this.victories += 1;
-                this.updateScore();
+                this.updateScore(callback);
             },
 
-            addDefeat: function() {
+            addDefeat: function(callback) {
                 this.defeats += 1;
-                this.updateScore();
+                return this.updateScore(callback);
             },
 
-            addDraw: function() {
+            addDraw: function(callback) {
                 this.draws += 1;
-                this.updateScore();
+                return this.updateScore(callback);
             },
 
             rankNear: function(callback) {

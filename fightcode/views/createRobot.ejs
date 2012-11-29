@@ -89,12 +89,11 @@ Robot.prototype.onIdle = function(ev) {
     var container = $('.board-container');
     var startFight = function(code) {
         var color = $('.js-color-picker').spectrum('get').toHex();
-        console.log(color);
 
         var player = {
             name: "player",
             code: code,
-            color: color
+            color: "#" + color
         };
         var duck = {
             name: "duck",
