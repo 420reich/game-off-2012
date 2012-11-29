@@ -24,18 +24,18 @@
             </div>
 
             <ul class="robots">
-                <% for (var i=0; i<5; i++) {%>
+                <% for (var i=0; i < robots.length; i++) {%>
                 <li>
                     <div class="left">
-                        <div class="ranking"># 256</div>
+                        <div class="ranking"># <%= robots[i].row_number %></div>
                         <div class="robot"></div>
                     </div>
                     <div class="right">
                         <div class="main-info">
                             <div class="summary">
-                                <div class="name">The Crazy desTroYer</div>
+                                <div class="name"><%= robots[i].title %></div>
                                 <div class="data">
-                                    <span class="created">created 15/11/12</span>
+                                    <span class="created">created <%=: robots[i].created_at | showAsDate %></span>
                                     <span class="lines">5.094 code lines</span>
                                 </div>
                             </div>
