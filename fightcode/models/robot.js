@@ -89,10 +89,32 @@ module.exports = function(sequelize, DataTypes) {
                 sequelize.query(sql, null, {raw: true, type: 'SELECT'})
                     .success(function(data){
                         for (i=0; i < data.length; i++) {
-                            data[i].hitsPercentage = Util.calculatePercentage(data[i].shots_hit, data[i].shots_fired);
+                            data[i].hitsPercentage = Util.calculatePercentag=e(data[i].shots_hit, data[i].shots_fired);
                         }
                         callback(data);
                     });
+            },
+
+            lastFights: function(callback) {
+                var sql =   'WITH last_fights AS ( '+
+                            'SELECT * FROM "Fights" '+
+                            'ORDER BY created_at DESC '+
+                            'LIMIT 3 '+
+                            ') '+
+                            'SELECT last_fights.id, rob.title, rob.row_number, u.email, u.login FROM "RobotRevisionFights" revF '+
+                            'INNER JOIN last_fights ON (last_fights.id = revF.fight_id) '+
+                            'INNER JOIN "RobotRevisions" rev ON (rev.id = revF.robot_revision_id) '+
+                            'INNER JOIN (SELECT *, row_number() OVER (ORDER BY score DESC) FROM "Robots") rob ON (rev.robot_id = rob.id) '+
+                            'INNER JOIN "Users" u ON (rob.user_id = u.id) '+
+                            'ORDER BY last_fights.id DESC ';
+
+                sequelize.query(sql, null, {raw: true, type: 'SELECT'}).success(function(data){
+                    var fightList = [];
+                    for (i=0; i < data.length; i + 2) {
+                        fightList.push([data[i], data[i+1]]);
+                    }
+                    callback(fightList);
+                });
             }
         },
         underscored: true
