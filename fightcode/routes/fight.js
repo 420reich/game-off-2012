@@ -304,6 +304,7 @@ exports.replayFight = function(req, res) {
                     id: robot.user_id
                   }
                 }).success(function(user) {
+                  console.log(user.login);
                   robotRevisionFight.user = user.photo(110);
                   return callback(null, revision, robot);
                 });
