@@ -30,11 +30,12 @@ function renderProfile(res, userLogin) {
         .success(function(user) {
             user.rankedRobots(function(robots){
                 user.robotsStatistics(function(statistcs){
-                    console.log(statistcs);
+                    var parsedStatistcs = mapStatistcs(statistcs);
+                    console.log(parsedStatistcs);
                     return res.render('user', {
                         title: user.name,
                         user: user,
-                        statistcs: mapStatistcs(statistcs),
+                        statistcs: parsedStatistcs,
                         robots: robots
                     });
                 });
