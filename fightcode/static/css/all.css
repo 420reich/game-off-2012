@@ -1415,7 +1415,7 @@ footer ul span {
   opacity: 0.8;
 }
 .home .score .playerScore:hover {
-  opacity: 1;
+  opacity: 0.99;
 }
 .home .score .left, .home .score .right {
   display: inline-block;
