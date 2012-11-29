@@ -1424,6 +1424,9 @@ code, pre {
 .create-robot .editor {
   height: 476px;
 }
+.create-robot .editor.error {
+  border: solid 2px red;
+}
 .create-robot .board {
   width: 480px;
   height: 480px;

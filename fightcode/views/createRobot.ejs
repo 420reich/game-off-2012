@@ -27,7 +27,9 @@
             </div>
 
             <div class="span5">
-                <div class="board"></div>
+                <div class="board-container">
+                    <div class="board"></div>
+                </div>
             </div>
         </div>
 
@@ -37,29 +39,64 @@
 
 <% include scripts.ejs %>
 <script type="robot/script" id="default-code">
-// FightCode can only understand your robot
-// if its constructor function is called Robot
-var Robot = function(robot) {
-    
+//FightCode can only understand your robot
+//if its class is called Robot
+var Robot = function(robot){
+  
 };
 
 Robot.prototype.onIdle = function(ev) {
-    var robot = ev.robot;
-    robot.ahead(100);
-    robot.rotateCannon(360);
-    robot.back(100);
-    robot.rotateCannon(360);
-    
+  var robot = ev.robot;
+  robot.ahead(100);
+  robot.rotateCannon(360);
+  robot.back(100);
+  robot.rotateCannon(360);
+  
 };
 
 Robot.prototype.onScannedRobot = function(ev) {
-    var robot = ev.robot;
-    robot.fire();
-    
+var robot = ev.robot;
+  robot.fire();
+  
 };
 
 </script>
+
+<script type="robot/script" id="duck-code">
+var Robot = function(robot){
+};
+
+Robot.prototype.onIdle = function(ev) {
+  var robot = ev.robot;
+  robot.ahead(10);
+  robot.back(10);
+  robot.turn(90);
+};
+</script>
 <script>
+    var duckCode = $('#duck-code').html();
+    var container = $('.board-container');
+    var startFight = function(code) {
+        var player = {
+            name: "player",
+            code: code
+        };
+        var duck = {
+            name: "duck",
+            code: duckCode
+        };
+
+        var options = {
+            maxRounds: 1000,
+            boardSize: {
+                width: container.width(),
+                height: container.height()
+            }
+        };
+
+        var arena = new FightArena(container, [player, duck], null, options);
+    };
+
     $(function() {
         var editor = $('.editor')[0];
         var board = $('.board'),
@@ -82,15 +119,31 @@ Robot.prototype.onScannedRobot = function(ev) {
             code = defaultCode;
         }
 
-        console.log(code);
         var codeMirror = CodeMirror(editor, {
             value: code,
             mode:  "javascript",
             theme: 'ambiance',
             height: 500,
             tabSize: 2,
-            lineNumbers: true
+            lineNumbers: true,
+            onChange: function() {
+                var code = codeMirror.getValue();
+                var error = null;
+                $(editor).removeClass('error');
+                try {
+                    var func = new Function(code);
+                } catch(exception) {
+                    error = exception;
+                    console.log(error);
+                    $(editor).addClass('error');
+                }
+                if (!error) {
+                    startFight(code);
+                }
+            }
         });
+
+        startFight(code);
 
         submitButton.bind('click', function(ev) {
             var form = $('robo-code-form');

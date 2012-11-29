@@ -17,6 +17,10 @@
 
     .editor {
         height: 476px;
+
+        &.error {
+            border: solid 2px red;
+        }
     }
 
     .board {
