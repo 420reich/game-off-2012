@@ -91,7 +91,7 @@ module.exports = function(sequelize, DataTypes) {
                 sequelize.query(sql, null, {raw: true, type: 'SELECT'})
                     .success(function(data){
                         for (i=0; i < data.length; i++) {
-                            data[i].hitsPercentage = Util.calculatePercentag=e(data[i].shots_hit, data[i].shots_fired);
+                            data[i].hitsPercentage = Util.calculatePercentage(data[i].shots_hit, data[i].shots_fired);
                         }
                         callback(data);
                     });

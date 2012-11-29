@@ -164,7 +164,7 @@
             <ul class="combats">
                 <% for (var i=0; i<lastFights.length; i++) { %>
                 <li>
-                    <div class="combat">
+                    <a class="combat" href="/robots/replay/<%= lastFights[i][0].id %>">
                         <div class="left">
                             <div class="player">
                                 <img src="<%=: lastFights[i][0].email | gravatar_url:134 %>" />
@@ -188,7 +188,7 @@
                                 <div class="ranking"># <%= lastFights[i][1].row_number %></div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </li>
                 <% } %>
             </ul>
