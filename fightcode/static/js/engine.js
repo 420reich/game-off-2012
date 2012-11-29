@@ -808,7 +808,8 @@ Engine = (function() {
         if (!robotStatus.ignoredEvents[eventName]) {
           this.safeCall(robotStatus.robot.instance, eventName, {
             robot: actions,
-            bearing: bearing
+            bearing: bearing,
+            collidedRobot: status instanceof RobotStatus ? this.basicEnemyInfo(status) : null
           });
         }
         if (status instanceof RobotStatus && !status.ignoredEvents[eventName]) {
@@ -820,7 +821,8 @@ Engine = (function() {
           otherActions = new RobotActions(status);
           this.safeCall(status.robot.instance, eventName, {
             robot: otherActions,
-            bearing: bearing
+            bearing: bearing,
+            collidedRobot: this.basicEnemyInfo(robotStatus)
           });
           status.updateQueue(otherActions);
         }
@@ -867,14 +869,7 @@ Engine = (function() {
       robotStatus.preventScan();
       this.safeCall(robotStatus.robot.instance, 'onScannedRobot', {
         robot: actions,
-        scannedRobot: {
-          id: robotInSight.id,
-          position: new Vector2(robotInSight.rectangle.position),
-          angle: robotInSight.rectangle.angle,
-          cannonAngle: robotInSight.cannonAngle,
-          life: robotInSight.life,
-          parentId: robotInSight.parentStatus ? robotInSight.parentStatus.id : null
-        }
+        scannedRobot: this.basicEnemyInfo(robotInSight)
       });
       this.roundLog.events.push({
         type: 'onScannedRobot',
@@ -882,6 +877,17 @@ Engine = (function() {
       });
     }
     return actions;
+  };
+
+  Engine.prototype.basicEnemyInfo = function(status) {
+    return {
+      id: status.id,
+      position: new Vector2(status.rectangle.position),
+      angle: status.rectangle.angle,
+      cannonAngle: status.cannonAngle,
+      life: status.life,
+      parentId: status.parentStatus ? status.parentStatus.id : null
+    };
   };
 
   Engine.prototype.fight = function() {

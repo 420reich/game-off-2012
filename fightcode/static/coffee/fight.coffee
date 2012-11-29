@@ -43,6 +43,5 @@ class FightArena
             game = new Game(boardContainer, evData, {
                 msPerRound: 5
             })
-
             game.initialize()
 

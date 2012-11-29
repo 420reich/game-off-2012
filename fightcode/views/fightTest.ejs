@@ -77,9 +77,8 @@ Robot.prototype.onWallCollision = function(ev) {
 
 };
 Robot.prototype.onRobotCollision = function(ev) {
-  var robot = ev.robot;
+  var robot = ev.robot, collidedRobot = ev.collidedRobot;
 
-  // robot.stop();
   robot.ignore('onRobotCollision')
   if (ev.bearing > -90 && ev.bearing < 90) {
     robot.back(100);
@@ -87,8 +86,10 @@ Robot.prototype.onRobotCollision = function(ev) {
     robot.ahead(100);
   }
 
-  robot.turnGunRight(ev.bearing - robot.cannonRelativeAngle);
-  robot.turnGunLeft(ev.bearing - robot.cannonRelativeAngle);
+  if (robot.id != collidedRobot.parentId && robot.parentId != collidedRobot.id) {
+      robot.turnGunRight(ev.bearing - robot.cannonRelativeAngle);
+      robot.turnGunLeft(ev.bearing - robot.cannonRelativeAngle);
+  }
   robot.listen('onRobotCollision')
 };
 Robot.prototype.onHitByBullet = function(ev) {
@@ -117,10 +118,10 @@ Robot.prototype.onScannedRobot = function(ev) {
             code: robot1Code,
             rectangle: {
                 position: {
-                    x: 98,
-                    y: 29
+                    x: 318,
+                    y: 444
                 },
-                angle: 32
+                angle: 347
             }
         },
         {
@@ -128,10 +129,10 @@ Robot.prototype.onScannedRobot = function(ev) {
             code: robot2Code,
             rectangle: {
                 position: {
-                    x: 515,
-                    y: 200
+                    x: 354,
+                    y: 131
                 },
-                angle: 190
+                angle: 147
             }
         }
     ])

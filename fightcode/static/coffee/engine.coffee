@@ -587,14 +587,22 @@ class Engine
 
                 bearing -= 360 if bearing > 180
                 unless robotStatus.ignoredEvents[eventName]
-                    @safeCall(robotStatus.robot.instance, eventName, {robot: actions, bearing: bearing})
+                    @safeCall(robotStatus.robot.instance, eventName, {
+                        robot: actions,
+                        bearing: bearing
+                        collidedRobot: if status instanceof RobotStatus then @basicEnemyInfo(status) else null
+                    })
 
                 if status instanceof RobotStatus and not status.ignoredEvents[eventName]
                     vec = Vector2.subtract(robotStatus.rectangle.position, status.rectangle.position)
                     bearing = normalizeAngle((Math.atan2(vec.y, vec.x) * 180 / Math.PI) - status.rectangle.angle)
                     bearing -= 360 if bearing > 180
                     otherActions = new RobotActions(status)
-                    @safeCall(status.robot.instance, eventName, {robot: otherActions, bearing: bearing})
+                    @safeCall(status.robot.instance, eventName, {
+                        robot: otherActions
+                        bearing: bearing
+                        collidedRobot: @basicEnemyInfo(robotStatus)
+                    })
                     status.updateQueue(otherActions)
 
         actions
@@ -633,13 +641,7 @@ class Engine
             robotStatus.preventScan()
             @safeCall(robotStatus.robot.instance, 'onScannedRobot', {
                 robot: actions
-                scannedRobot:
-                    id: robotInSight.id
-                    position: new Vector2(robotInSight.rectangle.position)
-                    angle: robotInSight.rectangle.angle
-                    cannonAngle: robotInSight.cannonAngle
-                    life: robotInSight.life
-                    parentId: if robotInSight.parentStatus then robotInSight.parentStatus.id else null
+                scannedRobot: @basicEnemyInfo(robotInSight)
             })
             @roundLog.events.push({
                 type: 'onScannedRobot',
@@ -647,6 +649,14 @@ class Engine
             })
 
         actions
+
+    basicEnemyInfo: (status) ->
+        id: status.id
+        position: new Vector2(status.rectangle.position)
+        angle: status.rectangle.angle
+        cannonAngle: status.cannonAngle
+        life: status.life
+        parentId: if status.parentStatus then status.parentStatus.id else null
 
     fight: ->
         aliveRobots = @robotsStatus.length
