@@ -296,17 +296,19 @@ exports.replayFight = function(req, res) {
           return (function(revision) {
             robotRevisionFight.code = revision.code;
             return Robot.find(revision.robot_id).success(function(robot) {
-              robotRevisionFight.gistId = robot.gist;
-              robotRevisionFight.name = robot.title;
-              console.log(robot.user_id);
-              return User.find({
-                where: {
-                  id: robot.user_id
-                }
-              }).success(function(user) {
-                robotRevisionFight.user = user;
-                return callback(null, revision, robot);
-              });
+              return (function(robot) {
+                robotRevisionFight.gistId = robot.gist;
+                robotRevisionFight.name = robot.title;
+                console.log(robot.user_id);
+                return User.find({
+                  where: {
+                    id: robot.user_id
+                  }
+                }).success(function(user) {
+                  robotRevisionFight.user = user;
+                  return callback(null, revision, robot);
+                });
+              })(robot);
             });
           })(revision);
         });
