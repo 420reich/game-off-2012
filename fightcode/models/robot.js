@@ -4,7 +4,6 @@ var path = require('path'),
     Util = require(path.join(basePath, 'helpers', 'util'));
 
 module.exports = function(sequelize, DataTypes) {
-    Fighter = sequelize.import(path.join(basePath, 'models', 'fighter'));
     Robot = sequelize.define('Robot', {
         gist: { type: DataTypes.STRING, allowNull: false},
         title: { type: DataTypes.STRING, allowNull: false},
@@ -97,6 +96,5 @@ module.exports = function(sequelize, DataTypes) {
         underscored: true
       }
     );
-    Robot.hasMany(Fighter);
     return Robot;
 };

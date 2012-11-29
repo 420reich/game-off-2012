@@ -14,6 +14,8 @@ enginePath = path.join(basePath, 'static', 'output', 'fightcode.engine.min.js');
 
 sequelize = require(path.join(basePath, 'config', 'database'));
 
+Fight = sequelize["import"](path.join(basePath, 'models', 'user'));
+
 Fight = sequelize["import"](path.join(basePath, 'models', 'fight'));
 
 Robot = sequelize["import"](path.join(basePath, 'models', 'robot'));
@@ -296,7 +298,15 @@ exports.replayFight = function(req, res) {
             return Robot.find(revision.robot_id).success(function(robot) {
               robotRevisionFight.gistId = robot.gist;
               robotRevisionFight.name = robot.title;
-              return callback(null, revision, robot);
+              console.log(robot.user_id);
+              return User.find({
+                where: {
+                  id: robot.user_id
+                }
+              }).success(function(user) {
+                robotRevisionFight.user = user;
+                return callback(null, revision, robot);
+              });
             });
           })(revision);
         });
