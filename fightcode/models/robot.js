@@ -1,6 +1,7 @@
 var path = require('path'),
     basePath = path.join(process.env.CWD, 'fightcode'),
-    Sequelize = require('sequelize');
+    Sequelize = require('sequelize'),
+    Util = require(path.join(basePath, 'helpers', 'util'));
 
 module.exports = function(sequelize, DataTypes) {
     Fighter = sequelize.import(path.join(basePath, 'models', 'fighter'));
@@ -69,13 +70,28 @@ module.exports = function(sequelize, DataTypes) {
             }
         },
         classMethods: {
-          top10: function(callback) {
-                var sql = ['SELECT row_number() OVER (ORDER BY score DESC),',
-                           '"Robots".*, u.email',
-                           'FROM "Robots", "Users" u',
-                           'WHERE user_id = u.id',
-                           'ORDER BY score DESC LIMIT 10'].join(' ');
-                sequelize.query(sql, null, {raw: true, type: 'SELECT'}).success(callback);
+            top10: function(callback) {
+                var sql =   'WITH robot_statistics AS ( '+
+                            'SELECT r.id, sum(rf.enemies_killed) enemies_killed,  '+
+                            'sum(shots_fired) shots_fired, sum(shots_hit) shots_hit '+
+                            'FROM "RobotRevisions" rev '+
+                            'INNER JOIN "Robots" r ON (r.id = rev.robot_id) '+
+                            'INNER JOIN "RobotRevisionFights" rf ON (rev.id = rf.robot_revision_id) '+
+                            'WHERE r.id IN (SELECT id FROM "Robots" ORDER BY score LIMIT 10) '+
+                            'GROUP BY r.id) '+
+                            'SELECT row_number() OVER (ORDER BY score DESC), '+
+                            'r.*, u.email, robot_statistics.* '+
+                            'FROM "Robots" r '+
+                            'INNER JOIN "Users" u ON (r.user_id = u.id) '+
+                            'LEFT OUTER JOIN robot_statistics ON (r.id = robot_statistics.id) '+
+                            'ORDER BY r.score DESC LIMIT 10 ';
+                sequelize.query(sql, null, {raw: true, type: 'SELECT'})
+                    .success(function(data){
+                        for (i=0; i < data.length; i++) {
+                            data[i].hitsPercentage = Util.calculatePercentage(data[i].shots_hit, data[i].shots_fired);
+                        }
+                        callback(data);
+                    });
             }
         },
         underscored: true
