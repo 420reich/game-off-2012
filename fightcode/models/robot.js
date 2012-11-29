@@ -109,8 +109,8 @@ module.exports = function(sequelize, DataTypes) {
                             'ORDER BY last_fights.id DESC ';
 
                 sequelize.query(sql, null, {raw: true, type: 'SELECT'}).success(function(data){
-                    var fightList = [];
-                    for (i=0; i < data.length; i + 2) {
+                    var fightList = [], i;
+                    for (i=0; i < data.length; i += 2) {
                         fightList.push([data[i], data[i+1]]);
                     }
                     callback(fightList);
