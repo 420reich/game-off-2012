@@ -299,6 +299,7 @@ exports.replayFight = function(req, res) {
               return (function(robot) {
                 robotRevisionFight.gistId = robot.gist;
                 robotRevisionFight.name = robot.title;
+                robotRevisionFight.color = robot.color;
                 return User.find({
                   where: {
                     id: robot.user_id

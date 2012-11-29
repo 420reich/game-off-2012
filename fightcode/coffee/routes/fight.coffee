@@ -249,6 +249,7 @@ exports.replayFight = (req, res) ->
                                 do (robot) ->
                                     robotRevisionFight.gistId = robot.gist
                                     robotRevisionFight.name = robot.title
+                                    robotRevisionFight.color = robot.color
 
                                     User.find(where: id: robot.user_id).success((user) ->
                                         robotRevisionFight.user = user
