@@ -5,24 +5,8 @@
 var path = require('path'),
     sequelize = require(path.join(process.env.CWD, 'fightcode', 'config', 'database')),
     modelsPath = path.join(process.env.CWD, 'fightcode', 'models'),
-    User = sequelize.import(path.join(modelsPath, 'user'));
-
-function mapStatistcs(list) {
-    var statistcs = {};
-
-    for (var i=0; i < list.length; i++){
-        var id = list[i]['id'];
-        delete list[i]['id'];
-
-        if (!!list[i]['shots_fired']) {
-            list[i].hitsPercentage = Math.round((list[i]['shots_hit'] * 100) / list[i]['shots_fired']);
-        } else {
-            list[i].hitsPercentage = 0;
-        }
-        statistcs[id] = list[i];
-    }
-    return statistcs;
-}
+    User = sequelize.import(path.join(modelsPath, 'user')),
+    Util = require(path.join(process.env.CWD, 'fightcode', 'helpers', 'util'));
 
 function renderProfile(res, userLogin) {
 
@@ -30,7 +14,7 @@ function renderProfile(res, userLogin) {
         .success(function(user) {
             user.rankedRobots(function(robots){
                 user.robotsStatistics(function(statistcs){
-                    var parsedStatistcs = mapStatistcs(statistcs);
+                    var parsedStatistcs = Util.mapStatistcs(statistcs);
                     return res.render('user', {
                         title: user.name,
                         user: user,

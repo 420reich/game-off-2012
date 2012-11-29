@@ -70,17 +70,17 @@
                         <div class="robot-data">
                             <span class="line kills">
                                 <span class="icon"></span>
-                                <p class="value">400</p>
+                                <p class="value"><%= top10[i].enemies_killed || 0 %></p>
                                 <p>KILLS</p>
                             </span>
                             <span class="line shots">
                                 <span class="icon"></span>
-                                <p class="value">3.123</p>
+                                <p class="value"><%= top10[i].shots_fired || 0 %></p>
                                 <p>SHOTS</p>
                             </span>
                             <span class="line aim">
                                 <span class="icon"></span>
-                                <p class="value">45%</p>
+                                <p class="value"><%= top10[i].hitsPercentage || 0 %>%</p>
                                 <p>PRECISION</p>
                             </span>
                         </div>
