@@ -246,14 +246,15 @@ exports.replayFight = (req, res) ->
                             robotRevisionFight.code = revision.code
 
                             Robot.find(revision.robot_id).success((robot) ->
-                                robotRevisionFight.gistId = robot.gist
-                                robotRevisionFight.name = robot.title
+                                do (robot) ->
+                                    robotRevisionFight.gistId = robot.gist
+                                    robotRevisionFight.name = robot.title
 
-                                console.log(robot.user_id)
-                                User.find(where: id: robot.user_id).success((user) ->
-                                    robotRevisionFight.user = user
-                                    callback(null, revision, robot)
-                                )
+                                    console.log(robot.user_id)
+                                    User.find(where: id: robot.user_id).success((user) ->
+                                        robotRevisionFight.user = user
+                                        callback(null, revision, robot)
+                                    )
                             )
                     )
                 )
