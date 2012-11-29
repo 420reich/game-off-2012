@@ -29,7 +29,9 @@ exports.create = (req, res) ->
             ownerLogin: req.user.login,
             gist: githubResponse.id,
             isPublic: !!req.param('public'),
-            title: req.param('title')
+            title: req.param('title'),
+            color: req.param('robot-color')
+            linesOfCode: req.param('code').split('\n').length
         )
         req.user.addRobot(robot)
             .success( ->
@@ -43,45 +45,45 @@ exports.updateView = (req, res) ->
     github = new GithubApi version: '3.0.0'
     github.authenticate type: 'oauth', token: req.user.token
 
-    req.user.getRobots(where: gist: gistId).success (robots) ->
-        if robots.length == 1
-            robot = robots[0]
-            github.gists.get id: gistId, (err, githubResponse) ->
-                    files = Object.keys githubResponse.files
-                    res.render('createRobot',
-                        title: 'Update my robot',
-                        public: githubResponse.public,
-                        update: true,
-                        roboCode: encodeURI(githubResponse.files[files[0]].content),
-                        robotTitle: robot.title
-                    )
-        else
-            res.redirect '/'
-
+    Robot.find(where: gist: gistId).success((robot) ->
+        github.gists.get(id: gistId, (err, githubResponse) ->
+            files = Object.keys githubResponse.files
+            res.render('createRobot',
+                title: 'Update my robot',
+                public: githubResponse.public,
+                update: true,
+                robotCode: encodeURI(githubResponse.files[files[0]].content),
+                robotTitle: robot.title
+                robotColor: robot.color
+            )
+        )
+    )
 
 exports.update = (req, res) ->
-
     gistId = req.params.robot_id
     github = new GithubApi version: '3.0.0'
     github.authenticate type: 'oauth', token: req.user.token
+    title = req.param('title')
+    code = req.param('code')
+    color = req.param('robot-color')
 
     robotData =
         id: gistId,
-        description: req.param('title'),
+        description: title
         files:
             'robot.js':
-                'content': req.param('code')
+                'content': code
 
-    req.user.getRobots(where: gist: gistId).success (robots) ->
-        if robots.length == 1
-            robot = robots[0]
-            robot.title = req.param('title')
-            robot.save(['title']).success( ->
-                github.gists.edit robotData, (err, githubResponse) ->
-                        res.redirect '/robots/update/' + robot.gist
+    Robot.find(where: gist: gistId).success((robot) ->
+        robot.title = title
+        robot.color = color
+        robot.linesOfCode = code.split('\n').length
+        robot.save().success( ->
+            github.gists.edit(robotData, (err, githubResponse) ->
+                res.redirect '/robots/update/' + robot.gist
             )
-        else
-            res.redirect '/'
+        )
+    )
 
 exports.fork = (req, res) ->
 

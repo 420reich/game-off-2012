@@ -28,7 +28,7 @@
                 <li>
                     <div class="left">
                         <div class="ranking"># <%= robots[i].row_number %></div>
-                        <div class="robot"></div>
+                        <div class="robot" style="background-color: <%-robots[i].color %>;"></div>
                     </div>
                     <div class="right">
                         <div class="main-info">
@@ -36,7 +36,8 @@
                                 <div class="name"><%= robots[i].title %></div>
                                 <div class="data">
                                     <span class="created">created <%=: robots[i].created_at | showAsDate %></span>
-                                    <span class="lines">5.094 code lines</span>
+                                    <span class="lines"><%= robots[i].linesOfCode %> code lines</span>
+                                    <span class="actions"><a href="/robots/update/<%- robots[i].gist %>">edit</a></span>
                                 </div>
                             </div>
                             <div class="star-ranking"></div>
@@ -161,35 +162,35 @@
             </div>
 
             <ul class="combats">
-                <% for (var i=0; i<3; i++) { %>
+                <% for (var i=0; i<lastFights.length; i++) { %>
                 <li>
-                    <div class="combat">
+                    <a class="combat" href="/robots/replay/<%= lastFights[i][0].id %>">
                         <div class="left">
                             <div class="player">
-                                <img src="<%= user.photo(134) %>" />
+                                <img src="<%=: lastFights[i][0].email | gravatar_url:134 %>" />
                                 <div class="robot-circle"></div>
                             </div>
                             <div class="robot"></div>
                             <div class="info">
-                                <div class="name">The Crazy Destroyer</div>
-                                <div class="ranking"># 1</div>
+                                <div class="name"><%= lastFights[i][0].title %></div>
+                                <div class="ranking"># <%= lastFights[i][0].row_number %></div>
                             </div>
                         </div>
                         <div class="divider"></div>
                         <div class="right">
                             <div class="player">
-                                <img src="<%= user.photo(134) %>" />
+                                <img src="<%=: lastFights[i][1].email | gravatar_url:134 %>" />
                                 <div class="robot-circle"></div>
                             </div>
                             <div class="robot"></div>
                             <div class="info">
-                                <div class="name">The Crazy Destroyer</div>
-                                <div class="ranking"># 1</div>
+                                <div class="name"><%= lastFights[i][1].title %></div>
+                                <div class="ranking"># <%= lastFights[i][1].row_number %></div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </li>
-            <% } %>
+                <% } %>
             </ul>
         </div>
     </div>

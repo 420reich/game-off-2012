@@ -7,6 +7,8 @@ module.exports = function(sequelize, DataTypes) {
     Robot = sequelize.define('Robot', {
         gist: { type: DataTypes.STRING, allowNull: false},
         title: { type: DataTypes.STRING, allowNull: false},
+        color: { type: DataTypes.STRING, allowNull: true, defaultValue: "#ed002"},
+        linesOfCode: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0},
         ownerLogin: { type: DataTypes.STRING, allowNull: false},
         victories: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0},
         defeats: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0},
@@ -15,28 +17,30 @@ module.exports = function(sequelize, DataTypes) {
         isPublic: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: true}
     },{
         instanceMethods:{
-            updateScore: function(){
+            updateScore: function(callback){
                 var WonPoints = this.victories * 3,
                     LostPoints = this.defeats * -1,
                     DrawPoints = this.draws;
 
                 this.score = this.score + WonPoints + LostPoints + DrawPoints;
-                this.save();
+                this.save().success(function() {
+                    callback(this);
+                });
             },
 
-            addVictory: function() {
+            addVictory: function(callback) {
                 this.victories += 1;
-                this.updateScore();
+                this.updateScore(callback);
             },
 
-            addDefeat: function() {
+            addDefeat: function(callback) {
                 this.defeats += 1;
-                this.updateScore();
+                return this.updateScore(callback);
             },
 
-            addDraw: function() {
+            addDraw: function(callback) {
                 this.draws += 1;
-                this.updateScore();
+                return this.updateScore(callback);
             },
 
             rankNear: function(callback) {
@@ -91,6 +95,28 @@ module.exports = function(sequelize, DataTypes) {
                         }
                         callback(data);
                     });
+            },
+
+            lastFights: function(callback) {
+                var sql =   'WITH last_fights AS ( '+
+                            'SELECT * FROM "Fights" '+
+                            'ORDER BY created_at DESC '+
+                            'LIMIT 3 '+
+                            ') '+
+                            'SELECT last_fights.id, rob.title, rob.row_number, u.email, u.login FROM "RobotRevisionFights" revF '+
+                            'INNER JOIN last_fights ON (last_fights.id = revF.fight_id) '+
+                            'INNER JOIN "RobotRevisions" rev ON (rev.id = revF.robot_revision_id) '+
+                            'INNER JOIN (SELECT *, row_number() OVER (ORDER BY score DESC) FROM "Robots") rob ON (rev.robot_id = rob.id) '+
+                            'INNER JOIN "Users" u ON (rob.user_id = u.id) '+
+                            'ORDER BY last_fights.id DESC ';
+
+                sequelize.query(sql, null, {raw: true, type: 'SELECT'}).success(function(data){
+                    var fightList = [], i;
+                    for (i=0; i < data.length; i += 2) {
+                        fightList.push([data[i], data[i+1]]);
+                    }
+                    callback(fightList);
+                });
             }
         },
         underscored: true

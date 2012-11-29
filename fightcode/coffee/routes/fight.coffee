@@ -116,9 +116,11 @@ class FightRepository
                 engine: engineContext
                 player:
                     name: player.name
+                    gist: player.gist
                     Robot: playerRobot
                 opponent:
                     name: opponent.name
+                    gist: opponent.gist
                     Robot: opponentRobot
 
             console.log('running the fight...')
@@ -126,6 +128,14 @@ class FightRepository
             console.log('fight calculated successfully.')
             callback(null, initContext.result)
         )
+
+    computeResults: (robot, fightResults, callback) ->
+        if (fightResults.isDraw)
+            robot.addDraw(-> callback(null, robot))
+        else if (fightResults.robots[0].robot.gist == robot.gist)
+            robot.addVictory(-> callback(null, robot))
+        else
+            robot.addDefeat(-> callback(null, robot))
 
     createFight: (createFightCallback) ->
         self = this
@@ -140,9 +150,11 @@ class FightRepository
                   self.opponentGist = gist
 
                   result = self.runFight({
+                      gist: self.playerRobotId
                       name: "player"
                       code: self.playerGist.code
                   }, {
+                      gist: self.opponentRobotId
                       name: "opponent"
                       code: self.opponentGist.code
                   }, callback)
@@ -159,6 +171,8 @@ class FightRepository
                   self.findRobot(self.playerRobotId, callback)
             , (robot, callback) ->
                   self.playerRobot = robot
+                  self.computeResults(robot, self.fightResult, callback)
+            , (robot, callback) ->
                   self.findOrCreateRobotRevision(self.playerRobot, self.playerGist, callback)
             , (robotRevision, callback) ->
                   self.playerRobotRevision = robotRevision
@@ -181,6 +195,8 @@ class FightRepository
                   self.findRobot(self.opponentRobotId, callback)
             , (robot, callback) ->
                   self.opponentRobot = robot
+                  self.computeResults(robot, self.fightResult, callback)
+            , (robot, callback) ->
                   self.findOrCreateRobotRevision(self.opponentRobot, self.opponentGist, callback)
             , (robotRevision, callback) ->
                   self.opponentRobotRevision = robotRevision
@@ -248,8 +264,8 @@ exports.replayFight = (req, res) ->
                             Robot.find(revision.robot_id).success((robot) ->
                                 do (robot) ->
                                     robotRevisionFight.gistId = robot.gist
-                                    console.log("ROBOT-TITLE", robot.title)
                                     robotRevisionFight.name = robot.title
+                                    robotRevisionFight.color = robot.color
 
                                     User.find(where: id: robot.user_id).success((user) ->
                                         robotRevisionFight.user = user

@@ -41,7 +41,9 @@ exports.create = function(req, res) {
       ownerLogin: req.user.login,
       gist: githubResponse.id,
       isPublic: !!req.param('public'),
-      title: req.param('title')
+      title: req.param('title'),
+      color: req.param('robot-color'),
+      linesOfCode: req.param('code').split('\n').length
     });
     return req.user.addRobot(robot).success(function() {
       return res.redirect('/robots/update/' + robot.gist);
@@ -59,35 +61,30 @@ exports.updateView = function(req, res) {
     type: 'oauth',
     token: req.user.token
   });
-  return req.user.getRobots({
+  return Robot.find({
     where: {
       gist: gistId
     }
-  }).success(function(robots) {
-    var robot;
-    if (robots.length === 1) {
-      robot = robots[0];
-      return github.gists.get({
-        id: gistId
-      }, function(err, githubResponse) {
-        var files;
-        files = Object.keys(githubResponse.files);
-        return res.render('createRobot', {
-          title: 'Update my robot',
-          "public": githubResponse["public"],
-          update: true,
-          roboCode: encodeURI(githubResponse.files[files[0]].content),
-          robotTitle: robot.title
-        });
+  }).success(function(robot) {
+    return github.gists.get({
+      id: gistId
+    }, function(err, githubResponse) {
+      var files;
+      files = Object.keys(githubResponse.files);
+      return res.render('createRobot', {
+        title: 'Update my robot',
+        "public": githubResponse["public"],
+        update: true,
+        robotCode: encodeURI(githubResponse.files[files[0]].content),
+        robotTitle: robot.title,
+        robotColor: robot.color
       });
-    } else {
-      return res.redirect('/');
-    }
+    });
   });
 };
 
 exports.update = function(req, res) {
-  var gistId, github, robotData;
+  var code, color, gistId, github, robotData, title;
   gistId = req.params.robot_id;
   github = new GithubApi({
     version: '3.0.0'
@@ -96,32 +93,31 @@ exports.update = function(req, res) {
     type: 'oauth',
     token: req.user.token
   });
+  title = req.param('title');
+  code = req.param('code');
+  color = req.param('robot-color');
   robotData = {
     id: gistId,
-    description: req.param('title'),
+    description: title,
     files: {
       'robot.js': {
-        'content': req.param('code')
+        'content': code
       }
     }
   };
-  return req.user.getRobots({
+  return Robot.find({
     where: {
       gist: gistId
     }
-  }).success(function(robots) {
-    var robot;
-    if (robots.length === 1) {
-      robot = robots[0];
-      robot.title = req.param('title');
-      return robot.save(['title']).success(function() {
-        return github.gists.edit(robotData, function(err, githubResponse) {
-          return res.redirect('/robots/update/' + robot.gist);
-        });
+  }).success(function(robot) {
+    robot.title = title;
+    robot.color = color;
+    robot.linesOfCode = code.split('\n').length;
+    return robot.save().success(function() {
+      return github.gists.edit(robotData, function(err, githubResponse) {
+        return res.redirect('/robots/update/' + robot.gist);
       });
-    } else {
-      return res.redirect('/');
-    }
+    });
   });
 };
 

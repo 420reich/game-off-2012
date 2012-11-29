@@ -140,10 +140,12 @@ FightRepository = (function() {
         engine: engineContext,
         player: {
           name: player.name,
+          gist: player.gist,
           Robot: playerRobot
         },
         opponent: {
           name: opponent.name,
+          gist: opponent.gist,
           Robot: opponentRobot
         }
       };
@@ -152,6 +154,22 @@ FightRepository = (function() {
       console.log('fight calculated successfully.');
       return callback(null, initContext.result);
     });
+  };
+
+  FightRepository.prototype.computeResults = function(robot, fightResults, callback) {
+    if (fightResults.isDraw) {
+      return robot.addDraw(function() {
+        return callback(null, robot);
+      });
+    } else if (fightResults.robots[0].robot.gist === robot.gist) {
+      return robot.addVictory(function() {
+        return callback(null, robot);
+      });
+    } else {
+      return robot.addDefeat(function() {
+        return callback(null, robot);
+      });
+    }
   };
 
   FightRepository.prototype.createFight = function(createFightCallback) {
@@ -167,9 +185,11 @@ FightRepository = (function() {
         var result;
         self.opponentGist = gist;
         return result = self.runFight({
+          gist: self.playerRobotId,
           name: "player",
           code: self.playerGist.code
         }, {
+          gist: self.opponentRobotId,
           name: "opponent",
           code: self.opponentGist.code
         }, callback);
@@ -187,6 +207,8 @@ FightRepository = (function() {
         return self.findRobot(self.playerRobotId, callback);
       }, function(robot, callback) {
         self.playerRobot = robot;
+        return self.computeResults(robot, self.fightResult, callback);
+      }, function(robot, callback) {
         return self.findOrCreateRobotRevision(self.playerRobot, self.playerGist, callback);
       }, function(robotRevision, callback) {
         var robotIdx, robotPosition, robotResult, _i, _ref;
@@ -210,6 +232,8 @@ FightRepository = (function() {
         return self.findRobot(self.opponentRobotId, callback);
       }, function(robot, callback) {
         self.opponentRobot = robot;
+        return self.computeResults(robot, self.fightResult, callback);
+      }, function(robot, callback) {
         return self.findOrCreateRobotRevision(self.opponentRobot, self.opponentGist, callback);
       }, function(robotRevision, callback) {
         var robotIdx, robotPosition, robotResult, _i, _ref;
@@ -298,8 +322,8 @@ exports.replayFight = function(req, res) {
             return Robot.find(revision.robot_id).success(function(robot) {
               return (function(robot) {
                 robotRevisionFight.gistId = robot.gist;
-                console.log("ROBOT-TITLE", robot.title);
                 robotRevisionFight.name = robot.title;
+                robotRevisionFight.color = robot.color;
                 return User.find({
                   where: {
                     id: robot.user_id
