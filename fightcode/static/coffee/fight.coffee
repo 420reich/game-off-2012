@@ -7,7 +7,15 @@ class FightArena
                     width: 800
                     height: 500
 
+        @terminated = false
+        @worker = null
+        @game = null
         @startWorker()
+
+    stop: ->
+        @terminated = true
+        @worker.terminate()
+        @game and @game.forceEnd()
 
     setRobots: (robots) ->
         @robots = robots
@@ -21,27 +29,43 @@ class FightArena
             robots: @robots.length
             robot1: @robots[0]
             robot2: @robots[1]
+            streaming: @options.streaming
             maxRounds: @options.maxRounds
             boardSize:
                 width: @options.boardSize.width
                 height: @options.boardSize.height
 
+        if @options.streaming
+            @startGame()
+
         @worker.postMessage(eventData)
 
+    startGame: (data) ->
+        if @game
+            @game.end()
+            return
+
+        board = @container.find('.board')
+        board.empty()
+        boardContainer = $('<div></div>')
+        board.append(boardContainer)
+
+        @game = new Game(boardContainer, data, {
+            msPerRound: 5
+        })
+        @game.start()
+
     receiveWorkerEvent: (ev) =>
+        return if @terminated
+
         evData = ev.data
 
         if evData.type is 'log'
             console.log "LOG", evData.message
 
-        if evData.type is 'results'
-            board = @container.find('.board')
-            board.empty()
-            boardContainer = $('<div></div>')
-            board.append(boardContainer)
+        if evData.type is 'stream'
+            @game.addRound(evData.roundLog)
 
-            game = new Game(boardContainer, evData, {
-                msPerRound: 5
-            })
-            game.initialize()
+        if evData.type is 'results'
+            @startGame(evData)
 

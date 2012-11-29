@@ -1,4 +1,5 @@
 var Fight, global, runFight, worker,
+  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __slice = [].slice;
 
 worker = self;
@@ -8,6 +9,7 @@ global = this;
 Fight = (function() {
 
   function Fight() {
+    this.onRoundLog = __bind(this.onRoundLog, this);
     global.console = {
       log: this.log
     };
@@ -85,8 +87,16 @@ Fight = (function() {
       if (evData.maxRounds) {
         maxRounds = evData.maxRounds;
       }
+      _this.streaming = evData.streaming;
       return _this.processFight(robots, maxRounds, boardSize);
     };
+  };
+
+  Fight.prototype.onRoundLog = function(roundLog) {
+    return worker.postMessage({
+      type: "stream",
+      roundLog: roundLog
+    });
   };
 
   Fight.prototype.processFight = function(robots, maxRounds, boardSize) {
@@ -103,6 +113,9 @@ Fight = (function() {
       var child = new ctor, result = func.apply(child, args), t = typeof result;
       return t == "object" || t == "function" ? result || child : child;
     })(Engine, [boardSize.width, boardSize.height, maxRounds, this.originalFunctions.random].concat(__slice.call(robots)), function(){});
+    if (this.streaming) {
+      engine.roundLogCallback = this.onRoundLog;
+    }
     result = engine.fight();
     this.restoreFunctions();
     eventData = {

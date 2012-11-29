@@ -748,6 +748,9 @@ class Engine
                 actions = @checkSight(status)
                 status.updateQueue(actions)
 
+            if @roundLogCallback
+                @roundLogCallback(@roundLog)
+
         robotsOnly = @robotsStatus.filter (el) ->
             el instanceof RobotStatus and not el.isClone()
 
