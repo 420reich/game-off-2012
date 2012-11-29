@@ -167,25 +167,25 @@
                     <div class="combat">
                         <div class="left">
                             <div class="player">
-                                <img src="<%=: last_fights[i][0].email | gravatar_url:134 %>" />
+                                <img src="<%=: lastFights[i][0].email | gravatar_url:134 %>" />
                                 <div class="robot-circle"></div>
                             </div>
                             <div class="robot"></div>
                             <div class="info">
-                                <div class="name"><%= last_fights[i][0].title %></div>
-                                <div class="ranking"># <%= last_fights[i][0].row_number %></div>
+                                <div class="name"><%= lastFights[i][0].title %></div>
+                                <div class="ranking"># <%= lastFights[i][0].row_number %></div>
                             </div>
                         </div>
                         <div class="divider"></div>
                         <div class="right">
                             <div class="player">
-                                <img src="<%=: last_fights[i][1].email | gravatar_url:134 %>" />
+                                <img src="<%=: lastFights[i][1].email | gravatar_url:134 %>" />
                                 <div class="robot-circle"></div>
                             </div>
                             <div class="robot"></div>
                             <div class="info">
-                                <div class="name"><%= last_fights[i][1].title %></div>
-                                <div class="ranking"># <%= last_fights[i][1].row_number %></div>
+                                <div class="name"><%= lastFights[i][1].title %></div>
+                                <div class="ranking"># <%= lastFights[i][1].row_number %></div>
                             </div>
                         </div>
                     </div>
