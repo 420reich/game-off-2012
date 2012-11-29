@@ -36,7 +36,8 @@ module.exports = function(grunt) {
             'fightcode/static/js/coffeescript.js',
             'fightcode/static/js/javascript.js',
             'fightcode/static/js/jquery.simplemodal-1.4.3.js',
-            'fightcode/static/js/jquery.knobs.js'
+            'fightcode/static/js/jquery.knobs.js',
+            'fightcode/static/js/jquery.spectrum.js'
         ],
 
         worker: [

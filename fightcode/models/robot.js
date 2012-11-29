@@ -48,7 +48,7 @@ module.exports = function(sequelize, DataTypes) {
                                       'FROM "Robots" ORDER BY score) AS rank '+
                                     'WHERE rank.id = ? '+
                                     'ORDER BY rank.row_number) '+
-                            'SELECT robots.*, u.email '+
+                            'SELECT robots.*, u.email, u.login '+
                               'FROM (SELECT *, row_number() '+
                                 'OVER (ORDER BY score DESC) '+
                                 'FROM "Robots") AS robots '+
@@ -80,7 +80,7 @@ module.exports = function(sequelize, DataTypes) {
                             'WHERE r.id IN (SELECT id FROM "Robots" ORDER BY score LIMIT 10) '+
                             'GROUP BY r.id) '+
                             'SELECT row_number() OVER (ORDER BY score DESC), '+
-                            'r.*, u.email, robot_statistics.* '+
+                            'r.*, u.email, u.login, robot_statistics.* '+
                             'FROM "Robots" r '+
                             'INNER JOIN "Users" u ON (r.user_id = u.id) '+
                             'LEFT OUTER JOIN robot_statistics ON (r.id = robot_statistics.id) '+
