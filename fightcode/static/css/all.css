@@ -1976,7 +1976,7 @@ code, pre {
   display: inline-block;
   vertical-align: top;
   margin-top: 4px;
-  width: 345px;
+  width: 343px;
   height: 4px;
   background-color: #dfdfdf;
 }
@@ -2063,6 +2063,7 @@ code, pre {
   font-family: "oswald";
   font-size: 14px;
   color: #4f4f4f;
+  width: 134px;
 }
 .show-user .latest-combats .combats li .info .ranking {
   margin-top: 5px;
