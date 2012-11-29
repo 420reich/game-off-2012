@@ -96,8 +96,10 @@ Robot.prototype.onRobotCollision = function(ev) {
   } else {
     robot.ahead(100);
   }
-  robot.turnGunLeft(ev.bearing - 90);
-  robot.turnGunRight(ev.bearing - 90);
+  // robot.turnGunLeft(ev.bearing - 90);
+  // robot.turnGunRight(ev.bearing - 90);
+  robot.turnGunRight(ev.bearing - robot.cannonRelativeAngle);
+  robot.turnGunLeft(ev.bearing - robot.cannonRelativeAngle);
 
   // var self = this;
   // robot.notify(function() {
