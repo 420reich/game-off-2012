@@ -14,8 +14,8 @@ function mapStatistcs(list) {
         var id = list[i]['id'];
         delete list[i]['id'];
 
-        if (!!list[i]['shots_hit']) {
-            list[i].hitsPercentage = (list[i]['shots_fired'] * 100) / list[i]['shots_hit'];
+        if (!!list[i]['shots_fired']) {
+            list[i].hitsPercentage = Math.round((list[i]['shots_hit'] * 100) / list[i]['shots_fired']);
         } else {
             list[i].hitsPercentage = 0;
         }
