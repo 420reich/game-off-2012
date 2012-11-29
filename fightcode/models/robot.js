@@ -108,14 +108,13 @@ module.exports = function(sequelize, DataTypes) {
                             'INNER JOIN "Users" u ON (rob.user_id = u.id) '+
                             'ORDER BY last_fights.id DESC ';
 
-                // sequelize.query(sql, null, {raw: true, type: 'SELECT'}).success(function(data){
-                //     var fightList = [];
-                //     for (i=0; i < data.length; i + 2) {
-                //         fightList.push([data[i], data[i+1]]);
-                //     }
-                //     callback(fightList);
-                // });
-                callback([]);
+                sequelize.query(sql, null, {raw: true, type: 'SELECT'}).success(function(data){
+                    var fightList = [], i;
+                    for (i=0; i < data.length; i += 2) {
+                        fightList.push([data[i], data[i+1]]);
+                    }
+                    callback(fightList);
+                });
             }
         },
         underscored: true
