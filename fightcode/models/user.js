@@ -34,6 +34,18 @@ module.exports = function(sequelize, DataTypes) {
                             'WHERE user_id =?';
                 var query = Sequelize.Utils.format([sql, this.id]);
                 sequelize.query(query, null, {raw: true, type: 'SELECT'}).success(callback);
+            },
+
+            robotsStatistics: function(callback) {
+                var sql = 'SELECT r.id, sum(rf.enemies_killed) enemies_killed, '+
+                          'sum(shots_fired) shots_fired, sum(shots_hit) shots_hit '+
+                          'FROM "RobotRevisions" rev '+
+                          'INNER JOIN "Robots" r ON (r.id = rev.robot_id) '+
+                          'INNER JOIN "RobotRevisionFights" rf ON (rev.id = rf.robot_revision_id) '+
+                          'WHERE r.user_id = ? '+
+                          'GROUP BY r.id';
+                var query = Sequelize.Utils.format([sql, this.id]);
+                sequelize.query(query, null, {raw: true, type: 'SELECT'}).success(callback);
             }
         },
         underscored: true
