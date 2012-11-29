@@ -1412,6 +1412,10 @@ footer ul span {
   margin: 0 55px;
   height: 110px;
   background-color: #dfdfdf;
+  opacity: 0.8;
+}
+.home .score .playerScore:hover {
+  opacity: 1;
 }
 .home .score .left, .home .score .right {
   display: inline-block;
