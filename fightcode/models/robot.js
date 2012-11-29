@@ -8,6 +8,7 @@ module.exports = function(sequelize, DataTypes) {
         gist: { type: DataTypes.STRING, allowNull: false},
         title: { type: DataTypes.STRING, allowNull: false},
         color: { type: DataTypes.STRING, allowNull: true, defaultValue: "#ed002"},
+        linesOfCode: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0},
         ownerLogin: { type: DataTypes.STRING, allowNull: false},
         victories: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0},
         defeats: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0},

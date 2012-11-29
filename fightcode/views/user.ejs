@@ -28,7 +28,7 @@
                 <li>
                     <div class="left">
                         <div class="ranking"># <%= robots[i].row_number %></div>
-                        <div class="robot"></div>
+                        <div class="robot" style="background-color: <%-robots[i].color %>;"></div>
                     </div>
                     <div class="right">
                         <div class="main-info">
@@ -36,7 +36,8 @@
                                 <div class="name"><%= robots[i].title %></div>
                                 <div class="data">
                                     <span class="created">created <%=: robots[i].created_at | showAsDate %></span>
-                                    <span class="lines">5.094 code lines</span>
+                                    <span class="lines"><%= robots[i].linesOfCode %> code lines</span>
+                                    <span class="actions"><a href="/robots/update/<%- robots[i].gist %>">edit</a></span>
                                 </div>
                             </div>
                             <div class="star-ranking"></div>

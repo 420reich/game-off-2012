@@ -42,7 +42,8 @@ exports.create = function(req, res) {
       gist: githubResponse.id,
       isPublic: !!req.param('public'),
       title: req.param('title'),
-      color: req.param('robot-color')
+      color: req.param('robot-color'),
+      linesOfCode: req.param('code').split('\n').length
     });
     return req.user.addRobot(robot).success(function() {
       return res.redirect('/robots/update/' + robot.gist);
@@ -111,6 +112,7 @@ exports.update = function(req, res) {
   }).success(function(robot) {
     robot.title = title;
     robot.color = color;
+    robot.linesOfCode = code.split('\n').length;
     return robot.save().success(function() {
       return github.gists.edit(robotData, function(err, githubResponse) {
         return res.redirect('/robots/update/' + robot.gist);

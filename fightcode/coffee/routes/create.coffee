@@ -31,6 +31,7 @@ exports.create = (req, res) ->
             isPublic: !!req.param('public'),
             title: req.param('title'),
             color: req.param('robot-color')
+            linesOfCode: req.param('code').split('\n').length
         )
         req.user.addRobot(robot)
             .success( ->
@@ -76,6 +77,7 @@ exports.update = (req, res) ->
     Robot.find(where: gist: gistId).success((robot) ->
         robot.title = title
         robot.color = color
+        robot.linesOfCode = code.split('\n').length
         robot.save().success( ->
             github.gists.edit(robotData, (err, githubResponse) ->
                 res.redirect '/robots/update/' + robot.gist
