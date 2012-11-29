@@ -20,9 +20,10 @@
                             <input type="hidden" name="_method" value="put">
                         <%} %>
                         <textarea name="title" class="input-subtle" require="required"
-                            placeholder="ENTER YOUR ROBOT'S NAME" <% if (locals.robotTitle) { %> value="<%= robotTitle %>" <% } %>></textarea>
+                            placeholder="ENTER YOUR ROBOT'S NAME"><% if (locals.robotTitle) { %><%= robotTitle %><% } %></textarea>
 
                         <div class="robot-color">
+                            <input type="hidden" id="robot-color" name="robot-color" value="<%if (locals.robotColor) { %><%= robotColor%><% } %>" />
                             <div class="robot-color-preview js-color-picker-preview">
                             </div>
                             <div class="robot-color-picker-container js-color-picker">
@@ -109,19 +110,27 @@ Robot.prototype.onIdle = function(ev) {
     };
 
     (function colorPicker() {
+        var hiddenColor = $('#robot-color');
 
         var createUpdatePreviewHandler = function(preview) {
             return function(color) {
+                hiddenColor.val("#" + color.toHex());
                 preview.css(preview.data('color-picker-property') || 'background-color', color.toHexString());
             }
         };
+
 
         $('.js-color-picker').each(function(i, el) {
             el = $(el);
             var preview = $(el.data('color-picker-preview') || '.js-color-picker-preview');
 
+            <% if (locals.robotColor) { %>
+            preview.css(preview.data('color-picker-property') || 'background-color', "<%= robotColor %>");
+            <% } %>
+
+
             el.spectrum({
-                color: '#000',
+                color: "<% if (locals.robotColor) { %><%= robotColor %><% } else {%>#000<%}%>",
                 flat: true,
                 showInput: true,
                 showInitial: false,
@@ -140,7 +149,7 @@ Robot.prototype.onIdle = function(ev) {
             submitButton = $('#submit-btn');
 
         var defaultCode = $('#default-code').html();
-        roboCodeText = decodeURI("<%= locals.roboCode || '' %>"),
+        robotCodeText = decodeURI("<%= locals.robotCode || '' %>"),
         code = null,
         unescapeHtml = function (text) {
             var temp = document.createElement("div");
@@ -150,8 +159,8 @@ Robot.prototype.onIdle = function(ev) {
             return result;
         };
 
-        if (roboCodeText != "") {
-            code = unescapeHtml(roboCodeText);
+        if (robotCodeText != "") {
+            code = unescapeHtml(robotCodeText);
         } else {
             code = defaultCode;
         }
