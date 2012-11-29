@@ -81,11 +81,10 @@ class RobotActions
 
     rotateCannon: (degrees) ->
         return if degrees == 0
-        @queue.push(
+        @queue.push
             action: "rotateCannon"
             direction: degrees
             count: Math.abs(degrees) / ANG_INCREMENT
-        )
 
     turnGunLeft: (degrees) ->
         @rotateCannon(-degrees)
@@ -95,11 +94,10 @@ class RobotActions
 
     turn: (degrees) ->
         return if degrees == 0
-        @queue.push(
+        @queue.push
             action: "turn"
             direction: degrees
             count: Math.abs(degrees) / ANG_INCREMENT
-        )
 
     turnLeft: (degrees) ->
         @turn(-degrees)
@@ -108,29 +106,36 @@ class RobotActions
         @turn(degrees)
 
     fire: (bullets) ->
-        @queue.push(
+        @queue.push
             action: "fire"
-        )
 
     notify: (callback) ->
-        @queue.push(
+        @queue.push
             action: "notify",
             callback: callback
-        )
 
     stop: (callback) ->
-        @queue = [{
+        @queue = [
             action: "stop"
-        }]
+        ]
 
     clone: ->
         @queue.push(action: "clone")
 
     log: (messages...) ->
-        @queue.push(
+        @queue.push
             action: "log"
             messages: messages
-        )
+
+    ignore: (eventName) ->
+        @queue.push
+            action: "ignore"
+            eventName: eventName
+
+    listen: (eventName) ->
+        @queue.push
+            action: "listen"
+            eventName: eventName
 
 class Arena
     constructor: (@width, @height) ->
@@ -323,6 +328,7 @@ class RobotStatus extends ElementStatus
         @deathIdx = null
         @enemiesKilled = 0
         @friendsKilled = 0
+        @ignoredEvents = {}
 
     instantiateRobot: ->
         actions = new RobotActions(this)
@@ -450,6 +456,12 @@ class RobotStatus extends ElementStatus
             when 'notify'
                 item.callback and item.callback()
 
+            when 'ignore'
+                @ignoredEvents[item.eventName] = true
+
+            when 'listen'
+                delete @ignoredEvents[item.eventName]
+
         null
 
     updateQueue: (actions) ->
@@ -539,7 +551,8 @@ class Engine
             else
                 bearing = normalizeAngle(wallCollisionAngle - robotStatus.rectangle.angle - 90)
                 bearing -= 360 if bearing > 180
-                @safeCall(robotStatus.robot.instance, 'onWallCollision', {robot: actions, bearing: bearing})
+                unless robotStatus.ignoredEvents['onWallCollision']
+                    @safeCall(robotStatus.robot.instance, 'onWallCollision', {robot: actions, bearing: bearing})
 
         return actions if robotStatus instanceof BulletStatus
 
@@ -573,9 +586,10 @@ class Engine
                     robotStatus.rollbackAfterCollision()
 
                 bearing -= 360 if bearing > 180
-                @safeCall(robotStatus.robot.instance, eventName, {robot: actions, bearing: bearing})
+                unless robotStatus.ignoredEvents[eventName]
+                    @safeCall(robotStatus.robot.instance, eventName, {robot: actions, bearing: bearing})
 
-                if status instanceof RobotStatus
+                if status instanceof RobotStatus and not status.ignoredEvents[eventName]
                     vec = Vector2.subtract(robotStatus.rectangle.position, status.rectangle.position)
                     bearing = normalizeAngle((Math.atan2(vec.y, vec.x) * 180 / Math.PI) - status.rectangle.angle)
                     bearing -= 360 if bearing > 180
@@ -591,6 +605,7 @@ class Engine
         robotStatus.tickScan()
 
         return actions unless robotStatus.canScan()
+        return actions if robotStatus.ignoredEvents['onScannedRobot']
 
         virtualWidth = 2000
         virtualHeight = 1

@@ -186,6 +186,20 @@ RobotActions = (function() {
     });
   };
 
+  RobotActions.prototype.ignore = function(eventName) {
+    return this.queue.push({
+      action: "ignore",
+      eventName: eventName
+    });
+  };
+
+  RobotActions.prototype.listen = function(eventName) {
+    return this.queue.push({
+      action: "listen",
+      eventName: eventName
+    });
+  };
+
   return RobotActions;
 
 })();
@@ -442,6 +456,7 @@ RobotStatus = (function(_super) {
     this.deathIdx = null;
     this.enemiesKilled = 0;
     this.friendsKilled = 0;
+    this.ignoredEvents = {};
   }
 
   RobotStatus.prototype.instantiateRobot = function() {
@@ -595,6 +610,12 @@ RobotStatus = (function(_super) {
         return this.clone();
       case 'notify':
         item.callback && item.callback();
+        break;
+      case 'ignore':
+        this.ignoredEvents[item.eventName] = true;
+        break;
+      case 'listen':
+        delete this.ignoredEvents[item.eventName];
     }
     return null;
   };
@@ -732,10 +753,12 @@ Engine = (function() {
         if (bearing > 180) {
           bearing -= 360;
         }
-        this.safeCall(robotStatus.robot.instance, 'onWallCollision', {
-          robot: actions,
-          bearing: bearing
-        });
+        if (!robotStatus.ignoredEvents['onWallCollision']) {
+          this.safeCall(robotStatus.robot.instance, 'onWallCollision', {
+            robot: actions,
+            bearing: bearing
+          });
+        }
       }
     }
     if (robotStatus instanceof BulletStatus) {
@@ -782,11 +805,13 @@ Engine = (function() {
         if (bearing > 180) {
           bearing -= 360;
         }
-        this.safeCall(robotStatus.robot.instance, eventName, {
-          robot: actions,
-          bearing: bearing
-        });
-        if (status instanceof RobotStatus) {
+        if (!robotStatus.ignoredEvents[eventName]) {
+          this.safeCall(robotStatus.robot.instance, eventName, {
+            robot: actions,
+            bearing: bearing
+          });
+        }
+        if (status instanceof RobotStatus && !status.ignoredEvents[eventName]) {
           vec = Vector2.subtract(robotStatus.rectangle.position, status.rectangle.position);
           bearing = normalizeAngle((Math.atan2(vec.y, vec.x) * 180 / Math.PI) - status.rectangle.angle);
           if (bearing > 180) {
@@ -809,6 +834,9 @@ Engine = (function() {
     actions = new RobotActions(robotStatus);
     robotStatus.tickScan();
     if (!robotStatus.canScan()) {
+      return actions;
+    }
+    if (robotStatus.ignoredEvents['onScannedRobot']) {
       return actions;
     }
     virtualWidth = 2000;

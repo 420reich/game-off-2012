@@ -62,7 +62,6 @@ Robot.prototype.onWallCollision = function(ev) {
 </script>
 
 <script type="robot/script" id="r2-code">
-var printed = false;
 var Robot = function(robot){
     robot.turnLeft(robot.angle % 90);
     robot.turnGunRight(90);
@@ -70,7 +69,7 @@ var Robot = function(robot){
 };
 Robot.prototype.onIdle = function(ev) {
     var robot = ev.robot;
-    robot.ahead(1);
+    robot.ahead(1);    
 };
 Robot.prototype.onWallCollision = function(ev) {
   var robot = ev.robot;
@@ -80,33 +79,20 @@ Robot.prototype.onWallCollision = function(ev) {
 Robot.prototype.onRobotCollision = function(ev) {
   var robot = ev.robot;
 
-  // if (this.runningCollision) {
-  //   return;
-  // }
-  // this.runningCollision = true;
-
-  robot.stop();
-  // if (robot.parentId == null && !printed) {
-    // printed = true;
-    // console.log(ev.bearing);
-  // }
-
+  // robot.stop();
+  robot.ignore('onRobotCollision')
   if (ev.bearing > -90 && ev.bearing < 90) {
     robot.back(100);
   } else {
     robot.ahead(100);
   }
-  // robot.turnGunLeft(ev.bearing - 90);
-  // robot.turnGunRight(ev.bearing - 90);
+
   robot.turnGunRight(ev.bearing - robot.cannonRelativeAngle);
   robot.turnGunLeft(ev.bearing - robot.cannonRelativeAngle);
-
-  // var self = this;
-  // robot.notify(function() {
-  //   self.runningCollision = false;
-  // });
+  robot.listen('onRobotCollision')
 };
 Robot.prototype.onHitByBullet = function(ev) {
+
 };
 Robot.prototype.onScannedRobot = function(ev) {
   var robot = ev.robot, scannedRobot = ev.scannedRobot;
@@ -131,10 +117,10 @@ Robot.prototype.onScannedRobot = function(ev) {
             code: robot1Code,
             rectangle: {
                 position: {
-                    x: 324,
-                    y: 31
+                    x: 98,
+                    y: 29
                 },
-                angle: 355
+                angle: 32
             }
         },
         {
@@ -142,10 +128,10 @@ Robot.prototype.onScannedRobot = function(ev) {
             code: robot2Code,
             rectangle: {
                 position: {
-                    x: 234,
-                    y: 387
+                    x: 515,
+                    y: 200
                 },
-                angle: 69
+                angle: 190
             }
         }
     ])
