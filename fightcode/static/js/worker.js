@@ -8,6 +8,9 @@ global = this;
 Fight = (function() {
 
   function Fight() {
+    global.console = {
+      log: this.log
+    };
     this.bindEvents();
   }
 
@@ -87,26 +90,19 @@ Fight = (function() {
   };
 
   Fight.prototype.processFight = function(robots, maxRounds, boardSize) {
-    var engine, eventData, result, robot, robotCode, robotConstructor, _i, _len,
-      _this = this;
+    var engine, eventData, result, robot, robotCode, robotConstructor, _i, _len;
     this.overrideFunctions();
     for (_i = 0, _len = robots.length; _i < _len; _i++) {
       robot = robots[_i];
       robotCode = "(function() {" + robot.code + "; global.Robot = Robot;}.bind(global)()); return global.Robot;";
-      robotConstructor = new this.originalFunctions.func("global", "console", robotCode)({}, {
-        log: function() {
-          var message;
-          message = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-          return _this.log.apply(_this, message);
-        }
-      });
+      robotConstructor = new this.originalFunctions.func("global", robotCode)({});
       robot.constructor = robotConstructor;
     }
     engine = (function(func, args, ctor) {
       ctor.prototype = func.prototype;
       var child = new ctor, result = func.apply(child, args), t = typeof result;
       return t == "object" || t == "function" ? result || child : child;
-    })(Engine, [boardSize.width, boardSize.height, maxRounds, this.originalFunctions.random, this.log].concat(__slice.call(robots)), function(){});
+    })(Engine, [boardSize.width, boardSize.height, maxRounds, this.originalFunctions.random].concat(__slice.call(robots)), function(){});
     result = engine.fight();
     this.restoreFunctions();
     eventData = {

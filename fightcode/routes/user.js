@@ -7,15 +7,36 @@ var path = require('path'),
     modelsPath = path.join(process.env.CWD, 'fightcode', 'models'),
     User = sequelize.import(path.join(modelsPath, 'user'));
 
+function mapStatistcs(list) {
+    var statistcs = {};
+
+    for (var i=0; i < list.length; i++){
+        var id = list[i]['id'];
+        delete list[i]['id'];
+
+        if (!!list[i]['shots_fired']) {
+            list[i].hitsPercentage = Math.round((list[i]['shots_hit'] * 100) / list[i]['shots_fired']);
+        } else {
+            list[i].hitsPercentage = 0;
+        }
+        statistcs[id] = list[i];
+    }
+    return statistcs;
+}
+
 function renderProfile(res, userLogin) {
 
     User.find({where: {login: userLogin}})
         .success(function(user) {
             user.rankedRobots(function(robots){
-                return res.render('user', {
-                    title: user.name,
-                    user: user,
-                    robots: robots
+                user.robotsStatistics(function(statistcs){
+                    var parsedStatistcs = mapStatistcs(statistcs);
+                    return res.render('user', {
+                        title: user.name,
+                        user: user,
+                        statistcs: parsedStatistcs,
+                        robots: robots
+                    });
                 });
             });
         });

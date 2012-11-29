@@ -113,21 +113,28 @@ FightRepository = (function() {
   };
 
   FightRepository.prototype.runFight = function(player, opponent, callback) {
+    var createContext;
+    createContext = function() {
+      return {
+        console: {
+          log: function() {}
+        }
+      };
+    };
     return fs.readFile(enginePath, 'utf8', function(err, data) {
-      var engineContext, init, initContext, opponentContext, opponentRobot, playerContext, playerRobot;
-      init = "                maxRounds = 10000;                boardSize = {                    width: 800,                    height: 500                };                playerRobotInstance = player.Robot;                opponentRobotInstance = opponent.Robot;                player.constructor = playerRobotInstance;                opponent.constructor = opponentRobotInstance;                engineInstance = new engine.Engine(boardSize.width, boardSize.height, maxRounds, Math.random, console.log, player, opponent);                result = engineInstance.fight();            ";
-      playerContext = {};
+      var basicContext, engineContext, init, initContext, opponentContext, opponentRobot, playerContext, playerRobot;
+      init = "maxRounds = 10000;\nboardSize = {\n    width: 800,\n    height: 500\n};\n\nplayerRobotInstance = player.Robot;\nopponentRobotInstance = opponent.Robot;\n\nplayer.constructor = playerRobotInstance;\nopponent.constructor = opponentRobotInstance;\n\nengineInstance = new engine.Engine(boardSize.width, boardSize.height, maxRounds, Math.random, player, opponent);\nresult = engineInstance.fight();";
+      playerContext = createContext();
       vm.runInNewContext(player.code.replace("var Robot", "Robot"), playerContext);
       playerRobot = playerContext.Robot;
-      opponentContext = {};
+      opponentContext = createContext();
       vm.runInNewContext(opponent.code.replace("var Robot", "Robot"), opponentContext);
       opponentRobot = opponentContext.Robot;
-      engineContext = {};
+      engineContext = createContext();
       vm.runInNewContext(data, engineContext);
+      basicContext = createContext();
       initContext = {
-        console: {
-          log: function(message) {}
-        },
+        console: basicContext.console,
         engine: engineContext,
         player: {
           name: player.name,

@@ -86,18 +86,20 @@ Robot.prototype.onRobotCollision = function(ev) {
   // this.runningCollision = true;
 
   robot.stop();
-  if (robot.parentId == null && !printed) {
+  // if (robot.parentId == null && !printed) {
     // printed = true;
-    console.log(ev.bearing);
-  }
+    // console.log(ev.bearing);
+  // }
 
   if (ev.bearing > -90 && ev.bearing < 90) {
     robot.back(100);
   } else {
     robot.ahead(100);
   }
-  robot.turnGunLeft(ev.bearing - 90);
-  robot.turnGunRight(ev.bearing - 90);
+  // robot.turnGunLeft(ev.bearing - 90);
+  // robot.turnGunRight(ev.bearing - 90);
+  robot.turnGunRight(ev.bearing - robot.cannonRelativeAngle);
+  robot.turnGunLeft(ev.bearing - robot.cannonRelativeAngle);
 
   // var self = this;
   // robot.notify(function() {

@@ -3,6 +3,7 @@ global = this
 
 class Fight
     constructor: ->
+        global.console = log: @log
         @bindEvents()
 
     overrideFunctions: ->
@@ -68,13 +69,10 @@ class Fight
 
         for robot in robots
             robotCode = "(function() {#{ robot.code }; global.Robot = Robot;}.bind(global)()); return global.Robot;"
-            robotConstructor = new @originalFunctions.func("global", "console", robotCode)({}, {
-                log: (message...) =>
-                    this.log(message...)
-            })
+            robotConstructor = new @originalFunctions.func("global", robotCode)({})
             robot.constructor = robotConstructor
 
-        engine = new Engine(boardSize.width, boardSize.height, maxRounds, @originalFunctions.random, @log, robots...)
+        engine = new Engine(boardSize.width, boardSize.height, maxRounds, @originalFunctions.random, robots...)
 
         result = engine.fight()
 
