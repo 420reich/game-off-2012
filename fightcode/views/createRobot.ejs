@@ -344,14 +344,11 @@ Robot.prototype.onIdle = function(ev) {
         $('.js-color-picker').each(function(i, el) {
             el = $(el);
             var preview = $(el.data('color-picker-preview') || '.js-color-picker-preview');
+            var color = "<%= locals.robotColor || '#ED0027' %>";
 
-            <% if (locals.robotColor) { %>
-            preview.css(preview.data('color-picker-property') || 'background-color', "<%= robotColor %>");
-            <% } %>
-
-
+            preview.css(preview.data('color-picker-property') || 'background-color', color);
             el.spectrum({
-                color: "<% if (locals.robotColor) { %><%= robotColor %><% } else {%>#000<%}%>",
+                color: color,
                 flat: true,
                 showInput: true,
                 showInitial: false,
