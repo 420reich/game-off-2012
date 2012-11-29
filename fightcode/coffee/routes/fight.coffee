@@ -76,8 +76,12 @@ class FightRepository
         )
 
     runFight: (player, opponent, callback) ->
-        fs.readFile(enginePath, 'utf8', (err,data) ->
-            init = "
+
+        createContext = ->
+            console: log: ->
+
+        fs.readFile(enginePath, 'utf8', (err, data) ->
+            init = """
                 maxRounds = 10000;
                 boardSize = {
                     width: 800,
@@ -92,22 +96,22 @@ class FightRepository
 
                 engineInstance = new engine.Engine(boardSize.width, boardSize.height, maxRounds, Math.random, player, opponent);
                 result = engineInstance.fight();
-            "
+            """
 
-            playerContext = {}
+            basicContext = createContext()
             vm.runInNewContext(player.code.replace("var Robot", "Robot"), playerContext)
             playerRobot = playerContext.Robot
 
-            opponentContext = {}
+            opponentContext = createContext()
             vm.runInNewContext(opponent.code.replace("var Robot", "Robot"), opponentContext)
             opponentRobot = opponentContext.Robot
 
-            engineContext = {}
+            engineContext = createContext()
             vm.runInNewContext(data, engineContext)
 
+            basicContext = createContext()
             initContext =
-                console:
-                    log: (message) ->
+                console: basicContext.console
                 engine: engineContext
                 player:
                     name: player.name
