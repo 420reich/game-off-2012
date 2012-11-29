@@ -457,6 +457,7 @@ RobotStatus = (function(_super) {
     this.enemiesKilled = 0;
     this.friendsKilled = 0;
     this.ignoredEvents = {};
+    this.accidentalCollisions = {};
   }
 
   RobotStatus.prototype.instantiateRobot = function() {
@@ -493,6 +494,17 @@ RobotStatus = (function(_super) {
         return a + b.friendsKilled;
       }, this.friendsKilled)
     };
+  };
+
+  RobotStatus.prototype.getAccidentalCollisions = function() {
+    var ac;
+    ac = this.accidentalCollisions;
+    this.accidentalCollisions = {};
+    return ac;
+  };
+
+  RobotStatus.prototype.addAccidentalCollision = function(status) {
+    return this.accidentalCollisions[status.id] = true;
   };
 
   RobotStatus.prototype.isClone = function() {
@@ -550,8 +562,7 @@ RobotStatus = (function(_super) {
   };
 
   RobotStatus.prototype.abortCurrentMovement = function() {
-    var _ref;
-    if (this.queue.length > 0 && this.queue[0].started && ((_ref = this.queue[0].action) === 'move' || _ref === 'turn')) {
+    if (this.queue.length > 0 && this.queue[0].started) {
       return this.queue.shift();
     }
   };
@@ -745,7 +756,7 @@ Engine = (function() {
   };
 
   Engine.prototype.checkCollision = function(robotStatus) {
-    var actions, bearing, clone, eventName, otherActions, status, vec, wallCollisionAngle, _i, _j, _len, _len1, _ref, _ref1;
+    var accidentalCollisions, actions, bearing, clone, eventName, isEnemyRobot, status, vec, wallCollisionAngle, _i, _j, _len, _len1, _ref, _ref1;
     actions = robotStatus instanceof RobotStatus ? new RobotActions(robotStatus) : null;
     wallCollisionAngle = robotStatus.rectangle.containingCollisionAngle(this.arena.rectangle);
     if (wallCollisionAngle) {
@@ -773,12 +784,14 @@ Engine = (function() {
     if (robotStatus instanceof BulletStatus) {
       return actions;
     }
+    accidentalCollisions = robotStatus.getAccidentalCollisions();
     _ref = this.robotsStatus;
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       status = _ref[_i];
       if (status === robotStatus || !status.isAlive()) {
         continue;
       }
+      isEnemyRobot = status instanceof RobotStatus;
       if (robotStatus.rectangle.intersects(status.rectangle)) {
         eventName = 'onRobotCollision';
         if (status instanceof BulletStatus) {
@@ -819,22 +832,26 @@ Engine = (function() {
           this.safeCall(robotStatus.robot.instance, eventName, {
             robot: actions,
             bearing: bearing,
-            collidedRobot: status instanceof RobotStatus ? this.basicEnemyInfo(status) : null
+            collidedRobot: isEnemyRobot ? this.basicEnemyInfo(status) : null,
+            myFault: !!isEnemyRobot
           });
         }
-        if (status instanceof RobotStatus && !status.ignoredEvents[eventName]) {
-          vec = Vector2.subtract(robotStatus.rectangle.position, status.rectangle.position);
-          bearing = normalizeAngle((Math.atan2(vec.y, vec.x) * 180 / Math.PI) - status.rectangle.angle);
+        if (isEnemyRobot) {
+          status.addAccidentalCollision(robotStatus);
+        }
+      } else if (isEnemyRobot && accidentalCollisions[status.id]) {
+        if (!robotStatus.ignoredEvents[eventName]) {
+          vec = Vector2.subtract(status.rectangle.position, robotStatus.rectangle.position);
+          bearing = normalizeAngle((Math.atan2(vec.y, vec.x) * 180 / Math.PI) - robotStatus.rectangle.angle);
           if (bearing > 180) {
             bearing -= 360;
           }
-          otherActions = new RobotActions(status);
-          this.safeCall(status.robot.instance, eventName, {
-            robot: otherActions,
+          this.safeCall(robotStatus.robot.instance, eventName, {
+            robot: actions,
             bearing: bearing,
-            collidedRobot: this.basicEnemyInfo(robotStatus)
+            collidedRobot: this.basicEnemyInfo(status),
+            myFault: false
           });
-          status.updateQueue(otherActions);
         }
       }
     }
@@ -901,7 +918,7 @@ Engine = (function() {
   };
 
   Engine.prototype.fight = function() {
-    var actions, aliveRobots, fightLog, newStatus, r, robotsOnly, sortedRobots, stats, status, _i, _j, _k, _l, _len, _len1, _len2, _len3, _ref, _ref1, _ref2;
+    var actions, aliveRobots, fightLog, newStatus, r, robotsOnly, sortedRobots, stats, status, _i, _j, _k, _len, _len1, _len2, _ref, _ref1;
     aliveRobots = this.robotsStatus.length;
     fightLog = [];
     while (aliveRobots > 1 && !this.isDraw()) {
@@ -956,13 +973,6 @@ Engine = (function() {
             });
           }
         }
-      }
-      _ref1 = this.robotsStatus;
-      for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
-        status = _ref1[_j];
-        if (!status.isAlive()) {
-          continue;
-        }
         actions = this.checkCollision(status);
         if (actions) {
           status.updateQueue(actions);
@@ -971,9 +981,9 @@ Engine = (function() {
           aliveRobots++;
         }
       }
-      _ref2 = this.robotsStatus;
-      for (_k = 0, _len2 = _ref2.length; _k < _len2; _k++) {
-        status = _ref2[_k];
+      _ref1 = this.robotsStatus;
+      for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+        status = _ref1[_j];
         if (!(status.isAlive() && status instanceof RobotStatus)) {
           continue;
         }
@@ -990,8 +1000,8 @@ Engine = (function() {
       vB = b.deathIdx ? b.deathIdx : b.life * 1000;
       return vB - vA;
     });
-    for (_l = 0, _len3 = sortedRobots.length; _l < _len3; _l++) {
-      r = sortedRobots[_l];
+    for (_k = 0, _len2 = sortedRobots.length; _k < _len2; _k++) {
+      r = sortedRobots[_k];
       stats = r.stats = r.stats();
       console.log(r.robot.name, r.deathIdx, r.life, stats.bulletsFired, stats.bulletsHit, stats.friendsKilled, stats.enemiesKilled);
     }
