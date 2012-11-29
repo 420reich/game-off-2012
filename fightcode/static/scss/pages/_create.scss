@@ -7,6 +7,8 @@
 }
 
 .create-robot {
+    padding-bottom: 80px;
+
     .header-icon {
         $width: create-robot-sprite-width('robo-header');
 
@@ -14,8 +16,89 @@
         margin-left: -($width/2);
         top: -37px;
     }
+}
+
+.create-robot-form-container {
+    background-color: #333;
+    overflow: hidden;
+}
+
+.create-robot-form {
+
+    [type="text"], textarea {
+        @include transition(box-shadow 120ms ease-out);
+
+        &:focus {
+            outline: 0;
+            box-shadow: inset 0 0 8px rgba(#fff, .6);
+        }
+    }
+
+    &, .input-subtle {
+        font-size: 16px;
+        font-family: 'oswald';
+        color: #ddd;
+    }
+
+    .left-col {
+        float: left;
+        width: 133px;
+    }
+
+    .input-subtle {
+        @include box-sizing(border-box);
+        background-color: transparent;
+        width: 100%;
+        max-height: 200px;
+        padding: 10px 16px;
+        resize: none;
+        margin: 0;
+        border-width: 0 0 1px 0;
+        border-color: #000;
+        border-style: solid;
+    }
+
+    .robot-color {
+        background-color: #292929;
+        overflow: hidden;
+    }
+
+    .robot-color-preview {
+        @include create-robot-sprite('robot-mask', $dimensions: true);
+        background-color: green;
+        margin: 28px auto 25px auto;
+    }
+
+    .robot-color-picker-container {
+        background: top repeat-x url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAABCAYAAAD0In+KAAAAD0lEQVQIW2NkYGD4D8SMAAUOAQLvceuwAAAAAElFTkSuQmCC');
+    }
+
+    .robot-public {
+        border-top: 1px solid #000;
+        text-transform: uppercase;
+        padding: 14px;
+
+        label, input {
+            cursor: pointer;
+        }
+        label {
+            padding-left: 5px;
+        }
+        input {
+            vertical-align: 3px;
+        }
+    }
+
+    .form-col {
+        float: left;
+    }
 
     .editor {
+        border-left: 1px solid #000;
+        width: 468px;
+    }
+
+    .form-col, .editor .CodeMirror-scroll {
         height: 476px;
 
         &.error {
@@ -24,9 +107,122 @@
     }
 
     .board {
-        width: 480px;
-        height: 480px;
+        width: 338px;
+        border: 0;
         margin-top: 0;
+        border-radius: 0;
+    }
+
+    .buttons-bar {
+        text-align: center;
+        padding-top: 10px;
     }
 }
 
+/* color picker styles */
+.sp-top {
+    position: relative;
+    width: 100%;
+    display: inline-block;
+    margin-bottom: 8px;
+}
+.sp-picker-container {
+    position: relative;
+    margin: 22px 19px 20px 19px;
+    width: 95px;
+}
+.sp-sat, .sp-val {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+.sp-sat {
+    @include background-image(linear-gradient(left, #fff, rgba(204, 154, 129, 0)));
+}
+.sp-val {
+    @include background-image(linear-gradient(bottom, #000, rgba(204, 154, 129, 0)));
+}
+.sp-color {
+    border: 1px solid #1b1b1b;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 20%;
+}
+.sp-container, .sp-container button, .sp-container input, .sp-color, .sp-hue, .sp-input {
+    @include box-sizing(border-box);
+}
+.sp-fill {
+    padding-top: 80%;
+}
+.sp-dragger {
+   border-radius: 5px;
+   height: 5px;
+   width: 5px;
+   border: 1px solid #fff;
+   background: #000;
+   cursor: pointer;
+   position: absolute;
+   top: 0;
+   left: 0;
+}
+.sp-hue {
+    @include background-image(linear-gradient(top, #ff0000 0%, #ffff00 17%, #00ff00 33%, #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%));
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 90%;
+    height: 100%;
+    border: 1px solid #1B1B1B;
+}
+.sp-slider {
+    position: absolute;
+    top: 0;
+    cursor: pointer;
+    height: 3px;
+    left: -1px;
+    right: -1px;
+    border: 1px solid transparent;
+
+    &:before, &:after {
+        content: '';
+        width: 0;
+        height: 0;
+        position: absolute;
+        top: -2px;
+        border-style: solid;
+        border-width: 3px 6px;
+        border-color: transparent;
+    }
+
+    &:before {
+        border-left-color: #bebebe;
+        left: -6px;
+    }
+
+    &:after {
+        border-right-color: #bebebe;
+        right: -6px;
+    }
+}
+.sp-input {
+    background-color: #1f1f1f;
+    width: 100%;
+    box-shadow: inset 0 0 3px #1a1a1a;
+    color: #ddd;
+    border: 0;
+    padding: 7px 11px;
+    margin: 0;
+}
+
+.sp-container.sp-buttons-disabled .sp-button-container,
+.sp-container.sp-input-disabled .sp-input-container,
+.sp-palette-only .sp-picker-container,
+.sp-palette-disabled .sp-palette-container,
+.sp-initial-disabled .sp-initial {
+    display: none;
+}

@@ -10,30 +10,40 @@
         <div class="header-subtitle">just type and watch the preview to the right</div>
     </div>
 
-    <form id="robo-code-form" method="POST" action="">
+    <form id="robo-code-form" class="create-robot-form" method="POST" action="">
         <div class="row">
-            <div class="span7">
+            <div class="span12">
+                <div class="create-robot-form-container">
+                    <div class="left-col form-col">
+                        <input type="hidden" class="code" name="code">
+                        <% if (locals.update) {%>
+                            <input type="hidden" name="_method" value="put">
+                        <%} %>
+                        <textarea name="title" class="input-subtle" require="required"
+                            placeholder="ENTER YOUR ROBOT'S NAME" <% if (locals.robotTitle) { %> value="<%= robotTitle %>" <% } %>></textarea>
 
-                <input type="hidden" class="code" name="code">
-                <% if (locals.update) {%>
-                    <input type="hidden" name="_method" value="put">
-                <%} %>
-                <input name="title" id="title" type="text" require="required" placeholder="The name of your Robot!" <% if(locals.robotTitle){ %> value="<%= robotTitle %>" <% } %>>
+                        <div class="robot-color">
+                            <div class="robot-color-preview js-color-picker-preview">
+                            </div>
+                            <div class="robot-color-picker-container js-color-picker">
+                            </div>
+                        </div>
 
-                <label for="public">public</label>
-                <input name="public" id="public" type="checkbox" <% if(public){ %> checked="checked" <% } %> <% if(locals.update) {%> disabled="disabled" <% } %>>
-
-                <div class="editor"></div>
-            </div>
-
-            <div class="span5">
-                <div class="board-container">
-                    <div class="board"></div>
+                        <div class="robot-public">
+                            <input name="public" id="public" type="checkbox"
+                                <% if (public) { %> checked="checked" <% } %> <% if (locals.update) {%> disabled="disabled" <% } %>>
+                            <label for="public">public</label>
+                        </div>
+                    </div>
+                    <div class="editor form-col"></div>
+                    <div class="board-container form-col"><div class="board"></div></div>
                 </div>
             </div>
         </div>
 
-        <button class="btn" id="submit-btn">SAVE ROBOT</button>
+        <div class="buttons-bar">
+            <button class="btn" id="submit-btn">SAVE ROBOT</button>
+        </div>
     </form>
 </div>
 
@@ -41,23 +51,23 @@
 <script type="robot/script" id="default-code">
 //FightCode can only understand your robot
 //if its class is called Robot
-var Robot = function(robot){
-  
+var Robot = function(robot) {
+
 };
 
 Robot.prototype.onIdle = function(ev) {
-  var robot = ev.robot;
-  robot.ahead(100);
-  robot.rotateCannon(360);
-  robot.back(100);
-  robot.rotateCannon(360);
-  
+    var robot = ev.robot;
+    robot.ahead(100);
+    robot.rotateCannon(360);
+    robot.back(100);
+    robot.rotateCannon(360);
+
 };
 
 Robot.prototype.onScannedRobot = function(ev) {
-var robot = ev.robot;
-  robot.fire();
-  
+    var robot = ev.robot;
+    robot.fire();
+
 };
 
 </script>
@@ -74,6 +84,7 @@ Robot.prototype.onIdle = function(ev) {
 };
 </script>
 <script>
+
     var duckCode = $('#duck-code').html();
     var container = $('.board-container');
     var startFight = function(code) {
@@ -97,7 +108,33 @@ Robot.prototype.onIdle = function(ev) {
         var arena = new FightArena(container, [player, duck], null, options);
     };
 
-    $(function() {
+    (function colorPicker() {
+
+        var createUpdatePreviewHandler = function(preview) {
+            return function(color) {
+                preview.css(preview.data('color-picker-property') || 'background-color', color.toHexString());
+            }
+        };
+
+        $('.js-color-picker').each(function(i, el) {
+            el = $(el);
+            var preview = $(el.data('color-picker-preview') || '.js-color-picker-preview');
+
+            el.spectrum({
+                color: '#000',
+                flat: true,
+                showInput: true,
+                showInitial: false,
+                showAlpha: false,
+                showButtons: false,
+                move: createUpdatePreviewHandler(preview),
+                change: createUpdatePreviewHandler(preview)
+            });
+        });
+
+    }());
+
+    (function() {
         var editor = $('.editor')[0];
         var board = $('.board'),
             submitButton = $('#submit-btn');
@@ -146,10 +183,10 @@ Robot.prototype.onIdle = function(ev) {
         startFight(code);
 
         submitButton.bind('click', function(ev) {
-            var form = $('robo-code-form');
+            var form = $('#robo-code-form');
             $('.code').val(codeMirror.getValue());
             form.submit();
         });
-    });
+    }());
 </script>
 <% include footer.ejs %>
