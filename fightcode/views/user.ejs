@@ -162,35 +162,35 @@
             </div>
 
             <ul class="combats">
-                <% for (var i=0; i<3; i++) { %>
+                <% for (var i=0; i<lastFights.length; i++) { %>
                 <li>
                     <div class="combat">
                         <div class="left">
                             <div class="player">
-                                <img src="<%= user.photo(134) %>" />
+                                <img src="<%=: last_fights[i][0].email | gravatar_url:134 %>" />
                                 <div class="robot-circle"></div>
                             </div>
                             <div class="robot"></div>
                             <div class="info">
-                                <div class="name">The Crazy Destroyer</div>
-                                <div class="ranking"># 1</div>
+                                <div class="name"><%= last_fights[i][0].title %></div>
+                                <div class="ranking"># <%= last_fights[i][0].row_number %></div>
                             </div>
                         </div>
                         <div class="divider"></div>
                         <div class="right">
                             <div class="player">
-                                <img src="<%= user.photo(134) %>" />
+                                <img src="<%=: last_fights[i][1].email | gravatar_url:134 %>" />
                                 <div class="robot-circle"></div>
                             </div>
                             <div class="robot"></div>
                             <div class="info">
-                                <div class="name">The Crazy Destroyer</div>
-                                <div class="ranking"># 1</div>
+                                <div class="name"><%= last_fights[i][1].title %></div>
+                                <div class="ranking"># <%= last_fights[i][1].row_number %></div>
                             </div>
                         </div>
                     </div>
                 </li>
-            <% } %>
+                <% } %>
             </ul>
         </div>
     </div>
