@@ -6,12 +6,14 @@ require('nodetime').profile({
 var cluster = require('cluster'),
     http = require('http'),
     numCPUs = require('os').cpus().length,
-    app = require('./app');
+    app = require('./app'),
+    processes = Math.floor(numCPUs / 2);
+
 
 if (cluster.isMaster) {
-    console.log("Using " + numCPUs + "CPU(s)");
+    console.log("Using " + processes + " processes");
     // Fork workers.
-    for (var i = 0; i < numCPUs; i++) {
+    for (var i = 0; i < processes; i++) {
         cluster.fork();
     }
 
