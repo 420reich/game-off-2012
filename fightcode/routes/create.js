@@ -146,6 +146,9 @@ exports.fork = function(req, res) {
       gist: gistId
     }
   }).success(function(robot) {
+    console.log(robot.is_public);
+    console.log(robot.user_id);
+    console.log(req.user.id);
     if (robot.is_public && !(robot.user_id === req.user.id)) {
       return github.gists.fork({
         id: gistId

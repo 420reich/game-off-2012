@@ -29,7 +29,7 @@
                         <span class="actions">
                             <a href="/robots/fight/<%= robotRank[i].rank[x].id %>" class="fight">FIGHT</a>
                             <% if (robotRank[i].rank[x].isPublic) {%>
-                                <a href="/fork/<%= robotRank[i].rank[x].id %>" class="fork">FORK</a>
+                                <a href="/robots/fork/<%= robotRank[i].rank[x].gist %>" class="fork">FORK</a>
                             <% }else{ %>
                                 <span class="fork disabled">FORK</span>
                             <% } %>

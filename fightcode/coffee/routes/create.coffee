@@ -90,12 +90,14 @@ exports.update = (req, res) ->
     )
 
 exports.fork = (req, res) ->
-
     gistId = req.params.robot_id
     github = new GithubApi version: '3.0.0'
     github.authenticate type: 'oauth', token: req.user.token
 
     Robot.find(where: gist: gistId).success((robot) ->
+        console.log(robot.is_public)
+        console.log(robot.user_id)
+        console.log(req.user.id)
         if (robot.is_public and !(robot.user_id == req.user.id))
             github.gists.fork id: gistId, (err, githubResponse) ->
                 robotFork = Robot.build(
