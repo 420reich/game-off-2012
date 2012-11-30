@@ -42,7 +42,6 @@ var sequelize = require(path.join(configPath, 'database')),
 passport.serializeUser(function(user, done) {
     var profile = user.profile;
     var token = user.accessToken;
-    //console.log("PROFILE >>>>>>>> ", profile);
 
     var email = profile.email;
     if (!email && profile.emails && profile.emails.length > 0) {
@@ -57,7 +56,7 @@ passport.serializeUser(function(user, done) {
                 token: token,
                 email: email,
                 login: profile.username,
-                name: profile.displayName,
+                name: profile.displayName || profile.username,
                 githubId: profile.id
             }).success(function(newUser){
                 done(null, newUser.id);
@@ -99,7 +98,7 @@ app.configure(function(){
     app.set('port', process.env.PORT || 3000);
     app.set('views', viewsPath);
     app.set('view engine', 'ejs');
-    app.use(express.favicon());
+    app.use(express.favicon(path.join(process.env.CWD, 'fightcode', 'static', 'favicon.ico')));
     app.use(express.logger('dev'));
     app.use(express.bodyParser());
     app.use(express.methodOverride());
