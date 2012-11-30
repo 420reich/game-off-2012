@@ -1529,9 +1529,6 @@ code, pre {
   height: 500px;
 }
 
-.create-robot {
-  padding-bottom: 80px;
-}
 .create-robot .header-icon {
   background-position: 0 -72px;
   height: 68px;
@@ -1648,6 +1645,10 @@ code, pre {
   margin-bottom: 20px;
   margin-top: 40px;
 }
+.docs li {
+  list-style-type: circle;
+  margin: 10px 0 10px 30px;
+}
 .docs p {
   font-family: arial;
   font-size: 16px;
@@ -1669,6 +1670,10 @@ code, pre {
 .docs .code-sample .CodeMirror-scroll {
   height: auto;
   overflow: visible;
+}
+
+.comments {
+  margin: 40px 0;
 }
 
 /* color picker styles */

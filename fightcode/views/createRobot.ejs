@@ -284,9 +284,17 @@ Robot.prototype.onWallCollision = function(ev) {
         </div>
 
         <h3>onScannedRobot</h3>
-        <p>This event will be called whenever you see another robot.</p>
-        <p>It's a very important event since it's usually when you want to
+        <p>This event will be called whenever you see another robot.
+        It's a very important event since it's usually when you want to
         fire.</p>
+        <p>This can happen due to a number of things:</p>
+            <ul>
+                <li>A robot passed in front of your cannon;</li>
+                <li>You turned your cannon and it found a robot;</li>
+                <li>You turned your robot (and the cannon with it) and it found a robot;</li>
+                <li>You moved and your cannon found a robot.</li>
+            </ul>
+
         <p>We can implement it as so:</p>
 
         <div class="editor code-sample">
@@ -324,73 +332,62 @@ Robot.prototype.onScannedRobot = function(ev) {
     }
 }
         </div>
+
+        <h3>onHitByBullet</h3>
+        <p>This event will be called whenever a bullet hits your robot.</p>
+
+        <p>We can implement it as so:</p>
+
+        <div class="editor code-sample">
+function Robot() {}
+
+Robot.prototype.onIdle = function(ev) {
+    // do something
+};
+
+Robot.prototype.onHitByBullet = function(ev) {
+    var robot = ev.robot;
+    robot.turn(ev.bearing); // Turn to wherever the bullet was fired
+                            // so we can see who shot it
+};
+        </div>
+
+        <p>The object that this function takes as argument is pretty similar to
+        the onIdle function with this added properties:</p>
+
+        <div class="editor code-sample is-json">
+{
+    robot: {
+        // Same as onIdle
+    },
+    bearing     // angle that the bullet came from relative
+                // to my tank's angle
+}
+        </div>
+
+        <h3>I still have doubts!!!</h3>
+        <p>If you still have doubts, feel free to comment below and we'll do
+        our best to answer every single question.</p>
+    </div>
+
+    <div class="container">
+        <div class="comments">
+            <div class="fb-comments"
+            data-href="http://fightcodegame.com<%=req.url%>" data-width="940" data-num-posts="50" data-colorscheme="dark"></div>
+        </div>
     </div>
 </div>
 
-
-
-    <div class="row">
-        <div class="span5">
-            <p class="lead">onScannedRobot</p>
-            <p>This method will be called any time your robot sees another robot in front of its cannon.</p>
-            <p>This can happen due to a number of things:</p>
-            <ul>
-                <li>A robot passed in front of your cannon;</li>
-                <li>You turned your cannon and it found a robot;</li>
-                <li>You turned your robot (and the cannon with it) and it found a robot;</li>
-                <li>You moved and your cannon found a robot.</li>
-            </ul>
-            <p>This method takes an event object that is featured in the code to the right.</p>
-        </div>
-        <div class="span7">
-            <pre><code class="language-javascript">
-    // yay we see another robot! time to wreak some havoc...
-    MyRobot.prototype.onScannedRobot = function(ev) {
-    var robot;
-    robot = ev.robot;
-    robot.fire(1);
-    };
-
-    // the ev argument has the following structure
-    ev = {
-    robot: object         // used to call actions
-                          // for my robot or to get
-                          // informations about it
-    };
-            </code></pre>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="span5">
-            <p class="lead">onHitByBullet</p>
-            <p>This method will be called any time your robot is hit by an enemy bullet.</p>
-            <p>This method takes an event object that is featured in the code to the right.</p>
-        </div>
-        <div class="span7">
-            <pre><code class="language-javascript">
-    // ohhh... we were hit by another robot...
-    MyRobot.prototype.onHitByBullet = function(ev) {
-    var robot;
-    robot = ev.robot;
-    robot.turn(90 - ev.bulletBearing);
-    };
-
-    // the ev argument has the following structure
-    ev = {
-    robot: object,        // used to call actions
-                          // for my robot or to get
-                          // informations about it
-
-     bulletBearing: angle // angle of the bullet in
-                          // relation to my robot
-    };
-            </code></pre>
-        </div>
-    </div>
-
-
 <% include scripts.ejs %>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=388555411225750";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
 <script type="robot/script" id="default-code">
 //FightCode can only understand your robot
 //if its class is called Robot
