@@ -76,7 +76,7 @@ exports.update = (req, res) ->
             'robot.js':
                 'content': code
 
-    req.user.getRobots(where: gist: gistId).success((robot) ->
+    req.user.getRobots(where: gist: gistId).success((robots) ->
         return res.redirect('/') unless robots.length > 0
         robot = robots[0]
         robot.title = title
