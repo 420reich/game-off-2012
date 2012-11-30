@@ -114,11 +114,15 @@
                                 <div class="user-chart"
                                     data-chart-values="
                                         [
-                                        
+
                                             ['Timestamp', 'Score']
-                                            <% histories[robots[i].id].forEach(function(history) { %>
-                                                ,['<%= history.ts %>', <%= history.score %>]
-                                            <% }); %>
+                                            <% if (histories[robots[i].id]) {%>
+                                                <% histories[robots[i].id].forEach(function(history) { %>
+                                                    ,['<%= history.ts %>', <%= history.score %>]
+                                                <% }); %>
+                                            <% } else {%>
+                                                ['0','0']
+                                            <%} %>
                                         ]
                                     "></div>
                                 <div class="label">SCORE OVER TIME</div>
