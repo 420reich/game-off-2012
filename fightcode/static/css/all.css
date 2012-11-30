@@ -1634,6 +1634,43 @@ code, pre {
   padding-top: 10px;
 }
 
+.docs {
+  color: #ddd;
+}
+.docs header {
+  padding-top: 0;
+}
+.docs h3 {
+  font-family: "oswald-bold";
+  font-size: 24px;
+  border-bottom: solid 2px #333;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  margin-top: 40px;
+}
+.docs p {
+  font-family: arial;
+  font-size: 16px;
+  line-height: 23px;
+}
+.docs p a {
+  font-weight: bold;
+  text-decoration: none;
+  color: #ddd;
+  opacity: 0.8;
+}
+.docs p a:hover {
+  opacity: 0.99;
+}
+.docs .code-sample {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.docs .code-sample .CodeMirror-scroll {
+  height: auto;
+  overflow: visible;
+}
+
 /* color picker styles */
 .sp-top {
   position: relative;

@@ -33,6 +33,7 @@ module.exports = function(grunt) {
             'fightcode/static/js/jquery-1.8.2.min.js',
             'fightcode/static/js/prism.js',
             'fightcode/static/js/codemirror.js',
+            'fightcode/static/js/runmode.js',
             'fightcode/static/js/coffeescript.js',
             'fightcode/static/js/javascript.js',
             'fightcode/static/js/jquery.simplemodal-1.4.3.js',

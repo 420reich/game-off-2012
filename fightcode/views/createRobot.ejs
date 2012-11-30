@@ -7,7 +7,8 @@
         <div class="header-title">
             <h1>let’s code a robot?</h1>
         </div>
-        <div class="header-subtitle">just type and watch the preview to the right</div>
+        <div class="header-subtitle">you can watch the preview to the right and
+        read docs below</div>
     </div>
 
     <form id="robo-code-form" class="create-robot-form" method="POST" action="">
@@ -46,22 +47,31 @@
             <button class="btn" id="submit-btn">SAVE ROBOT</button>
         </div>
     </form>
-</div>
 
-<div class="row">
-        <div class="span5">
-            <p>FightCode is free and you can create as many robots as you'd like.</p>
-            <p>This is the work of <a href="http://github.com/heynemann">Bernardo Heynemann</a>, <a href="http://github.com/cezarsa">Cezar Sá</a>, <a href="http://github.com/guilhermef">Guilherme Souza</a>, <a href="http://github.com/rafaelcaricio">Rafael Carício</a>,  <a href="http://github.com/fabiomcosta">Fabio Costa</a> and Marcela. It started as an entry for the <a href="https://github.com/github/game-off-2012">Github Game-Off contest 2012</a>.</p>
-            <p>Coding robots is pretty easy and should be natural if you've ever done any javascript.</p>
-            <p>The robot described here is not exactly a champion, but it should be enough to showcase some of the stuff available to players.</p>
+    <div class="docs container">
+        <a name="docs"></a>
+        <div class="header">
+            <div class="header-title">
+                <h1>How to write my robot?</h1>
+            </div>
+            <div class="header-subtitle">keep reading to know more about our
+            javascript robotic API</div>
         </div>
-        <div class="span7">
-            <pre><code class="language-javascript">
-    function SampleRobot() {}
 
-    // well, we need to do something...
-    // whenever our robot is idle, this method gets called.
-    SampleRobot.prototype.onIdle = function(ev) {
+        <h3>Introduction</h3>
+        <p><a href="/">fightcodegame.com</a> is a free to play game and you can
+        create as many robots as you'd like.</p>
+        <p>The game has been made as an experiment and we ask you to not try
+        and break things, since they'll probably break.</p>
+        <p>Coding your robots is very easy and should be natural if you've ever
+        had any Javascript experience.</p>
+        <p>Let's see an example of a very simple robot:</p>
+        <div class="editor code-sample">
+function Robot(robot) {}
+
+// well, we need to do something...
+// whenever our robot is idle, this method gets called.
+Robot.prototype.onIdle = function(ev) {
     var robot;
     robot = ev.robot;
     robot.ahead(150);
@@ -69,141 +79,255 @@
     robot.back(100);
     robot.rotateCannon(360);
     robot.turn(20);
-    };
+};
 
-    // this method gets called whenever we hit another robot...
-    SampleRobot.prototype.onRobotCollision = function(ev) {};
+// this method gets called whenever we hit another robot...
+Robot.prototype.onRobotCollision = function(ev) {};
 
-    // this method gets called whenever we hit a wall...
-    SampleRobot.prototype.onWallCollision = function(ev) {};
+// this method gets called whenever we hit a wall...
+Robot.prototype.onWallCollision = function(ev) {};
 
-    // yay we see another robot! time to wreak some havoc...
-    SampleRobot.prototype.onScannedRobot = function(ev) {
+// yay we see another robot! time to wreak some havoc...
+Robot.prototype.onScannedRobot = function(ev) {
     var robot;
     robot = ev.robot;
     robot.fire(1);
-    };
+};
 
-    // ohhh... we were hit by another robot...
-    SampleRobot.prototype.onHitByBullet = function(ev) {
+// ohhh... we were hit by another robot...
+Robot.prototype.onHitByBullet = function(ev) {
     var robot;
-    console.log('onHitByBullet', ev);
     robot = ev.robot;
     robot.turn(90 - ev.bulletBearing);
-    };
-            </code></pre>
+};
         </div>
-    </div>
 
-    <div class="row">
-        <div class="span12">
-            <h1>Documentation</h1>
-            <p class="lead">Robot Actions</p>
-            <p>It is important to understand how robots interact with the game, FightCode provides you with an action queue that you can put items in.</p>
-            <p>Whenever you call one of the actions available to your robot, one or more items get put in the queue.</p>
-            <p>FightCode uses this queue to synchronize your robot's actions with the other events in the game.</p>
+        <p>There's a bunch of methods in there that you probably don't quite
+        understand yet, but we'll see more about them in a minute.</p>
 
-        </div>
-    </div>
+        <h3>Robot Structure</h3>
+        <p>Your robot is just a plain old <a
+        href="http://pivotallabs.com/users/pjaros/blog/articles/1368-javascript-constructors-prototypes-and-the-new-keyword">Javascript
+        constructor function</a>.
+        fightcode will use your constructor function to create the instance
+        that will fight against other robots.</p>
+        <p>This is the simples possible robot you can build (it doesn't do
+        much, though):</p>
+        <div class="editor code-sample">
+function Robot() {}
 
-    <div class="row">
-        <div class="span5">
-            <p class="lead">Basic structure</p>
-            <p>The robot basic structure is just a regular javascript constructor function.</p>
+Robot.prototype.onIdle = function(ev) { };
         </div>
-        <div class="span7">
-            <pre><code class="language-javascript">
-    // pretty simple, huh?
-    function MyRobot() {}
-            </code></pre>
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="span5">
-            <p class="lead">onIdle</p>
-            <p>This method will be called any time your robot does not have any actions in the action queue.</p>
-            <p>This method takes an event object that is featured in the code to the right.</p>
+        <h3>OnIdle Function</h3>
+ 
+        <p>The onIdle function is your robot
+        <a href="http://en.wikipedia.org/wiki/Game_programming">game loop</a>. fightcode will call it every time your robot
+        runs out of actions to do.</p>
+
+        <p>You can use it to run, turn, shoot or anything your robot can do. We
+        can implement it with: </p>
+        <div class="editor code-sample">
+function Robot() {}
+
+Robot.prototype.onIdle = function(ev) {
+    var robot = ev.robot;
+    robot.turn(90); // keep turning 90 degrees when idle
+};
         </div>
-        <div class="span7">
-            <pre><code class="language-javascript">
-    // well, we need to do something...
-    // whenever our robot is idle, this method gets called.
-    MyRobot.prototype.onIdle = function(ev) {
-    var robot;
-    robot = ev.robot;
-    robot.ahead(150);
-    robot.rotateCannon(360);
-    robot.back(100);
-    robot.rotateCannon(360);
+
+        <p>onIdle is a function that takes one argument called ev. The
+        structure of ev is this:</p>
+        <div class="editor code-sample is-json">
+{
+    robot: {
+        // INFORMATION ON THE CURRENT GAME
+        id,                    // Id of your robot
+        angle,                 // Current angle of your robot in degrees
+        cannonRelativeAngle,   // Current angle of your cannon
+                               // relative to your robot
+        cannonAbsoluteAngle,   // Current angle of your cannon
+                               // relative to the board
+        position: {
+            x,                 // X position in the board of your robot
+            y                  // Y position in the board of your robot
+        },
+        life,                  // Percentage of the life of your robot
+        gunCoolDownTime,       // Time remaining in the cooldown of your
+                               // cannon after shooting
+        availableClones,       // Number of available clones you can use
+        parentId,              // In the case of being a clone, the id
+                               // of your parent element. null otherwise
+        arenaWidth,            // Width of the board
+        arenaHeight            // Height of the board
+
+        // AVAILABLE ACTIONS
+
+        // Moves the given amount ahead
+        ahead: function(amount),
+
+        // Moves the given amount backwards
+        back: function(amount),
+
+        // Rotates your cannon angle by the specified number of degrees
+        rotateCannon: function(amount),
+
+        // Rotates your robot the by the specified number of degrees
+        turn: function(amount),
+
+        // Fires your cannon. This functin has a cooldown before you can
+        // use it again.
+        fire: function(),
+
+        // Subscribe to get notified whenever this action gets called
+        // in the queue.
+        notify: function(callback),
+
+        // Removes all remaining actions your robot has from the queue
+        stop: function(),
+
+        // Clones your robot into another robot and can only be used once
+        // per fight. Remember to check the parentId property to stop
+        // your clone from shooting you.
+        clone: function(),
+
+        // Stops your robot from listening a given event (onWallColision,
+        // for instance).
+        ignore: function(eventName),
+
+        // Starts listening a given event (onWallColision, for instance).
+        listen: function(eventName)
+    }
+}
+        </div>
+        <p>The information available in this object is the base for all other
+        events. In the other event's we'll only document their additional
+        properties.</p>
+        <p>Your constructor function receives just the "robot" key present in
+        the above object. This means that in your constructor you don't need to
+        assign ev.robot to a variable.</p>
+
+        <h3>onRobotCollision</h3>
+        <p>This event will be called whenever your robot hits another robot.</p>
+        <p>We can implement it as so:</p>
+
+        <div class="editor code-sample">
+function Robot() {}
+
+Robot.prototype.onIdle = function(ev) {
+    // do something
+};
+
+Robot.prototype.onRobotCollision= function(ev) {
+    var robot = ev.robot;
     robot.turn(20);
-    };
+    robot.ahead(100); // trying to run away
+};
+        </div>
 
-    // the ev argument has the following structure
-    ev = {
-    robot: object,        // used to call actions
-                          // for my robot or to get
-                          // informations about it
-    };
-            </code></pre>
+        <p>The object that this function takes as argument is pretty similar to
+        the onIdle function with this added properties:</p>
+
+        <div class="editor code-sample is-json">
+{
+    robot: {
+        // Same as onIdle
+    },
+    bearing,            // Degrees that the other robot relative to my robot
+                        // this property can vary from -180 to 180 degrees
+    collidedRobot: {    // Information on the robot that collided with mine
+        id,             // Id of the robot
+        position: {
+            x,          // X position of the other robot relative to the board
+            y           // Y position of the other robot relative to the board
+        },
+        angle,          // Angle of the other robot
+        cannonAngle,    // Cannon angle relative to the other robot
+        life,           // Percentage of life of the other robot
+        parentId        // If this is a clone, the clone's parent id.
+                        // null otherwise
+    },
+    myFault             // Boolean value that indicates whether I hit the other
+                        // robot or he hit me
+}
+        </div>
+
+        <h3>onWallCollision</h3>
+        <p>This event will be called whenever your robot hits a wall.</p>
+        <p>We can implement it as so:</p>
+
+        <div class="editor code-sample">
+function Robot() {}
+
+Robot.prototype.onIdle = function(ev) {
+    // do something
+};
+
+Robot.prototype.onWallCollision = function(ev) {
+    var robot = ev.robot;
+    robot.turn(ev.bearing); // turn enought to be in a straight
+                            // angle with the wall.
+};
+        </div>
+
+        <p>The object that this function takes as argument is pretty similar to
+        the onIdle function with this added properties:</p>
+
+        <div class="editor code-sample is-json">
+{
+    robot: {
+        // Same as onIdle
+    },
+    bearing            // Degrees of the wall relative to my robot
+                       // this property can vary from -180 to 180 degrees
+}
+        </div>
+
+        <h3>onScannedRobot</h3>
+        <p>This event will be called whenever you see another robot.</p>
+        <p>It's a very important event since it's usually when you want to
+        fire.</p>
+        <p>We can implement it as so:</p>
+
+        <div class="editor code-sample">
+function Robot() {}
+
+Robot.prototype.onIdle = function(ev) {
+    // do something
+};
+
+Robot.prototype.onScannedRobot = function(ev) {
+    var robot = ev.robot;
+    robot.fire(); // YAY!
+};
+        </div>
+
+        <p>The object that this function takes as argument is pretty similar to
+        the onIdle function with this added properties:</p>
+
+        <div class="editor code-sample is-json">
+{
+    robot: {
+        // Same as onIdle
+    },
+    scannedRobot: {
+        id,             // Id of the robot
+        position: {
+            x,          // X position of the other robot relative to the board
+            y           // Y position of the other robot relative to the board
+        },
+        angle,          // Angle of the other robot
+        cannonAngle,    // Cannon angle relative to the other robot
+        life,           // Percentage of life of the other robot
+        parentId        // If this is a clone, the clone's parent id.
+                        // null otherwise
+    }
+}
         </div>
     </div>
+</div>
 
-    <div class="row">
-        <div class="span5">
-            <p class="lead">onRobotCollision</p>
-            <p>This method will be called any time your robot collides with another robot.</p>
-            <p>This method takes an event object that is featured in the code to the right.</p>
-        </div>
-        <div class="span7">
-            <pre><code class="language-javascript">
-    // this method gets called whenever we hit another robot...
-    MyRobot.prototype.onRobotCollision = function(ev) {
-    var robot;
-    robot = ev.robot;
-    robot.rotateCannon(ev.robotBearing);
-    };
 
-    // the ev argument has the following structure
-    ev = {
-    robot: object,        // used to call actions
-                          // for my robot or to get
-                          // informations about it
-
-    robotBearing: angle   // angle of the other robot in
-                          // relation to your robot
-    };
-            </code></pre>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="span5">
-            <p class="lead">onWallCollision</p>
-            <p>This method will be called any time your robot collides with a wall.</p>
-            <p>This method takes an event object that is featured in the code to the right.</p>
-        </div>
-        <div class="span7">
-            <pre><code class="language-javascript">
-    // this method gets called whenever we hit a wall...
-    MyRobot.prototype.onWallCollision = function(ev) {
-    var robot;
-    robot = ev.robot;
-    robot.turn(ev.wallBearing);
-    };
-
-    // the ev argument has the following structure
-    ev = {
-    robot: object,        // used to call actions
-                          // for my robot or to get
-                          // informations about it
-
-    wallBearing: angle    // angle of the wall in relation
-                          // to your robot
-    };
-            </code></pre>
-        </div>
-    </div>
 
     <div class="row">
         <div class="span5">
@@ -415,5 +539,24 @@ Robot.prototype.onIdle = function(ev) {
             form.submit();
         });
     }());
+</script>
+
+<script>
+    $('.code-sample').each(function() {
+        var scriptEl = this;
+        var code = $(scriptEl).html();
+        $(scriptEl).empty();
+        var isJson = $(scriptEl).is('.is-json');
+
+        var codeMirror = CodeMirror(scriptEl, {
+            value: code,
+            mode: { name: "javascript", json: isJson},
+            theme: 'ambiance',
+            height: 500,
+            tabSize: 2,
+            readOnly: true,
+            lineNumbers: true
+        });
+    });
 </script>
 <% include footer.ejs %>
