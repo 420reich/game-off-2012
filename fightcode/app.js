@@ -123,7 +123,9 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-app.get('/fight-test', fight.fightTest);
+if (process.env.NODE_ENV != 'production') {
+    app.get('/fight-test', fight.fightTest);
+}
 app.get('/robots/replay/:fight_id', fight.replayFight);
 app.get('/robots/ranking', checkCredentials, ranking.index);
 app.get('/robots/create', checkCredentials, create.createView);
