@@ -6,8 +6,8 @@ var path = require('path'),
     gravatar = require('gravatar');
 
 module.exports = function(sequelize, DataTypes) {
-    var RobotScoreHistory = sequelize.import(path.join(basePath, 'models', 'RobotScoreHistory'));
-    
+    var RobotScoreHistory = sequelize.import(path.join(basePath, 'models', 'robotScoreHistory'));
+
     var Robot = sequelize.define('Robot', {
         gist: { type: DataTypes.STRING, allowNull: false},
         title: { type: DataTypes.STRING, allowNull: false},
