@@ -429,8 +429,22 @@ Robot.prototype.onIdle = function(ev) {
 <script>
     var duckCode = $('#duck-code').html();
     var container = $('.board-container');
+    var currentCode = null,
+        currentArena = null;
     var startFight = function(code) {
         var color = $('.js-color-picker').spectrum('get').toHex();
+
+        if (!code) {
+            code = currentCode;
+        }
+        if (!code) {
+            return;
+        }
+        currentCode = code;
+
+        if (currentArena) {
+            currentArena.stop();
+        }
 
         var player = {
             name: "player",
@@ -444,14 +458,15 @@ Robot.prototype.onIdle = function(ev) {
         };
 
         var options = {
-            maxRounds: 1000,
+            maxRounds: 10000,
             boardSize: {
                 width: container.width(),
                 height: container.height()
-            }
+            },
+            streaming: true
         };
 
-        var arena = new FightArena(container, [player, duck], null, options);
+        currentArena = new FightArena(container, [player, duck], null, options);
     };
 
     (function colorPicker() {
@@ -464,13 +479,16 @@ Robot.prototype.onIdle = function(ev) {
             }
         };
 
-
         $('.js-color-picker').each(function(i, el) {
             el = $(el);
-            var preview = $(el.data('color-picker-preview') || '.js-color-picker-preview');
-            var color = "<%= locals.robotColor || '#ED0027' %>";
+            var preview = $(el.data('color-picker-preview') || '.js-color-picker-preview'),
+                color = '<% if (locals.robotColor) { %><%= robotColor %><% } else { %><%}%>';
 
+            if (color === '') {
+                color = '#' + Math.floor(Math.random() * Math.pow(2, 24)).toString(16);
+            }
             preview.css(preview.data('color-picker-property') || 'background-color', color);
+
             el.spectrum({
                 color: color,
                 flat: true,

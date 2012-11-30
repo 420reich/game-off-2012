@@ -62,7 +62,14 @@ class Fight
             if evData.maxRounds
                 maxRounds = evData.maxRounds
 
+            @streaming = evData.streaming
             @processFight(robots, maxRounds, boardSize)
+
+    onRoundLog: (roundLog) =>
+        worker.postMessage(
+            type: "stream"
+            roundLog: roundLog
+        )
 
     processFight: (robots, maxRounds, boardSize) ->
         @overrideFunctions()
@@ -73,6 +80,8 @@ class Fight
             robot.constructor = robotConstructor
 
         engine = new Engine(boardSize.width, boardSize.height, maxRounds, @originalFunctions.random, robots...)
+        if @streaming
+            engine.roundLogCallback = @onRoundLog
 
         result = engine.fight()
 

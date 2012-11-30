@@ -15,7 +15,11 @@ do ->
 
 class Game
     constructor: (@board, @result, @options) ->
-        @events = result.result
+        if @result
+            @events = result.result
+            @gameEnded = true
+        else
+            @events = []
 
         @currentRound = 0
         @objects = {}
@@ -23,9 +27,19 @@ class Game
             msPerRound: 100
         }, @options)
 
-    initialize: ->
+    start: ->
         @lastRound = window.mozAnimationStartTime || Date.now()
         requestAnimationFrame(@play)
+
+    end: ->
+        @gameEnded = true
+
+    forceEnd: ->
+        @end()
+        @events = []
+
+    addRound: (roundLog) ->
+        @events.push(roundLog)
 
     createTank: (object) ->
         tank = $('<div class="tank"><div class="body"></div><div class="cannon"></div><div class="life"></div><div class="explosion"></div></div>')
@@ -143,7 +157,7 @@ class Game
                     when 'log'
                         console.log.apply(console, ['ROBOT ' + object.name + ':'].concat(roundEvent.messages))
 
-        hasFinished = rounds + @currentRound >= @events.length
+        hasFinished = rounds + @currentRound >= @events.length and @gameEnded
         @options.onEndGame(@result) if hasFinished and @options.onEndGame
 
         @currentRound += rounds

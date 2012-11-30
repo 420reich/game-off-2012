@@ -114,7 +114,8 @@ exports.update = function(req, res) {
     where: {
       gist: gistId
     }
-  }).success(function(robot) {
+  }).success(function(robots) {
+    var robot;
     if (!(robots.length > 0)) {
       return res.redirect('/');
     }

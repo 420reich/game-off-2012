@@ -38,7 +38,7 @@
                                     <span class="created">created <%=: robots[i].created_at | showAsDate %></span>
                                     <span class="lines"><%= robots[i].linesOfCode %> code lines</span>
                                     <span class="actions">
-                                        <% if (locals.isOnwer) {%>
+                                        <% if (locals.isOwner) {%>
                                             <a href="/robots/update/<%- robots[i].gist %>">edit</a>
                                         <% }else{ %>
                                             <a class="fight" href="/robots/fight/<%- robots[i].id %>">fight</a>

@@ -19,8 +19,17 @@ FightArena = (function() {
         }
       };
     }
+    this.terminated = false;
+    this.worker = null;
+    this.game = null;
     this.startWorker();
   }
+
+  FightArena.prototype.stop = function() {
+    this.terminated = true;
+    this.worker.terminate();
+    return this.game && this.game.forceEnd();
+  };
 
   FightArena.prototype.setRobots = function(robots) {
     return this.robots = robots;
@@ -36,30 +45,49 @@ FightArena = (function() {
       robots: this.robots.length,
       robot1: this.robots[0],
       robot2: this.robots[1],
+      streaming: this.options.streaming,
       maxRounds: this.options.maxRounds,
       boardSize: {
         width: this.options.boardSize.width,
         height: this.options.boardSize.height
       }
     };
+    if (this.options.streaming) {
+      this.startGame();
+    }
     return this.worker.postMessage(eventData);
   };
 
+  FightArena.prototype.startGame = function(data) {
+    var board, boardContainer;
+    if (this.game) {
+      this.game.end();
+      return;
+    }
+    board = this.container.find('.board');
+    board.empty();
+    boardContainer = $('<div></div>');
+    board.append(boardContainer);
+    this.game = new Game(boardContainer, data, {
+      msPerRound: 5
+    });
+    return this.game.start();
+  };
+
   FightArena.prototype.receiveWorkerEvent = function(ev) {
-    var board, boardContainer, evData, game;
+    var evData;
+    if (this.terminated) {
+      return;
+    }
     evData = ev.data;
     if (evData.type === 'log') {
       console.log("LOG", evData.message);
     }
+    if (evData.type === 'stream') {
+      this.game.addRound(evData.roundLog);
+    }
     if (evData.type === 'results') {
-      board = this.container.find('.board');
-      board.empty();
-      boardContainer = $('<div></div>');
-      board.append(boardContainer);
-      game = new Game(boardContainer, evData, {
-        msPerRound: 5
-      });
-      return game.initialize();
+      return this.startGame(evData);
     }
   };
 

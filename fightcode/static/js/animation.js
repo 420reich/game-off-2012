@@ -34,7 +34,12 @@ Game = (function() {
     this.options = options;
     this.play = __bind(this.play, this);
 
-    this.events = result.result;
+    if (this.result) {
+      this.events = result.result;
+      this.gameEnded = true;
+    } else {
+      this.events = [];
+    }
     this.currentRound = 0;
     this.objects = {};
     this.options = $.extend({
@@ -42,9 +47,22 @@ Game = (function() {
     }, this.options);
   }
 
-  Game.prototype.initialize = function() {
+  Game.prototype.start = function() {
     this.lastRound = window.mozAnimationStartTime || Date.now();
     return requestAnimationFrame(this.play);
+  };
+
+  Game.prototype.end = function() {
+    return this.gameEnded = true;
+  };
+
+  Game.prototype.forceEnd = function() {
+    this.end();
+    return this.events = [];
+  };
+
+  Game.prototype.addRound = function(roundLog) {
+    return this.events.push(roundLog);
   };
 
   Game.prototype.createTank = function(object) {
@@ -182,7 +200,7 @@ Game = (function() {
         }
       }
     }
-    hasFinished = rounds + this.currentRound >= this.events.length;
+    hasFinished = rounds + this.currentRound >= this.events.length && this.gameEnded;
     if (hasFinished && this.options.onEndGame) {
       this.options.onEndGame(this.result);
     }

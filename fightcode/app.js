@@ -83,7 +83,8 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new GitHubStrategy({
         clientID: process.env.GITHUB_ID || 'b02ea2e0c17338aee416',
         clientSecret: process.env.GITHUB_SECRET || 'dbd2f9c0c1bcd303aab1745d348cc8e008dd278e',
-        callbackURL: process.env.AUTH_REDIRECT_URL || "http://local.fightcodegame.com:3000/auth/github/callback"
+        callbackURL: process.env.AUTH_REDIRECT_URL || "http://local.fightcodegame.com:3000/auth/github/callback",
+        scope: ['gist']
     },
     function(accessToken, refreshToken, profile, done) {
         return done(null, {
