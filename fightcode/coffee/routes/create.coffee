@@ -95,10 +95,7 @@ exports.fork = (req, res) ->
     github.authenticate type: 'oauth', token: req.user.token
 
     Robot.find(where: gist: gistId).success((robot) ->
-        console.log(robot.is_public)
-        console.log(robot.user_id)
-        console.log(req.user.id)
-        if (robot.is_public and !(robot.user_id == req.user.id))
+        if (robot.isPublic and !(robot.user_id == req.user.id))
             github.gists.fork id: gistId, (err, githubResponse) ->
                 robotFork = Robot.build(
                     ownerLogin: req.user.login,
