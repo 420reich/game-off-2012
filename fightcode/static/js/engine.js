@@ -568,17 +568,33 @@ RobotStatus = (function(_super) {
   };
 
   RobotStatus.prototype.runItem = function() {
-    var angle, direction, item, rad;
+    var angle, direction, item, rad, stopConsuming;
     if (this.gunCoolDownTime > 0) {
       this.gunCoolDownTime--;
     }
     item = this.queue.shift();
-    while (item && item.action === 'log') {
-      this.roundLog.events.push({
-        type: 'log',
-        messages: item.messages,
-        id: this.id
-      });
+    stopConsuming = false;
+    while (item) {
+      switch (item.action) {
+        case 'ignore':
+          this.ignoredEvents[item.eventName] = true;
+          break;
+        case 'listen':
+          delete this.ignoredEvents[item.eventName];
+          break;
+        case 'log':
+          this.roundLog.events.push({
+            type: 'log',
+            messages: item.messages,
+            id: this.id
+          });
+          break;
+        default:
+          stopConsuming = true;
+      }
+      if (stopConsuming) {
+        break;
+      }
       item = this.queue.shift();
     }
     if (!item) {
@@ -629,12 +645,6 @@ RobotStatus = (function(_super) {
         return this.clone();
       case 'notify':
         item.callback && item.callback();
-        break;
-      case 'ignore':
-        this.ignoredEvents[item.eventName] = true;
-        break;
-      case 'listen':
-        delete this.ignoredEvents[item.eventName];
     }
     return null;
   };
@@ -774,10 +784,12 @@ Engine = (function() {
         }
         robotStatus.abortCurrentMovement();
         if (!robotStatus.ignoredEvents['onWallCollision']) {
+          actions.ignore('onWallCollision');
           this.safeCall(robotStatus.robot.instance, 'onWallCollision', {
             robot: actions,
             bearing: bearing
           });
+          actions.listen('onWallCollision');
         }
       }
     }
@@ -829,12 +841,14 @@ Engine = (function() {
           bearing -= 360;
         }
         if (!robotStatus.ignoredEvents[eventName]) {
+          actions.ignore(eventName);
           this.safeCall(robotStatus.robot.instance, eventName, {
             robot: actions,
             bearing: bearing,
             collidedRobot: isEnemyRobot ? this.basicEnemyInfo(status) : null,
             myFault: !!isEnemyRobot
           });
+          actions.listen(eventName);
         }
         if (isEnemyRobot) {
           status.addAccidentalCollision(robotStatus);
@@ -846,12 +860,14 @@ Engine = (function() {
           if (bearing > 180) {
             bearing -= 360;
           }
+          actions.ignore(eventName);
           this.safeCall(robotStatus.robot.instance, eventName, {
             robot: actions,
             bearing: bearing,
             collidedRobot: this.basicEnemyInfo(status),
             myFault: false
           });
+          actions.listen(eventName);
         }
       }
     }
@@ -894,10 +910,12 @@ Engine = (function() {
     }
     if (robotInSight) {
       robotStatus.preventScan();
+      actions.ignore('onScannedRobot');
       this.safeCall(robotStatus.robot.instance, 'onScannedRobot', {
         robot: actions,
         scannedRobot: this.basicEnemyInfo(robotInSight)
       });
+      actions.listen('onScannedRobot');
       this.roundLog.events.push({
         type: 'onScannedRobot',
         id: robotStatus.id

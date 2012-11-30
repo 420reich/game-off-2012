@@ -50,7 +50,12 @@ IconPainter =
         [l, a, b]
 
     HexToRGB: (hex) ->
-        hex = parseInt(((if (hex.indexOf("#") > -1) then hex.substring(1) else hex)), 16)
+        hex = if (hex.indexOf("#") > -1) then hex.substring(1) else hex
+        if hex.length == 3
+            hex = hex.split('').reduce((a, b) ->
+                return a + b + b
+            , '')
+        hex = parseInt(hex, 16)
         r: hex >> 16
         g: (hex & 0x00FF00) >> 8
         b: (hex & 0x0000FF)

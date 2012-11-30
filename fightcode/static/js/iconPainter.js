@@ -57,7 +57,13 @@ IconPainter = {
     return [l, a, b];
   },
   HexToRGB: function(hex) {
-    hex = parseInt((hex.indexOf("#") > -1 ? hex.substring(1) : hex), 16);
+    hex = hex.indexOf("#") > -1 ? hex.substring(1) : hex;
+    if (hex.length === 3) {
+      hex = hex.split('').reduce(function(a, b) {
+        return a + b + b;
+      }, '');
+    }
+    hex = parseInt(hex, 16);
     return {
       r: hex >> 16,
       g: (hex & 0x00FF00) >> 8,

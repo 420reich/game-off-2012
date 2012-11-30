@@ -416,12 +416,29 @@ class RobotStatus extends ElementStatus
         @gunCoolDownTime-- if @gunCoolDownTime > 0
 
         item = @queue.shift()
-        while item and item.action == 'log'
-            @roundLog.events.push({
-                type: 'log',
-                messages: item.messages,
-                id: @id
-            })
+
+        stopConsuming = false
+        while item
+            switch item.action
+                when 'ignore'
+                    @ignoredEvents[item.eventName] = true
+
+                when 'listen'
+                    delete @ignoredEvents[item.eventName]
+
+                when 'log'
+                    @roundLog.events.push({
+                        type: 'log',
+                        messages: item.messages,
+                        id: @id
+                    })
+
+                else
+                    stopConsuming = true
+
+            if stopConsuming
+                break
+
             item = @queue.shift()
 
         return unless item
@@ -468,12 +485,6 @@ class RobotStatus extends ElementStatus
 
             when 'notify'
                 item.callback and item.callback()
-
-            when 'ignore'
-                @ignoredEvents[item.eventName] = true
-
-            when 'listen'
-                delete @ignoredEvents[item.eventName]
 
         null
 
@@ -566,7 +577,9 @@ class Engine
                 bearing -= 360 if bearing > 180
                 robotStatus.abortCurrentMovement()
                 unless robotStatus.ignoredEvents['onWallCollision']
+                    actions.ignore('onWallCollision')
                     @safeCall(robotStatus.robot.instance, 'onWallCollision', {robot: actions, bearing: bearing})
+                    actions.listen('onWallCollision')
 
         return actions if robotStatus instanceof BulletStatus
 
@@ -606,12 +619,14 @@ class Engine
 
                 bearing -= 360 if bearing > 180
                 unless robotStatus.ignoredEvents[eventName]
+                    actions.ignore(eventName)
                     @safeCall(robotStatus.robot.instance, eventName, {
                         robot: actions
                         bearing: bearing
                         collidedRobot: if isEnemyRobot then @basicEnemyInfo(status) else null
                         myFault: !!isEnemyRobot
                     })
+                    actions.listen(eventName)
                 status.addAccidentalCollision(robotStatus) if isEnemyRobot
 
             else if isEnemyRobot and accidentalCollisions[status.id]
@@ -620,12 +635,14 @@ class Engine
                     bearing = normalizeAngle((Math.atan2(vec.y, vec.x) * 180 / Math.PI) - robotStatus.rectangle.angle)
                     bearing -= 360 if bearing > 180
 
+                    actions.ignore(eventName)
                     @safeCall(robotStatus.robot.instance, eventName, {
                         robot: actions
                         bearing: bearing
                         collidedRobot: @basicEnemyInfo(status)
                         myFault: false
                     })
+                    actions.listen(eventName)
 
         actions
 
@@ -661,10 +678,14 @@ class Engine
 
         if robotInSight
             robotStatus.preventScan()
+
+            actions.ignore('onScannedRobot')
             @safeCall(robotStatus.robot.instance, 'onScannedRobot', {
                 robot: actions
                 scannedRobot: @basicEnemyInfo(robotInSight)
             })
+            actions.listen('onScannedRobot')
+
             @roundLog.events.push({
                 type: 'onScannedRobot',
                 id: robotStatus.id

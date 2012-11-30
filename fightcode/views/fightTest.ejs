@@ -1,32 +1,5 @@
 <% include header.ejs %>
 <div class="fight-arena">
-
-    <div class="loading">
-        <div class="left-half">
-            <div class="my-robot">
-                <div class="robotData">
-                    <img src="/img/bender.png" class="robot-image"></img>
-                    <h2><span class="ranking">#20</span><span class="name">MANIAC</span></h2>
-                    <div class="victories"><span class="number">12</span><span class="stat-label">VICTORIES</span></div>
-                    <div class="defeats"><span class="number">8</span><span class="stat-label">DEFEATS</span></div>
-                    <div class="draws"><span class="number">2</span><span class="stat-label">DRAWS</span></div>
-                </div>
-            </div>
-        </div>
-        <div class="vs">VS</div>
-        <div class="right-half">
-            <div class="opponent-robot">
-                <div class="robotData">
-                    <h2><span class="ranking">#39</span><span class="name">IRONMAIDEN</span></h2>
-                    <div class="victories"><span class="number">20</span><span class="stat-label">VICTORIES</span></div>
-                    <div class="defeats"><span class="number">18</span><span class="stat-label">DEFEATS</span></div>
-                    <div class="draws"><span class="number">5</span><span class="stat-label">DRAWS</span></div>
-                    <img src="/img/rosie.png" class="robot-image"></img>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div class="board">
     </div>
 </div>
@@ -34,16 +7,21 @@
 <% include scripts.ejs %>
 
 <script type="robot/script" id="r1-code">
+ 
+//FightCode can only understand your robot
+//if its class is called Robot
 var Robot = function(robot){
-    robot.turn(90 - (robot.angle % 90));
-    robot.rotateCannon(-90);
-    this.offset = 1;
-    this.rotation = 30;
+    
 };
 
+rotated = false;
+var hitCount = 0;
+
 Robot.prototype.onIdle = function(ev) {
-  var robot = ev.robot;
-  robot.ahead(1);
+    var robot = ev.robot;
+  
+    robot.ahead(100);
+    robot.turn(100);
 };
 
 Robot.prototype.onScannedRobot = function(ev) {
@@ -51,57 +29,57 @@ Robot.prototype.onScannedRobot = function(ev) {
   if (robot.id == scannedRobot.parentId || robot.parentId == scannedRobot.id) {
       return;
   }
-  robot.fire();
+  for (var i=0;i < 10; i++){
+    robot.fire();
+  }
+  
+    
 };
 
 Robot.prototype.onWallCollision = function(ev) {
     var robot = ev.robot;
-    robot.turn(ev.bearing - 90);
+
+    robot.back(100);
+    robot.turn(ev.bearing + 90);
+    robot.rotateCannon(ev.bearing - 90);
     robot.clone();
 };
+
+Robot.prototype.onRobotCollision = function(ev) {
+    var robot = ev.robot;
+    robot.turn(ev.bearing + 90);
+    robot.back(100);
+    robot.rotateCannon(ev.bearing);
+    robot.clone();
+};
+
+
+
 </script>
 
 <script type="robot/script" id="r2-code">
-var Robot = function(robot){
-    robot.turnLeft(robot.angle % 90);
-    robot.turnGunRight(90);
+
+//FightCode can only understand your robot
+//if its class is called Robot
+var Robot = function(robot) {
+
 };
+
 Robot.prototype.onIdle = function(ev) {
     var robot = ev.robot;
-    robot.ahead(1);    
-};
-Robot.prototype.onWallCollision = function(ev) {
-  var robot = ev.robot;
-  robot.turnRight(ev.bearing + 90);
-  robot.clone();
-};
-Robot.prototype.onRobotCollision = function(ev) {
-  var robot = ev.robot, collidedRobot = ev.collidedRobot;
-
-  robot.ignore('onRobotCollision');
-  if (ev.bearing > -90 && ev.bearing < 90) {
-    robot.back(100);
-  } else {
     robot.ahead(100);
-  }
+    robot.rotateCannon(360);
+    robot.back(100);
+    robot.rotateCannon(360);
 
-  if (robot.id != collidedRobot.parentId && robot.parentId != collidedRobot.id) {
-      robot.turnGunRight(ev.bearing - robot.cannonRelativeAngle);
-      robot.turnGunLeft(ev.bearing - robot.cannonRelativeAngle);
-  }
-  robot.listen('onRobotCollision');
 };
-Robot.prototype.onHitByBullet = function(ev) {
-    var robot = ev.robot;
-    
-};
+
 Robot.prototype.onScannedRobot = function(ev) {
-  var robot = ev.robot, scannedRobot = ev.scannedRobot;
-  if (robot.id == scannedRobot.parentId || robot.parentId == scannedRobot.id) {
-      return;
-  }
-  robot.fire();
+    var robot = ev.robot;
+    robot.fire();
+
 };
+
 </script>
 
 
@@ -116,23 +94,25 @@ Robot.prototype.onScannedRobot = function(ev) {
         {
             name: "r1",
             code: robot1Code,
+            color: '#6d2222',
             rectangle: {
                 position: {
-                    x: 246,
-                    y: 293
+                    x: 609,
+                    y: 444
                 },
-                angle: 53
+                angle: 329
             }
         },
         {
             name: "r2",
             code: robot2Code,
+            color: '#00ffc1',
             rectangle: {
                 position: {
-                    x: 747,
-                    y: 393
+                    x: 463,
+                    y: 143
                 },
-                angle: 332
+                angle: 209
             }
         }
     ])
