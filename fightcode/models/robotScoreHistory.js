@@ -16,7 +16,7 @@ module.exports = function(sequelize, DataTypes) {
                     'where robot_id in (' + robotIds.join(',') + ') ' +
                     'group by robot_id, ts ' +
                     'order by robot_id, ts';
-                var query = Sequelize.Utils.format([sql, "minute"]);
+                var query = Sequelize.Utils.format([sql, "hour"]);
                 sequelize.query(query, null, {raw: true, type: 'SELECT'}).success(function(histories) {
                     historiesMap = {};
                     histories.forEach(function(el) {
