@@ -25,7 +25,11 @@
                 <ul>
                     <li><a href="/">HOME</a></li>
                     <li><a href="/robots/create#docs">HOW TO PLAY</a></li>
-                    <li><div class="fb-like" data-href="http://fightcodegame.com" data-send="false" data-layout="button_count" data-width="120" data-show-faces="false" data-colorscheme="dark"></div></li>
+                    <li><div class="fb-like"
+                        data-href="http://fightcodegame.com" data-send="false"
+                        data-layout="button_count" data-width="85" data-show-faces="false" data-colorscheme="dark"></div></li>
+                    <li class="tweet"><a
+                        href="https://twitter.com/share?url=http://fightcodegame.com<%=req.url%>&text=Join%20me%20in%20FightCode.&count=horizontal" class="twitter-share-button" data-lang="en">Tweet</a></li>
                 </ul>
                 <div class="profile-container">
                     <% if (req.isAuthenticated()) { %>
