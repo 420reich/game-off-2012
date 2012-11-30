@@ -2121,12 +2121,13 @@ code, pre {
 .show-user .latest-combats .combats {
   font-size: 0;
   padding-bottom: 105px;
+  white-space: nowrap;
 }
 .show-user .latest-combats .combats li {
   display: inline-block;
   position: relative;
   vertical-align: top;
-  margin-left: 68px;
+  margin-left: 50px;
 }
 .show-user .latest-combats .combats li:first-child {
   margin-left: 0;
@@ -2146,8 +2147,15 @@ code, pre {
   z-index: 9999;
 }
 .show-user .latest-combats .combats li .combat {
-  margin: 0 auto;
+  margin: 0 auto 0 -20px;
   width: 268px;
+  padding: 20px 20px 24px;
+  display: block;
+}
+.show-user .latest-combats .combats li .combat:hover {
+  -webkit-box-shadow: #cccccc 0 0 1px 0, #dfdfdf 0 0 1px 2px;
+  -moz-box-shadow: #cccccc 0 0 1px 0, #dfdfdf 0 0 1px 2px;
+  box-shadow: #cccccc 0 0 1px 0, #dfdfdf 0 0 1px 2px;
 }
 .show-user .latest-combats .combats li .combat .player {
   width: 134px;

@@ -28,7 +28,7 @@
                 <li>
                     <div class="left">
                         <div class="ranking"># <%= robots[i].row_number %></div>
-                        <div class="robot" style="background-color: <%-robots[i].color %>;"></div>
+                        <div class="robot" <%-: robots[i] | colorStyle %>></div>
                     </div>
                     <div class="right">
                         <div class="main-info">
@@ -179,7 +179,7 @@
                                 <img src="<%=: lastFights[i][0].email | gravatar_url:134 %>" />
                                 <div class="robot-circle"></div>
                             </div>
-                            <div class="robot"></div>
+                            <div class="robot" <%-: lastFights[i][0] | colorStyle %>></div>
                             <div class="info">
                                 <div class="name"><%= lastFights[i][0].title %></div>
                                 <div class="ranking"># <%= lastFights[i][0].row_number %></div>
@@ -191,7 +191,7 @@
                                 <img src="<%=: lastFights[i][1].email | gravatar_url:134 %>" />
                                 <div class="robot-circle"></div>
                             </div>
-                            <div class="robot"></div>
+                            <div class="robot" <%-: lastFights[i][1] | colorStyle %>></div>
                             <div class="info">
                                 <div class="name"><%= lastFights[i][1].title %></div>
                                 <div class="ranking"># <%= lastFights[i][1].row_number %></div>

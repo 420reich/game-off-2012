@@ -105,7 +105,7 @@ module.exports = function(sequelize, DataTypes) {
                             'ORDER BY created_at DESC '+
                             'LIMIT 3 '+
                             ') '+
-                            'SELECT last_fights.id, rob.title, rob.row_number, u.email, u.login FROM "RobotRevisionFights" revF '+
+                            'SELECT last_fights.id, rob.title, rob.row_number, rob.color, u.email, u.login FROM "RobotRevisionFights" revF '+
                             'INNER JOIN last_fights ON (last_fights.id = revF.fight_id) '+
                             'INNER JOIN "RobotRevisions" rev ON (rev.id = revF.robot_revision_id) '+
                             'INNER JOIN (SELECT *, row_number() OVER (ORDER BY score DESC) FROM "Robots") rob ON (rev.robot_id = rob.id) '+
@@ -126,7 +126,7 @@ module.exports = function(sequelize, DataTypes) {
     );
 
     Robot.timelineFights = function(callback) {
-        var sql = 'SELECT f.id fight_id, f.created_at created_at, r.title robot_name, r.gist, r.color, u.id user_id, u.email, u.name ' + 
+        var sql = 'SELECT f.id fight_id, f.created_at created_at, r.title robot_name, r.gist, r.color, u.id user_id, u.email, u.name ' +
                   'FROM "RobotRevisionFights" rrf ' +
                   '   INNER JOIN "Fights" f ON (rrf.fight_id = f.id) ' +
                   '   INNER JOIN "RobotRevisions" rev ON (rrf.robot_revision_id = rev.id) ' +

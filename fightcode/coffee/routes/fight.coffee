@@ -32,6 +32,7 @@ class FightRepository
         github.authenticate type: 'oauth', token: @userToken
 
         github.gists.get(id: gistId, (err, githubResponse) ->
+            console.dir(githubResponse);
             if not err
                 code = githubResponse.files['robot.js'].content
                 hash = githubResponse.history[0].version
