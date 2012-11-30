@@ -28,7 +28,7 @@
                 <li>
                     <div class="left">
                         <div class="ranking"># <%= robots[i].row_number %></div>
-                        <div class="robot" style="background-color: <%-robots[i].color %>;"></div>
+                        <div class="robot" <%-: robots[i] | colorStyle %>></div>
                     </div>
                     <div class="right">
                         <div class="main-info">
@@ -37,7 +37,16 @@
                                 <div class="data">
                                     <span class="created">created <%=: robots[i].created_at | showAsDate %></span>
                                     <span class="lines"><%= robots[i].linesOfCode %> code lines</span>
-                                    <span class="actions"><a href="/robots/update/<%- robots[i].gist %>">edit</a></span>
+                                    <span class="actions">
+                                        <% if (locals.isOnwer) {%>
+                                            <a href="/robots/update/<%- robots[i].gist %>">edit</a>
+                                        <% }else{ %>
+                                            <a class="fight" href="/robots/fight/<%- robots[i].id %>">fight</a>
+                                            <% if (robots[i].isPublic) {%>
+                                                <a class="fork" href="/fork/<%- robots[i].id %>">fork</a>
+                                            <% } %>
+                                        <% }%>
+                                    </span>
                                 </div>
                             </div>
                             <div class="star-ranking"></div>
@@ -170,7 +179,7 @@
                                 <img src="<%=: lastFights[i][0].email | gravatar_url:134 %>" />
                                 <div class="robot-circle"></div>
                             </div>
-                            <div class="robot"></div>
+                            <div class="robot" <%-: lastFights[i][0] | colorStyle %>></div>
                             <div class="info">
                                 <div class="name"><%= lastFights[i][0].title %></div>
                                 <div class="ranking"># <%= lastFights[i][0].row_number %></div>
@@ -182,7 +191,7 @@
                                 <img src="<%=: lastFights[i][1].email | gravatar_url:134 %>" />
                                 <div class="robot-circle"></div>
                             </div>
-                            <div class="robot"></div>
+                            <div class="robot" <%-: lastFights[i][1] | colorStyle %>></div>
                             <div class="info">
                                 <div class="name"><%= lastFights[i][1].title %></div>
                                 <div class="ranking"># <%= lastFights[i][1].row_number %></div>

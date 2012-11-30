@@ -9,7 +9,12 @@ var path = require('path'),
     Robot = sequelize.import(path.join(modelsPath, 'robot')),
     Util = require(path.join(process.env.CWD, 'fightcode', 'helpers', 'util'));
 
-function renderProfile(res, userLogin) {
+exports.myProfile = function(req, res){
+    res.redirect("/profile/" + req.user.login);
+};
+
+exports.show = function(req, res) {
+    var userLogin = req.params[0];
 
     User.find({where: {login: userLogin}})
         .success(function(user) {
@@ -20,6 +25,7 @@ function renderProfile(res, userLogin) {
                         return res.render('user', {
                             title: user.name,
                             user: user,
+                            isOwner: req.user.id === user.id,
                             statistcs: parsedStatistcs,
                             robots: robots,
                             lastFights: lastFights
@@ -28,12 +34,4 @@ function renderProfile(res, userLogin) {
                 });
             });
         });
-}
-
-exports.myProfile = function(req, res){
-    res.redirect("/profile/" + req.user.login);
-};
-
-exports.show = function(req, res) {
-    renderProfile(res, req.params[0]);
 };

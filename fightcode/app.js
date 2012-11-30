@@ -34,6 +34,7 @@ var checkCredentials = require(path.join(filtersPath, 'login'));
 
 require(path.join(helpersPath, 'rankingHelper'));
 require(path.join(helpersPath, 'dateHelper'));
+require(path.join(helpersPath, 'robotHelper'));
 
 var sequelize = require(path.join(configPath, 'database')),
     User = sequelize.import(path.join(modelsPath, 'user'));
