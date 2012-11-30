@@ -19,16 +19,19 @@ exports.show = function(req, res) {
     User.find({where: {login: userLogin}})
         .success(function(user) {
             user.rankedRobots(function(robots){
-                Robot.lastFights(function(lastFights){
-                    user.robotsStatistics(function(statistcs){
-                        var parsedStatistcs = Util.mapStatistcs(statistcs);
-                        return res.render('user', {
-                            title: user.name,
-                            user: user,
-                            isOwner: req.user.id === user.id,
-                            statistcs: parsedStatistcs,
-                            robots: robots,
-                            lastFights: lastFights
+                RobotScoreHistory.histories(robots.map(function(r) { return r.id }), function(histories) {
+                    Robot.lastFights(function(lastFights){
+                        user.robotsStatistics(function(statistcs){
+                            var parsedStatistcs = Util.mapStatistcs(statistcs);
+                            return res.render('user', {
+                                title: user.name,
+                                user: user,
+                                isOwner: req.user.id === user.id,
+                                statistcs: parsedStatistcs,
+                                robots: robots,
+                                lastFights: lastFights,
+                                histories: histories
+                            });
                         });
                     });
                 });

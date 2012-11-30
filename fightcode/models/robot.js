@@ -6,10 +6,12 @@ var path = require('path'),
     gravatar = require('gravatar');
 
 module.exports = function(sequelize, DataTypes) {
-    Robot = sequelize.define('Robot', {
+    var RobotScoreHistory = sequelize.import(path.join(basePath, 'models', 'RobotScoreHistory'));
+    
+    var Robot = sequelize.define('Robot', {
         gist: { type: DataTypes.STRING, allowNull: false},
         title: { type: DataTypes.STRING, allowNull: false},
-        color: { type: DataTypes.STRING, allowNull: true, defaultValue: "#ed002"},
+        color: { type: DataTypes.STRING, allowNull: true, defaultValue: "#ed0022"},
         linesOfCode: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0},
         ownerLogin: { type: DataTypes.STRING, allowNull: false},
         victories: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0},
@@ -20,11 +22,16 @@ module.exports = function(sequelize, DataTypes) {
     },{
         instanceMethods:{
             updateScore: function(callback){
-                var WonPoints = this.victories * 3,
-                    LostPoints = this.defeats * -1,
-                    DrawPoints = this.draws;
+                var wonPoints = this.victories * 3,
+                    lostPoints = this.defeats * -1,
+                    drawPoints = this.draws;
 
-                this.score = this.score + WonPoints + LostPoints + DrawPoints;
+                this.score = wonPoints + lostPoints + drawPoints;
+
+                RobotScoreHistory.create({
+                    score: this.score,
+                    robot_id: this.id
+                });
                 this.save().success(function() {
                     callback(this);
                 });
