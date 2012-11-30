@@ -18,7 +18,9 @@
 
 .create-robot-form-container {
     background-color: #333;
-    overflow: hidden;
+    white-space:nowrap;
+    font-size:0;
+    line-height:0;
 }
 
 .create-robot-form {
@@ -43,7 +45,6 @@
     }
 
     .left-col {
-        float: left;
         width: 133px;
     }
 
@@ -58,6 +59,10 @@
         border-width: 0 0 1px 0;
         border-color: #000;
         border-style: solid;
+
+        &.error {
+            @include box-shadow(0 0 8px 3px #FF0000 inset);
+        }
     }
 
     .robot-color {
@@ -92,19 +97,29 @@
     }
 
     .form-col {
-        float: left;
+        vertical-align:top;
+        display:inline-block;
+        font-size:16px;
+        line-height:16px;
     }
 
     .editor {
         border-left: 1px solid #000;
         width: 468px;
+        position:relative;
+        z-index:20;
     }
 
     .form-col, .editor .CodeMirror-scroll {
         height: 476px;
 
         &.error {
-            border: solid 2px red;
+            .CodeMirror-scroll {
+                @include box-shadow(0 0 25px #FF0000 inset);
+            }
+            .CodeMirror-gutter {
+                @include box-shadow(0 10px 20px #FF0000);
+            }
         }
     }
 

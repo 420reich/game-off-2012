@@ -1539,7 +1539,9 @@ code, pre {
 
 .create-robot-form-container {
   background-color: #333;
-  overflow: hidden;
+  white-space: nowrap;
+  font-size: 0;
+  line-height: 0;
 }
 
 .create-robot-form [type="text"], .create-robot-form textarea {
@@ -1562,7 +1564,6 @@ code, pre {
   color: #ddd;
 }
 .create-robot-form .left-col {
-  float: left;
   width: 133px;
 }
 .create-robot-form .input-subtle {
@@ -1578,6 +1579,11 @@ code, pre {
   border-width: 0 0 1px 0;
   border-color: #000;
   border-style: solid;
+}
+.create-robot-form .input-subtle.error {
+  -webkit-box-shadow: 0 0 8px 3px red inset;
+  -moz-box-shadow: 0 0 8px 3px red inset;
+  box-shadow: 0 0 8px 3px red inset;
 }
 .create-robot-form .robot-color {
   background-color: #292929;
@@ -1608,17 +1614,29 @@ code, pre {
   vertical-align: 3px;
 }
 .create-robot-form .form-col {
-  float: left;
+  vertical-align: top;
+  display: inline-block;
+  font-size: 16px;
+  line-height: 16px;
 }
 .create-robot-form .editor {
   border-left: 1px solid #000;
   width: 468px;
+  position: relative;
+  z-index: 20;
 }
 .create-robot-form .form-col, .create-robot-form .editor .CodeMirror-scroll {
   height: 476px;
 }
-.create-robot-form .form-col.error, .create-robot-form .editor .CodeMirror-scroll.error {
-  border: solid 2px red;
+.create-robot-form .form-col.error .CodeMirror-scroll, .create-robot-form .editor .CodeMirror-scroll.error .CodeMirror-scroll {
+  -webkit-box-shadow: 0 0 25px red inset;
+  -moz-box-shadow: 0 0 25px red inset;
+  box-shadow: 0 0 25px red inset;
+}
+.create-robot-form .form-col.error .CodeMirror-gutter, .create-robot-form .editor .CodeMirror-scroll.error .CodeMirror-gutter {
+  -webkit-box-shadow: 0 10px 20px red;
+  -moz-box-shadow: 0 10px 20px red;
+  box-shadow: 0 10px 20px red;
 }
 .create-robot-form .board {
   width: 338px;
