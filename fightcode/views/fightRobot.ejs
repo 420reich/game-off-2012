@@ -77,6 +77,7 @@
 
     var onEndGame = function(result) {
         var lastRound = result.result[result.result.length-1];
+        console.log(lastRound);
         for (var i=0; i<lastRound.objects.length; i++) {
             var obj = lastRound.objects[i];
             if (obj.name != robot1Name) {
