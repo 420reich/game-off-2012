@@ -51,31 +51,37 @@
 
     .score {
         font-size: 0;
-        margin-bottom: 30px;
+        margin-bottom: 50px;
 
         .playerScore {
-            display: block;
             margin: 0 55px;
             height: 110px;
-            background-color: #dfdfdf;
-            opacity: 0.8;
+            position:relative;
+        }
 
-            &:hover {
-                opacity: 0.99;
-            }
+        .divider {
+            display:inline-block;
+            width: 82px;
+            height: 108px;
+            background: url('../img/triangle-fight.png') 0 0 no-repeat;
         }
 
         .left, .right {
             display: inline-block;
             vertical-align: top;
             position: relative;
-            width: 50%;
+            width: 374px;
+            background-color:#DFDFDF;
         }
 
         .player {
             position: absolute;
             top: 0;
-            width: 110px;
+            width: 108px;
+
+            a {
+                display: block;
+            }
 
             img {
                 width: 110px;
@@ -114,11 +120,11 @@
             }
 
             .name {
-                margin: 18px 0 11px 59px;
+                margin: 18px 0 11px 35px;
             }
 
             .life {
-                margin-left: 60px;
+                margin-left: 32px;
             }
 
         }
@@ -127,23 +133,21 @@
             display: inline-block;
             vertical-align: top;
             width: 205px;
-            height: 110px;
+            height: 108px;
 
             .icon {
                 background: url('../img/robot-sprite-arena.png') 0 0 no-repeat;
                 background-color: #ff0000;
                 width: 137px;
                 height: 107px;
-                margin-top: 3px;
             }
         }
 
         .stats {
             display: inline-block;
             vertical-align: top;
-            width: 210px;
-            height: 109px;
-            margin-top: 1px;
+            width: 169px;
+            height: 108px;
             background-color: #f3f3f3;
 
             .name {

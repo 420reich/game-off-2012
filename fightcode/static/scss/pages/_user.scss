@@ -421,7 +421,7 @@
                     position: absolute;
                     width: 40px;
                     height: 120px;
-                    top: 0;
+                    top: 20px;
                     left: 116px;
                     background: url('../img/triangle.png') 0 0 no-repeat;
                     z-index: 9999;
@@ -432,6 +432,7 @@
                     width: 268px;
                     padding: 20px 20px 24px;
                     display:block;
+                    @include transition(all 500ms);
 
                     &:hover {
                         @include box-shadow(#ccc 0 0 1px 0, #dfdfdf 0 0 1px 2px);
