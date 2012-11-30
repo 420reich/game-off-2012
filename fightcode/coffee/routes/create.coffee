@@ -45,7 +45,9 @@ exports.updateView = (req, res) ->
     github = new GithubApi version: '3.0.0'
     github.authenticate type: 'oauth', token: req.user.token
 
-    Robot.find(where: gist: gistId).success((robot) ->
+    req.user.getRobots(where: gist: gistId).success((robots) ->
+        return res.redirect('/') unless robots.length > 0
+        robot = robots[0]
         github.gists.get(id: gistId, (err, githubResponse) ->
             files = Object.keys githubResponse.files
             res.render('createRobot',
@@ -74,7 +76,9 @@ exports.update = (req, res) ->
             'robot.js':
                 'content': code
 
-    Robot.find(where: gist: gistId).success((robot) ->
+    req.user.getRobots(where: gist: gistId).success((robot) ->
+        return res.redirect('/') unless robots.length > 0
+        robot = robots[0]
         robot.title = title
         robot.color = color
         robot.linesOfCode = code.split('\n').length

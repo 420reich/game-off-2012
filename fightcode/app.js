@@ -34,6 +34,7 @@ var checkCredentials = require(path.join(filtersPath, 'login'));
 
 require(path.join(helpersPath, 'rankingHelper'));
 require(path.join(helpersPath, 'dateHelper'));
+require(path.join(helpersPath, 'robotHelper'));
 
 var sequelize = require(path.join(configPath, 'database')),
     User = sequelize.import(path.join(modelsPath, 'user'));
@@ -122,7 +123,9 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-app.get('/fight-test', fight.fightTest);
+if (process.env.NODE_ENV != 'production') {
+    app.get('/fight-test', fight.fightTest);
+}
 app.get('/robots/replay/:fight_id', fight.replayFight);
 app.get('/robots/ranking', checkCredentials, ranking.index);
 app.get('/robots/create', checkCredentials, create.createView);

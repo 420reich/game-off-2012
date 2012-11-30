@@ -4,7 +4,11 @@
         <div class="container">
             <div class="playerScore">
                 <div class="left">
-                    <div class="player"><img src="<%=revisions[0].user.photo(110) %>" /></div>
+                    <div class="player">
+                        <a href="/profile/<%=revisions[0].user.login %>">
+                            <img src="<%=revisions[0].user.photo(110) %>" />
+                        </a>
+                    </div>
                     <div class="robot"><div class="icon" style="background-color: <%=revisions[0].color %>"></div></div>
                     <div class="stats">
                         <div class="name"><%=revisions[0].name%></div>
@@ -17,7 +21,11 @@
                         <div class="life"><div class="filled" style="width: 100%"></div></div>
                     </div>
                     <div class="robot"><div class="icon" style="background-color: <%=revisions[1].color %>"></div></div>
-                    <div class="player"><img src="<%=revisions[1].user.photo(110) %>" /></div>
+                    <div class="player">
+                        <a href="/profile/<%=revisions[1].user.login %>">
+                            <img src="<%=revisions[1].user.photo(110) %>" />
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -25,9 +33,23 @@
 
     <div class="board">
     </div>
+
+    <div class="container">
+        <div class="comments">
+            <div class="fb-comments"
+            data-href="http://fightcodegame.com<%=req.url%>" data-width="940" data-num-posts="50" data-colorscheme="dark"></div>
+        </div>
+    </div>
 </div>
 
 <% include scripts.ejs %>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=388555411225750";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
 <% revisions.forEach(function(robot_revision_fight) { %>
 <script type="robot/script" id="robot-<%= robot_revision_fight.id %>-code">
@@ -63,6 +85,7 @@
         {
             name: "<%= revisions[0].name %>",
             code: robot1Code,
+            color: '<%= revisions[0].color %>',
             rectangle: {
                 position: {
                     x: <%= revisions[0].position_x %>,
@@ -74,6 +97,7 @@
         {
             name: "<%= revisions[1].name %>",
             code: robot2Code,
+            color: '<%= revisions[1].color %>',
             rectangle: {
                 position: {
                     x: <%= revisions[1].position_x %>,
@@ -85,5 +109,4 @@
     ], onRound)
 </script>
 
-<a href="/robots/fight/<%= revisions[0].gistId %>/<%=revisions[1].gistId %>">FIGHT AGAIN</a>
 <% include footer.ejs %>

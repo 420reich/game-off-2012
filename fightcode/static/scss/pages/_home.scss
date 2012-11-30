@@ -40,6 +40,11 @@
             margin: 0 55px;
             height: 110px;
             background-color: #dfdfdf;
+            opacity: 0.8;
+
+            &:hover {
+                opacity: 0.99;
+            }
         }
 
         .left, .right {

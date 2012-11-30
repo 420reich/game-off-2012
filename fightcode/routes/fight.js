@@ -62,6 +62,7 @@ FightRepository = (function() {
       id: gistId
     }, function(err, githubResponse) {
       var code, hash;
+      console.dir(githubResponse);
       if (!err) {
         code = githubResponse.files['robot.js'].content;
         hash = githubResponse.history[0].version;

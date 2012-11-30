@@ -25,6 +25,10 @@
             top: 0;
             width: 110px;
 
+            a {
+                display: block;
+            }
+
             img {
                 width: 110px;
                 height: 110px;
@@ -128,4 +132,7 @@
         height: 500px;
     }
 
+    .comments {
+        margin: 40px 0;
+    }
 }

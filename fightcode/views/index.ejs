@@ -21,7 +21,7 @@
         </div>
     </div>
 
-    <% if (locals.fights) { 
+    <% if (locals.fights && locals.fights.length > 0) {
         var lastDate = locals.fights[0][0].created_at; %>
     <div class="row">
         <div class="span12">
@@ -34,11 +34,11 @@
             </div>
 
             <ul class="timeline">
-                <% for (var i=0; i<locals.fights.length; i++) { 
+                <% for (var i=0; i<locals.fights.length; i++) {
                     firstRobot = locals.fights[i][0];
                     secondRobot = locals.fights[i][1];
                 %>
-                <% if (firstRobot.created_at != lastDate) { 
+                <% if (firstRobot.created_at != lastDate) {
                     lastDate = firstRobot.created_at;
                 %>
                     </ul>
@@ -55,7 +55,7 @@
                 <% } %>
                 <li class="score">
                     <div class="container">
-                        <a href="/robots/fight/<%- firstRobot.fight_id %>" class="playerScore">
+                        <a href="/robots/replay/<%- firstRobot.fight_id %>" class="playerScore">
                             <div class="left">
                                 <div class="player"><img src="<%- firstRobot.thumb %>"></div>
                                 <div class="robot"><div class="icon" style="background-color: <%- firstRobot.color %>"></div></div>
@@ -83,6 +83,6 @@
 </div>
 
 
-    
+
 <% include scripts.ejs %>
 <% include footer.ejs %>
