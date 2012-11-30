@@ -149,8 +149,8 @@ module.exports = function(sequelize, DataTypes) {
                 data[i + 1].created_at = dateFormat(data[i + 1].created_at, "dddd, mmmm dS , yyyy");
 
                 // Thumb
-                data[i].thumb = gravatar.url(data[i].email, {s: 110});
-                data[i + 1].thumb = gravatar.url(data[i + 1].email, {s: 110});
+                data[i].thumb = gravatar.url(data[i].email || '', {s: 110});
+                data[i + 1].thumb = gravatar.url(data[i + 1].email || '', {s: 110});
 
                 fightList.push([data[i], data[i+1]]);
             }
