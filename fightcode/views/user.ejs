@@ -112,7 +112,19 @@
                             </div>
                             <div class="overtime">
                                 <div class="user-chart"
-                                    data-chart-values="[['x', 'Cats'], ['A',   1], ['B',   2], ['C',   4], ['D',   8], ['E',   7], ['F',   7], ['G',   8], ['H',   4], ['I',   2], ['J',   3.5], ['K',   3], ['L',   3.5], ['M',   1], ['N',   1]]"></div>
+                                    data-chart-values="
+                                        [
+
+                                            ['Timestamp', 'Score']
+                                            <% if (histories[robots[i].id]) {%>
+                                                <% histories[robots[i].id].forEach(function(history) { %>
+                                                    ,['<%= history.ts %>', <%= history.score %>]
+                                                <% }); %>
+                                            <% } else {%>
+                                                ['0','0']
+                                            <%} %>
+                                        ]
+                                    "></div>
                                 <div class="label">SCORE OVER TIME</div>
                             </div>
                         </div>
