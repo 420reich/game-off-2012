@@ -75,6 +75,19 @@
         }
     };
 
+    var onEndGame = function(result) {
+        var lastRound = result.result[result.result.length-1];
+        for (var i=0; i<lastRound.objects.length; i++) {
+            var obj = lastRound.objects[i];
+            if (obj.name != robot1Name && obj.type == 'tank') {
+                robot1Life.css('width', "0%");
+            }
+            if (obj.name != robot2Name && obj.type == 'tank') {
+                robot2Life.css('width', "0%");
+            }
+        }
+    }
+
     arena = new FightArena(container, [
         {
             name: "<%= revisions[0].name %>",
@@ -100,7 +113,9 @@
                 angle: <%= revisions[1].angle %>
             }
         }
-    ], onRound)
+    ], onRound, {
+        onEndGame: onEndGame
+    })
 </script>
 
 <% include footer.ejs %>

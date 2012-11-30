@@ -6,8 +6,8 @@ var path = require('path'),
     gravatar = require('gravatar');
 
 module.exports = function(sequelize, DataTypes) {
-    var RobotScoreHistory = sequelize.import(path.join(basePath, 'models', 'RobotScoreHistory'));
-    
+    var RobotScoreHistory = sequelize.import(path.join(basePath, 'models', 'robotScoreHistory'));
+
     var Robot = sequelize.define('Robot', {
         gist: { type: DataTypes.STRING, allowNull: false},
         title: { type: DataTypes.STRING, allowNull: false},
@@ -88,11 +88,12 @@ module.exports = function(sequelize, DataTypes) {
                             'sum(shots_fired) shots_fired, sum(shots_hit) shots_hit '+
                             'FROM "RobotRevisions" rev '+
                             'INNER JOIN "Robots" r ON (r.id = rev.robot_id) '+
-                            'INNER JOIN "RobotRevisionFights" rf ON (rev.id = rf.robot_revision_id) '+
-                            'WHERE r.id IN (SELECT id FROM "Robots" ORDER BY score LIMIT 10) '+
+                            'LEFT OUTER JOIN "RobotRevisionFights" rf ON (rev.id = rf.robot_revision_id) '+
+                            'WHERE r.id IN (SELECT id FROM "Robots" ORDER BY score DESC LIMIT 10) '+
                             'GROUP BY r.id) '+
                             'SELECT row_number() OVER (ORDER BY score DESC), '+
-                            'r.*, u.email, u.login, robot_statistics.* '+
+                            'r.*, u.email, u.login, robot_statistics.enemies_killed, '+
+                            'shots_fired, shots_hit '+
                             'FROM "Robots" r '+
                             'INNER JOIN "Users" u ON (r.user_id = u.id) '+
                             'LEFT OUTER JOIN robot_statistics ON (r.id = robot_statistics.id) '+
@@ -149,8 +150,8 @@ module.exports = function(sequelize, DataTypes) {
                 data[i + 1].created_at = dateFormat(data[i + 1].created_at, "dddd, mmmm dS , yyyy");
 
                 // Thumb
-                data[i].thumb = gravatar.url(data[i].email, {s: 110});
-                data[i + 1].thumb = gravatar.url(data[i + 1].email, {s: 110});
+                data[i].thumb = gravatar.url(data[i].email || '', {s: 110});
+                data[i + 1].thumb = gravatar.url(data[i + 1].email || '', {s: 110});
 
                 fightList.push([data[i], data[i+1]]);
             }

@@ -1,11 +1,11 @@
 class FightArena
     constructor: (@container, @robots, @onRound, @options) ->
-        if not @options
-            @options =
+        @options = $.extend({
                 maxRounds: 10000
+                onEndGame: (result)->
                 boardSize:
                     width: 800
-                    height: 500
+                    height: 500}, @options)
 
         @terminated = false
         @worker = null
@@ -52,6 +52,8 @@ class FightArena
 
         @game = new Game(boardContainer, data, {
             msPerRound: 5
+            onRound: @onRound
+            onEndGame: @options.onEndGame
         })
         @game.start()
 
