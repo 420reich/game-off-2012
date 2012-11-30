@@ -1100,7 +1100,6 @@ header {
   font-weight: bold;
   position: absolute;
   width: 100%;
-  z-index: 10;
   top: -180px;
 }
 .menu-container.open {
@@ -1114,6 +1113,7 @@ header {
   padding: 36px 5%;
   text-align: center;
   position: relative;
+  z-index: 10000;
 }
 .menu-container .menu > span {
   display: inline-block;
@@ -1187,6 +1187,8 @@ header {
   -webkit-box-shadow: 0 0 6px -1px black;
   -moz-box-shadow: 0 0 6px -1px black;
   box-shadow: 0 0 6px -1px black;
+  position: relative;
+  z-index: 1000;
 }
 .menu-container .ribbon-container:hover {
   border-color: #ff3d3d;
@@ -1306,6 +1308,12 @@ footer ul span {
   padding: 6px 0 0 10px;
 }
 
+header .fb-like {
+  margin-top: -4px;
+  margin-left: 5px;
+  z-index: 1000;
+}
+
 .header {
   padding-top: 56px;
   position: relative;
@@ -1385,6 +1393,25 @@ footer ul span {
 .home {
   padding: 20px 20px 0 20px;
 }
+.home p {
+  font-size: 16px;
+  color: #ddd;
+  font-family: arial;
+  line-height: 22px;
+  margin-bottom: 12px;
+  text-decoration: none;
+}
+.home p a {
+  color: #ddd;
+  opacity: 0.8;
+}
+.home p a:hover {
+  opacity: 0.99;
+}
+.home .actions {
+  margin: 40px auto 0;
+  width: 176px;
+}
 .home .board {
   width: 600px;
   height: 450px;
@@ -1402,9 +1429,6 @@ footer ul span {
 }
 .home .documentation {
   margin-top: 20px;
-}
-.home .btn-create-robot {
-  margin-top: 70px;
 }
 .home .header {
   margin-bottom: 30px;
@@ -1513,6 +1537,9 @@ footer ul span {
   -ms-transition: all 200ms ease-in;
   -o-transition: all 200ms ease-in;
   transition: all 200ms ease-in;
+}
+.home .timeline {
+  margin-top: -20px;
 }
 
 code, pre {

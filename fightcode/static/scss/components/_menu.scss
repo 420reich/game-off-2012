@@ -96,7 +96,6 @@ header {
   font-weight: bold;
   position: absolute;
   width: 100%;
-  z-index: 10;
   top: -180px;
 
   &.open {
@@ -109,6 +108,7 @@ header {
     padding: 36px 5%;
     text-align: center;
     position: relative;
+    z-index: 10000;
 
     > span {
       display: inline-block;
@@ -172,6 +172,8 @@ header {
     border-top:5px solid #ed0027;
     height:0;
     @include single-box-shadow(#000, 0, 0, 6px, -1px);
+    position: relative;
+    z-index: 1000;
 
     &:hover {
       border-color:#ff3d3d;

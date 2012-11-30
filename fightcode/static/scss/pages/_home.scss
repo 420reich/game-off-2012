@@ -1,6 +1,28 @@
 .home {
     padding: 20px 20px 0 20px;
 
+    p {
+        font-size: 16px;
+        color: #ddd;
+        font-family: arial;
+        line-height: 22px;
+        margin-bottom: 12px;
+        text-decoration: none;
+        a {
+            color: #ddd;
+            opacity: 0.8;
+
+            &:hover {
+                opacity: 0.99;
+            }
+        }
+    }
+
+    .actions {
+        margin: 40px auto 0;
+        width: 176px;
+    }
+
     .board {
         width: 600px;
         height: 450px;
@@ -21,10 +43,6 @@
 
     .documentation {
         margin-top: 20px;
-    }
-
-    .btn-create-robot {
-        margin-top: 70px;
     }
 
     .header {
@@ -157,7 +175,9 @@
         }
     }
 
-
+    .timeline {
+        margin-top: -20px;
+    }
 }
 
 code, pre {

@@ -1,6 +1,15 @@
+header {
+    .fb-like {
+        margin-top: -4px;
+        margin-left: 5px;
+        z-index: 1000;
+    }
+}
+
 .header {
     padding-top: 56px;
     position: relative;
+
 }
 
 .header-icon {
@@ -55,4 +64,5 @@
     text-align: center;
     color: #ddd;
 }
+
 

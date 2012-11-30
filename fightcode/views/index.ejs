@@ -11,24 +11,24 @@
                 climbing the ranks</div>
             </div>
 
-
-            <p class="lead"><a href="http://fightcodegame.com">FightCode</a> allows you to code your own robots using JavaScript.</p>
-            <p>Code your winning robot and start climbing the ranks.</p>
+            <p><a href="http://fightcodegame.com">FightCode</a> allows you to code your own robots using JavaScript.</p>
             <p>Challenge friends and foe to win glory and fortune (well, technically not fortune, but you get the idea).</p>
-            <p>You can always check the example robot to get a feel on how things happen in the game.</p>
-            <p>You can also <a href="/invite">invite friends</a>. Killing a buddy is a lot cooler than killing a stranger (which is also cool, by the way).</p>
-            <p><a href="/robots/create" class="btn-create-robot btn btn-primary btn-large btn-block">Create a Robot</a></p>
+            <p>If you want to get started, just click in the button below!
+            Don't worry, there's a comprehensive documentation on how to get
+            going in the same page where you create your robot.</p>
+            <p>Invite your friends and start a killing spree. Killing a buddy is a lot cooler than killing a stranger (which is also cool, by the way).</p>
+            <p class="actions"><a href="/robots/create" class="btn-create-robot btn btn-primary btn-large btn-block">Create a Robot</a></p>
         </div>
     </div>
 
     <% if (locals.fights && locals.fights.length > 0) {
         var lastDate = locals.fights[0][0].created_at; %>
-    <div class="row">
+    <div class="row timeline">
         <div class="span12">
             <div class="header">
                 <span class="header-icon"></span>
                 <div class="header-title">
-                    <h1><%- lastDate %></h1>
+                    <h1>Fights for <%- lastDate %></h1>
                 </div>
                 <div class="header-subtitle">click the fight to watch</div>
             </div>
@@ -46,7 +46,7 @@
                     <div class="header">
                         <span class="header-icon"></span>
                         <div class="header-title">
-                            <h1><%- lastDate %></h1>
+                            <h1>Fights for <%- lastDate %></h1>
                         </div>
                         <div class="header-subtitle">click the fight to watch</div>
                     </div>
