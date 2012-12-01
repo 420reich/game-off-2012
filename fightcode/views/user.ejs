@@ -247,7 +247,6 @@
 
         $.getJSON('https://api.github.com/gists/' + gistId + '?callback=?', function(data) {
             var code = data.data.files['robot.js'].content;
-            console.log(code);
             var codeMirror = CodeMirror(scriptEl[0], {
                 value: code,
                 mode: { name: "javascript", json: false},
