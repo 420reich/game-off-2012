@@ -1411,27 +1411,25 @@ header .tweet {
 .home {
   padding: 20px 20px 0 20px;
 }
-.home .btn {
-  padding: 9px 30px 10px;
-}
 .home p {
   font-size: 16px;
   color: #ddd;
   font-family: arial;
   line-height: 22px;
   margin-bottom: 12px;
-  text-decoration: none;
 }
 .home p a {
-  color: #ddd;
   opacity: 0.8;
+  color: #ddd;
+  text-decoration: underline;
 }
 .home p a:hover {
   opacity: 0.99;
+  text-decoration: none;
 }
 .home .actions {
-  margin: 40px auto 0;
-  width: 176px;
+  margin-top: 40px;
+  text-align: center;
 }
 .home .board {
   width: 600px;
@@ -1749,12 +1747,13 @@ code, pre {
 }
 .docs p a {
   font-weight: bold;
-  text-decoration: none;
   color: #ddd;
+  text-decoration: underline;
   opacity: 0.8;
 }
 .docs p a:hover {
   opacity: 0.99;
+  text-decoration: none;
 }
 .docs .code-sample {
   margin-top: 20px;

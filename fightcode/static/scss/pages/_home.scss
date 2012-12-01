@@ -1,30 +1,28 @@
 .home {
     padding: 20px 20px 0 20px;
 
-    .btn {
-        padding: 9px 30px 10px;
-    }
-
     p {
         font-size: 16px;
         color: #ddd;
         font-family: arial;
         line-height: 22px;
         margin-bottom: 12px;
-        text-decoration: none;
+
         a {
-            color: #ddd;
             opacity: 0.8;
+            color: #ddd;
+            text-decoration: underline;
 
             &:hover {
                 opacity: 0.99;
+                text-decoration: none;
             }
         }
     }
 
     .actions {
-        margin: 40px auto 0;
-        width: 176px;
+        margin-top: 40px;
+        text-align: center;
     }
 
     .board {

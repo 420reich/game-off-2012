@@ -154,12 +154,13 @@
 
         a {
             font-weight: bold;
-            text-decoration: none;
             color: #ddd;
+            text-decoration: underline;
             opacity: 0.8;
 
             &:hover {
                 opacity: 0.99;
+                text-decoration: none;
             }
         }
     }
