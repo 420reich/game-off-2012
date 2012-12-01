@@ -1411,6 +1411,9 @@ header .tweet {
 .home {
   padding: 20px 20px 0 20px;
 }
+.home .btn {
+  padding: 35px 30px;
+}
 .home p {
   font-size: 16px;
   color: #ddd;
