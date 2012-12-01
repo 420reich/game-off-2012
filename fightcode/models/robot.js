@@ -165,7 +165,6 @@ module.exports = function(sequelize, DataTypes) {
             callback(data[0].gist);
         });
     };
- 
 
     return Robot;
 };
