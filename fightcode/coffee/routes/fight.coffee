@@ -248,7 +248,14 @@ exports.createFight = (req, res) ->
     )
 
 exports.fightTest = (req, res) ->
-  res.render 'fightTest', title: "Fight Test"
+    res.render 'fightTest', title: "Fight Test"
+
+exports.randomFight = (req, res) ->
+    playerRobotId = req.params.robot_id
+    Robot.findRandomRobotGist(playerRobotId, (opponentRobotId) ->
+        console.log(opponentRobotId)
+        res.redirect("/robots/fight/#{ playerRobotId }/#{ opponentRobotId }")
+    )
 
 exports.replayFight = (req, res) ->
     fightId = req.params.fight_id

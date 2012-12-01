@@ -39,7 +39,8 @@
                                     <span class="lines"><%= robots[i].linesOfCode %> code lines</span>
                                     <span class="actions">
                                         <% if (locals.isOwner) {%>
-                                            <a href="/robots/update/<%- robots[i].gist %>">edit</a>
+                                            <a class="edit" href="/robots/update/<%- robots[i].gist %>">edit</a>
+                                            <a class="random" href="/robots/randomfight/<%- robots[i].gist %>">random fight</a>
                                         <% }else{ %>
                                             <a class="fight" href="/robots/fight/<%- robots[i].id %>">fight</a>
                                             <% if (robots[i].isPublic) {%>

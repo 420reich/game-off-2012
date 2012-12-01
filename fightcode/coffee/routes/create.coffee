@@ -57,6 +57,7 @@ exports.updateView = (req, res) ->
                 robotCode: encodeURI(githubResponse.files[files[0]].content),
                 robotTitle: robot.title
                 robotColor: robot.color
+                robotGist: gistId
             )
         )
     )

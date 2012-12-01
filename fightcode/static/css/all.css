@@ -1004,23 +1004,32 @@ a {
   -ms-transition: background-color 200ms ease-in-out;
   -o-transition: background-color 200ms ease-in-out;
   transition: background-color 200ms ease-in-out;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   cursor: pointer;
   border: 0;
   display: inline-block;
-  padding: 15px 30px;
+  padding: 10px 30px;
   border-radius: 20px;
   text-transform: uppercase;
+  font-family: "oswald";
   font-size: 13px;
   font-weight: bold;
   color: #fff;
   background-color: #ed002d;
   text-shadow: 1px 1px #000;
+  height: 40px;
 }
 .btn:hover {
   background-color: #ff3d3d;
 }
 .btn:active {
   box-shadow: inset 1px 1px 5px 1px rgba(73, 34, 34, 0.5);
+}
+
+a.btn {
+  padding-top: 14px;
 }
 
 .menu-sprite, .menu-container .fighter .icon, .menu-container .ranking .icon, .menu-container .robot .icon, .menu-container .logout .icon, .menu-container .ribbon, .menu-container .ribbon:hover, .menu-container .ribbon .logo, .menu-container .ribbon .tip {
@@ -2005,6 +2014,10 @@ code, pre {
   color: #333;
 }
 .show-user .robots-area .robots li .right .main-info .summary .data .actions a.fork {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAEUlEQVQIW2PctGnTf0YGIAAAFsMDGOHG7Z0AAAAASUVORK5CYII=) 0 0 repeat-y;
+  padding-left: 12px;
+}
+.show-user .robots-area .robots li .right .main-info .summary .data .actions a.random {
   background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAEUlEQVQIW2PctGnTf0YGIAAAFsMDGOHG7Z0AAAAASUVORK5CYII=) 0 0 repeat-y;
   padding-left: 12px;
 }

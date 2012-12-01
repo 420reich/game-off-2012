@@ -159,5 +159,13 @@ module.exports = function(sequelize, DataTypes) {
         });
     };
 
+    Robot.findRandomRobotGist = function(playerRobotGist, callback) {
+        sql = "SELECT r.gist FROM \"Robots\" r where r.gist != '" + playerRobotGist + "' OFFSET random()*(SELECT count(*) FROM \"Robots\") LIMIT 1;";
+        sequelize.query(sql, null, {raw: true, type: 'SELECT'}).success(function(data){
+            callback(data[0].gist);
+        });
+    };
+ 
+
     return Robot;
 };

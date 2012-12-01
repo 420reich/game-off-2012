@@ -305,6 +305,15 @@ exports.fightTest = function(req, res) {
   });
 };
 
+exports.randomFight = function(req, res) {
+  var playerRobotId;
+  playerRobotId = req.params.robot_id;
+  return Robot.findRandomRobotGist(playerRobotId, function(opponentRobotId) {
+    console.log(opponentRobotId);
+    return res.redirect("/robots/fight/" + playerRobotId + "/" + opponentRobotId);
+  });
+};
+
 exports.replayFight = function(req, res) {
   var fightId;
   fightId = req.params.fight_id;

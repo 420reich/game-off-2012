@@ -45,6 +45,9 @@
 
         <div class="buttons-bar">
             <button class="btn" id="submit-btn">SAVE ROBOT</button>
+            <% if (locals.update) {%>
+            <a href="/robots/randomfight/<%= locals.robotGist %>" class="btn">RANDOM FIGHT</a>
+            <% } %>
         </div>
     </form>
 

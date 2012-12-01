@@ -82,7 +82,8 @@ exports.updateView = function(req, res) {
         update: true,
         robotCode: encodeURI(githubResponse.files[files[0]].content),
         robotTitle: robot.title,
-        robotColor: robot.color
+        robotColor: robot.color,
+        robotGist: gistId
       });
     });
   });

@@ -134,6 +134,7 @@ app.get('/robots/update/:robot_id', checkCredentials, create.updateView);
 app.put('/robots/update/:robot_id', checkCredentials, create.update);
 app.get('/robots/fork/:robot_id', checkCredentials, create.fork);
 app.get('/robots/fight/:robot_id/:opponent_id', checkCredentials, fight.createFight);
+app.get('/robots/randomfight/:robot_id', checkCredentials, fight.randomFight);
 app.get('/', index.index);
 app.get('/robots/fight/:robot_id', checkCredentials, fight.prepareFight);
 app.get(/^\/profile\/(.+?)\/robots\/(.+?)\/fight\/(\d+)\/?$/, checkCredentials, fight.startFight);
