@@ -114,7 +114,7 @@ Robot.prototype.onHitByBullet = function(ev) {
         constructor function</a>.
         fightcode will use your constructor function to create the instance
         that will fight against other robots.</p>
-        <p>This is the simples possible robot you can build (it doesn't do
+        <p>This is the simplest possible robot you can build (it doesn't do
         much, though):</p>
         <div class="editor code-sample">
 function Robot() {}
@@ -123,7 +123,7 @@ Robot.prototype.onIdle = function(ev) { };
         </div>
 
         <h3>OnIdle Function</h3>
- 
+
         <p>The onIdle function is your robot
         <a href="http://en.wikipedia.org/wiki/Game_programming">game loop</a>. fightcode will call it every time your robot
         runs out of actions to do.</p>
@@ -145,24 +145,24 @@ Robot.prototype.onIdle = function(ev) {
 {
     robot: {
         // INFORMATION ON THE CURRENT GAME
-        id,                    // Id of your robot
-        angle,                 // Current angle of your robot in degrees
-        cannonRelativeAngle,   // Current angle of your cannon
+        id,                    // Id from your robot
+        angle,                 // Current angle from your robot in degrees
+        cannonRelativeAngle,   // Current angle from your cannon
                                // relative to your robot
-        cannonAbsoluteAngle,   // Current angle of your cannon
+        cannonAbsoluteAngle,   // Current angle from your cannon
                                // relative to the board
         position: {
-            x,                 // X position in the board of your robot
-            y                  // Y position in the board of your robot
+            x,                 // X position in the board from your robot
+            y                  // Y position in the board from your robot
         },
-        life,                  // Percentage of the life of your robot
-        gunCoolDownTime,       // Time remaining in the cooldown of your
+        life,                  // Percentage of the life from your robot
+        gunCoolDownTime,       // Time remaining in the cooldown from your
                                // cannon after shooting
         availableClones,       // Number of available clones you can use
         parentId,              // In the case of being a clone, the id
-                               // of your parent element. null otherwise
-        arenaWidth,            // Width of the board
-        arenaHeight            // Height of the board
+                               // from your parent element. null otherwise
+        arenaWidth,            // Width from the board
+        arenaHeight            // Height from the board
 
         // AVAILABLE ACTIONS
 
@@ -221,7 +221,7 @@ Robot.prototype.onIdle = function(ev) {
     // do something
 };
 
-Robot.prototype.onRobotCollision= function(ev) {
+Robot.prototype.onRobotCollision = function(ev) {
     var robot = ev.robot;
     robot.turn(20);
     robot.ahead(100); // trying to run away
@@ -229,7 +229,7 @@ Robot.prototype.onRobotCollision= function(ev) {
         </div>
 
         <p>The object that this function takes as argument is pretty similar to
-        the onIdle function with this added properties:</p>
+        the onIdle function with the following added properties:</p>
 
         <div class="editor code-sample is-json">
 {
@@ -239,19 +239,19 @@ Robot.prototype.onRobotCollision= function(ev) {
     bearing,            // Degrees that the other robot relative to my robot
                         // this property can vary from -180 to 180 degrees
     collidedRobot: {    // Information on the robot that collided with mine
-        id,             // Id of the robot
+        id,             // Id from the robot
         position: {
-            x,          // X position of the other robot relative to the board
-            y           // Y position of the other robot relative to the board
+            x,          // X position from the other robot relative to the board
+            y           // Y position from the other robot relative to the board
         },
-        angle,          // Angle of the other robot
+        angle,          // Angle from the other robot
         cannonAngle,    // Cannon angle relative to the other robot
-        life,           // Percentage of life of the other robot
+        life,           // Percentage of life from the other robot
         parentId        // If this is a clone, the clone's parent id.
                         // null otherwise
     },
     myFault             // Boolean value that indicates whether I hit the other
-                        // robot or he hit me
+                        // robot or the opposite
 }
         </div>
 
@@ -274,7 +274,7 @@ Robot.prototype.onWallCollision = function(ev) {
         </div>
 
         <p>The object that this function takes as argument is pretty similar to
-        the onIdle function with this added properties:</p>
+        the onIdle function with the following added properties:</p>
 
         <div class="editor code-sample is-json">
 {
@@ -291,13 +291,12 @@ Robot.prototype.onWallCollision = function(ev) {
         It's a very important event since it's usually when you want to
         fire.</p>
         <p>This can happen due to a number of things:</p>
-            <ul>
-                <li>A robot passed in front of your cannon;</li>
-                <li>You turned your cannon and it found a robot;</li>
-                <li>You turned your robot (and the cannon with it) and it found a robot;</li>
-                <li>You moved and your cannon found a robot.</li>
-            </ul>
-
+        <ul>
+            <li>A robot passed in front of your cannon;</li>
+            <li>You turned your cannon and it found a robot;</li>
+            <li>You turned your robot (and the cannon with it) and it found a robot;</li>
+            <li>You moved and your cannon found a robot.</li>
+        </ul>
         <p>We can implement it as so:</p>
 
         <div class="editor code-sample">
@@ -314,7 +313,7 @@ Robot.prototype.onScannedRobot = function(ev) {
         </div>
 
         <p>The object that this function takes as argument is pretty similar to
-        the onIdle function with this added properties:</p>
+        the onIdle function with the following added properties:</p>
 
         <div class="editor code-sample is-json">
 {
@@ -322,14 +321,13 @@ Robot.prototype.onScannedRobot = function(ev) {
         // Same as onIdle
     },
     scannedRobot: {
-        id,             // Id of the robot
+        id,             // Id from the robot
         position: {
-            x,          // X position of the other robot relative to the board
-            y           // Y position of the other robot relative to the board
+            x,          // X position from the other robot relative to the board
         },
-        angle,          // Angle of the other robot
+        angle,          // Angle from the other robot
         cannonAngle,    // Cannon angle relative to the other robot
-        life,           // Percentage of life of the other robot
+        life,           // Percentage of life from the other robot
         parentId        // If this is a clone, the clone's parent id.
                         // null otherwise
     }
@@ -356,7 +354,7 @@ Robot.prototype.onHitByBullet = function(ev) {
         </div>
 
         <p>The object that this function takes as argument is pretty similar to
-        the onIdle function with this added properties:</p>
+        the onIdle function with the following added properties:</p>
 
         <div class="editor code-sample is-json">
 {
@@ -408,14 +406,14 @@ Robot.prototype.onScannedRobot = function(ev) {
 </script>
 
 <script type="robot/script" id="duck-code">
-var Robot = function(robot){
+var Robot = function(robot) {
 };
 
 Robot.prototype.onIdle = function(ev) {
-  var robot = ev.robot;
-  robot.ahead(10);
-  robot.back(10);
-  robot.turn(90);
+    var robot = ev.robot;
+    robot.ahead(10);
+    robot.back(10);
+    robot.turn(90);
 };
 </script>
 <script>
@@ -474,7 +472,7 @@ Robot.prototype.onIdle = function(ev) {
         $('.js-color-picker').each(function(i, el) {
             el = $(el);
             var preview = $(el.data('color-picker-preview') || '.js-color-picker-preview'),
-                color = '<% if (locals.robotColor) { %><%= robotColor %><% } else { %><%}%>';
+                color = '<%= locals.robotColor || '' %>';
 
             if (color === '') {
                 color = '#' + Math.floor(Math.random() * Math.pow(2, 24)).toString(16);
