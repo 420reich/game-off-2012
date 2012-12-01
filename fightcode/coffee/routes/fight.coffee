@@ -261,7 +261,7 @@ exports.createFight = (req, res) ->
     repository.findRobot(playerRobotId, (err, robot) ->
         robot.getLastFightDate((date) ->
             diff = Math.abs(new Date() - date)
-            if (diff < 60000)
+            if (diff < 30000)
                 res.redirect("/robots/timeout/#{ robot.id }")
             else
                 repository.createFight((result) ->
@@ -331,12 +331,12 @@ exports.timeoutView = (req, res) ->
         do (robot) ->
             robot.getLastFightDate((date) ->
                 diff = Math.abs(new Date() - date) / 1000
-                if (diff > 60)
+                if (diff > 30)
                     res.redirect('/')
                 else
                     res.render('timeout',
                         title: title
-                        seconds: 60 - Math.floor(diff)
+                        seconds: 30 - Math.floor(diff)
                     )
             )
     )
