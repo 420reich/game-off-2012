@@ -23,7 +23,7 @@
                     <div class="line">
                     <% } %>
                         <span class="position">#<%= robotRank[i].rank[x].row_number %></span>
-                        <span class="robot-face"></span>
+                        <span class="robot-face" style="background-color: <%=robotRank[i].rank[x].color %>"></span>
                         <span class="robot-name"><%= robotRank[i].rank[x].title %></span>
                         <span class="robot-score"><%= robotRank[i].rank[x].score %> points</span>
                         <% if (robotRank[i].rank[x].user_id !== req.user.id) {%>
