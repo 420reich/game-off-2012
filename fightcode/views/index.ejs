@@ -1,129 +1,145 @@
 <% include header.ejs %>
-<div class="home container">
-    <div class="row">
-        <div class="span12">
-            <div class="header">
-                <span class="header-icon"></span>
-                <div class="header-title">
-                    <h1>how about coding and killing some robots?</h1>
-                </div>
-                <div class="header-subtitle">fight against <%= locals.robotCount %> robots and start
-                climbing the ranks</div>
-            </div>
+<div class="home">
 
-            <p><a href="http://fightcodegame.com">FightCode</a> allows you to code your own robots using JavaScript.</p>
-            <p>Challenge friends and foe to win glory and fortune (well, technically not fortune, but you get the idea).</p>
-            <p>If you want to get started, just click in the button below!
-            Don't worry, there's a comprehensive documentation on how to get
-            going in the same page where you create your robot.</p>
-            <p>If you are feeling lazy and just want a quick start, go to the <a href="/robots/ranking">rankings</a> page and fork one of the top 10 robots to get started.</p>
-            <p>Invite your friends and start a killing spree. Killing a buddy is a lot cooler than killing a stranger (which is also cool, by the way).</p>
-
-            <div class="actions">
-                <a href="/robots/create" class="btn-create-robot btn btn-primary btn-large btn-block">Create a Robot</a>
-            </div>
-        </div>
-    </div>
-
-    <% if (locals.fights && locals.fights.length > 0) {
-        var lastDate = locals.fights[0][0].created_at; %>
-    <div class="row timeline">
-        <div class="span12">
-            <div class="header">
-                <span class="header-icon"></span>
-                <div class="header-title">
-                    <h1>Fights for <%- lastDate %></h1>
-                </div>
-                <div class="header-subtitle">click the fight to watch</div>
-            </div>
-
-            <ul class="timeline">
-                <% for (var i=0; i<locals.fights.length; i++) {
-                    firstRobot = locals.fights[i][0];
-                    secondRobot = locals.fights[i][1];
-                %>
-                <% if (firstRobot.created_at != lastDate) {
-                    lastDate = firstRobot.created_at;
-                %>
-                    </ul>
-
-                    <div class="header">
-                        <span class="header-icon"></span>
-                        <div class="header-title">
-                            <h1>Fights for <%- lastDate %></h1>
-                        </div>
-                        <div class="header-subtitle">click the fight to watch</div>
-                    </div>
-
-                    <ul class="timeline">
-                <% } %>
-                <li class="score">
-                    <div class="container">
-                        <div class="playerScore">
-                            <div class="left">
-                                <div class="player">
-                                    <a href="/profile/<%= firstRobot.login %>">
-                                        <img src="<%= firstRobot.thumb %>">
-                                    </a>
-                                </div>
-                                <a href="/robots/replay/<%- firstRobot.fight_id %>">
-                                    <div class="robot"><div class="icon" style="background-color: <%- firstRobot.color %>"></div></div>
-                                    <div class="stats">
-                                        <div class="name"><%= firstRobot.robot_name %></div>
-                                        <div class="life"><div class="filled" style="width: 100%"></div></div>
-                                    </div>
-                                </a>
-                            </div>
-                            <a href="/robots/replay/<%- firstRobot.fight_id %>">
-                                <div class="divider"></div>
-                            </a>
-                            <div class="right">
-                                <a href="/robots/replay/<%- firstRobot.fight_id %>">
-                                    <div class="stats">
-                                        <div class="name"><%= secondRobot.robot_name %></div>
-                                        <div class="life"><div class="filled" style="width: 100%"></div></div>
-                                    </div>
-                                    <div class="robot"><div class="icon" style="background-color: <%- secondRobot.color %>"></div></div>
-                                </a>
-                                <div class="player">
-                                    <a href="/profile/<%= secondRobot.login %>">
-                                        <img src="<%= secondRobot.thumb %>">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <% } %>
-            </ul>
-        </div>
-    </div>
-    <% } %>
-
-    <div class="adsense-container">
+    <div class="header">
         <div class="container">
-            <div class="ad-body">
-                <div class="ad-text"></div>
-                <div class="google-ad">
-                    <script type="text/javascript"><!--
-                    google_ad_client = "ca-pub-4181325019020156";
-                    /* fightcode */
-                    google_ad_slot = "6754080881";
-                    google_ad_width = 728;
-                    google_ad_height = 90;
-                    //-->
-                    </script>
-                    <script type="text/javascript"
-                    src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-                    </script>
+            <div class="row">
+                <div class="span4">
+                    <a href="/robots/create" class="header-action">
+                        <div class="code">
+                            <div class="icon"></div>
+                            <h1>CODE YOUR OWN ROBOT USING JAVASCRIPT</h1>
+                            <p>write the best javascript robot you can and battle against <span class="special"><%= locals.robotCount %></span> other robots!</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="span4">
+                    <a href="/robots/ranking" class="header-action">
+                        <div class="vs">
+                            <div class="icon"></div>
+                            <h1>CHALLENGE FRIEND OR FOE TO WIN GLORY AND FORTUNE</h1>
+                            <p>there are already <span class="special"><%= locals.userCount %></span> people fighting for the brightest spot in the ranking</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="span4">
+                    <a href="/robots/ranking" class="header-action">
+                    <div class="rank">
+                        <div class="icon"></div>
+                        <h1>BE THE BEST AND START CLIMBING THE RANKS</h1>
+                        <p>got what it takes to lead? go ahead and try to kill <span class="special"><%= locals.leaderRobot.title %>!</span></p>
+                    </div>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 
+    <div class="actions">
+        <a href="/robots/create" class="btn-create-robot btn btn-primary btn-large btn-block">Create a Robot</a>
+    </div>
 
+    <div class="container">
+
+        <% if (locals.fights && locals.fights.length > 0) {
+            var lastDate = locals.fights[0][0].created_at; %>
+        <div class="row timeline">
+            <div class="span12">
+                <div class="header">
+                    <span class="header-icon"></span>
+                    <div class="header-title">
+                        <h1>Fights for <%- lastDate %></h1>
+                    </div>
+                    <div class="header-subtitle">click the fight to watch</div>
+                </div>
+
+                <ul class="timeline">
+                    <% for (var i=0; i<locals.fights.length; i++) {
+                        firstRobot = locals.fights[i][0];
+                        secondRobot = locals.fights[i][1];
+                    %>
+                    <% if (firstRobot.created_at != lastDate) {
+                        lastDate = firstRobot.created_at;
+                    %>
+                        </ul>
+
+                        <div class="header">
+                            <span class="header-icon"></span>
+                            <div class="header-title">
+                                <h1>Fights for <%- lastDate %></h1>
+                            </div>
+                            <div class="header-subtitle">click the fight to watch</div>
+                        </div>
+
+                        <ul class="timeline">
+                    <% } %>
+                    <li class="score">
+                        <div class="container">
+                            <div class="playerScore">
+                                <div class="left">
+                                    <div class="player">
+                                        <a href="/profile/<%= firstRobot.login %>">
+                                            <img src="<%= firstRobot.thumb %>">
+                                        </a>
+                                    </div>
+                                    <a href="/robots/replay/<%- firstRobot.fight_id %>">
+                                        <div class="robot"><div class="icon" style="background-color: <%- firstRobot.color %>"></div></div>
+                                        <div class="stats">
+                                            <div class="name"><%= firstRobot.robot_name %></div>
+                                            <div class="life"><div class="filled" style="width: 100%"></div></div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <a href="/robots/replay/<%- firstRobot.fight_id %>">
+                                    <div class="divider"></div>
+                                </a>
+                                <div class="right">
+                                    <a href="/robots/replay/<%- firstRobot.fight_id %>">
+                                        <div class="stats">
+                                            <div class="name"><%= secondRobot.robot_name %></div>
+                                            <div class="life"><div class="filled" style="width: 100%"></div></div>
+                                        </div>
+                                        <div class="robot"><div class="icon" style="background-color: <%- secondRobot.color %>"></div></div>
+                                    </a>
+                                    <div class="player">
+                                        <a href="/profile/<%= secondRobot.login %>">
+                                            <img src="<%= secondRobot.thumb %>">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <% } %>
+                </ul>
+            </div>
+        </div>
+        <% } %>
+
+        <div class="adsense-container">
+            <div class="container">
+                <div class="ad-body">
+                    <div class="ad-text"></div>
+                    <div class="google-ad">
+                        <script type="text/javascript"><!--
+                        google_ad_client = "ca-pub-4181325019020156";
+                        /* fightcode */
+                        google_ad_slot = "6754080881";
+                        google_ad_width = 728;
+                        google_ad_height = 90;
+                        //-->
+                        </script>
+                        <script type="text/javascript"
+                        src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
 
 
 <% include scripts.ejs %>

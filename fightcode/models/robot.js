@@ -160,9 +160,16 @@ module.exports = function(sequelize, DataTypes) {
     };
 
     Robot.findRandomRobotGist = function(playerRobotGist, callback) {
-        sql = "SELECT r.gist FROM \"Robots\" r where r.gist != '" + playerRobotGist + "' OFFSET random()*(SELECT count(*) FROM \"Robots\") LIMIT 1;";
+        var sql = "SELECT r.gist FROM \"Robots\" r where r.gist != '" + playerRobotGist + "' OFFSET random()*(SELECT count(*) FROM \"Robots\") LIMIT 1;";
         sequelize.query(sql, null, {raw: true, type: 'SELECT'}).success(function(data){
             callback(data[0].gist);
+        });
+    };
+
+    Robot.getLeader = function(callback) {
+        var sql = 'SELECT r.title, r.score, r.user_id, u.login FROM "Robots" r INNER JOIN "Users" u on (u.id = r.user_id) ORDER BY r.score DESC, r.title ASC';
+        sequelize.query(sql, null, {raw: true, type: 'SELECT'}).success(function(data){
+            callback(data[0]);
         });
     };
 

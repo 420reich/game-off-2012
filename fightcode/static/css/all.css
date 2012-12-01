@@ -1408,8 +1408,74 @@ header .tweet {
   box-shadow: rgba(0, 0, 0, 0.5) 0 0 10px;
 }
 
-.home {
-  padding: 20px 20px 0 20px;
+.home-sprite, .home > .header .container .code .icon, .home > .header .container .vs .icon, .home > .header .container .rank .icon {
+  background: url('../img/home-sae711cf118.png') no-repeat;
+}
+
+/* import do sprite da home */
+.home > .header {
+  background-color: #f3f3f3;
+  height: 420px;
+}
+.home > .header .header-action {
+  display: block;
+  text-decoration: none;
+}
+.home > .header .container:hover .code, .home > .header .container:hover .vs, .home > .header .container:hover .rank {
+  opacity: 0.3;
+}
+.home > .header .container .code, .home > .header .container .vs, .home > .header .container .rank {
+  -webkit-transition: all 200ms ease-in;
+  -moz-transition: all 200ms ease-in;
+  -ms-transition: all 200ms ease-in;
+  -o-transition: all 200ms ease-in;
+  transition: all 200ms ease-in;
+}
+.home > .header .container .code .icon, .home > .header .container .vs .icon, .home > .header .container .rank .icon {
+  margin: 9px auto 22px;
+}
+.home > .header .container .code h1, .home > .header .container .vs h1, .home > .header .container .rank h1 {
+  font-family: "oswald";
+  font-size: 18px;
+  line-height: 25px;
+  color: #3c3c3c;
+  text-align: center;
+  margin-bottom: 18px;
+}
+.home > .header .container .code p, .home > .header .container .vs p, .home > .header .container .rank p {
+  font-family: arial;
+  font-size: 15px;
+  line-height: 18px;
+  color: #666;
+  text-align: center;
+}
+.home > .header .container .code p .special, .home > .header .container .vs p .special, .home > .header .container .rank p .special {
+  color: #ed0027;
+  font-weight: bold;
+}
+.home > .header .container .code:hover {
+  opacity: 0.99;
+}
+.home > .header .container .code .icon {
+  background-position: 0 -222px;
+  height: 222px;
+  width: 222px;
+}
+.home > .header .container .vs:hover {
+  opacity: 0.99;
+}
+.home > .header .container .vs .icon {
+  background-position: 0 0;
+  height: 222px;
+  width: 222px;
+}
+.home > .header .container .rank:hover {
+  opacity: 0.99;
+}
+.home > .header .container .rank .icon {
+  background-position: 0 -444px;
+  height: 222px;
+  width: 222px;
 }
 .home p {
   font-size: 16px;
@@ -1428,8 +1494,11 @@ header .tweet {
   text-decoration: none;
 }
 .home .actions {
-  margin-top: 40px;
-  text-align: center;
+  margin: -50px auto 0;
+  z-index: 999999;
+  position: relative;
+  width: 148px;
+  height: 40px;
 }
 .home .board {
   width: 600px;

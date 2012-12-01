@@ -1,5 +1,86 @@
+@import "compass/css3";
+@import "helpers";
+@import "home/*.png";
+/* import do sprite da home */
+
 .home {
-    padding: 20px 20px 0 20px;
+    & > .header {
+        background-color: #f3f3f3;
+        height: 420px;
+
+        .header-action {
+            display: block;
+            text-decoration: none;
+        }
+
+        .container:hover {
+            .code, .vs, .rank {
+                opacity: 0.3;
+            }
+        }
+
+        .container {
+            .code, .vs, .rank {
+                @include transition(all 200ms ease-in);
+
+                .icon {
+                    margin: 9px auto 22px;
+                }
+
+                h1 {
+                    font-family: "oswald";
+                    font-size: 18px;
+                    line-height: 25px;
+                    color: #3c3c3c;
+                    text-align: center;
+                    margin-bottom: 18px;
+                }
+
+                p {
+                    font-family: arial;
+                    font-size: 15px;
+                    line-height: 18px;
+                    color: #666;
+                    text-align: center;
+
+                    .special {
+                        color: #ed0027;
+                        font-weight: bold;
+                    }
+                }
+            }
+
+            .code {
+                &:hover {
+                    opacity: 0.99;
+                }
+
+                .icon {
+                    @include home-sprite('robot', $dimensions: true);
+                }
+            }
+
+            .vs {
+                &:hover {
+                    opacity: 0.99;
+                }
+
+                .icon {
+                    @include home-sprite('vs', $dimensions: true);
+                }
+            }
+
+            .rank {
+                &:hover {
+                    opacity: 0.99;
+                }
+
+                .icon {
+                    @include home-sprite('cup', $dimensions: true);
+                }
+            }
+        }
+    }
 
     p {
         font-size: 16px;
@@ -21,8 +102,11 @@
     }
 
     .actions {
-        margin-top: 40px;
-        text-align: center;
+        margin: -50px auto 0;
+        z-index: 999999;
+        position: relative;
+        width: 148px;
+        height: 40px;
     }
 
     .board {
