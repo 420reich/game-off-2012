@@ -25,7 +25,7 @@
                         <span class="position">#<%= robotRank[i].rank[x].row_number %></span>
                         <span class="robot-face" style="background-color: <%=robotRank[i].rank[x].color %>"></span>
                         <span class="robot-name"><%= robotRank[i].rank[x].title %></span>
-                        <span class="robot-score"><%= robotRank[i].rank[x].score %> points</span>
+                        <span class="robot-score"><%= Math.floor(robotRank[i].rank[x].score) %> points</span>
                         <% if (robotRank[i].rank[x].user_id !== req.user.id) {%>
                         <span class="actions">
                             <a href="/robots/fight/<%= robotRank[i].rank[x].id %>" class="fight">FIGHT</a>
@@ -70,7 +70,7 @@
                         <p class="robot-name"><%= top10[i].title %></p>
                         <div class="robot-data">
                             <span class="line score">
-                                <p class="value"><%= top10[i].score || 0 %></p>
+                                <p class="value"><%= Math.floor(top10[i].score) || 0 %></p>
                                 <p>SCORE</p>
                             </span>
                             <span class="line kills">

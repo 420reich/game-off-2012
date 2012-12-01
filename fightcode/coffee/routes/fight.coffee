@@ -130,13 +130,33 @@ class FightRepository
             callback(null, initContext.result)
         )
 
-    computeResults: (robot, fightResults, callback) ->
+    computeResults: (playerRobot, opponentRobot, fightResults, callback) ->
         if (fightResults.isDraw)
-            robot.addDraw(-> callback(null, robot))
-        else if (fightResults.robots[0].robot.gist == robot.gist)
-            robot.addVictory(-> callback(null, robot))
+            playerRobot.addDraw()
+            playerRobot.updateScore(playerRobot.score + 1, ->
+                opponentRobot.addDraw()
+                opponentRobot.updateScore(opponentRobot.score + 1, ->
+                    callback(null, opponentRobot)
+                )
+            )
+        else if (fightResults.robots[0].robot.gist == playerRobot.gist)
+            percentage = Math.min(3.0, opponentRobot.score / playerRobot.score)
+            playerRobot.addVictory()
+            playerRobot.updateScore(playerRobot.score + (percentage * 3), ->
+                opponentRobot.addDefeat()
+                opponentRobot.updateScore(opponentRobot.score - 1, ->
+                    callback(null, opponentRobot)
+                )
+            )
         else
-            robot.addDefeat(-> callback(null, robot))
+            percentage = Math.min(3.0, playerRobot.score / opponentRobot.score)
+            opponentRobot.addVictory()
+            opponentRobot.updateScore(opponentRobot.score + (percentage * 3), ->
+                playerRobot.addDefeat()
+                playerRobot.updateScore(playerRobot.score - 1, ->
+                    callback(null, opponentRobot)
+                )
+            )
 
     createFight: (createFightCallback) ->
         self = this
@@ -172,8 +192,6 @@ class FightRepository
                   self.findRobot(self.playerRobotId, callback)
             , (robot, callback) ->
                   self.playerRobot = robot
-                  self.computeResults(robot, self.fightResult, callback)
-            , (robot, callback) ->
                   self.findOrCreateRobotRevision(self.playerRobot, self.playerGist, callback)
             , (robotRevision, callback) ->
                   self.playerRobotRevision = robotRevision
@@ -196,7 +214,7 @@ class FightRepository
                   self.findRobot(self.opponentRobotId, callback)
             , (robot, callback) ->
                   self.opponentRobot = robot
-                  self.computeResults(robot, self.fightResult, callback)
+                  self.computeResults(self.playerRobot, robot, self.fightResult, callback)
             , (robot, callback) ->
                   self.findOrCreateRobotRevision(self.opponentRobot, self.opponentGist, callback)
             , (robotRevision, callback) ->
@@ -240,11 +258,19 @@ exports.createFight = (req, res) ->
 
     repository = new FightRepository(playerRobotId, opponentRobotId, req.user.token)
 
-    repository.createFight((result) ->
-        if result is 404
-            res.send(404)
-        else
-            res.redirect("/robots/replay/#{ result.fight.id }")
+    repository.findRobot(playerRobotId, (err, robot) ->
+        robot.getLastFightDate((date) ->
+            diff = Math.abs(new Date() - date)
+            if (diff < 60000)
+                res.redirect("/robots/timeout/#{ robot.id }")
+            else
+                repository.createFight((result) ->
+                    if result is 404
+                        res.send(404)
+                    else
+                        res.redirect("/robots/replay/#{ result.fight.id }")
+                )
+        )
     )
 
 exports.fightTest = (req, res) ->
@@ -253,7 +279,6 @@ exports.fightTest = (req, res) ->
 exports.randomFight = (req, res) ->
     playerRobotId = req.params.robot_id
     Robot.findRandomRobotGist(playerRobotId, (opponentRobotId) ->
-        console.log(opponentRobotId)
         res.redirect("/robots/fight/#{ playerRobotId }/#{ opponentRobotId }")
     )
 
@@ -298,3 +323,21 @@ exports.prepareFight = (req, res) ->
                 myRobots: myRobots
         )
     )
+
+exports.timeoutView = (req, res) ->
+    Robot.find(where: id: req.params.robot_id).success((robot) ->
+        title = robot.title
+        console.log(title)
+        do (robot) ->
+            robot.getLastFightDate((date) ->
+                diff = Math.abs(new Date() - date) / 1000
+                if (diff > 60)
+                    res.redirect('/')
+                else
+                    res.render('timeout',
+                        title: title
+                        seconds: 60 - Math.floor(diff)
+                    )
+            )
+    )
+

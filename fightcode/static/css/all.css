@@ -1711,6 +1711,23 @@ code, pre {
   font-size: 16px;
 }
 
+.timeout {
+  margin-top: 120px;
+  margin-bottom: 210px;
+}
+.timeout h1 {
+  font-size: 40px;
+  font-family: 'oswald';
+  color: #ddd;
+}
+.timeout p {
+  margin-top: 40px;
+  font-weight: bold;
+  font-size: 25px;
+  font-family: arial;
+  color: #ddd;
+}
+
 .create-robot-sprite, .create-robot .header-icon, .create-robot-form .robot-color-preview {
   background: url('../img/create-robot-s0ff4200fe7.png') no-repeat;
 }

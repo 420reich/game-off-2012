@@ -17,16 +17,12 @@ module.exports = function(sequelize, DataTypes) {
         victories: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0},
         defeats: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0},
         draws: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0},
-        score: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0},
+        score: { type: DataTypes.FLOAT, allowNull: false, defaultValue: 0},
         isPublic: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: true}
     },{
         instanceMethods:{
-            updateScore: function(callback){
-                var wonPoints = this.victories * 3,
-                    lostPoints = this.defeats * -1,
-                    drawPoints = this.draws;
-
-                this.score = wonPoints + lostPoints + drawPoints;
+            updateScore: function(score, callback){
+                this.score = score;
 
                 RobotScoreHistory.create({
                     score: this.score,
@@ -39,17 +35,17 @@ module.exports = function(sequelize, DataTypes) {
 
             addVictory: function(callback) {
                 this.victories += 1;
-                this.updateScore(callback);
+                //this.updateScore(callback);
             },
 
             addDefeat: function(callback) {
                 this.defeats += 1;
-                return this.updateScore(callback);
+                //return this.updateScore(callback);
             },
 
             addDraw: function(callback) {
                 this.draws += 1;
-                return this.updateScore(callback);
+                //return this.updateScore(callback);
             },
 
             rankNear: function(callback) {
@@ -79,7 +75,16 @@ module.exports = function(sequelize, DataTypes) {
                               'ORDER BY row_number ASC';
                 var query = Sequelize.Utils.format([sql, this.id]);
                 sequelize.query(query, null, {raw: true, type: 'SELECT'}).success(callback);
+            },
+
+            getLastFightDate: function(callback) {
+                var sql = 'SELECT MAX(f.created_at) from "Fights" f INNER JOIN "RobotRevisionFights" r on (f.id = r.fight_id) INNER JOIN "RobotRevisions" rr ON (r.robot_revision_id = rr.id) WHERE rr.robot_id = ?';
+                var query = Sequelize.Utils.format([sql, this.id]);
+                sequelize.query(query, null, {raw: true, type: 'SELECT'}).success(function(data){
+                    callback(new Date(data[0].max));
+                });
             }
+
         },
         classMethods: {
             top10: function(callback) {

@@ -131,6 +131,7 @@ app.get('/robots/ranking', checkCredentials, ranking.index);
 app.get('/robots/create', checkCredentials, create.createView);
 app.post('/robots/create', checkCredentials, create.create);
 app.get('/robots/update/:robot_id', checkCredentials, create.updateView);
+app.get('/robots/timeout/:robot_id', checkCredentials, fight.timeoutView);
 app.put('/robots/update/:robot_id', checkCredentials, create.update);
 app.get('/robots/fork/:robot_id', checkCredentials, create.fork);
 app.get('/robots/fight/:robot_id/:opponent_id', checkCredentials, fight.createFight);

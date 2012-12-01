@@ -157,18 +157,33 @@ FightRepository = (function() {
     });
   };
 
-  FightRepository.prototype.computeResults = function(robot, fightResults, callback) {
+  FightRepository.prototype.computeResults = function(playerRobot, opponentRobot, fightResults, callback) {
+    var percentage;
     if (fightResults.isDraw) {
-      return robot.addDraw(function() {
-        return callback(null, robot);
+      playerRobot.addDraw();
+      return playerRobot.updateScore(playerRobot.score + 1, function() {
+        opponentRobot.addDraw();
+        return opponentRobot.updateScore(opponentRobot.score + 1, function() {
+          return callback(null, opponentRobot);
+        });
       });
-    } else if (fightResults.robots[0].robot.gist === robot.gist) {
-      return robot.addVictory(function() {
-        return callback(null, robot);
+    } else if (fightResults.robots[0].robot.gist === playerRobot.gist) {
+      percentage = Math.min(3.0, opponentRobot.score / playerRobot.score);
+      playerRobot.addVictory();
+      return playerRobot.updateScore(playerRobot.score + (percentage * 3), function() {
+        opponentRobot.addDefeat();
+        return opponentRobot.updateScore(opponentRobot.score - 1, function() {
+          return callback(null, opponentRobot);
+        });
       });
     } else {
-      return robot.addDefeat(function() {
-        return callback(null, robot);
+      percentage = Math.min(3.0, playerRobot.score / opponentRobot.score);
+      opponentRobot.addVictory();
+      return opponentRobot.updateScore(opponentRobot.score + (percentage * 3), function() {
+        playerRobot.addDefeat();
+        return playerRobot.updateScore(playerRobot.score - 1, function() {
+          return callback(null, opponentRobot);
+        });
       });
     }
   };
@@ -208,8 +223,6 @@ FightRepository = (function() {
         return self.findRobot(self.playerRobotId, callback);
       }, function(robot, callback) {
         self.playerRobot = robot;
-        return self.computeResults(robot, self.fightResult, callback);
-      }, function(robot, callback) {
         return self.findOrCreateRobotRevision(self.playerRobot, self.playerGist, callback);
       }, function(robotRevision, callback) {
         var robotIdx, robotPosition, robotResult, _i, _ref;
@@ -233,7 +246,7 @@ FightRepository = (function() {
         return self.findRobot(self.opponentRobotId, callback);
       }, function(robot, callback) {
         self.opponentRobot = robot;
-        return self.computeResults(robot, self.fightResult, callback);
+        return self.computeResults(self.playerRobot, robot, self.fightResult, callback);
       }, function(robot, callback) {
         return self.findOrCreateRobotRevision(self.opponentRobot, self.opponentGist, callback);
       }, function(robotRevision, callback) {
@@ -290,12 +303,22 @@ exports.createFight = function(req, res) {
   playerRobotId = req.params.robot_id;
   opponentRobotId = req.params.opponent_id;
   repository = new FightRepository(playerRobotId, opponentRobotId, req.user.token);
-  return repository.createFight(function(result) {
-    if (result === 404) {
-      return res.send(404);
-    } else {
-      return res.redirect("/robots/replay/" + result.fight.id);
-    }
+  return repository.findRobot(playerRobotId, function(err, robot) {
+    return robot.getLastFightDate(function(date) {
+      var diff;
+      diff = Math.abs(new Date() - date);
+      if (diff < 60000) {
+        return res.redirect("/robots/timeout/" + robot.id);
+      } else {
+        return repository.createFight(function(result) {
+          if (result === 404) {
+            return res.send(404);
+          } else {
+            return res.redirect("/robots/replay/" + result.fight.id);
+          }
+        });
+      }
+    });
   });
 };
 
@@ -309,7 +332,6 @@ exports.randomFight = function(req, res) {
   var playerRobotId;
   playerRobotId = req.params.robot_id;
   return Robot.findRandomRobotGist(playerRobotId, function(opponentRobotId) {
-    console.log(opponentRobotId);
     return res.redirect("/robots/fight/" + playerRobotId + "/" + opponentRobotId);
   });
 };
@@ -374,5 +396,31 @@ exports.prepareFight = function(req, res) {
         myRobots: myRobots
       });
     });
+  });
+};
+
+exports.timeoutView = function(req, res) {
+  return Robot.find({
+    where: {
+      id: req.params.robot_id
+    }
+  }).success(function(robot) {
+    var title;
+    title = robot.title;
+    console.log(title);
+    return (function(robot) {
+      return robot.getLastFightDate(function(date) {
+        var diff;
+        diff = Math.abs(new Date() - date) / 1000;
+        if (diff > 60) {
+          return res.redirect('/');
+        } else {
+          return res.render('timeout', {
+            title: title,
+            seconds: 60 - Math.floor(diff)
+          });
+        }
+      });
+    })(robot);
   });
 };

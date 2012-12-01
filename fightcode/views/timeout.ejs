@@ -1,0 +1,21 @@
+<% include header.ejs %>
+
+<div class="timeout">
+    <div class="container">
+        <h1><%= locals.title %></h1>
+        <p>You have to wait another <span class="special"><%= locals.seconds %> seconds</span> before fighting again with this robot.</p>
+    </div>
+</div>
+
+<% include scripts.ejs %>
+
+<script>
+    setTimeout(function() {
+        window.location.href = window.location.pathname + '?_' + new Date().getTime();
+        //window.location.href = window.location.href;
+        //window.location.href = url + '?_' + new Date().getTime();
+    }, 5000);
+</script>
+
+
+<% include footer.ejs %>
