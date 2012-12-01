@@ -53,6 +53,11 @@
                         </div>
                         <div class="stats">
                             <div class="numbers">
+                                <div class="score"><span class="icon"></span>
+                                    <span class="text">
+                                        <%= Math.floor(robots[i].score) %>
+                                    </span>
+                                    <span class="label">SCORE</span></div>
                                 <div class="kills"><span class="icon"></span>
                                     <span class="text">
                                         <% if (statistcs[robots[i].id]) {%>
@@ -129,6 +134,19 @@
                             </div>
                         </div>
                     </div>
+                    <% if (robots[i].isPublic) { %>
+                        <div class="code-container">
+                            <div class="code">
+                                <div class="editor code-sample" data-gist-id="<%= robots[i].gist %>">
+                                </div>
+                            </div>
+                            <div class="ribbon-container">
+                                <a class="ribbon" href="#">
+                                    <span class="tip">CODE</span>
+                                </a>
+                            </div>
+                        </div>
+                    <% } %>
                 </li>
                 <% } %>
             </ul>
@@ -220,5 +238,26 @@
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 
 <% include scripts.ejs %>
+<script>
+    $('.code-sample').each(function() {
+        var scriptEl = $(this);
+        var gistId = scriptEl.data('gist-id');
+
+        $.getJSON('https://api.github.com/gists/' + gistId + '?callback=?', function(data) {
+            var code = data.data.files['robot.js'].content;
+            console.log(code);
+            var codeMirror = CodeMirror(scriptEl[0], {
+                value: code,
+                mode: { name: "javascript", json: false},
+                theme: 'ambiance',
+                height: 300,
+                tabSize: 2,
+                readOnly: true,
+                lineNumbers: true
+            });
+        });
+        
+    });
+</script>
 
 <% include footer.ejs %>

@@ -1032,7 +1032,7 @@ a.btn {
   padding-top: 14px;
 }
 
-.menu-sprite, .menu-container .fighter .icon, .menu-container .ranking .icon, .menu-container .robot .icon, .menu-container .logout .icon, .menu-container .ribbon, .menu-container .ribbon:hover, .menu-container .ribbon .logo, .menu-container .ribbon .tip {
+.menu-sprite, .menu-container .fighter .icon, .menu-container .ranking .icon, .menu-container .robot .icon, .menu-container .logout .icon, .menu-container .ribbon, .menu-container .ribbon:hover, .menu-container .ribbon .logo, .menu-container .ribbon .tip, .show-user .robots-area .robots li .code-container .ribbon, .show-user .robots-area .robots li .code-container .ribbon .tip:after {
   background: url('../img/menu-sc4c723bac9.png') no-repeat;
 }
 
@@ -2087,6 +2087,82 @@ code, pre {
   -moz-box-shadow: 0 0 15px black;
   box-shadow: 0 0 15px black;
   font-size: 0;
+  position: relative;
+}
+.show-user .robots-area .robots li .code-container {
+  font-weight: bold;
+  position: absolute;
+  width: 100%;
+  top: 100%;
+}
+.show-user .robots-area .robots li .code-container .code {
+  position: relative;
+  height: 0;
+  overflow: hidden;
+  z-index: 100;
+  font-size: 12px;
+  -webkit-transition: height 300ms;
+  -moz-transition: height 300ms;
+  -ms-transition: height 300ms;
+  -o-transition: height 300ms;
+  transition: height 300ms;
+}
+.show-user .robots-area .robots li .code-container.open .code {
+  height: 300px;
+}
+.show-user .robots-area .robots li .code-container.open .ribbon-container {
+  z-index: 101;
+}
+.show-user .robots-area .robots li .code-container .ribbon-container {
+  border-top: 3px solid #ed0027;
+  height: 0;
+  -webkit-box-shadow: 0 0 6px -1px black;
+  -moz-box-shadow: 0 0 6px -1px black;
+  box-shadow: 0 0 6px -1px black;
+  position: relative;
+}
+.show-user .robots-area .robots li .code-container .ribbon-container:hover {
+  border-color: #ff3d3d;
+}
+.show-user .robots-area .robots li .code-container .ribbon {
+  background-position: 0 -95px;
+  height: 95px;
+  width: 218px;
+  background-repeat: no-repeat;
+  background-position: 0 -148px;
+  height: 41px;
+  margin: 0 auto;
+  display: block;
+  overflow: hidden;
+  text-align: center;
+}
+.show-user .robots-area .robots li .code-container .ribbon:active, .show-user .robots-area .robots li .code-container .ribbon.ribbon_background-active {
+  background-position: 0 0;
+}
+.show-user .robots-area .robots li .code-container .ribbon .tip {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: normal;
+  margin: 16px auto 0;
+  color: #fff;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+  opacity: 0.5;
+}
+.show-user .robots-area .robots li .code-container .ribbon .tip:after {
+  content: '';
+  display: block;
+  background-position: 0 -520px;
+  height: 16px;
+  width: 27px;
+  height: 8px;
+  background-position: 0 -530px;
+}
+.show-user .robots-area .robots li .code-container .ribbon:hover {
+  background-position: 0 -53px;
+}
+.show-user .robots-area .robots li .code-container .ribbon:hover .tip {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  opacity: 1;
 }
 .show-user .robots-area .robots li .left {
   vertical-align: top;
@@ -2183,6 +2259,7 @@ code, pre {
   margin-left: 25px;
   margin-top: 44px;
 }
+.show-user .robots-area .robots li .right .stats .numbers .score,
 .show-user .robots-area .robots li .right .stats .numbers .kills,
 .show-user .robots-area .robots li .right .stats .numbers .shots-fired,
 .show-user .robots-area .robots li .right .stats .numbers .shots-hit {
@@ -2190,6 +2267,7 @@ code, pre {
   font-size: 0;
   color: #ed003d;
 }
+.show-user .robots-area .robots li .right .stats .numbers .score .icon,
 .show-user .robots-area .robots li .right .stats .numbers .kills .icon,
 .show-user .robots-area .robots li .right .stats .numbers .shots-fired .icon,
 .show-user .robots-area .robots li .right .stats .numbers .shots-hit .icon {
@@ -2197,6 +2275,7 @@ code, pre {
   vertical-align: top;
   margin-right: 6px;
 }
+.show-user .robots-area .robots li .right .stats .numbers .score .text,
 .show-user .robots-area .robots li .right .stats .numbers .kills .text,
 .show-user .robots-area .robots li .right .stats .numbers .shots-fired .text,
 .show-user .robots-area .robots li .right .stats .numbers .shots-hit .text {
@@ -2205,6 +2284,7 @@ code, pre {
   vertical-align: top;
   margin-right: 2px;
 }
+.show-user .robots-area .robots li .right .stats .numbers .score .label,
 .show-user .robots-area .robots li .right .stats .numbers .kills .label,
 .show-user .robots-area .robots li .right .stats .numbers .shots-fired .label,
 .show-user .robots-area .robots li .right .stats .numbers .shots-hit .label {
@@ -2213,13 +2293,20 @@ code, pre {
   display: inline-block;
   vertical-align: top;
 }
+.show-user .robots-area .robots li .right .stats .numbers .score .icon {
+  width: 33px;
+  height: 1px;
+}
+.show-user .robots-area .robots li .right .stats .numbers .kills {
+  margin-top: 13px;
+}
 .show-user .robots-area .robots li .right .stats .numbers .kills .icon {
   background: url("../img/robot-icons-sprite.png") 0 0 no-repeat;
   width: 33px;
   height: 13px;
 }
 .show-user .robots-area .robots li .right .stats .numbers .shots-fired {
-  margin-top: 9px;
+  margin-top: 7px;
 }
 .show-user .robots-area .robots li .right .stats .numbers .shots-fired .icon {
   background: url("../img/robot-icons-sprite.png") 0 -24px no-repeat;

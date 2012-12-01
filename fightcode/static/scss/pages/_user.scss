@@ -63,6 +63,80 @@
                 margin-bottom: 40px;
                 @include box-shadow(0 0 15px black);
                 font-size: 0;
+                position: relative;
+
+
+                .code-container {
+                    font-weight: bold;
+                    position: absolute;
+                    width: 100%;
+                    top: 100%;
+
+                    .code {
+                        position: relative;
+                        height: 0;
+                        overflow: hidden;
+                        z-index: 100;
+                        font-size: 12px;
+                        @include transition(height 300ms);
+                    }
+
+                    &.open {
+                        .code {
+                            height: 300px;
+                        }
+                        .ribbon-container {
+                            z-index: 101;
+                        }
+                    }
+
+                    .ribbon-container {
+                        border-top: 3px solid #ed0027;
+                        height: 0;
+                        @include single-box-shadow(#000, 0, 0, 6px, -1px);
+                        position: relative;
+
+                        &:hover {
+                            border-color:#ff3d3d;
+                        }
+                    }
+
+                    .ribbon {
+                        @include menu-sprite(ribbon_background);
+                        @include menu-sprite-dimensions(ribbon_background);
+                        background-repeat: no-repeat;
+                        background-position: 0 -148px;
+                        height: 41px;
+                        margin: 0 auto;
+                        display: block;
+                        overflow: hidden;
+                        text-align: center;
+
+                        .tip {
+                            display: inline-block;
+                            font-size: 10px;
+                            font-weight: normal;
+                            margin: 16px auto 0;
+                            color: #fff;
+                            @include opacity(.5);
+                        }
+                        .tip:after {
+                            content: '';
+                            display: block;
+                            @include menu-sprite(tip);
+                            @include menu-sprite-dimensions(tip);
+                            height: 8px;
+                            background-position: 0 -530px;
+                        }
+
+                        &:hover{
+                            background-position: 0 -53px;
+                            .tip {
+                                @include opacity(1);
+                            }
+                        }
+                    }
+                }
 
                 .left {
                     vertical-align: top;
@@ -176,6 +250,7 @@
                             margin-left: 25px;
                             margin-top: 44px;
 
+                            .score,
                             .kills,
                             .shots-fired,
                             .shots-hit {
@@ -204,7 +279,16 @@
                                 }
                             }
 
+                            .score {
+                                .icon {
+                                    width: 33px;
+                                    height: 1px;
+                                }
+                            }
+
                             .kills {
+                                margin-top: 13px;
+
                                 .icon {
                                     background: url('../img/robot-icons-sprite.png') 0 0 no-repeat;
                                     width: 33px;
@@ -213,7 +297,7 @@
                             }
 
                             .shots-fired {
-                                margin-top: 9px;
+                                margin-top: 7px;
 
                                 .icon {
                                     background: url('../img/robot-icons-sprite.png') 0 -24px no-repeat;
