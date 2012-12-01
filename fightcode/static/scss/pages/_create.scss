@@ -1,11 +1,6 @@
 @import 'create-robot/*.png';
 
 
-.cm-s-ambiance {
-    border-radius: 5px;
-    height: 500px;
-}
-
 .create-robot {
     .header-icon {
         $width: create-robot-sprite-width('robo-header');
@@ -107,7 +102,7 @@
     }
 
     .form-col, .editor .CodeMirror-scroll {
-        height: 476px;
+        height: 480px;
 
         &.error {
             .CodeMirror-scroll {

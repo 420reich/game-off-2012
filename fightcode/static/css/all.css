@@ -1607,11 +1607,6 @@ code, pre {
   background: url('../img/create-robot-s0ff4200fe7.png') no-repeat;
 }
 
-.cm-s-ambiance {
-  border-radius: 5px;
-  height: 500px;
-}
-
 .create-robot .header-icon {
   background-position: 0 -72px;
   height: 68px;
@@ -1706,7 +1701,7 @@ code, pre {
   z-index: 20;
 }
 .create-robot-form .form-col, .create-robot-form .editor .CodeMirror-scroll {
-  height: 476px;
+  height: 480px;
 }
 .create-robot-form .form-col.error .CodeMirror-scroll, .create-robot-form .editor .CodeMirror-scroll.error .CodeMirror-scroll {
   -webkit-box-shadow: 0 0 25px red inset;
