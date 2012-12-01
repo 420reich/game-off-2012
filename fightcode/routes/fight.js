@@ -307,7 +307,7 @@ exports.createFight = function(req, res) {
     return robot.getLastFightDate(function(date) {
       var diff;
       diff = Math.abs(new Date() - date);
-      if (diff < 60000) {
+      if (diff < 30000) {
         return res.redirect("/robots/timeout/" + robot.id);
       } else {
         return repository.createFight(function(result) {
@@ -412,12 +412,12 @@ exports.timeoutView = function(req, res) {
       return robot.getLastFightDate(function(date) {
         var diff;
         diff = Math.abs(new Date() - date) / 1000;
-        if (diff > 60) {
+        if (diff > 30) {
           return res.redirect('/');
         } else {
           return res.render('timeout', {
             title: title,
-            seconds: 60 - Math.floor(diff)
+            seconds: 30 - Math.floor(diff)
           });
         }
       });
