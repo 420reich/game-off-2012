@@ -55,25 +55,39 @@
                 <% } %>
                 <li class="score">
                     <div class="container">
-                        <a href="/robots/replay/<%- firstRobot.fight_id %>" class="playerScore">
+                        <div class="playerScore">
                             <div class="left">
-                                <div class="player"><img src="<%- firstRobot.thumb %>"></div>
-                                <div class="robot"><div class="icon" style="background-color: <%- firstRobot.color %>"></div></div>
-                                <div class="stats">
-                                    <div class="name"><%= firstRobot.robot_name %></div>
-                                    <div class="life"><div class="filled" style="width: 100%"></div></div>
+                                <div class="player">
+                                    <a href="/profile/<%= firstRobot.login %>">
+                                        <img src="<%= firstRobot.thumb %>">
+                                    </a>
                                 </div>
+                                <a href="/robots/replay/<%- firstRobot.fight_id %>">
+                                    <div class="robot"><div class="icon" style="background-color: <%- firstRobot.color %>"></div></div>
+                                    <div class="stats">
+                                        <div class="name"><%= firstRobot.robot_name %></div>
+                                        <div class="life"><div class="filled" style="width: 100%"></div></div>
+                                    </div>
+                                </a>
                             </div>
-                            <div class="divider"></div>
+                            <a href="/robots/replay/<%- firstRobot.fight_id %>">
+                                <div class="divider"></div>
+                            </a>
                             <div class="right">
-                                <div class="stats">
-                                    <div class="name"><%= secondRobot.robot_name %></div>
-                                    <div class="life"><div class="filled" style="width: 100%"></div></div>
+                                <a href="/robots/replay/<%- firstRobot.fight_id %>">
+                                    <div class="stats">
+                                        <div class="name"><%= secondRobot.robot_name %></div>
+                                        <div class="life"><div class="filled" style="width: 100%"></div></div>
+                                    </div>
+                                    <div class="robot"><div class="icon" style="background-color: <%- secondRobot.color %>"></div></div>
+                                </a>
+                                <div class="player">
+                                    <a href="/profile/<%= secondRobot.login %>">
+                                        <img src="<%= secondRobot.thumb %>">
+                                    </a>
                                 </div>
-                                <div class="robot"><div class="icon" style="background-color: <%- secondRobot.color %>"></div></div>
-                                <div class="player"><img src="<%- secondRobot.thumb %>"></div>
                             </div>
-                        </a>
+                        </div>
                     </div>
                 </li>
                 <% } %>

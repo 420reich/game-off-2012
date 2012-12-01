@@ -134,7 +134,7 @@ module.exports = function(sequelize, DataTypes) {
     );
 
     Robot.timelineFights = function(callback) {
-        var sql = 'SELECT f.id fight_id, f.created_at created_at, r.title robot_name, r.gist, r.color, u.id user_id, u.email, u.name ' +
+        var sql = 'SELECT f.id fight_id, f.created_at created_at, r.title robot_name, r.gist, r.color, u.id user_id, u.email, u.name, u.login ' +
                   'FROM "RobotRevisionFights" rrf ' +
                   '   INNER JOIN "Fights" f ON (rrf.fight_id = f.id) ' +
                   '   INNER JOIN "RobotRevisions" rev ON (rrf.robot_revision_id = rev.id) ' +
