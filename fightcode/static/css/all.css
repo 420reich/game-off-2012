@@ -1412,9 +1412,7 @@ header .tweet {
   padding: 20px 20px 0 20px;
 }
 .home .btn {
-  padding: 25px 30px;
-  height: auto;
-  font-size: 14px;
+  padding: 9px 30px 10px;
 }
 .home p {
   font-size: 16px;
@@ -2396,6 +2394,7 @@ code, pre {
 }
 .ranking-area .rank .line .position,
 .ranking-area .rank .line .robot-face,
+.ranking-area .rank .line .robot-score,
 .ranking-area .rank .line .robot-name {
   vertical-align: top;
   display: inline-block;
@@ -2421,15 +2420,26 @@ code, pre {
   background-color: red;
 }
 .ranking-area .rank .line .robot-name {
-  text-shadow: #f7f7f7 -1px 1px 0, #999999 -2px 2px 0;
-  border-radius: 0 28px 28px 0;
   background: #f7f7f7;
+  text-shadow: #f7f7f7 -1px 1px 0, #999999 -2px 2px 0;
   font-family: "oswald-bold";
   font-size: 28px;
   color: #4f4f4f;
   text-transform: uppercase;
   padding: 25px 0 20px 22px;
-  width: 700px;
+  width: 400px;
+  height: 15px;
+}
+.ranking-area .rank .line .robot-score {
+  border-radius: 0 28px 28px 0;
+  background: #f7f7f7;
+  font-family: "oswald-bold";
+  font-size: 28px;
+  color: #999;
+  text-transform: uppercase;
+  text-align: right;
+  padding: 25px 89px 20px 22px;
+  width: 190px;
   height: 15px;
 }
 .ranking-area .rank .line .user-photo img {
@@ -2551,7 +2561,6 @@ code, pre {
   font-size: 23px;
   color: #4f4f4f;
   text-transform: uppercase;
-  margin-bottom: 10px;
   text-shadow: #f7f7f7 -1px 1px 0, #999999 -2px 2px 0;
   line-height: 26px;
   padding-left: 21px;
@@ -2563,7 +2572,7 @@ code, pre {
 }
 .ranking-area .top10 .info .robot-data {
   padding-left: 17px;
-  padding-top: 6px;
+  padding-top: 14px;
 }
 .ranking-area .top10 .info .line {
   display: block;
@@ -2587,6 +2596,10 @@ code, pre {
   background-position: 0 -308px;
   height: 13px;
   width: 33px;
+}
+.ranking-area .top10 .info .line.score {
+  margin-left: 33px;
+  height: 23px;
 }
 .ranking-area .top10 .info .line.shots {
   padding-top: 5px;
