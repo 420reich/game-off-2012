@@ -254,7 +254,6 @@
                 font-size: 23px;
                 color: #4f4f4f;
                 text-transform: uppercase;
-                margin-bottom: 10px;
                 text-shadow: #f7f7f7 -1px 1px 0, #999 -2px 2px 0;
                 line-height: 26px;
                 padding-left: 21px;
@@ -267,7 +266,7 @@
 
             .robot-data {
                 padding-left: 17px;
-                padding-top: 6px;
+                padding-top: 14px;
             }
 
             .line {
@@ -294,6 +293,11 @@
                     .icon {
                         @include ranking-sprite('killed', $dimensions: true);
                     }
+                }
+
+                &.score {
+                    margin-left: 33px;
+                    height: 23px;
                 }
 
                 &.shots {

@@ -60,7 +60,7 @@
                 <% for (var i=0; i < top10.length; i++) {%>
                 <li class="<% if (i===0) {%><%='open'%><%}%>">
                     <div class="sidebar">
-                        <span class="robot"></span>
+                        <span class="robot" style="background-color: <%= top10[i].color %>"></span>
                         <a href="/profile/<%= top10[i].login %>" class="user-photo">
                             <img src="<%=: top10[i].email | gravatar_url:80 %>">
                         </a>
@@ -69,6 +69,10 @@
                     <div class="info">
                         <p class="robot-name"><%= top10[i].title %></p>
                         <div class="robot-data">
+                            <span class="line score">
+                                <p class="value"><%= top10[i].score || 0 %></p>
+                                <p>SCORE</p>
+                            </span>
                             <span class="line kills">
                                 <span class="icon"></span>
                                 <p class="value"><%= top10[i].enemies_killed || 0 %></p>
