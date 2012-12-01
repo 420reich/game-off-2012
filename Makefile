@@ -38,3 +38,8 @@ postgre:
 
 kill_postgre:
 	@pg_ctl -D ${POSTGRES_DATA_FOLDER} stop -s -m fast
+
+copy_prod_dump:
+	heroku pgbackups:capture
+	curl -o latest.dump `heroku pgbackups:url`
+	pg_restore --verbose --clean --no-acl --no-owner -h localhost -U fightcode -d fightcode latest.dump
