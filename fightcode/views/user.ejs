@@ -202,33 +202,35 @@
 
             <ul class="combats">
                 <% for (var i=0; i<lastFights.length; i++) { %>
-                <li>
-                    <a class="combat" href="/robots/replay/<%= lastFights[i][0].id %>">
-                        <div class="left">
-                            <div class="player">
-                                <img src="<%=: lastFights[i][0].email | gravatar_url:134 %>" />
-                                <div class="robot-circle"></div>
+                    <% if (lastFights[i][0] != null && lastFights[i][1] != null) { %>
+                    <li>
+                        <a class="combat" href="/robots/replay/<%= lastFights[i][0].id %>">
+                            <div class="left">
+                                <div class="player">
+                                    <img src="<%=: lastFights[i][0].email | gravatar_url:134 %>" />
+                                    <div class="robot-circle"></div>
+                                </div>
+                                <div class="robot" <%-: lastFights[i][0] | colorStyle %>></div>
+                                <div class="info">
+                                    <div class="name"><%= lastFights[i][0].title %></div>
+                                    <div class="ranking"># <%= lastFights[i][0].row_number %></div>
+                                </div>
                             </div>
-                            <div class="robot" <%-: lastFights[i][0] | colorStyle %>></div>
-                            <div class="info">
-                                <div class="name"><%= lastFights[i][0].title %></div>
-                                <div class="ranking"># <%= lastFights[i][0].row_number %></div>
+                            <div class="divider"></div>
+                            <div class="right">
+                                <div class="player">
+                                    <img src="<%=: lastFights[i][1].email | gravatar_url:134 %>" />
+                                    <div class="robot-circle"></div>
+                                </div>
+                                <div class="robot" <%-: lastFights[i][1] | colorStyle %>></div>
+                                <div class="info">
+                                    <div class="name"><%= lastFights[i][1].title %></div>
+                                    <div class="ranking"># <%= lastFights[i][1].row_number %></div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="divider"></div>
-                        <div class="right">
-                            <div class="player">
-                                <img src="<%=: lastFights[i][1].email | gravatar_url:134 %>" />
-                                <div class="robot-circle"></div>
-                            </div>
-                            <div class="robot" <%-: lastFights[i][1] | colorStyle %>></div>
-                            <div class="info">
-                                <div class="name"><%= lastFights[i][1].title %></div>
-                                <div class="ranking"># <%= lastFights[i][1].row_number %></div>
-                            </div>
-                        </div>
-                    </a>
-                </li>
+                        </a>
+                    </li>
+                    <% } %>
                 <% } %>
             </ul>
         </div>
