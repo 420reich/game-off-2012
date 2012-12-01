@@ -140,7 +140,7 @@ class FightRepository
                 )
             )
         else if (fightResults.robots[0].robot.gist == playerRobot.gist)
-            percentage = Math.min(3.0, opponentRobot.score / playerRobot.score)
+            percentage = Math.max(0.1, Math.min(3.0, opponentRobot.score / playerRobot.score))
             playerRobot.addVictory()
             playerRobot.updateScore(playerRobot.score + (percentage * 3), ->
                 opponentRobot.addDefeat()
