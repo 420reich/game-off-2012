@@ -25,6 +25,7 @@
                         <span class="position">#<%= robotRank[i].rank[x].row_number %></span>
                         <span class="robot-face"></span>
                         <span class="robot-name"><%= robotRank[i].rank[x].title %></span>
+                        <span class="robot-score"><%= robotRank[i].rank[x].score %> points</span>
                         <% if (robotRank[i].rank[x].user_id !== req.user.id) {%>
                         <span class="actions">
                             <a href="/robots/fight/<%= robotRank[i].rank[x].id %>" class="fight">FIGHT</a>

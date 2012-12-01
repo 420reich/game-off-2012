@@ -81,6 +81,7 @@
 
             .position,
             .robot-face,
+            .robot-score,
             .robot-name {
                 vertical-align:top;
                 display:inline-block;
@@ -110,15 +111,27 @@
             }
 
             .robot-name {
-                text-shadow: #f7f7f7 -1px 1px 0, #999 -2px 2px 0;
-                border-radius: 0 28px 28px 0;
                 background:#f7f7f7;
+                text-shadow: #f7f7f7 -1px 1px 0, #999 -2px 2px 0;
                 font-family: "oswald-bold";
                 font-size: 28px;
                 color: #4f4f4f;
                 text-transform: uppercase;
-                padding:25px 0 20px 22px;
-                width:700px;
+                padding: 25px 0 20px 22px;
+                width: 400px;
+                height: 15px;
+            }
+
+            .robot-score {
+                border-radius: 0 28px 28px 0;
+                background:#f7f7f7;
+                font-family: "oswald-bold";
+                font-size: 28px;
+                color: #999;
+                text-transform: uppercase;
+                text-align: right;
+                padding: 25px 89px 20px 22px;
+                width: 190px;
                 height: 15px;
             }
 
