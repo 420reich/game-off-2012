@@ -188,7 +188,7 @@
                     <a class="combat" href="/robots/replay/<%= lastFights[i][0].id %>">
                         <div class="left">
                             <div class="player">
-                                <img src="<%=: lastFights[i][0].email | gravatar_url:134 %>" />
+                                <img src="<%=: lastFights[i][0].email || "" | gravatar_url:134 %>" />
                                 <div class="robot-circle"></div>
                             </div>
                             <div class="robot" <%-: lastFights[i][0] | colorStyle %>></div>
@@ -200,7 +200,7 @@
                         <div class="divider"></div>
                         <div class="right">
                             <div class="player">
-                                <img src="<%=: lastFights[i][1].email | gravatar_url:134 %>" />
+                                <img src="<%=: lastFights[i][1].email || "" | gravatar_url:134 %>" />
                                 <div class="robot-circle"></div>
                             </div>
                             <div class="robot" <%-: lastFights[i][1] | colorStyle %>></div>
