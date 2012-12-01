@@ -10,6 +10,10 @@ module.exports = function(sequelize, DataTypes) {
     {
         classMethods: {
             histories: function(robotIds, callback) {
+                if (!robotIds || robotIds.length === 0) {
+                    callback({});
+                    return;
+                }
                 var sql = 
                     'select robot_id, date_trunc(?, created_at) as ts, max(score) as score ' +
                     'from "RobotScoreHistories" ' +
