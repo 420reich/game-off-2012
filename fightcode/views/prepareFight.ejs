@@ -11,7 +11,7 @@
         </div>
 
         <% for (var i=0; i<myRobots.length; i++) { %>
-            <a class="btn" href="/robots/fight/<%= myRobots[i].gist %>/<%= opponent.gist %>">
+            <a class="btn start-fight" href="/robots/fight/<%= myRobots[i].gist %>/<%= opponent.gist %>">
                 <%= myRobots[i].title %>
             </a>
         <% } %>
