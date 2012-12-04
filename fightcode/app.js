@@ -105,7 +105,6 @@ app.configure(function(){
     app.use(express.cookieParser('fnakfnkj3141349139dsikdkw'));
     app.use(express.cookieSession());
     app.use(express.session(dbSession));
-    app.use(express.static(staticPath));
     //app.use(everyauth.middleware(app));
     app.use(passport.initialize());
     app.use(passport.session());
@@ -113,8 +112,19 @@ app.configure(function(){
     app.use(function(req, res, next){
         res.locals.req = req;
         res.locals.gravatar = gravatar;
-        next();
+        return next();
     });
+
+    app.use(function(req, res, next) {
+        match = req.url.match(/[.](js|png|gif|jpg|jpeg|css)$/);
+        if(match !== null && match.length > 1) {
+            res.setHeader("Cache-Control", "public, max-age=604800"); // 7 days
+            res.setHeader("Expires", new Date(Date.now() + 604800000).toUTCString());
+        }
+        return next();
+    });
+
+    app.use(express.static(staticPath));
 
     app.use(app.router);
 });
