@@ -94,6 +94,8 @@ passport.use(new GitHubStrategy({
     }
 ));
 
+var staticFilesRegex = /[.](js|png|gif|jpg|jpeg|css|ttf|eot|woff|otf)$/;
+
 app.configure(function(){
     app.set('port', process.env.PORT || 3000);
     app.set('views', viewsPath);
@@ -116,7 +118,7 @@ app.configure(function(){
     });
 
     app.use(function(req, res, next) {
-        match = req.url.match(/[.](js|png|gif|jpg|jpeg|css|ttf|eot|woff|otf)$/);
+        match = req.url.match(staticFilesRegex);
         if(match !== null && match.length > 1) {
             res.setHeader("Cache-Control", "public, max-age=604800"); // 7 days
             res.setHeader("Expires", new Date(Date.now() + 604800000).toUTCString());
