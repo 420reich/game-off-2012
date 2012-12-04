@@ -116,7 +116,7 @@ app.configure(function(){
     });
 
     app.use(function(req, res, next) {
-        match = req.url.match(/[.](js|png|gif|jpg|jpeg|css)$/);
+        match = req.url.match(/[.](js|png|gif|jpg|jpeg|css|ttf|eot|woff|otf)$/);
         if(match !== null && match.length > 1) {
             res.setHeader("Cache-Control", "public, max-age=604800"); // 7 days
             res.setHeader("Expires", new Date(Date.now() + 604800000).toUTCString());
