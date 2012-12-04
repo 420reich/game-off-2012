@@ -67,6 +67,9 @@
         margin: 28px auto 25px auto;
     }
 
+    .robot-color-picker-container {
+        background: top repeat-x url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAABCAYAAAD0In+KAAAAD0lEQVQIW2NkYGD4D8SMAAUOAQLvceuwAAAAAElFTkSuQmCC');
+    }
 
     .robot-public {
         border-top: 1px solid #000;
@@ -186,8 +189,6 @@
 }
 .sp-picker-container {
     position: relative;
-    background: top repeat-x url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAABCAYAAAD0In+KAAAAD0lEQVQIW2NkYGD4D8SMAAUOAQLvceuwAAAAAElFTkSuQmCC');
-    padding-top: 23px;
     margin: 22px 19px 20px 19px;
     width: 95px;
 }
