@@ -1,3 +1,5 @@
+# THIS CODEBASE DOES NOT CORRESPOND TO THE http://fightcodegame.com codebase anymore. It's here merely for illustrational purposes.
+
 # FightCode
 
 FightCode has only three rules:
